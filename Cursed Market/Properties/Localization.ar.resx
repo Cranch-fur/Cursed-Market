@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MAIN_GameChangersTitle" xml:space="preserve">
+    <value>تغيير قواعد اللعبة</value>
+  </data>
+  <data name="MAIN_CustomizationsKingTitle" xml:space="preserve">
+    <value>حالة ملك التخصيصات:  </value>
+  </data>
+  <data name="MAIN_CustomizationsKingDescription" xml:space="preserve">
+    <value>بعض مجموعات التخصيص تم تصميمها بحيث تظهر وتصدر فقط في تاريخ معين. هذا القيد قد تم إلغاؤه الآن.</value>
+  </data>
+  <data name="MAIN_AntiKillSwitchTitle" xml:space="preserve">
+    <value>حالة المضاد للقيود:  </value>
+  </data>
+  <data name="MAIN_AntiKillSwitchDescription" xml:space="preserve">
+    <value>من حين لآخر، قد تظهر بعض العناصر في اللعبة وكأنها تحتوي على أخطاء، لذلك يقوم المطورون بإيقاف تشغيلها. لقد تم رفع هذا القيد الآن.</value>
+  </data>
+  <data name="MAIN_MainFeaturesTitle" xml:space="preserve">
+    <value>الميزات الرئيسية</value>
+  </data>
+  <data name="MAIN_MainCheckBox_01" xml:space="preserve">
+    <value>عرض موضع الانتظار</value>
+  </data>
+  <data name="MAIN_MainCheckBox_02" xml:space="preserve">
+    <value>تعديل العملات (بصري)</value>
+  </data>
+  <data name="MAIN_MainCheckBox_03" xml:space="preserve">
+    <value>تفعيل الحفظ المؤقت</value>
+  </data>
+  <data name="MAIN_MainCheckBox_04" xml:space="preserve">
+    <value>إعدادات الشخصيات المخصصة</value>
+  </data>
+  <data name="MAIN_MainCheckBox_05" xml:space="preserve">
+    <value>تعطيل قواعد اللعبة المعدلة</value>
+  </data>
+  <data name="MAIN_MainCheckBox_06" xml:space="preserve">
+    <value>فتح DLC فقط</value>
+  </data>
+  <data name="MAIN_CurrenciesAdjustTitle" xml:space="preserve">
+    <value>كمية العملات</value>
+  </data>
+  <data name="MAIN_CrosshairTitle" xml:space="preserve">
+    <value>هدف</value>
+  </data>
+  <data name="MAIN_CrosshairOpacityTitle" xml:space="preserve">
+    <value>شفافية الهدف</value>
+  </data>
+  <data name="MAIN_BhvrSession" xml:space="preserve">
+    <value>هنا سيكون الـ bhvrSession الخاص بك...</value>
+  </data>
+  <data name="MAIN_MainCheckBox_07" xml:space="preserve">
+    <value>إتمام المهمة مضمون</value>
+  </data>
+  <data name="MAIN_GAMECHANGERSTATUS_CurrentlyInUse" xml:space="preserve">
+    <value>قيد الاستخدام حالياً</value>
+  </data>
+  <data name="MAIN_GAMECHANGERSTATUS_FailedToObtain" xml:space="preserve">
+    <value>فشل في الحصول على</value>
+  </data>
+  <data name="MAIN_GAMECHANGERSTATUS_Disabled" xml:space="preserve">
+    <value>معطل</value>
+  </data>
+  <data name="MAIN_GAMECHANGERSTATUS_Offline" xml:space="preserve">
+    <value>وضع عدم الاتصال</value>
+  </data>
+  <data name="MAIN_QUEUE_LobbyFound" xml:space="preserve">
+    <value>تم العثور على اللوبي...</value>
+  </data>
+  <data name="MAIN_QUEUE_MatchStarting" xml:space="preserve">
+    <value>المباراة تبدأ!</value>
+  </data>
+  <data name="MAIN_QUEUE_QueuePosition" xml:space="preserve">
+    <value>موقعك في القائمة:</value>
+  </data>
+  <data name="MAIN_NOTIFYICON_Show" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="MAIN_NOTIFYICON_Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="FRIEND_Title" xml:space="preserve">
+    <value>طلب صداقة عبر CLOUD-ID</value>
+  </data>
+  <data name="FRIEND_MyCloudIDTitle" xml:space="preserve">
+    <value>معرّف السحابة الخاص بك</value>
+  </data>
+  <data name="FRIEND_FriendCloudIDTitle" xml:space="preserve">
+    <value>معرّف السحابة لإرسال طلب الصداقة</value>
+  </data>
+  <data name="QUEUE_Idle" xml:space="preserve">
+    <value>سيتم عرض موضع الطابور هنا</value>
+  </data>
+  <data name="QUEUE_LobbyFound" xml:space="preserve">
+    <value>~ تم العثور على اللوبي ~</value>
+  </data>
+  <data name="QUEUE_MatchStarting" xml:space="preserve">
+    <value>المباراة تبدأ!</value>
+  </data>
+  <data name="MESSAGE_FirstLaunch" xml:space="preserve">
+    <value>مرحبًا بك في Cursed Market!
+
+هذا البرنامج مفتوح المصدر ومجاني تمامًا! إذا تم إقناعك بدفع ثمنه، يُنصح بتقديم شكوى للبائع.</value>
+  </data>
+  <data name="CHARACTERSPRESET_CharactersPresetTitle" xml:space="preserve">
+    <value>تَكْوِين إِعْدَادَات الشَّخْصِيَّات</value>
+  </data>
+  <data name="CHARACTERSPRESET_CharacterSelectTitle" xml:space="preserve">
+    <value>اخْتَرْ الشَّخْصِيَّة</value>
+  </data>
+  <data name="CHARACTERSPRESET_BloodWebTitle" xml:space="preserve">
+    <value>مُسْتَوَى شَبَكَةِ الدَّم</value>
+  </data>
+  <data name="CHARACTERSPRESET_PrestigeTitle" xml:space="preserve">
+    <value>مُسْتَوَى ٱلْهِيبَة</value>
+  </data>
+  <data name="CHARACTERSPRESET_LegacyPrestigeTitle" xml:space="preserve">
+    <value>مُسْتَوَى هَيْبَةِ ٱلْإِرْث</value>
+  </data>
+  <data name="CHARACTERSPRESET_ExtraActionsTitle" xml:space="preserve">
+    <value>إِجْرَاءَاتِ إِضَافِيَّة</value>
+  </data>
+  <data name="CHARACTERSPRESET_SpreadPreset" xml:space="preserve">
+    <value>توزيع الإعداد الحالي على جميع الشخصيات</value>
+  </data>
+  <data name="CHARACTERSPRESET_RandomizePresets" xml:space="preserve">
+    <value>تخصيص الإعدادات المسبقة لجميع الشخصيات عشوائياً</value>
+  </data>
+  <data name="CHARACTERSPRESET_SaveChanges" xml:space="preserve">
+    <value>تأكيد وحفظ التغييرات</value>
+  </data>
+  <data name="MESSAGE_CharactersPresetUnsavedChanges" xml:space="preserve">
+    <value>تم إجراء تغييرات على الإعدادات المبدئية للشخصيات، لكنها لم تُحفظ! إغلاق النافذة دون حفظ؟</value>
+  </data>
+  <data name="GREETINGS_01" xml:space="preserve">
+    <value>دعونا نروك! 🤘</value>
+  </data>
+  <data name="GREETINGS_02" xml:space="preserve">
+    <value>كيف كان يومك؟</value>
+  </data>
+  <data name="GREETINGS_03" xml:space="preserve">
+    <value>دعونا نرقص! 🕺</value>
+  </data>
+  <data name="GREETINGS_04" xml:space="preserve">
+    <value>وقت اللعب! ⚔</value>
+  </data>
+  <data name="GREETINGS_05" xml:space="preserve">
+    <value>حان وقت الرقص! 🎵</value>
+  </data>
+  <data name="GREETINGS_06" xml:space="preserve">
+    <value>يوم آخر، تحدٍ آخر!</value>
+  </data>
+  <data name="GREETINGS_07" xml:space="preserve">
+    <value>لننطلق! 🎲</value>
+  </data>
+  <data name="GREETINGS_08" xml:space="preserve">
+    <value>حان وقت التألق! ✨</value>
+  </data>
+  <data name="MESSAGE_RobotoFontMissing" xml:space="preserve">
+    <value>تم تصميم Cursed Market باستخدام الخط "Roboto-Regular"!
+
+لن يعمل البرنامج بشكل صحيح حتى يتم تثبيت الخط: "{0}"</value>
+  </data>
+  <data name="MESSAGE_DataFolderCreationFailed" xml:space="preserve">
+    <value>فشل Cursed Market في إنشاء مجلد البيانات في %localappdata%! يرجى التحقق من تشغيل البرنامج بصلاحيات المسؤول.</value>
+  </data>
+  <data name="MESSAGE_FailedToReadCharactersPreset" xml:space="preserve">
+    <value>فشل في قراءة الملف "charactersPreset.json"! تأكد من أن الملف غير فارغ وأن محتوياته بتنسيق JSON.</value>
+  </data>
+  <data name="MAIN_Start" xml:space="preserve">
+    <value>بدء</value>
+  </data>
+</root>

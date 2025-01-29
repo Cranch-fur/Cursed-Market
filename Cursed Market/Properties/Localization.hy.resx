@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MAIN_GameChangersTitle" xml:space="preserve">
+    <value>Խաղի կանոնները փոխել</value>
+  </data>
+  <data name="MAIN_CustomizationsKingTitle" xml:space="preserve">
+    <value>Կարգավորումների թագավորի կարգավիճակը:  </value>
+  </data>
+  <data name="MAIN_CustomizationsKingDescription" xml:space="preserve">
+    <value>Որոշ հարմարեցման հավաքածուներ նախատեսված էին, որպեսզի նրանք հայտնվեն և թողարկվեն միայն հստակ ամսաթվի վրա: Այս սահմանափակումը այժմ հանված է:</value>
+  </data>
+  <data name="MAIN_AntiKillSwitchTitle" xml:space="preserve">
+    <value>Անտի-արգելողի կարգավիճակը:  </value>
+  </data>
+  <data name="MAIN_AntiKillSwitchDescription" xml:space="preserve">
+    <value>Ժամանակ առ ժամանակ որոշ խաղային իրեր կարող են լինել գերբեռնված, ուստի մշակողները դրանք отключают: Սա սահմանափակումն այժմ հանված է:</value>
+  </data>
+  <data name="MAIN_MainFeaturesTitle" xml:space="preserve">
+    <value>ՀԱՎԱՔՎԵՐԻ ՆԻՍՏԱԲԱՆՈՒԹՅՈՒՆ</value>
+  </data>
+  <data name="MAIN_MainCheckBox_01" xml:space="preserve">
+    <value>Թողնել սպասելիս</value>
+  </data>
+  <data name="MAIN_MainCheckBox_02" xml:space="preserve">
+    <value>Բաժանորդագրությունները (ՈՒՇԱԴՐՈՒԹՅՈՒՆ)</value>
+  </data>
+  <data name="MAIN_MainCheckBox_03" xml:space="preserve">
+    <value>Աջակցել ժամանակավոր պահեստավորմանը</value>
+  </data>
+  <data name="MAIN_MainCheckBox_04" xml:space="preserve">
+    <value>Անհատականացված կերպարների նախադրյալ</value>
+  </data>
+  <data name="MAIN_MainCheckBox_05" xml:space="preserve">
+    <value>Ավելի պարզեցված խաղի կանոնները</value>
+  </data>
+  <data name="MAIN_MainCheckBox_06" xml:space="preserve">
+    <value>Միայն DLC սանդղական</value>
+  </data>
+  <data name="MAIN_CurrenciesAdjustTitle" xml:space="preserve">
+    <value>ԳՆԱՐՈՒՅԹՆԵՐԻ ՔԱՆԱԿԸ</value>
+  </data>
+  <data name="MAIN_CrosshairTitle" xml:space="preserve">
+    <value>ԲԻՆԱ</value>
+  </data>
+  <data name="MAIN_CrosshairOpacityTitle" xml:space="preserve">
+    <value>ԲԻՆԱԻ ՊԱՐԱՄԵՏՐԸ</value>
+  </data>
+  <data name="MAIN_BhvrSession" xml:space="preserve">
+    <value>ՍՅՈՒՐԲ ՕՐԻՆԱԿԸ ԴՈՒՐՍ ՆԵՐԱԲԱՆԱՆՔ...</value>
+  </data>
+  <data name="MAIN_MainCheckBox_07" xml:space="preserve">
+    <value>Երաշխավորված առաջադրանքի ավարտ</value>
+  </data>
+  <data name="MAIN_GAMECHANGERSTATUS_CurrentlyInUse" xml:space="preserve">
+    <value>Այս պահին օգտագործվում է</value>
+  </data>
+  <data name="MAIN_GAMECHANGERSTATUS_FailedToObtain" xml:space="preserve">
+    <value>Չհաջողվեց ստանալ</value>
+  </data>
+  <data name="MAIN_GAMECHANGERSTATUS_Disabled" xml:space="preserve">
+    <value>Ակտիվ չէ</value>
+  </data>
+  <data name="MAIN_GAMECHANGERSTATUS_Offline" xml:space="preserve">
+    <value>ԱՅԼԻՆ ՄՈԴ</value>
+  </data>
+  <data name="MAIN_QUEUE_LobbyFound" xml:space="preserve">
+    <value>ԼՈԲԲԻՆ ԳՏՆՎԵՑ...</value>
+  </data>
+  <data name="MAIN_QUEUE_MatchStarting" xml:space="preserve">
+    <value>ՄՐՑՈՒՅԹԸ ՍԿՍՎՈՒՄ Է!</value>
+  </data>
+  <data name="MAIN_QUEUE_QueuePosition" xml:space="preserve">
+    <value>ՀԵՐԹԻ ԴԻՐՔԸ:</value>
+  </data>
+  <data name="MAIN_NOTIFYICON_Show" xml:space="preserve">
+    <value>Ցուցադրել</value>
+  </data>
+  <data name="MAIN_NOTIFYICON_Close" xml:space="preserve">
+    <value>Փակել</value>
+  </data>
+  <data name="FRIEND_Title" xml:space="preserve">
+    <value>CLOUD-ID ԸՆԿԵՐՈՒԹՅԱՆ ՀԱՐՑՈՒՄ</value>
+  </data>
+  <data name="FRIEND_MyCloudIDTitle" xml:space="preserve">
+    <value>Ձեր Cloud-ID</value>
+  </data>
+  <data name="FRIEND_FriendCloudIDTitle" xml:space="preserve">
+    <value>Cloud-ID, որին ուղարկել ընկերության հարցում</value>
+  </data>
+  <data name="QUEUE_Idle" xml:space="preserve">
+    <value>ԴԻՏԱՐԿՈՒԹՅՈՒՆԸ ԿԱՄ ՔԱՁԵԼԻ ԶԳՈՒՃՆԵՐԸ ԵՎ ԷԼ ՄԻԱԿԱՆԻԸ ԿՈՉ ՏՎԵՆ ԱՅՍՏԵՂ</value>
+  </data>
+  <data name="QUEUE_LobbyFound" xml:space="preserve">
+    <value>~ ԼՈԲԲԻՆ ԳՏՆՎԵՑ ~</value>
+  </data>
+  <data name="QUEUE_MatchStarting" xml:space="preserve">
+    <value>ՄՐՑՈՒՅԹԸ ՍԿՍՎՈՒՄ Է!</value>
+  </data>
+  <data name="MESSAGE_FirstLaunch" xml:space="preserve">
+    <value>Բարի գալուստ Cursed Market!
+
+Այս ծրագրային ապահովումը բաց կոդով է և անվճար օգտագործման համար է։ Եթե Ձեզ համոզել են վճարել դրա համար, խորհուրդ է տրվում ուղարկել բողոք վաճառողին։</value>
+  </data>
+  <data name="CHARACTERSPRESET_CharactersPresetTitle" xml:space="preserve">
+    <value>ԿԱՐԳԱՎՈՐԵԼ ԿԵՐՊԱՐՆԵՐԻ ՆԱԽԱԴՐՅԱԼԸ</value>
+  </data>
+  <data name="CHARACTERSPRESET_CharacterSelectTitle" xml:space="preserve">
+    <value>ԸՆՏՐԵՔ ՔԵՐՊԱՐԸ</value>
+  </data>
+  <data name="CHARACTERSPRESET_BloodWebTitle" xml:space="preserve">
+    <value>ԱՐՅՈՒՆԱԲՃԻՋԻ ՄԱԿԱՐԴԱԿ</value>
+  </data>
+  <data name="CHARACTERSPRESET_PrestigeTitle" xml:space="preserve">
+    <value>ՀԵՂԻՆԱԿՈՒԹՅԱՆ ՄԱԿԱՐԴԱԿ</value>
+  </data>
+  <data name="CHARACTERSPRESET_LegacyPrestigeTitle" xml:space="preserve">
+    <value>ԺԱՌԱՆԳՈՒԹՅԱՆ ՀԵՂԻՆԱԿՈՒԹՅԱՆ ՄԱԿԱՐԴԱԿ</value>
+  </data>
+  <data name="CHARACTERSPRESET_ExtraActionsTitle" xml:space="preserve">
+    <value>ԼՐԱՑՈՒՑԻՉ ԳՈՐԾՈՒԹՅՈՒՆԵՐ</value>
+  </data>
+  <data name="CHARACTERSPRESET_SpreadPreset" xml:space="preserve">
+    <value>Կիրառել ընթացիկ նախադրյալը բոլոր կերպարների վրա</value>
+  </data>
+  <data name="CHARACTERSPRESET_RandomizePresets" xml:space="preserve">
+    <value>Բոլոր կերպարների նախադրյալները պատահականացնել</value>
+  </data>
+  <data name="CHARACTERSPRESET_SaveChanges" xml:space="preserve">
+    <value>Ավելացնել և պահպանել փոփոխությունները</value>
+  </data>
+  <data name="MESSAGE_CharactersPresetUnsavedChanges" xml:space="preserve">
+    <value>Նկարագրված անձի նախնական կարգավորումները փոփոխվել են, բայց դրանք չեն պահպանվել: Փակել պատուհանը առանց պահպանելու?</value>
+  </data>
+  <data name="GREETINGS_01" xml:space="preserve">
+    <value>Առաջ, ջարդենք! 🤘</value>
+  </data>
+  <data name="GREETINGS_02" xml:space="preserve">
+    <value>Օրը ինչպես անցավ?</value>
+  </data>
+  <data name="GREETINGS_03" xml:space="preserve">
+    <value>Պարի՛ր: 🕺</value>
+  </data>
+  <data name="GREETINGS_04" xml:space="preserve">
+    <value>Խաղի ժամանակն է! ⚔</value>
+  </data>
+  <data name="GREETINGS_05" xml:space="preserve">
+    <value>Պարի ժամանակն է! 🎵</value>
+  </data>
+  <data name="GREETINGS_06" xml:space="preserve">
+    <value>Մեկ օր, մեկ մարտահրավեր:</value>
+  </data>
+  <data name="GREETINGS_07" xml:space="preserve">
+    <value>Եկեք գնանք! 🎲</value>
+  </data>
+  <data name="GREETINGS_08" xml:space="preserve">
+    <value>Ժամանակն է փայլելու! ✨</value>
+  </data>
+  <data name="MESSAGE_RobotoFontMissing" xml:space="preserve">
+    <value>Cursed Market-ը նախագծվել է "Roboto-Regular" տառատեսակով:
+
+Ծրագիրը ճիշտ չի գործի, քանի դեռ "{0}" տառատեսակը տեղադրված չէ:</value>
+  </data>
+  <data name="MESSAGE_DataFolderCreationFailed" xml:space="preserve">
+    <value>Cursed Market-ը չկարողացավ ստեղծել տվյալների պանակը %localappdata%-ում։ Խնդրում ենք ստուգել, արդյոք ծրագիրը գործարկվում է ադմինիստրատորի իրավունքներով:</value>
+  </data>
+  <data name="MESSAGE_FailedToReadCharactersPreset" xml:space="preserve">
+    <value>Անհնար է ընթերցել "charactersPreset.json" ֆայլը: Համոզվեք, որ ֆայլը դատարկ չէ և նրա պարունակությունը JSON ձևաչափով է:</value>
+  </data>
+  <data name="MAIN_Start" xml:space="preserve">
+    <value>ՍԿԻԶԲ</value>
+  </data>
+</root>

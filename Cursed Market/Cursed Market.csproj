@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0A2E420B-883E-414E-98C9-CB2B668A0963}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Cursed_Market</RootNamespace>
+    <AssemblyName>Cursed Market</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
+    <OutputPath>bin\ARM64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Cursed_Market.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BCMakeCert">
+      <HintPath>..\Libs\BCMakeCert.dll</HintPath>
+    </Reference>
+    <Reference Include="CranchyLib.Networking, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\CranchyLib.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="FiddlerCore">
+      <HintPath>..\Libs\FiddlerCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.NetworkConnections">
+      <HintPath>..\Libs\Telerik.NetworkConnections.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Compression.cs" />
+    <Compile Include="CursedAPI.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Form_CloudIDFriend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_CloudIDFriend.Designer.cs">
+      <DependentUpon>Form_CloudIDFriend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_CharactersPreset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_CharactersPreset.Designer.cs">
+      <DependentUpon>Form_CharactersPreset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Crosshair.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Crosshair.Designer.cs">
+      <DependentUpon>Form_Crosshair.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FiddlerCore.cs" />
+    <Compile Include="Form_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Main.Designer.cs">
+      <DependentUpon>Form_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Settings.Designer.cs">
+      <DependentUpon>Form_Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Globals.cs" />
+    <Compile Include="Globals_Cache.cs" />
+    <Compile Include="Globals_Session.cs" />
+    <Compile Include="Media.cs" />
+    <Compile Include="Messaging.cs" />
+    <Compile Include="Form_Queue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Queue.Designer.cs">
+      <DependentUpon>Form_Queue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Localization.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Localization.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\OfflineAPI.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OfflineAPI.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Queue.cs" />
+    <Compile Include="Timer.cs" />
+    <Compile Include="Archives.cs" />
+    <Compile Include="WinReg.cs" />
+    <EmbeddedResource Include="Form_CloudIDFriend.resx">
+      <DependentUpon>Form_CloudIDFriend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_CharactersPreset.resx">
+      <DependentUpon>Form_CharactersPreset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Crosshair.resx">
+      <DependentUpon>Form_Crosshair.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Main.resx">
+      <DependentUpon>Form_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Queue.resx">
+      <DependentUpon>Form_Queue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Settings.resx">
+      <DependentUpon>Form_Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Localization.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Localization.ar.resx" />
+    <EmbeddedResource Include="Properties\Localization.de.resx" />
+    <EmbeddedResource Include="Properties\Localization.es.resx" />
+    <EmbeddedResource Include="Properties\Localization.fr.resx" />
+    <EmbeddedResource Include="Properties\Localization.hi.resx" />
+    <EmbeddedResource Include="Properties\Localization.hy.resx" />
+    <EmbeddedResource Include="Properties\Localization.it.resx" />
+    <EmbeddedResource Include="Properties\Localization.ja.resx" />
+    <EmbeddedResource Include="Properties\Localization.ko.resx" />
+    <EmbeddedResource Include="Properties\Localization.pt.resx" />
+    <EmbeddedResource Include="Properties\Localization.ru.resx" />
+    <EmbeddedResource Include="Properties\Localization.th.resx" />
+    <EmbeddedResource Include="Properties\Localization.tr.resx" />
+    <EmbeddedResource Include="Properties\Localization.uk.resx" />
+    <EmbeddedResource Include="Properties\Localization.zh.resx" />
+    <EmbeddedResource Include="Properties\OfflineAPI.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OfflineAPI.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.manifest" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SFX_GongHit.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SFX_OKLetsGo.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SFX_GayEcho.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SFX_NFLTheme.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SFX_PedroSong.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SFX_Rizz.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SFX_Run.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SFX_MilitaryHorn.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SFX_Activate.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SFX_Error.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon_Other.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon_Settings.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M01_ASH.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M01_BRONZE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M01_GOLD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M01_IRIDESCENT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M01_SILVER.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M02_GOLD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M02_IRIDESCENT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M02_SILVER.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M02_ASH.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M02_BRONZE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M03_ASH.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M03_BRONZE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M03_GOLD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M03_IRIDESCENT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M03_SILVER.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M04_ASH.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M04_BRONZE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M04_GOLD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M04_IRIDESCENT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M04_SILVER.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_M05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_PRESTIGE_LEGACY.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CURRENCY_IRIDESCENTSHARDS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CURRENCY_AURICCELLS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CURRENCY_BLOODPOINTS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_MISSING.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_BUTTON_ADDFRIEND_BLACK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_BUTTON_ADDFRIEND_WHITE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_BUTTON_SETTINGS_BLACK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_BUTTON_SETTINGS_WHITE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_BANNER_BLACK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_BANNER_CHRISTMAS2022.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_BANNER_WHITE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_SOCIAL_BOOSTY_BLACK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_SOCIAL_BOOSTY_WHITE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_SOCIAL_DISCORD_BLACK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_SOCIAL_DISCORD_WHITE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_SOCIAL_TELEGRAM_BLACK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_SOCIAL_TELEGRAM_WHITE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CROSSHAIR_CS_donk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CROSSHAIR_CS_Felps.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CROSSHAIR_CS_nafany.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CROSSHAIR_DEFAULT_CIRCLE_AQUA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CROSSHAIR_DEFAULT_CIRCLE_WHITE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CROSSHAIR_DEFAULT_DOT_AQUA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CROSSHAIR_DEFAULT_DOT_GREEN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CROSSHAIR_DEFAULT_DOT_RED.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CROSSHAIR_DEFAULT_DOT_YELLOW.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CROSSHAIR_TACTIC_AQUA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CROSSHAIR_TACTIC_WHITE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_DISABLEDAREA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8.1 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CROSSHAIR_MISSING.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_BUTTON_CHARACTERSPRESET_BLACK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_BUTTON_CHARACTERSPRESET_WHITE.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

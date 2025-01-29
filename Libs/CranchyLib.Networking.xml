@@ -1,0 +1,1073 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CranchyLib.Networking</name>
+    </assembly>
+    <members>
+        <member name="F:CranchyLib.Networking.Networking.DEFAULT_TIMEOUT">
+            <summary>
+            Default amount of time (in seconds) GET / POST request awaits for response.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.DEFAULT_DOWNLOAD_TIMEOUT">
+            <summary>
+            Default amount of time (in seconds) DOWNLOAD request awaits for response.
+            </summary>
+        </member>
+        <member name="T:CranchyLib.Networking.Networking.E_StatusCode">
+            <summary>
+            1xx --> Informational Response (the request was received, continuing process)
+            2xx --> Successful (the request was successfully received, understood, and accepted)
+            3xx --> Redirection (further action needs to be taken in order to complete the request)
+            4xx --> Client Error (the request contains bad syntax or cannot be fulfilled)
+            5xx --> Server Error (the server failed to fulfil an apparently valid request)
+            <see href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Learn More</see>
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.UNDEFINED_ERROR">
+            <summary>
+            Negative value indicating that something went wrong. Usually used in context of an unhandled exception.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.NONE">
+            <summary>
+            Default value indicating that there's nothing to return. Usually used in context of request timeout.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.CONTINUE">
+            <summary>
+            The server has received the request headers and the client should proceed to send the request body.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.SWITCHING_PROTOCOLS">
+            <summary>
+            The requester has asked the server to switch protocols and the server has agreed to do so.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.PROCESSING">
+            <summary>
+            (WebDAV; RFC 2518) This code indicates that the server has received and is processing the request, but no response is available yet.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.EARLY_HINTS">
+            <summary>
+            Used to return some response headers before final HTTP message.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.RESPONSE_IS_STALE">
+            <summary>
+            The response provided by a cache is stale (the content's age exceeds a maximum age set by a Cache-Control header or heuristically chosen lifetime).
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.REVALIDATION_FAILED">
+            <summary>
+            The cache was unable to validate the response, due to an inability to reach the origin server.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.DISCONNECTED_OPERATION">
+            <summary>
+            The cache is intentionally disconnected from the rest of the network.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.HEURISTIC_EXPIRATION">
+            <summary>
+            The cache heuristically chose a freshness lifetime greater than 24 hours and the response's age is greater than 24 hours.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.MISCELLANEOUS_WARNING">
+            <summary>
+            Arbitrary, non-specific warning. The warning text may be logged or presented to the user.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.OK">
+            <summary>
+            Standard response for successful HTTP requests.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.CREATED">
+            <summary>
+            The request has been fulfilled, resulting in the creation of a new resource.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.ACCEPTED">
+            <summary>
+            The request has been accepted for processing, but the processing has not been completed.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.NON_AUTHORITATIVE_INFORMATION">
+            <summary>
+            (since HTTP/1.1) The server is a transforming proxy (e.g. a Web accelerator) that received a 200 OK from its origin, but is returning a modified version of the origin's response.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.NO_CONTENT">
+            <summary>
+            The server successfully processed the request, and is not returning any content.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.RESET_CONTENT">
+            <summary>
+            The server successfully processed the request, asks that the requester reset its document view, and is not returning any content.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.PARTIAL_CONTENT">
+            <summary>
+            (RFC 7233) The server is delivering only part of the resource (byte serving) due to a range header sent by the client. The range header is used by HTTP clients to enable resuming of interrupted downloads, or split a download into multiple simultaneous streams.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.MULTI_STATUS">
+            <summary>
+            (WebDAV; RFC 4918) The message body that follows is by default an XML message and can contain a number of separate response codes, depending on how many sub-requests were made.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.ALREADY_REPORTED">
+            <summary>
+            (WebDAV; RFC 5842) The members of a DAV binding have already been enumerated in a preceding part of the (multistatus) response, and are not being included again.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.TRANSFORMATION_APPLIED">
+            <summary>
+            Added by a proxy if it applies any transformation to the representation, such as changing the content encoding, media type or the like.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.MISCELLANEOUS_PERSISTENT_WARNING">
+            <summary>
+            Same as 199 (MISCELLANEOUS_WARNING), but indicating a persistent warning.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.IM_USED">
+            <summary>
+            (RFC 3229) The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.MULTIPLE_CHOISES">
+            <summary>
+            Indicates multiple options for the resource from which the client may choose.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.MOVED_PERMANENTLY">
+            <summary>
+            This and all future requests should be directed to the given URI.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.FOUND">
+            <summary>
+            (Previously "Moved temporarily") Tells the client to look at (browse to) another URL.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.SEE_OTHER">
+            <summary>
+            (since HTTP/1.1) The response to the request can be found under another URI using the GET method. When received in response to a POST (or PUT/DELETE), the client should presume that the server has received the data and should issue a new GET request to the given URI.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.NOT_MODIFIED">
+            <summary>
+            (RFC 7232) Indicates that the resource has not been modified since the version specified by the request headers If-Modified-Since or If-None-Match.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.USE_PROXY">
+            <summary>
+            (since HTTP/1.1) The requested resource is available only through a proxy, the address for which is provided in the response.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.SWITCH_PROXY">
+            <summary>
+            No longer used. Originally meant "Subsequent requests should use the specified proxy."
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.TEMPORARY_REDIRECT">
+            <summary>
+            (since HTTP/1.1) In this case, the request should be repeated with another URI; however, future requests should still use the original URI.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.PERMANENT_REDIRECT">
+            <summary>
+            (RFC 7538) This and all future requests should be directed to the given URI.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.BAD_REQUEST">
+            <summary>
+            The server cannot or will not process the request due to an apparent client error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing).
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.UNAUTHORIZED">
+            <summary>
+            (RFC 7235) Similar to 403 Forbidden, but specifically for use when authentication is required and has failed or has not yet been provided.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.PAYMENT_REQUIRED">
+            <summary>
+            Reserved for future use.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.FORBIDDEN">
+            <summary>
+            The request contained valid data and was understood by the server, but the server is refusing action.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.NOT_FOUND">
+            <summary>
+            The requested resource could not be found but may be available in the future.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.METHOD_NOT_ALLOWED">
+            <summary>
+            A request method is not supported for the requested resource; for example, a GET request on a form that requires data to be presented via POST, or a PUT request on a read-only resource.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.NOT_ACCEPTABLE">
+            <summary>
+            The requested resource is capable of generating only content not acceptable according to the Accept headers sent in the request.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.PROXY_AUTHENTICATION_REQUIRED">
+            <summary>
+            (RFC 7235) The client must first authenticate itself with the proxy.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.REQUEST_TIMEOUT">
+            <summary>
+            The server timed out waiting for the request. 
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.CONFLICT">
+            <summary>
+            Indicates that the request could not be processed because of conflict in the current state of the resource, such as an edit conflict between multiple simultaneous updates.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.GONE">
+            <summary>
+            Indicates that the resource requested is no longer available and will not be available again.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.LENGTH_REQUIRED">
+            <summary>
+            The request did not specify the length of its content, which is required by the requested resource.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.PRECONDITION_FAILED">
+            <summary>
+            (RFC 7232) The server does not meet one of the preconditions that the requester put on the request header fields.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.PAYLOAD_TOO_LARGE">
+            <summary>
+            (RFC 7231) The request is larger than the server is willing or able to process.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.URI_TOO_LONG">
+            <summary>
+            (RFC 7231) The URI provided was too long for the server to process.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.UNSUPPORTED_MEDIA_TYPE">
+            <summary>
+            (RFC 7231) The request entity has a media type which the server or resource does not support.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.RANGE_NOT_SATISFIABLE">
+            <summary>
+            (RFC 7233) The client has asked for a portion of the file (byte serving), but the server cannot supply that portion.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.EXPECTATION_FAILED">
+            <summary>
+            The server cannot meet the requirements of the Expect request-header field.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.IM_A_TEAPOT">
+            <summary>
+            (RFC 2324, RFC 7168) This code was defined in 1998 as one of the traditional IETF April Fools' jokes.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.PAGE_EXPIRED">
+            <summary>
+            (Laravel Framework)  Used by the Laravel Framework when a CSRF Token is missing or expired.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.ENCHANCE_YOUR_CALM">
+            <summary>
+            (Twitter) Returned by version 1 of the Twitter Search and Trends API when the client is being rate limited.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.MISDIRECTED_REQUEST">
+            <summary>
+            (RFC 7540) The request was directed at a server that is not able to produce a response.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.UNPROCESSABLE_ENTITY">
+            <summary>
+            (WebDAV; RFC 4918) The request was well-formed but was unable to be followed due to semantic errors.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.LOCKED">
+            <summary>
+            (WebDAV; RFC 4918) The resource that is being accessed is locked.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.FAILED_DEPENDECY">
+            <summary>
+            (WebDAV; RFC 4918) The request failed because it depended on another request and that request failed.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.TOO_EARLY">
+            <summary>
+            (RFC 8470) Indicates that the server is unwilling to risk processing a request that might be replayed.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.UPGRADE_REQUIRED">
+            <summary>
+            The client should switch to a different protocol such as TLS/1.3, given in the Upgrade header field.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.PRECONDITION_REQUIRED">
+            <summary>
+            (RFC 6585) The origin server requires the request to be conditional.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.TOO_MANY_REQUESTS">
+            <summary>
+            (RFC 6585) The user has sent too many requests in a given amount of time.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.REQUEST_HEADER_FIELDS_TOO_LARGE">
+            <summary>
+            (RFC 6585) The server is unwilling to process the request because either an individual header field, or all the header fields collectively, are too large.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.LOGIN_TIMEOUT">
+            <summary>
+            The client's session has expired and must log in again.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.NO_RESPONSE">
+            <summary>
+            Used internally to instruct the server to return no information to the client and close the connection immediately.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.RETRY_WITH">
+            <summary>
+            The server cannot honour the request because the user has not provided the required information.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.BLOCKED_BY_WINDOWS_PARENTAL_CONTROL">
+            <summary>
+            (Microsoft) The Microsoft extension code indicated when Windows Parental Controls are turned on and are blocking access to the requested webpage.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.UNAVAILABLE_FOR_LEGAL_REASONS">
+            <summary>
+            (RFC 7725) A server operator has received a legal demand to deny access to a resource or to a set of resources that includes the requested resource.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.ELB460">
+            <summary>
+            Client closed the connection with the load balancer before the idle timeout period elapsed.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.ELB463">
+            <summary>
+            The load balancer received an X-Forwarded-For request header with more than 30 IP addresses.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.ELBUNAUTHORIZED">
+            <summary>
+            An error around authentication returned by a server registered with a load balancer.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.REQUEST_HEADER_TOO_LARGE">
+            <summary>
+            Client sent too large request or too long header line.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.SSL_CERTIFICATE_ERROR">
+            <summary>
+            An expansion of the 400 Bad Request response code, used when the client has provided an invalid client certificate.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.SSL_CERTIFICATE_REQUIRED">
+            <summary>
+            An expansion of the 400 Bad Request response code, used when a client certificate is required but not provided.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.HTTP_REQUEST_SENT_TO_HTTPS_PORT">
+            <summary>
+            An expansion of the 400 Bad Request response code, used when the client has made a HTTP request to a port listening for HTTPS requests.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.CLIENT_CLOSED_REQUEST">
+            <summary>
+            Used when the client has closed the request before the server could send a response.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.INTERNAL_SERVER_ERROR">
+            <summary>
+            A generic error message, given when an unexpected condition was encountered and no more specific message is suitable.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.NOT_IMPLEMENTED">
+            <summary>
+            The server either does not recognize the request method, or it lacks the ability to fulfil the request.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.BAD_GATEWAY">
+            <summary>
+            The server was acting as a gateway or proxy and received an invalid response from the upstream server.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.SERVICE_UNAVAILABLE">
+            <summary>
+            The server cannot handle the request.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.GATEWAY_TIMEOUT">
+            <summary>
+            The server was acting as a gateway or proxy and did not receive a timely response from the upstream server.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.HTTP_VERSION_NOT_SUPPORTED">
+            <summary>
+            The server does not support the HTTP protocol version used in the request.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.VARIANT_ALSO_NEGOTIATES">
+            <summary>
+            (RFC 2295) Transparent content negotiation for the request results in a circular reference.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.INSUFFICIENT_STORAGE">
+            <summary>
+            (WebDAV; RFC 4918) The server is unable to store the representation needed to complete the request.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.LOOP_DETECTED">
+            <summary>
+            (WebDAV; RFC 5842) The server detected an infinite loop while processing the request.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.BANDWIDTH_LIMIT_EXCEEDED">
+            <summary>
+            (Apache Web Server/cPanel) The server has exceeded the bandwidth specified by the server administrator.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.NOT_EXTENDED">
+            <summary>
+            (RFC 2774) Further extensions to the request are required for the server to fulfil it.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.NETWORK_AUTHENTICATION_REQUIRED">
+            <summary>
+            (RFC 6585) The client needs to authenticate to gain network access.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.WEB_SERVER_RETURNED_AN_UNKNOWN_ERROR">
+            <summary>
+            The origin server returned an empty, unknown, or unexpected response to Cloudflare.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.WEB_SERVER_IS_DOWN">
+            <summary>
+            The origin server refused connections from Cloudflare.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.CONNECTION_TIMED_OUT">
+            <summary>
+            Cloudflare timed out contacting the origin server.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.ORIGIN_IS_UNREACHABLE">
+            <summary>
+            Cloudflare could not reach the origin server.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.A_TIMEOUT_OCCURED">
+            <summary>
+            Cloudflare was able to complete a TCP connection to the origin server, but did not receive a timely HTTP response.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.SSL_HANDSHAKE_FAILED">
+            <summary>
+            Cloudflare could not negotiate a SSL/TLS handshake with the origin server.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.INVALID_SSL_CERTIFICATE">
+            <summary>
+            Cloudflare could not validate the SSL certificate on the origin web server. Also used by Cloud Foundry's gorouter.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.RAILGUN_ERROR">
+            <summary>
+            Error 527 indicates an interrupted connection between Cloudflare and the origin server's Railgun server.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.SITE_IS_OVERLOADED">
+            <summary>
+            Used by Qualys in the SSLLabs server testing API to signal that the site can't process the request.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.С530">
+            <summary>
+             Error 530 is returned along with a 1xxx error.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.NETWORK_READ_TIMEOUT_ERROR">
+            <summary>
+            (Informal convention) Used by some HTTP proxies to signal a network read timeout behind the proxy to a client in front of the proxy.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.E_StatusCode.NETWORK_CONNECT_TIMEOUT_ERROR">
+            <summary>
+            An error used by some HTTP proxies to signal a network connect timeout behind the proxy to a client in front of the proxy.
+            </summary>
+        </member>
+        <member name="T:CranchyLib.Networking.Networking.SE_ContentType">
+            <summary>
+            Default set of content-type headers.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_java_archive">
+            <summary>
+            Java archive files, often used for distributing Java applications.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_EDI_X12">
+            <summary>
+            Format for electronic data interchange (EDI) used in business transactions.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_EDIFACT">
+            <summary>
+            Standard for EDI used in international trade.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_javascript">
+            <summary>
+            JavaScript files used to execute scripts on web pages.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_octet_stream">
+            <summary>
+            Generic binary data, often used for arbitrary file types.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_ogg">
+            <summary>
+            Container format for multimedia, including audio and video.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_pdf">
+            <summary>
+            Portable Document Format, used for documents that preserve formatting.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_xhtml_xml">
+            <summary>
+            XHTML documents, an XML-based version of HTML.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_x_shockwave_flash">
+            <summary>
+            Format for multimedia, especially web animations (obsolete).
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_json">
+            <summary>
+            Data format used for structured data exchange.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_ld_json">
+            <summary>
+            JSON format used for linked data in web applications.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_xml">
+            <summary>
+            General XML data files.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_zip">
+            <summary>
+            Compressed archive files containing one or more files.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_x_www_form_urlencoded">
+            <summary>
+            Format for sending form data in HTTP requests.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.audio_mpeg">
+            <summary>
+            MPEG audio files, commonly known as MP3.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.audio_x_ms_wma">
+            <summary>
+            Windows Media Audio format.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.audio_vnd_rn_realaudio">
+            <summary>
+            RealAudio format for streaming audio.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.audio_x_wav">
+            <summary>
+            Waveform Audio File Format, uncompressed audio.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.image_gif">
+            <summary>
+            Graphics Interchange Format, supporting animations.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.image_jpeg">
+            <summary>
+            Compressed image format for digital photos.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.image_png">
+            <summary>
+            Lossless image format, widely used for web graphics.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.image_tiff">
+            <summary>
+            High-quality image format, often used in publishing.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.image_vnd_microsoft_icon">
+            <summary>
+            Format for Windows icons.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.image_x_icon">
+            <summary>
+            Icon file format, used for web favicons.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.image_vnd_djvu">
+            <summary>
+            Format for scanned documents with high compression.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.image_svg_xml">
+            <summary>
+            Scalable Vector Graphics, an XML-based vector image format.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.multipart_mixed">
+            <summary>
+            Used for multipart email content combining different media types.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.multipart_alternative">
+            <summary>
+            Email format containing the same content in different forms (e.g., plain text and HTML).
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.multipart_related">
+            <summary>
+            Email format for sending related data, such as inline images in HTML.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.multipart_form_data">
+            <summary>
+            Used for forms that upload files via HTTP.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.text_css">
+            <summary>
+            Cascading Style Sheets, used for styling web pages.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.text_csv">
+            <summary>
+            Comma-separated values, a format for tabular data.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.text_html">
+            <summary>
+            Standard markup language for web pages.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.text_javascript">
+            <summary>
+            Legacy MIME type for JavaScript scripts (obsolete).
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.text_plain">
+            <summary>
+            Plain text files without formatting.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.text_xml">
+            <summary>
+            XML text files.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.video_mpeg">
+            <summary>
+            MPEG video format, an early standard for video compression.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.video_mp4">
+            <summary>
+            Modern, widely used format for video compression.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.video_quicktime">
+            <summary>
+            Format for QuickTime multimedia by Apple.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.video_x_ms_wmv">
+            <summary>
+            Windows Media Video format.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.video_x_msvideo">
+            <summary>
+            AVI (Audio Video Interleave) format.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.video_x_flv">
+            <summary>
+            Flash Video format (obsolete).
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.video_webm">
+            <summary>
+            Open, web-optimized video format.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_vnd_android_package_archive">
+            <summary>
+            Android Package files for app distribution.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_vnd_oasis_opendocument_text">
+            <summary>
+            OpenDocument text format.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_vnd_oasis_opendocument_spreadsheet">
+            <summary>
+            OpenDocument spreadsheet format.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_vnd_oasis_opendocument_presentation">
+            <summary>
+            OpenDocument presentation format.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_vnd_oasis_opendocument_graphics">
+            <summary>
+            OpenDocument graphics format.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_vnd_ms_excel">
+            <summary>
+            Microsoft Excel spreadsheet format.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_vnd_openxmlformats_officedocument_spreadsheetml_sheet">
+            <summary>
+            Excel format for Office Open XML.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_vnd_ms_powerpoint">
+            <summary>
+            Microsoft PowerPoint presentation format.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_vnd_openxmlformats_officedocument_presentationml_presentation">
+            <summary>
+            PowerPoint format for Office Open XML.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_msword">
+            <summary>
+            Microsoft Word document format.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_vnd_openxmlformats_officedocument_wordprocessingml_document">
+            <summary>
+            Word document format for Office Open XML.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_ContentType.application_vnd_mozilla_xul_xml">
+            <summary>
+            XML User Interface Language format used by Mozilla applications.
+            </summary>
+        </member>
+        <member name="T:CranchyLib.Networking.Networking.SE_UserAgent">
+            <summary>
+            Default set of user-agent headers.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_UserAgent.GoogleBot">
+            <summary>
+            Represents Google's web crawling bot, used for indexing and searching web pages.
+            </summary>            
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_UserAgent.AppleTV">
+            <summary>
+            Represents Apple's tvOS, indicating an Apple TV device.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_UserAgent.Opera_Windows">
+            <summary>
+            Opera browser running on a 64-bit Windows platform with the Presto rendering engine.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_UserAgent.Opera_Linux">
+            <summary>
+            Opera browser running on a 32-bit Linux platform with the Presto rendering engine.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_UserAgent.Opera_Mini">
+            <summary>
+            Lightweight version of Opera designed for mobile devices, using the Presto engine with WebKit.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_UserAgent.Mozilla_Windows">
+            <summary>
+            Mozilla Firefox browser on a 64-bit Windows platform, powered by the Gecko engine.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_UserAgent.Mozilla_Linux">
+            <summary>
+            Mozilla Firefox browser on a 32/64-bit Linux platform, powered by the Gecko engine.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_UserAgent.Mozilla_Ubuntu">
+            <summary>
+            Mozilla Firefox browser on a 64-bit Ubuntu Linux platform, powered by the Gecko engine.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_UserAgent.Mozilla_Android">
+            <summary>
+            Mozilla Firefox browser on an Android device, incorporating WebKit and Chrome-like capabilities.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_UserAgent.Mozilla_Legacy_Windows">
+            <summary>
+            An older version of Mozilla compatible with Internet Explorer 2.0 on Windows 3.1.
+            </summary>
+        </member>
+        <member name="F:CranchyLib.Networking.Networking.SE_UserAgent.Mozilla_Legacy_Linux">
+            <summary>
+            Legacy User-Agent for the Konqueror browser on Linux, using the KHTML engine (like Gecko).
+            </summary>
+        </member>
+        <member name="T:CranchyLib.Networking.Networking.S_Response">
+            <summary>
+            Object containing the response from the request.
+            </summary>
+        </member>
+        <member name="P:CranchyLib.Networking.Networking.S_Response.statusCode">
+            <summary>
+            Status code of the response.
+            </summary>
+        </member>
+        <member name="P:CranchyLib.Networking.Networking.S_Response.headers">
+            <summary>
+            Headers of the response as a dictionary of key-value pairs.
+            </summary>
+        </member>
+        <member name="P:CranchyLib.Networking.Networking.S_Response.content">
+            <summary>
+            Content of the response as a string.
+            </summary>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Get(System.String)">
+            <summary>
+            Sends an HTTP GET request to the specified URL with optional headers, data, and timeout.
+            </summary>
+            <param name="url">The URL to send the request to.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Get(System.String,System.Double)">
+            <summary>
+            Sends an HTTP GET request to the specified URL with optional headers, data, and timeout.
+            </summary>
+            <param name="url">The URL to send the request to.</param>
+            <param name="timeout">The timeout duration for the request in seconds. Defaults to <see cref="F:CranchyLib.Networking.Networking.DEFAULT_TIMEOUT"/> seconds.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Get(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Sends an HTTP GET request to the specified URL with optional headers, data, and timeout.
+            </summary>
+            <param name="url">The URL to send the request to.</param>
+            <param name="headers">A list of headers to include in the request.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Get(System.String,System.Collections.Generic.List{System.String},System.Double)">
+            <summary>
+            Sends an HTTP GET request to the specified URL with optional headers, data, and timeout.
+            </summary>
+            <param name="url">The URL to send the request to.</param>
+            <param name="headers">A list of headers to include in the request.</param>
+            <param name="timeout">The timeout duration for the request in seconds. Defaults to <see cref="F:CranchyLib.Networking.Networking.DEFAULT_TIMEOUT"/> seconds.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Get(System.String,System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            Sends an HTTP GET request to the specified URL with optional headers, data, and timeout.
+            </summary>
+            <param name="url">The URL to send the request to.</param>
+            <param name="headers">A list of headers to include in the request.</param>
+            <param name="data">Optional data to be sent with the request.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Get(System.String,System.Collections.Generic.List{System.String},System.String,System.Double)">
+            <summary>
+            Sends an HTTP GET request to the specified URL with optional headers, data, and timeout.
+            </summary>
+            <param name="url">The URL to send the request to.</param>
+            <param name="headers">A list of headers to include in the request.</param>
+            <param name="data">Optional data to be sent with the request.</param>
+            <param name="timeout">The timeout duration for the request in seconds. Defaults to <see cref="F:CranchyLib.Networking.Networking.DEFAULT_TIMEOUT"/> seconds.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Post(System.String)">
+            <summary>
+            Sends an HTTP POST request to the specified URL with optional headers, data, and timeout.
+            </summary>
+            <param name="url">The URL to send the request to.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Post(System.String,System.Double)">
+            <summary>
+            Sends an HTTP POST request to the specified URL with optional headers, data, and timeout.
+            </summary>
+            <param name="url">The URL to send the request to.</param>
+            <param name="timeout">The timeout duration for the request in seconds. Defaults to <see cref="F:CranchyLib.Networking.Networking.DEFAULT_TIMEOUT"/> seconds.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Post(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Sends an HTTP POST request to the specified URL with optional headers, data, and timeout.
+            </summary>
+            <param name="url">The URL to send the request to.</param>
+            <param name="headers">A list of headers to include in the request.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Post(System.String,System.Collections.Generic.List{System.String},System.Double)">
+            <summary>
+            Sends an HTTP POST request to the specified URL with optional headers, data, and timeout.
+            </summary>
+            <param name="url">The URL to send the request to.</param>
+            <param name="headers">A list of headers to include in the request.</param>
+            <param name="timeout">The timeout duration for the request in seconds. Defaults to <see cref="F:CranchyLib.Networking.Networking.DEFAULT_TIMEOUT"/> seconds.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Post(System.String,System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            Sends an HTTP POST request to the specified URL with optional headers, data, and timeout.
+            </summary>
+            <param name="url">The URL to send the request to.</param>
+            <param name="headers">A list of headers to include in the request.</param>
+            <param name="data">Optional data to be sent with the request.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Post(System.String,System.Collections.Generic.List{System.String},System.String,System.Double)">
+            <summary>
+            Sends an HTTP POST request to the specified URL with optional headers, data, and timeout.
+            </summary>
+            <param name="url">The URL to send the request to.</param>
+            <param name="headers">A list of headers to include in the request.</param>
+            <param name="data">Optional data to be sent with the request.</param>
+            <param name="timeout">The timeout duration for the request in seconds. Defaults to <see cref="F:CranchyLib.Networking.Networking.DEFAULT_TIMEOUT"/> seconds.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Download(System.String)">
+            <summary>
+            Downloads content from the specified URL with optional headers, data, and timeout,
+            and saves it to a specified destination path if provided.
+            </summary>
+            <param name="url">The URL to download the content from.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Download(System.String,System.String)">
+            <summary>
+            Downloads content from the specified URL with optional headers, data, and timeout,
+            and saves it to a specified destination path if provided.
+            </summary>
+            <param name="url">The URL to download the content from.</param>
+            <param name="destinationPath">The file path to save the downloaded content. If not provided, the content will be stored in current user downloads folder.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Download(System.String,System.Double)">
+            <summary>
+            Downloads content from the specified URL with optional headers, data, and timeout,
+            and saves it to a specified destination path if provided.
+            </summary>
+            <param name="url">The URL to download the content from.</param>
+            <param name="timeout">The timeout duration for the request in seconds. Defaults to <see cref="F:CranchyLib.Networking.Networking.DEFAULT_DOWNLOAD_TIMEOUT"/> seconds.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Download(System.String,System.String,System.Double)">
+            <summary>
+            Downloads content from the specified URL with optional headers, data, and timeout,
+            and saves it to a specified destination path if provided.
+            </summary>
+            <param name="url">The URL to download the content from.</param>
+            <param name="destinationPath">The file path to save the downloaded content. If not provided, the content will be stored in current user downloads folder.</param>
+            <param name="timeout">The timeout duration for the request in seconds. Defaults to <see cref="F:CranchyLib.Networking.Networking.DEFAULT_DOWNLOAD_TIMEOUT"/> seconds.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Download(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Downloads content from the specified URL with optional headers, data, and timeout,
+            and saves it to a specified destination path if provided.
+            </summary>
+            <param name="url">The URL to download the content from.</param>
+            <param name="headers">A list of headers to include in the request.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Download(System.String,System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            Downloads content from the specified URL with optional headers, data, and timeout,
+            and saves it to a specified destination path if provided.
+            </summary>
+            <param name="url">The URL to download the content from.</param>
+            <param name="headers">A list of headers to include in the request.</param>
+            <param name="destinationPath">The file path to save the downloaded content. If not provided, the content will be stored in current user downloads folder.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Download(System.String,System.Collections.Generic.List{System.String},System.Double)">
+            <summary>
+            Downloads content from the specified URL with optional headers, data, and timeout,
+            and saves it to a specified destination path if provided.
+            </summary>
+            <param name="url">The URL to download the content from.</param>
+            <param name="headers">A list of headers to include in the request.</param>
+            <param name="timeout">The timeout duration for the request in seconds. Defaults to <see cref="F:CranchyLib.Networking.Networking.DEFAULT_DOWNLOAD_TIMEOUT"/> seconds.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Download(System.String,System.Collections.Generic.List{System.String},System.String,System.Double)">
+            <summary>
+            Downloads content from the specified URL with optional headers, data, and timeout,
+            and saves it to a specified destination path if provided.
+            </summary>
+            <param name="url">The URL to download the content from.</param>
+            <param name="headers">A list of headers to include in the request.</param>
+            <param name="destinationPath">The file path to save the downloaded content. If not provided, the content will be stored in current user downloads folder.</param>
+            <param name="timeout">The timeout duration for the request in seconds. Defaults to <see cref="F:CranchyLib.Networking.Networking.DEFAULT_DOWNLOAD_TIMEOUT"/> seconds.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+        <member name="M:CranchyLib.Networking.Networking.Download(System.String,System.Collections.Generic.List{System.String},System.String,System.String,System.Double)">
+            <summary>
+            Downloads content from the specified URL with optional headers, data, and timeout,
+            and saves it to a specified destination path if provided.
+            </summary>
+            <param name="url">The URL to download the content from.</param>
+            <param name="headers">A list of headers to include in the request.</param>
+            <param name="data">Optional data to be sent with the request.</param>
+            <param name="destinationPath">The file path to save the downloaded content. If not provided, the content will be stored in current user downloads folder.</param>
+            <param name="timeout">The timeout duration for the request in seconds. Defaults to <see cref="F:CranchyLib.Networking.Networking.DEFAULT_DOWNLOAD_TIMEOUT"/> seconds.</param>
+            <returns>An <see cref="T:CranchyLib.Networking.Networking.S_Response"/> object containing the response from the request.</returns>
+        </member>
+    </members>
+</doc>

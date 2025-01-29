@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon_Other" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon_Other.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon_Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon_Settings.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_BANNER_BLACK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_BANNER_BLACK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_BANNER_CHRISTMAS2022" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_BANNER_CHRISTMAS2022.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_BANNER_WHITE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_BANNER_WHITE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_BUTTON_ADDFRIEND_BLACK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_BUTTON_ADDFRIEND_BLACK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_BUTTON_ADDFRIEND_WHITE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_BUTTON_ADDFRIEND_WHITE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_BUTTON_CHARACTERSPRESET_BLACK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_BUTTON_CHARACTERSPRESET_BLACK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_BUTTON_CHARACTERSPRESET_WHITE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_BUTTON_CHARACTERSPRESET_WHITE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_BUTTON_SETTINGS_BLACK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_BUTTON_SETTINGS_BLACK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_BUTTON_SETTINGS_WHITE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_BUTTON_SETTINGS_WHITE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_CROSSHAIR_CS_donk" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_CROSSHAIR_CS_donk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_CROSSHAIR_CS_Felps" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_CROSSHAIR_CS_Felps.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_CROSSHAIR_CS_nafany" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_CROSSHAIR_CS_nafany.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_CROSSHAIR_DEFAULT_CIRCLE_AQUA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_CROSSHAIR_DEFAULT_CIRCLE_AQUA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_CROSSHAIR_DEFAULT_CIRCLE_WHITE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_CROSSHAIR_DEFAULT_CIRCLE_WHITE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_CROSSHAIR_DEFAULT_DOT_AQUA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_CROSSHAIR_DEFAULT_DOT_AQUA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_CROSSHAIR_DEFAULT_DOT_GREEN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_CROSSHAIR_DEFAULT_DOT_GREEN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_CROSSHAIR_DEFAULT_DOT_RED" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_CROSSHAIR_DEFAULT_DOT_RED.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_CROSSHAIR_DEFAULT_DOT_YELLOW" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_CROSSHAIR_DEFAULT_DOT_YELLOW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_CROSSHAIR_MISSING" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_CROSSHAIR_MISSING.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_CROSSHAIR_TACTIC_AQUA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_CROSSHAIR_TACTIC_AQUA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_CROSSHAIR_TACTIC_WHITE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_CROSSHAIR_TACTIC_WHITE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_CURRENCY_AURICCELLS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_CURRENCY_AURICCELLS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_CURRENCY_BLOODPOINTS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_CURRENCY_BLOODPOINTS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_CURRENCY_IRIDESCENTSHARDS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_CURRENCY_IRIDESCENTSHARDS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_DISABLEDAREA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_DISABLEDAREA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_MISSING" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_MISSING.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_LEGACY" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_LEGACY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M01_ASH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M01_ASH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M01_BRONZE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M01_BRONZE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M01_GOLD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M01_GOLD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M01_IRIDESCENT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M01_IRIDESCENT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M01_SILVER" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M01_SILVER.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M02_ASH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M02_ASH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M02_BRONZE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M02_BRONZE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M02_GOLD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M02_GOLD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M02_IRIDESCENT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M02_IRIDESCENT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M02_SILVER" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M02_SILVER.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M03_ASH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M03_ASH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M03_BRONZE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M03_BRONZE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M03_GOLD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M03_GOLD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M03_IRIDESCENT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M03_IRIDESCENT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M03_SILVER" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M03_SILVER.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M04_ASH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M04_ASH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M04_BRONZE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M04_BRONZE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M04_GOLD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M04_GOLD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M04_IRIDESCENT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M04_IRIDESCENT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M04_SILVER" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M04_SILVER.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_PRESTIGE_M05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_PRESTIGE_M05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_SOCIAL_BOOSTY_BLACK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_SOCIAL_BOOSTY_BLACK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_SOCIAL_BOOSTY_WHITE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_SOCIAL_BOOSTY_WHITE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_SOCIAL_DISCORD_BLACK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_SOCIAL_DISCORD_BLACK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_SOCIAL_DISCORD_WHITE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_SOCIAL_DISCORD_WHITE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_SOCIAL_TELEGRAM_BLACK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_SOCIAL_TELEGRAM_BLACK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IMG_SOCIAL_TELEGRAM_WHITE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IMG_SOCIAL_TELEGRAM_WHITE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SFX_Activate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SFX_Activate.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SFX_Error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SFX_Error.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SFX_GayEcho" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SFX_GayEcho.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SFX_GongHit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SFX_GongHit.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SFX_MilitaryHorn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SFX_MilitaryHorn.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SFX_NFLTheme" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SFX_NFLTheme.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SFX_OKLetsGo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SFX_OKLetsGo.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SFX_PedroSong" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SFX_PedroSong.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SFX_Rizz" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SFX_Rizz.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SFX_Run" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SFX_Run.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>
