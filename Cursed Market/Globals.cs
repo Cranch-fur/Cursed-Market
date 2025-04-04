@@ -33,7 +33,7 @@ namespace Cursed_Market
                 public static readonly string noCustomizationsKing = "-noCustomizationsKing";
                 public static readonly string noAntiKillSwitch     = "-noAntiKillSwitch";
                 public static readonly string noCharacterData      = "-noCharacterData";
-
+                public static readonly string timerFeature         = "-timerFeature";
             }
             public static readonly List<string> startupArguments = new List<string>(Environment.GetCommandLineArgs()); // As soon as we obtain command line arguments, we immediately convert them into convenient to work with List<string>.
             public static bool HasStartupArgument(string startupArgument)

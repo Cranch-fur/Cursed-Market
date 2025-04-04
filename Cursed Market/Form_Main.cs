@@ -524,7 +524,11 @@ namespace Cursed_Market
                 return;
             }
 
-            Globals_Cache.Forms.TimerForm.Show();
+            if (Globals.Application.HasStartupArgument(Globals.Application.SE_CommonStartupArguments.timerFeature))
+            {
+                Globals_Cache.Forms.TimerForm.Show();
+            }
+            
             button_Start.Visible = false;
         }
 
