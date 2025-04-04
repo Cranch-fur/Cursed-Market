@@ -286,4 +286,7 @@ Il software non funzionerà correttamente finché il font non sarà installato: 
   <data name="MAIN_Start" xml:space="preserve">
     <value>AVVIO</value>
   </data>
+  <data name="WARNING_CharacterOwnership" xml:space="preserve">
+    <value>ATTENZIONE! Sebbene il programma sblocchi l'accesso a tutti i personaggi del gioco, ogni tentativo di utilizzare personaggi che non possiedi realmente porterà all'espulsione nel menu principale seguita da un blocco temporaneo!</value>
+  </data>
 </root>

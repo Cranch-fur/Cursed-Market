@@ -286,4 +286,7 @@ El software no funcionará correctamente hasta que se instale la fuente: "{0}"</
   <data name="MAIN_Start" xml:space="preserve">
     <value>INICIO</value>
   </data>
+  <data name="WARNING_CharacterOwnership" xml:space="preserve">
+    <value>¡ATENCIÓN! Aunque el programa desbloquea el acceso a todos los personajes del juego, cualquier intento de usar personajes que realmente no poseas resultará en una expulsión al menú principal seguida de un bloqueo temporal.</value>
+  </data>
 </root>

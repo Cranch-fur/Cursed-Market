@@ -286,4 +286,7 @@
   <data name="MAIN_Start" xml:space="preserve">
     <value>スタート</value>
   </data>
+  <data name="WARNING_CharacterOwnership" xml:space="preserve">
+    <value>注意！このプログラムはゲーム内のすべてのキャラクターへのアクセスを解除しますが、実際には所有していないキャラクターを使用しようとすると、メインメニューに戻され、一時的なブロック措置が取られます！</value>
+  </data>
 </root>

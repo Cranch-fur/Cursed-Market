@@ -31,7 +31,6 @@ namespace Cursed_Market
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Crosshair));
             this.pictureBox_Crosshair = new System.Windows.Forms.PictureBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Crosshair)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,6 +70,5 @@ namespace Cursed_Market
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox_Crosshair;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

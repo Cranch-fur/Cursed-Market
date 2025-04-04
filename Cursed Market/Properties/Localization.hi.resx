@@ -286,4 +286,7 @@
   <data name="MAIN_Start" xml:space="preserve">
     <value>प्रारंभ</value>
   </data>
+  <data name="WARNING_CharacterOwnership" xml:space="preserve">
+    <value>चेतावनी! भले ही यह प्रोग्राम आपको गेम के सभी पात्रों तक पहुँच प्रदान करता हो, लेकिन जिन पात्रों के वास्तविक स्वामी आप नहीं हैं उनका उपयोग करने का प्रयास आपको मुख्य मेनू पर वापस भेज देगा, जिसके बाद अस्थायी रूप से ब्लॉक कर दिया जाएगा!</value>
+  </data>
 </root>

@@ -286,4 +286,7 @@
   <data name="MAIN_Start" xml:space="preserve">
     <value>开始</value>
   </data>
+  <data name="WARNING_CharacterOwnership" xml:space="preserve">
+    <value>警告！尽管本程序会解锁所有游戏内角色，但若尝试使用你实际并未拥有的角色，将导致你被踢回主菜单并暂时封禁！</value>
+  </data>
 </root>

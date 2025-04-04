@@ -286,4 +286,7 @@
   <data name="MAIN_Start" xml:space="preserve">
     <value>СТАРТ</value>
   </data>
+  <data name="WARNING_CharacterOwnership" xml:space="preserve">
+    <value>УВАГА! Хоч програма й розблокує вам доступ до всіх внутрішньоігрових персонажів, спроби використання персонажів, якими ви насправді не володієте, призведуть до викидання в головне меню з подальшим тимчасовим блокуванням!</value>
+  </data>
 </root>

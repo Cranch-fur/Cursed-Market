@@ -286,4 +286,7 @@
   <data name="MAIN_Start" xml:space="preserve">
     <value>بدء</value>
   </data>
+  <data name="WARNING_CharacterOwnership" xml:space="preserve">
+    <value>تحذير! على الرغم من أن البرنامج سيفتح لك الوصول إلى جميع الشخصيات داخل اللعبة، إلا أن محاولة استخدام شخصيات لا تمتلكها فعليًا ستؤدي إلى طردك إلى القائمة الرئيسية، يتبعها حظر مؤقت!</value>
+  </data>
 </root>

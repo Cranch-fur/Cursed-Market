@@ -10,6 +10,7 @@
             public static readonly Form_Crosshair Crosshair                   = new Form_Crosshair();
             public static readonly Form_CloudIDFriend CloudIDFriend           = new Form_CloudIDFriend();
             public static readonly Form_CharactersPreset CharactersPreset     = new Form_CharactersPreset();
+            public static readonly Form_Timer TimerForm                       = new Form_Timer();
         }
         public static class CursedAPI
         {

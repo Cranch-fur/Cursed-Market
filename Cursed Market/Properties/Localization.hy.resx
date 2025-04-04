@@ -286,4 +286,7 @@
   <data name="MAIN_Start" xml:space="preserve">
     <value>ՍԿԻԶԲ</value>
   </data>
+  <data name="WARNING_CharacterOwnership" xml:space="preserve">
+    <value>ՈՒՇԱԴՐՈՒԹՅՈՒՆ։ Չնայած ծրագիրը բացում է խաղի բոլոր կերպարների հասանելիությունը, այնուամենայնիվ, այն կերպարներով խաղալու փորձերը, որոնց իրականում չեք տիրապետում, կհանգեցնեն գլխավոր ցանկ վերադարձին և ժամանակավոր արգելափակմանը։</value>
+  </data>
 </root>

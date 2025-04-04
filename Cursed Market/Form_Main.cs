@@ -524,6 +524,7 @@ namespace Cursed_Market
                 return;
             }
 
+            Globals_Cache.Forms.TimerForm.Show();
             button_Start.Visible = false;
         }
 
@@ -561,8 +562,12 @@ namespace Cursed_Market
 
 
             Globals.FiddlerCoreTunables.CharacterData.enabled = wasChecked;
-            if (wasChecked == false)
-            { 
+            if (wasChecked)
+            {
+                Messaging.ShowMessage(Properties.Localization.WARNING_CharacterOwnership, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            }
+            else
+            {
                 MainCheckBox_04.Checked = false;
             }
 

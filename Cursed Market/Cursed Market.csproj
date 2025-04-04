@@ -165,6 +165,12 @@
     <Compile Include="Form_Settings.Designer.cs">
       <DependentUpon>Form_Settings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_Timer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Timer.Designer.cs">
+      <DependentUpon>Form_Timer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Globals.cs" />
     <Compile Include="Globals_Cache.cs" />
     <Compile Include="Globals_Session.cs" />
@@ -214,6 +220,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Settings.resx">
       <DependentUpon>Form_Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Timer.resx">
+      <DependentUpon>Form_Timer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Localization.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -470,6 +479,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\IMG_BUTTON_CHARACTERSPRESET_WHITE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SFX_RaceCountdown.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -286,4 +286,7 @@ Software won't work properly until the font is installed: "{0}"</value>
   <data name="MAIN_Start" xml:space="preserve">
     <value>START</value>
   </data>
+  <data name="WARNING_CharacterOwnership" xml:space="preserve">
+    <value>WARNING! Although this program unlocks access to all in-game characters, attempts to use characters you don't actually own will result in being kicked back to the main menu, followed by a temporary ban!</value>
+  </data>
 </root>

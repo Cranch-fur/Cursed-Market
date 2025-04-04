@@ -286,4 +286,7 @@ Yazılım, yazı tipi "{0}" yüklenmeden düzgün çalışmaz.</value>
   <data name="MAIN_Start" xml:space="preserve">
     <value>BAŞLAT</value>
   </data>
+  <data name="WARNING_CharacterOwnership" xml:space="preserve">
+    <value>DİKKAT! Program, oyundaki tüm karakterlere erişiminizi açsa da gerçekte sahip olmadığınız karakterleri kullanmaya çalışmanız sizi ana menüye geri atacak ve ardından geçici süreyle engellenmenize neden olacaktır!</value>
+  </data>
 </root>
