@@ -11,7 +11,7 @@ namespace Cursed_Market
                 MessageBoxIcon messageType = MessageBoxIcon.None, 
                     MessageBoxDefaultButton defaultButton = MessageBoxDefaultButton.Button1)
         {
-            MessageBox.Show(message, Globals.Application.executableFriendlyName, messageButtons, messageType, defaultButton);
+            MessageBox.Show(message, ProgramPaths.executableFriendlyName, messageButtons, messageType, defaultButton);
         }
 
         public static DialogResult ShowDialog(string message,
@@ -19,7 +19,7 @@ namespace Cursed_Market
                 MessageBoxIcon messageType = MessageBoxIcon.None,
                     MessageBoxDefaultButton defaultButton = MessageBoxDefaultButton.Button1)
         {
-            return MessageBox.Show(message, Globals.Application.executableFriendlyName, messageButtons, messageType, defaultButton);
+            return MessageBox.Show(message, ProgramPaths.executableFriendlyName, messageButtons, messageType, defaultButton);
         }
 
         public static async void ShowNotify(string title,

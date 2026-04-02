@@ -8,6 +8,11 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
+
+
+
+
+
 namespace Cursed_Market
 {
     static class Program
@@ -53,7 +58,7 @@ namespace Cursed_Market
                 MessageBox.Show(exceptionData, "Cursed Market Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
             }
 
-            Globals.Application.Close();
+            ProgramGlobals.Close();
         }
 
 
@@ -64,22 +69,22 @@ namespace Cursed_Market
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Properties.Localization.Culture = Globals.Application.culture; // We need to clarify what localization culture we're looking to use.
+            Properties.Localization.Culture = ProgramGlobals.culture; // We need to clarify what localization culture we're looking to use.
 
 
-            if (Globals.Application.GetDataFolderPath() == null) // We're getting a data folder path & verifying it's existence at the same time
+            if (ProgramPaths.GetDataFolderPath() == null) // We're getting a data folder path & verifying it's existence at the same time
             {
                 Messaging.ShowMessage(Properties.Localization.MESSAGE_DataFolderCreationFailed, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                Globals.Application.Close();
+                ProgramGlobals.Close();
             }
 
 
-            if (Globals.Application.Requirements.GetIsFontInstalled() == false)
+            if (ProgramGlobals.GetIsFontInstalled() == false)
             {
-                if (File.Exists(Globals.Application.Requirements.robotoFontPath) == true)
+                if (File.Exists(ProgramPaths.fontFilePath) == true)
                 {
-                    Messaging.ShowMessage(string.Format(Properties.Localization.MESSAGE_RobotoFontMissing, Globals.Application.Requirements.robotoFontPath), MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                    Process.Start(Globals.Application.Requirements.robotoFontPath);
+                    Messaging.ShowMessage(string.Format(Properties.Localization.MESSAGE_RobotoFontMissing, ProgramPaths.fontFilePath), MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                    Process.Start(ProgramPaths.fontFilePath);
                 }
                 else
                 {
@@ -87,7 +92,7 @@ namespace Cursed_Market
                     Process.Start(CursedAPI.SE_CommonEndpoints.robotoFont);
                 }
 
-                Globals.Application.Close();
+                ProgramGlobals.Close();
             }
 
 

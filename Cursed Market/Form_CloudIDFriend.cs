@@ -3,9 +3,13 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+
+
+
+
 
 namespace Cursed_Market
 {
@@ -18,10 +22,10 @@ namespace Cursed_Market
         }
         private void Form_AddFriend_Shown(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(Globals_Session.Game.userId) == false)
+            if (string.IsNullOrEmpty(ProgramSession.Game.userId) == false)
             {
                 textBox_MyCloudID.Width = 275; // What a generous approach <:3
-                textBox_MyCloudID.Text = Globals_Session.Game.userId;
+                textBox_MyCloudID.Text = ProgramSession.Game.userId;
 
                 button_MyCloudIDCopy.Visible = true;
             }
@@ -39,7 +43,7 @@ namespace Cursed_Market
 
         public void ReloadTheme()
         {
-            switch (Globals.Application.Theme.selectedTheme)
+            switch (ProgramThemes.GetSelectedTheme())
             {
                 default:
                     this.BackColor = Color.White;
@@ -51,7 +55,7 @@ namespace Cursed_Market
                     button_FriendCloudIDSend.BackColor = Color.DimGray;
                     break;
 
-                case Globals.Application.Theme.E_Themes.legacy:
+                case ProgramThemes.E_Themes.legacy:
                     this.BackColor = Color.FromArgb(255, 46, 51, 73);
                     panel_WindowHeader.BackColor = Color.FromArgb(255, 24, 30, 54);
                     label_Title.ForeColor = Color.White;
@@ -61,7 +65,7 @@ namespace Cursed_Market
                     button_FriendCloudIDSend.BackColor = Color.RoyalBlue;
                     break;
 
-                case Globals.Application.Theme.E_Themes.darkMemories:
+                case ProgramThemes.E_Themes.darkMemories:
                     this.BackColor = Color.FromArgb(255, 44, 47, 51);
                     panel_WindowHeader.BackColor = Color.FromArgb(255, 35, 39, 42);
                     label_Title.ForeColor = Color.White;
@@ -71,7 +75,7 @@ namespace Cursed_Market
                     button_FriendCloudIDSend.BackColor = Color.FromArgb(255, 85, 85, 85);
                     break;
 
-                case Globals.Application.Theme.E_Themes.saintsRow:
+                case ProgramThemes.E_Themes.saintsRow:
                     this.BackColor = Color.FromArgb(255, 37, 13, 57);
                     panel_WindowHeader.BackColor = Color.FromArgb(255, 55, 20, 86);
                     label_Title.ForeColor = Color.White;
@@ -81,7 +85,7 @@ namespace Cursed_Market
                     button_FriendCloudIDSend.BackColor = Color.FromArgb(255, 118, 93, 222);
                     break;
 
-                case Globals.Application.Theme.E_Themes.dracula:
+                case ProgramThemes.E_Themes.dracula:
                     this.BackColor = Color.FromArgb(255, 40, 42, 54);
                     panel_WindowHeader.BackColor = Color.FromArgb(255, 68, 71, 90);
                     label_Title.ForeColor = Color.FromArgb(255, 248, 248, 242);
@@ -91,7 +95,7 @@ namespace Cursed_Market
                     button_FriendCloudIDSend.BackColor = Color.FromArgb(255, 118, 93, 222);
                     break;
 
-                case Globals.Application.Theme.E_Themes.christmas:
+                case ProgramThemes.E_Themes.christmas:
                     this.BackColor = Color.FromArgb(255, 24, 24, 24);
                     panel_WindowHeader.BackColor = Color.FromArgb(255, 14, 14, 14);
                     label_Title.ForeColor = Color.FromArgb(255, 255, 207, 109);
@@ -165,12 +169,12 @@ namespace Cursed_Market
 
             List<string> headers = new List<string>()
             {
-                $"api-key: {Globals_Session.Game.api_key}",
-                $"User-Agent: {Globals_Session.Game.user_agent}",
-                $"x-kraken-client-platform: {Globals_Session.Game.client_platform}",
-                $"x-kraken-client-provider: {Globals_Session.Game.client_provider}",
-                $"x-kraken-client-os: {Globals_Session.Game.client_os}",
-                $"x-kraken-client-version: {Globals_Session.Game.client_version}",
+                $"api-key: {ProgramSession.Game.api_key}",
+                $"User-Agent: {ProgramSession.Game.user_agent}",
+                $"x-kraken-client-platform: {ProgramSession.Game.client_platform}",
+                $"x-kraken-client-provider: {ProgramSession.Game.client_provider}",
+                $"x-kraken-client-os: {ProgramSession.Game.client_os}",
+                $"x-kraken-client-version: {ProgramSession.Game.client_version}",
                 "Content-Type: application/json"
             };
 
@@ -181,7 +185,7 @@ namespace Cursed_Market
                 platform = "kraken"
             });
 
-            var friendRequestResponse = Networking.Post($"https://{Globals_Session.Game.Platform.GetCurrentPlatformHostNames()[0]}/api/v1/players/friends/add", headers, requestBodyJson.ToString());
+            var friendRequestResponse = Networking.Post($"https://{ProgramSession.Game.Platform.GetCurrentPlatformHostNames()[0]}/api/v1/players/friends/add", headers, requestBodyJson.ToString());
             if (friendRequestResponse.statusCode == Networking.E_StatusCode.CREATED)
             {
                 Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);

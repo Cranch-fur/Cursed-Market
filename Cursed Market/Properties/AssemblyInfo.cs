@@ -9,10 +9,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Cursed Market")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("SERVERNAME© 2025")]
+[assembly: AssemblyCompany("SERVERNAME© 2026")]
 [assembly: AssemblyProduct("Cursed Market")]
 [assembly: AssemblyCopyright("Cranch (Кранч) the wolf")]
-[assembly: AssemblyTrademark("SERVERNAME© 2025")]
+[assembly: AssemblyTrademark("SERVERNAME© 2026")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -33,6 +33,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("7.4.4.1")]
-[assembly: AssemblyFileVersion("7.4.4.1")]
+[assembly: AssemblyVersion("8.0.0.0")]
+[assembly: AssemblyFileVersion("8.0.0.0")]
 [assembly: NeutralResourcesLanguage("en")]

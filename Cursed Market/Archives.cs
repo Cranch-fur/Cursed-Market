@@ -2,6 +2,11 @@
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
+
+
+
+
+
 namespace Cursed_Market
 {
     public static class Archives
@@ -49,16 +54,16 @@ namespace Cursed_Market
         {
             List<string> headers = new List<string>()
             {
-                $"api-key: {Globals_Session.Game.api_key}",
-                $"User-Agent: {Globals_Session.Game.user_agent}",
-                $"x-kraken-client-platform: {Globals_Session.Game.client_platform}",
-                $"x-kraken-client-provider: {Globals_Session.Game.client_provider}",
-                $"x-kraken-client-os: {Globals_Session.Game.client_os}",
-                $"x-kraken-client-version: {Globals_Session.Game.client_version}",
+                $"api-key: {ProgramSession.Game.api_key}",
+                $"User-Agent: {ProgramSession.Game.user_agent}",
+                $"x-kraken-client-platform: {ProgramSession.Game.client_platform}",
+                $"x-kraken-client-provider: {ProgramSession.Game.client_provider}",
+                $"x-kraken-client-os: {ProgramSession.Game.client_os}",
+                $"x-kraken-client-version: {ProgramSession.Game.client_version}",
                 "Content-Type: application/json"
             };
 
-            var getActiveNodeResponse = Networking.Get($"https://{Globals_Session.Game.Platform.GetCurrentPlatformHostNames()[0]}/api/v1/archives/stories/get/activeNode", headers);
+            var getActiveNodeResponse = Networking.Get($"https://{ProgramSession.Game.Platform.GetCurrentPlatformHostNames()[0]}/api/v1/archives/stories/get/activeNode", headers);
             if (getActiveNodeResponse.statusCode == Networking.E_StatusCode.OK)
             {
                 if (getActiveNodeResponse.content.IsJson())
@@ -69,9 +74,9 @@ namespace Cursed_Market
                     int neededProgression = 0;
                     JArray questEvents = new JArray();
 
-                    switch (Globals_Session.Game.playerRole)
+                    switch (ProgramSession.Game.playerRole)
                     {
-                        case Globals_Session.Game.E_PlayerRole.Survivor:
+                        case ProgramSession.Game.E_PlayerRole.Survivor:
                             if (activeNodeJson.ContainsKey("survivorActiveNode"))
                             {
                                 specificRoleNodeData = activeNodeJson["survivorActiveNode"];
@@ -83,7 +88,7 @@ namespace Cursed_Market
 
                             break;
 
-                        case Globals_Session.Game.E_PlayerRole.Killer:
+                        case ProgramSession.Game.E_PlayerRole.Killer:
                             if (activeNodeJson.ContainsKey("killerActiveNode"))
                             {
                                 specificRoleNodeData = activeNodeJson["killerActiveNode"];
@@ -132,12 +137,12 @@ namespace Cursed_Market
                 {
                     List<string> headers = new List<string>()
                     {
-                        $"api-key: {Globals_Session.Game.api_key}",
-                        $"User-Agent: {Globals_Session.Game.user_agent}",
-                        $"x-kraken-client-platform: {Globals_Session.Game.client_platform}",
-                        $"x-kraken-client-provider: {Globals_Session.Game.client_provider}",
-                        $"x-kraken-client-os: {Globals_Session.Game.client_os}",
-                        $"x-kraken-client-version: {Globals_Session.Game.client_version}",
+                        $"api-key: {ProgramSession.Game.api_key}",
+                        $"User-Agent: {ProgramSession.Game.user_agent}",
+                        $"x-kraken-client-platform: {ProgramSession.Game.client_platform}",
+                        $"x-kraken-client-provider: {ProgramSession.Game.client_provider}",
+                        $"x-kraken-client-os: {ProgramSession.Game.client_os}",
+                        $"x-kraken-client-version: {ProgramSession.Game.client_version}",
                         "Content-Type: application/json"
                     };
 
@@ -155,10 +160,10 @@ namespace Cursed_Market
                         matchId = matchData.matchId,
                         krakenMatchId = matchData.krakenMatchId,
                         questEvents = activeQuest.questEvents,
-                        role = Globals_Session.Game.playerRole.ToString().ToLower() // We need player role to be written in lower case specifically!
+                        role = ProgramSession.Game.playerRole.ToString().ToLower() // We need player role to be written in lower case specifically!
                     });
 
-                    var updateQuestProgressResponse = Networking.Post($"https://{Globals_Session.Game.Platform.GetCurrentPlatformHostNames()[0]}/api/v1/archives/stories/update/quest-progress-v3/", headers, requestBodyJson.ToString());
+                    var updateQuestProgressResponse = Networking.Post($"https://{ProgramSession.Game.Platform.GetCurrentPlatformHostNames()[0]}/api/v1/archives/stories/update/quest-progress-v3/", headers, requestBodyJson.ToString());
                     if (updateQuestProgressResponse.statusCode == Networking.E_StatusCode.CONTINUE)
                     {
                         lastSuccessfulMatch = matchData;

@@ -7,6 +7,11 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
+
+
+
+
+
 namespace Cursed_Market
 {
     public static class CursedAPI
@@ -109,7 +114,7 @@ namespace Cursed_Market
         {
             try
             {
-                var heartBeatResponse = Networking.Get(SE_CommonEndpoints.heartBeat, Globals.Application.Networking.defaultHeaders);
+                var heartBeatResponse = Networking.Get(SE_CommonEndpoints.heartBeat, ProgramNetworking.defaultHeaders);
                 return heartBeatResponse.statusCode == Networking.E_StatusCode.OK && heartBeatResponse.content == "OK";
             }
             catch
@@ -121,7 +126,7 @@ namespace Cursed_Market
 
         public static void VersionCheck()
         {
-            var versionCheckResponse = Networking.Get(SE_CommonEndpoints.versionCheck, Globals.Application.Networking.defaultHeaders);
+            var versionCheckResponse = Networking.Get(SE_CommonEndpoints.versionCheck, ProgramNetworking.defaultHeaders);
             if (versionCheckResponse.statusCode != Networking.E_StatusCode.OK)
             {
                 Messaging.ShowMessage($"Cursed Market failed to check for updates!\nSTATUS CODE: {versionCheckResponse.statusCode}", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -139,18 +144,18 @@ namespace Cursed_Market
 
             if (updateRequired)
             {
-                string currentVersion = Globals.Application.version;
+                string currentVersion = ProgramGlobals.version;
                 string latestVersion = (string)versionJson["latestVersion"];
                 string updateDownloadUrl = (string)versionJson["updateDownloadUrl"];
-                string downloadDestinationPath = Globals.Directories.Windows.downloadsDirectoryPath;
+                string downloadDestinationPath = ProgramPaths.Windows.downloadsDirectoryPath;
 
                 if (Messaging.ShowDialog($"Cursed Market update is available for download!\nCurrent Version: {currentVersion}\nLatest Version: {latestVersion}\n\nDo you want to download updated client now?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    var updateDownloadRequest = Networking.Download(updateDownloadUrl, Globals.Application.Networking.defaultHeaders, downloadDestinationPath);
+                    var updateDownloadRequest = Networking.Download(updateDownloadUrl, ProgramNetworking.defaultHeaders, downloadDestinationPath);
                     if (File.Exists(updateDownloadRequest.content) == true)
                     {
                         Process.Start(updateDownloadRequest.content);
-                        Globals.Application.Close();
+                        ProgramGlobals.Close();
                     }
                     else
                     {
@@ -158,7 +163,7 @@ namespace Cursed_Market
                         if (Messaging.ShowDialog("Cursed Market failed to download update directly!\n\nShould we try alternative method instead?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
                             Process.Start(updateDownloadUrl);
-                            Globals.Application.Close();
+                            ProgramGlobals.Close();
                         }
                     }
                 }
@@ -188,8 +193,8 @@ namespace Cursed_Market
                     {
                         string hostname = (string)platform["hostname"];
 
-                        Globals_Session.Game.Platform.E_GamePlatform gamePlatform = Globals_Session.Game.Platform.ResolvePlatformFromHostName(hostname);
-                        Globals_Session.Game.Platform.limitedPlatforms.Add(gamePlatform);
+                        ProgramSession.Game.Platform.E_GamePlatform gamePlatform = ProgramSession.Game.Platform.ResolvePlatformFromHostName(hostname);
+                        ProgramSession.Game.Platform.limitedPlatforms.Add(gamePlatform);
                     }
                 }
 
@@ -201,7 +206,7 @@ namespace Cursed_Market
                     {
                         if (Enum.TryParse(function, out E_MainFunctions mainFunction))
                         {
-                            Globals.SetMainFunctionEnabled(mainFunction, false);
+                            ProgramGlobals.SetMainFunctionEnabled(mainFunction, false);
                         }
                     }
                 }
@@ -242,16 +247,16 @@ namespace Cursed_Market
             {
                 case E_ActionMode.Online:
                     // Check if we already have requested data pre-cached in the memory.
-                    if (!dlcOnly && Globals_Cache.CursedAPI.Market.full != null)
-                        return Globals_Cache.CursedAPI.Market.full;
+                    if (!dlcOnly && ProgramCache.CursedAPI.Market.full != null)
+                        return ProgramCache.CursedAPI.Market.full;
 
-                    if (dlcOnly && Globals_Cache.CursedAPI.Market.DLC != null)
-                        return Globals_Cache.CursedAPI.Market.DLC;
+                    if (dlcOnly && ProgramCache.CursedAPI.Market.DLC != null)
+                        return ProgramCache.CursedAPI.Market.DLC;
 
                     // Send web request for the Market File. 
                     var marketFileResponse = dlcOnly
-                        ? Networking.Get(SE_CommonEndpoints.marketDLC, Globals.Application.Networking.defaultHeaders)   // Request DLC Market File if dlcOnly == true.
-                        : Networking.Get(SE_CommonEndpoints.marketFull, Globals.Application.Networking.defaultHeaders); // Request Full Market File if dlcOnly == false.
+                        ? Networking.Get(SE_CommonEndpoints.marketDLC, ProgramNetworking.defaultHeaders)   // Request DLC Market File if dlcOnly == true.
+                        : Networking.Get(SE_CommonEndpoints.marketFull, ProgramNetworking.defaultHeaders); // Request Full Market File if dlcOnly == false.
 
                     if (marketFileResponse.statusCode != Networking.E_StatusCode.OK)
                     {
@@ -262,9 +267,9 @@ namespace Cursed_Market
                     // Decompress server response and cache it in the memory.
                     string decompressedResult = Compression.ZLIB.Decompress(marketFileResponse.content);
                     if (dlcOnly == true)
-                        Globals_Cache.CursedAPI.Market.DLC = decompressedResult;
+                        ProgramCache.CursedAPI.Market.DLC = decompressedResult;
                     else
-                        Globals_Cache.CursedAPI.Market.full = decompressedResult;
+                        ProgramCache.CursedAPI.Market.full = decompressedResult;
 
                     return decompressedResult;
 
@@ -289,10 +294,10 @@ namespace Cursed_Market
             {
                 case E_ActionMode.Online:
 
-                    if (Globals_Cache.CursedAPI.CharacterData.data != null)
-                        return Globals_Cache.CursedAPI.CharacterData.data;
+                    if (ProgramCache.CursedAPI.CharacterData.data != null)
+                        return ProgramCache.CursedAPI.CharacterData.data;
 
-                    var characterDataResponse = Networking.Get(SE_CommonEndpoints.characterData, Globals.Application.Networking.defaultHeaders, null, 30); // Character Data is a large chunk of data, so we want to await response for up to 30 seconds (in case someone has slow internet connection)
+                    var characterDataResponse = Networking.Get(SE_CommonEndpoints.characterData, ProgramNetworking.defaultHeaders, null, 30); // Character Data is a large chunk of data, so we want to await response for up to 30 seconds (in case someone has slow internet connection)
                     if (characterDataResponse.statusCode != Networking.E_StatusCode.OK)
                     {
                         Messaging.ShowMessage($"Cursed Market failed to obtain Character Data!\nSTATUS CODE: {characterDataResponse.statusCode}\n\nLocally stored, offline image will be used instead.", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -316,10 +321,10 @@ namespace Cursed_Market
             {
                 case E_ActionMode.Online:
 
-                    if (Globals_Cache.CursedAPI.bloodWebData != null)
-                        return Globals_Cache.CursedAPI.bloodWebData;
+                    if (ProgramCache.CursedAPI.bloodWebData != null)
+                        return ProgramCache.CursedAPI.bloodWebData;
 
-                    var bloodWebDataResponse = Networking.Get(SE_CommonEndpoints.bloodwebData, Globals.Application.Networking.defaultHeaders);
+                    var bloodWebDataResponse = Networking.Get(SE_CommonEndpoints.bloodwebData, ProgramNetworking.defaultHeaders);
                     if (bloodWebDataResponse.statusCode != Networking.E_StatusCode.OK)
                     {
                         Messaging.ShowMessage($"Cursed Market failed to obtain Bloodweb Data!\nSTATUS CODE: {bloodWebDataResponse.statusCode}\n\nLocally stored, offline image will be used instead.", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -347,10 +352,10 @@ namespace Cursed_Market
             {
                 case E_ActionMode.Online:
 
-                    if (Globals_Cache.CursedAPI.charactersList != null)
-                        return Globals_Cache.CursedAPI.charactersList;
+                    if (ProgramCache.CursedAPI.charactersList != null)
+                        return ProgramCache.CursedAPI.charactersList;
 
-                    var charactersListResponse = Networking.Get(SE_CommonEndpoints.charactersList, Globals.Application.Networking.defaultHeaders);
+                    var charactersListResponse = Networking.Get(SE_CommonEndpoints.charactersList, ProgramNetworking.defaultHeaders);
                     if (charactersListResponse.statusCode != Networking.E_StatusCode.OK)
                     {
                         Messaging.ShowMessage($"Cursed Market failed to obtain Characters List!\nSTATUS CODE: {charactersListResponse.statusCode}\n\nLocally stored, offline image will be used instead.", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -374,10 +379,10 @@ namespace Cursed_Market
             {
                 case E_ActionMode.Online:
 
-                    if (Globals_Cache.CursedAPI.itemsList != null)
-                        return Globals_Cache.CursedAPI.itemsList;
+                    if (ProgramCache.CursedAPI.itemsList != null)
+                        return ProgramCache.CursedAPI.itemsList;
 
-                    var itemsListResponse = Networking.Get(SE_CommonEndpoints.itemsList, Globals.Application.Networking.defaultHeaders);
+                    var itemsListResponse = Networking.Get(SE_CommonEndpoints.itemsList, ProgramNetworking.defaultHeaders);
                     if (itemsListResponse.statusCode != Networking.E_StatusCode.OK)
                     {
                         Messaging.ShowMessage($"Cursed Market failed to obtain Items List!\nSTATUS CODE: {itemsListResponse.statusCode}\n\nLocally stored, offline image will be used instead.", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -401,56 +406,45 @@ namespace Cursed_Market
 
         public static void ObtainCatalog()
         {
-            if (Globals.Application.startupArguments.Contains(Globals.Application.SE_CommonStartupArguments.noCustomizationsKing))
+            if (ProgramStartupArguments.HasStartupArgument(ProgramStartupArguments.Common.noCustomizationsKing))
             {
-                Globals.SetGameChangerStatus(E_GameChangers.customizationsKing, E_GameChangerStatus.Disabled);
+                ProgramGlobals.SetGameChangerStatus(E_GameChangers.customizationsKing, E_GameChangerStatus.Disabled);
                 return;
             }
 
-            var catalogResponse = Networking.Get(SE_CommonEndpoints.catalog, Globals.Application.Networking.defaultHeaders, null, 30); // Catalog is a large chunk of data, so we want to await response for up to 30 seconds (in case someone has slow internet connection)
+            var catalogResponse = Networking.Get(SE_CommonEndpoints.catalog, ProgramNetworking.defaultHeaders, null, 30); // Catalog is a large chunk of data, so we want to await response for up to 30 seconds (in case someone has slow internet connection)
             if (catalogResponse.statusCode == Networking.E_StatusCode.OK)
             {
                 ResponseFiles.catalog = catalogResponse.content;
-                Globals.FiddlerCoreTunables.Catalog.enabled = true;
+                ProgramFeatures.Catalog.enabled = true;
 
-                /* Ensure user doesn't have Catalog cached on their system, so we could feed game with our own file. */
-                string catalogFilePath = Path.Combine(Globals.Directories.Windows.localAppDataDirectoryPath, @"DeadByDaylight\Saved\PersistentDownloadDir\RemoteContentCache\catalog.json");
-                try
-                {
-                    if (File.Exists(catalogFilePath))
-                    {
-                        File.Delete(catalogFilePath);
-                    }
-                }
-                catch { }
-
-                Globals.SetGameChangerStatus(E_GameChangers.customizationsKing, E_GameChangerStatus.Enabled);
+                ProgramGlobals.SetGameChangerStatus(E_GameChangers.customizationsKing, E_GameChangerStatus.Enabled);
             }
             else
             {
-                Globals.SetGameChangerStatus(E_GameChangers.customizationsKing, E_GameChangerStatus.Failed);
+                ProgramGlobals.SetGameChangerStatus(E_GameChangers.customizationsKing, E_GameChangerStatus.Failed);
             }
         }
 
         public static void ObtainAntiKillSwitch()
         {
-            if (Globals.Application.startupArguments.Contains("-nokillswitch"))
+            if (ProgramStartupArguments.HasStartupArgument(ProgramStartupArguments.Common.noAntiKillSwitch))
             {
-                Globals.SetGameChangerStatus(E_GameChangers.antiKillSwitch, E_GameChangerStatus.Disabled);
+                ProgramGlobals.SetGameChangerStatus(E_GameChangers.antiKillSwitch, E_GameChangerStatus.Disabled);
                 return;
             }
 
-            var antiKillSwitchResponse = Networking.Get(SE_CommonEndpoints.antiKillSwitch, Globals.Application.Networking.defaultHeaders);
+            var antiKillSwitchResponse = Networking.Get(SE_CommonEndpoints.antiKillSwitch, ProgramNetworking.defaultHeaders);
             if (antiKillSwitchResponse.statusCode == Networking.E_StatusCode.OK)
             {
-                Globals.FiddlerCoreTunables.AntiKillSwitch.enabled = true;
+                ProgramFeatures.AntiKillSwitch.enabled = true;
                 ResponseFiles.antiKillSwitch = antiKillSwitchResponse.content;
 
-                Globals.SetGameChangerStatus(E_GameChangers.antiKillSwitch, E_GameChangerStatus.Enabled);
+                ProgramGlobals.SetGameChangerStatus(E_GameChangers.antiKillSwitch, E_GameChangerStatus.Enabled);
             }
             else
             {
-                Globals.SetGameChangerStatus(E_GameChangers.antiKillSwitch, E_GameChangerStatus.Failed);
+                ProgramGlobals.SetGameChangerStatus(E_GameChangers.antiKillSwitch, E_GameChangerStatus.Failed);
             }
         }
 
@@ -459,7 +453,7 @@ namespace Cursed_Market
 
         public static string GetPopulatedMarketFile(string actualMarketFile, E_MarketFilePopulationType populationType)
         {
-            JArray charactersArray = JArray.Parse(Globals_Cache.CursedAPI.charactersList);
+            JArray charactersArray = JArray.Parse(ProgramCache.CursedAPI.charactersList);
             JObject actualMarketFileJSON = JObject.Parse(actualMarketFile);
             JObject modifiedMarketFileJSON = JObject.Parse(ResponseFiles.market);
 
@@ -485,11 +479,11 @@ namespace Cursed_Market
             if (populationType != E_MarketFilePopulationType.None)
             {
                 JArray inventory = (JArray)modifiedMarketFileJSON["inventoryItems"];
-                JObject itemsList = JObject.Parse(Globals_Cache.CursedAPI.itemsList);
+                JObject itemsList = JObject.Parse(ProgramCache.CursedAPI.itemsList);
 
 
                 Random rnd = new Random();
-                long startupTimeStamp = Globals.Application.startupTimeStamp;
+                long startupTimeStamp = ProgramGlobals.startupTimeStamp;
 
 
                 // Mapping types to property names.

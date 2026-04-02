@@ -6,6 +6,11 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 
+
+
+
+
+
 namespace Cursed_Market
 {
     public partial class Form_Timer : Form
@@ -239,34 +244,34 @@ namespace Cursed_Market
 
         public void ReloadTheme()
         {
-            switch (Globals.Application.Theme.selectedTheme)
+            switch (ProgramThemes.GetSelectedTheme())
             {
                 default:
                     label_Timer.ForeColor = Color.Black;
                     label_Timer.BackColor = Color.WhiteSmoke;
                     break;
 
-                case Globals.Application.Theme.E_Themes.legacy:
+                case ProgramThemes.E_Themes.legacy:
                     label_Timer.ForeColor = Color.White;
                     label_Timer.BackColor = Color.FromArgb(255, 46, 51, 73);
                     break;
 
-                case Globals.Application.Theme.E_Themes.darkMemories:
+                case ProgramThemes.E_Themes.darkMemories:
                     label_Timer.ForeColor = Color.White;
                     label_Timer.BackColor = Color.FromArgb(255, 44, 47, 51);
                     break;
 
-                case Globals.Application.Theme.E_Themes.saintsRow:
+                case ProgramThemes.E_Themes.saintsRow:
                     label_Timer.ForeColor = Color.FromArgb(255, 146, 71, 214);
                     label_Timer.BackColor = Color.FromArgb(255, 37, 13, 57);
                     break;
 
-                case Globals.Application.Theme.E_Themes.dracula:
+                case ProgramThemes.E_Themes.dracula:
                     label_Timer.ForeColor = Color.FromArgb(255, 248, 248, 242);
                     label_Timer.BackColor = Color.FromArgb(255, 40, 42, 54);
                     break;
 
-                case Globals.Application.Theme.E_Themes.christmas:
+                case ProgramThemes.E_Themes.christmas:
                     label_Timer.ForeColor = Color.FromArgb(255, 255, 207, 109);
                     label_Timer.BackColor = Color.FromArgb(255, 24, 24, 24);
                     break;

@@ -6,6 +6,10 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
+
+
 namespace Cursed_Market
 {
     public partial class Form_Main : Form
@@ -27,7 +31,7 @@ namespace Cursed_Market
         }
         private void OnMessageCloseClick(object sender, EventArgs e)
         {
-            Globals.Application.Close();
+            ProgramGlobals.Close();
         }
 
 
@@ -40,13 +44,13 @@ namespace Cursed_Market
         }
         private void Form_Main_Load(object sender, EventArgs e)
         {
-            Globals_Cache.Forms.Main = this; // Getting form cached allows us to interact with it from any class, at any time given and avoid situations where we are forced to create a new instance of the Form due to variable being lost.
+            ProgramCache.Forms.Main = this; // Getting form cached allows us to interact with it from any class, at any time given and avoid situations where we are forced to create a new instance of the Form due to variable being lost.
             this.TopMost = true; // We've just started the application and we want it to be shown above any other running, param is set to false on Form_Main_Shown!
 
 
 
 
-            Globals.Application.CheckForFirstLaunch();
+            ProgramGlobals.CheckForFirstLaunch();
 
 
 
@@ -68,7 +72,7 @@ namespace Cursed_Market
             label_QueueStatus.Text = GetRandomGreetingsText();
 
 
-            if (Globals.Application.startupArguments.Contains(Globals.Application.SE_CommonStartupArguments.offlineMode))
+            if (ProgramStartupArguments.HasStartupArgument(ProgramStartupArguments.Common.offlineMode))
             {
                 InitializeOffline();
                 return;
@@ -89,16 +93,14 @@ namespace Cursed_Market
         }
         private void Form_Main_Shown(object sender, EventArgs e) // We only want to make crosshair visibly when Form has already been loaded! If we do that too early, white square will appear in middle of the screen due to Crosshair Form wasn't yet intialized.
         {
-            SetCrosshairVisibility(Globals.Crosshair.selectedCrosshair != Globals.Crosshair.E_Crosshairs.none);
+            UpdateCrosshairVisibilityUI();
 
-
-            if (Globals.Application.HasStartupArgument(Globals.Application.SE_CommonStartupArguments.timerToggleFeature))
+            if (ProgramStartupArguments.HasStartupArgument(ProgramStartupArguments.Common.timerToggleFeature))
             {
-                Globals_Cache.Forms.Timer.Show();
+                ProgramCache.Forms.Timer.Show();
             }
 
-
-            Globals_Cache.Forms.Wait.Hide();
+            ProgramCache.Forms.Wait.Hide();
             this.TopMost = false;
         }
 
@@ -107,7 +109,7 @@ namespace Cursed_Market
 
         public void ReloadTheme()
         {
-            switch (Globals.Application.Theme.selectedTheme)
+            switch (ProgramThemes.GetSelectedTheme())
             {
                 default:
                     pictureBox_WindowBorder.Visible = true;
@@ -143,7 +145,7 @@ namespace Cursed_Market
                     button_ApiKeyCopy.BackColor = Color.DimGray;
                     break;
 
-                case Globals.Application.Theme.E_Themes.legacy:
+                case ProgramThemes.E_Themes.legacy:
                     pictureBox_WindowBorder.Visible = false;
                     pictureBox_Title.Image = Properties.Resources.IMG_BANNER_WHITE;
                     pictureBox_Button_Settings.Image = Properties.Resources.IMG_BUTTON_SETTINGS_WHITE;
@@ -177,7 +179,7 @@ namespace Cursed_Market
                     button_ApiKeyCopy.BackColor = Color.RoyalBlue;
                     break;
 
-                case Globals.Application.Theme.E_Themes.darkMemories:
+                case ProgramThemes.E_Themes.darkMemories:
                     pictureBox_WindowBorder.Visible = false;
                     pictureBox_Title.Image = Properties.Resources.IMG_BANNER_WHITE;
                     pictureBox_Button_Settings.Image = Properties.Resources.IMG_BUTTON_SETTINGS_WHITE;
@@ -211,7 +213,7 @@ namespace Cursed_Market
                     button_ApiKeyCopy.BackColor = Color.FromArgb(255, 85, 85, 85);
                     break;
 
-                case Globals.Application.Theme.E_Themes.saintsRow:
+                case ProgramThemes.E_Themes.saintsRow:
                     pictureBox_WindowBorder.Visible = false;
                     pictureBox_Title.Image = Properties.Resources.IMG_BANNER_WHITE;
                     pictureBox_Button_Settings.Image = Properties.Resources.IMG_BUTTON_SETTINGS_WHITE;
@@ -245,7 +247,7 @@ namespace Cursed_Market
                     button_ApiKeyCopy.BackColor = Color.FromArgb(255, 118, 93, 222);
                     break;
 
-                case Globals.Application.Theme.E_Themes.dracula:
+                case ProgramThemes.E_Themes.dracula:
                     pictureBox_WindowBorder.Visible = false;
                     pictureBox_Title.Image = Properties.Resources.IMG_BANNER_WHITE;
                     pictureBox_Button_Settings.Image = Properties.Resources.IMG_BUTTON_SETTINGS_WHITE;
@@ -279,7 +281,7 @@ namespace Cursed_Market
                     button_ApiKeyCopy.BackColor = Color.FromArgb(255, 118, 93, 222);
                     break;
 
-                case Globals.Application.Theme.E_Themes.christmas:
+                case ProgramThemes.E_Themes.christmas:
                     pictureBox_WindowBorder.Visible = false;
                     pictureBox_Title.Image = Properties.Resources.IMG_BANNER_CHRISTMAS2022;
                     pictureBox_Button_Settings.Image = Properties.Resources.IMG_BUTTON_SETTINGS_WHITE;
@@ -321,16 +323,12 @@ namespace Cursed_Market
         private void InitializeSettings()
         {
             ReloadTheme();
-            label_VersionWaterMark.Text = $"{Globals.Application.version[0]}.{Globals.Application.version[1]}.{Globals.Application.version[2]}.{Globals.Application.version[3]}";
+            label_VersionWaterMark.Text = $"{ProgramGlobals.version[0]}.{ProgramGlobals.version[1]}.{ProgramGlobals.version[2]}.{ProgramGlobals.version[3]}";
 
 
-
-
-            comboBox_Crosshairs.SelectedIndex = (int)Globals.Crosshair.selectedCrosshair;
-            trackBar_CrosshairOpacity.Value = (Globals.Crosshair.opacity / 10).Clamp(trackBar_CrosshairOpacity.Minimum, trackBar_CrosshairOpacity.Maximum); // Clamp value between minimum & maximum trackBar can handle.
-            SetCrosshairOpacity(Globals.Crosshair.opacity);
-
-
+            comboBox_Crosshairs.SelectedIndex = (int)ProgramFeatures.Crosshair.GetSelectedCrosshair();
+            trackBar_CrosshairOpacity.Value = (ProgramFeatures.Crosshair.GetOpacity() / 10).Clamp(trackBar_CrosshairOpacity.Minimum, trackBar_CrosshairOpacity.Maximum); // Clamp value between minimum & maximum trackBar can handle.
+            UpdateCrosshairOpacityUI();
 
 
             #region localization
@@ -343,8 +341,6 @@ namespace Cursed_Market
 
             label_AntiKillSwitchTitle.Text = Properties.Localization.MAIN_AntiKillSwitchTitle;
             label_AntiKillSwitchDescription.Text = Properties.Localization.MAIN_AntiKillSwitchDescription;
-
-
 
             label_MainFeaturesTitle.Text = Properties.Localization.MAIN_MainFeaturesTitle;
 
@@ -394,7 +390,7 @@ namespace Cursed_Market
 
         public void InitializeOffline()
         {
-            Globals.Application.offlineMode = true;
+            ProgramGlobals.isOfflineMode = true;
 
             SetGameChangerStatus(CursedAPI.E_GameChangers.customizationsKing, CursedAPI.E_GameChangerStatus.Offline);
             SetGameChangerStatus(CursedAPI.E_GameChangers.antiKillSwitch, CursedAPI.E_GameChangerStatus.Offline);
@@ -402,18 +398,18 @@ namespace Cursed_Market
 
             CursedAPI.ResponseFiles.market = CursedAPI.GetMarketFile(CursedAPI.E_ActionMode.Offline);
 
-            Globals_Cache.CursedAPI.CharacterData.data = CursedAPI.GetCharacterData(CursedAPI.E_ActionMode.Offline);
-            Globals_Cache.CursedAPI.bloodWebData = CursedAPI.GetBloodWebData(CursedAPI.E_ActionMode.Offline);
-            if (string.IsNullOrEmpty(Globals_Cache.CursedAPI.CharacterData.data) || string.IsNullOrEmpty(Globals_Cache.CursedAPI.bloodWebData))
+            ProgramCache.CursedAPI.CharacterData.data = CursedAPI.GetCharacterData(CursedAPI.E_ActionMode.Offline);
+            ProgramCache.CursedAPI.bloodWebData = CursedAPI.GetBloodWebData(CursedAPI.E_ActionMode.Offline);
+            if (string.IsNullOrEmpty(ProgramCache.CursedAPI.CharacterData.data) || string.IsNullOrEmpty(ProgramCache.CursedAPI.bloodWebData))
             {
                 MainCheckBox_03.Enabled = false;
                 MainCheckBox_04.Enabled = false;
             }
 
-            Globals_Cache.CursedAPI.charactersList = CursedAPI.GetCharactersList(CursedAPI.E_ActionMode.Offline);
-            Globals_Cache.CursedAPI.itemsList = CursedAPI.GetItemsList(CursedAPI.E_ActionMode.Offline);
+            ProgramCache.CursedAPI.charactersList = CursedAPI.GetCharactersList(CursedAPI.E_ActionMode.Offline);
+            ProgramCache.CursedAPI.itemsList = CursedAPI.GetItemsList(CursedAPI.E_ActionMode.Offline);
 
-            Globals.Application.initialized = true;
+            ProgramGlobals.isInitialized = true;
         }
         public void InitializeOnline()
         {
@@ -421,27 +417,27 @@ namespace Cursed_Market
 
             CursedAPI.ResponseFiles.market = CursedAPI.GetMarketFile(CursedAPI.E_ActionMode.Online);
 
-            if (Globals.Application.HasStartupArgument(Globals.Application.SE_CommonStartupArguments.noCharacterData))
+            if (ProgramStartupArguments.HasStartupArgument(ProgramStartupArguments.Common.noCharacterData))
             {
-                Globals_Cache.CursedAPI.CharacterData.data = CursedAPI.GetCharacterData(CursedAPI.E_ActionMode.Offline);
-                Globals_Cache.CursedAPI.bloodWebData = CursedAPI.GetBloodWebData(CursedAPI.E_ActionMode.Offline);
+                ProgramCache.CursedAPI.CharacterData.data = CursedAPI.GetCharacterData(CursedAPI.E_ActionMode.Offline);
+                ProgramCache.CursedAPI.bloodWebData = CursedAPI.GetBloodWebData(CursedAPI.E_ActionMode.Offline);
             }
             else
             {
-                Globals_Cache.CursedAPI.CharacterData.data = CursedAPI.GetCharacterData(CursedAPI.E_ActionMode.Online);
-                Globals_Cache.CursedAPI.bloodWebData = CursedAPI.GetBloodWebData(CursedAPI.E_ActionMode.Online);
+                ProgramCache.CursedAPI.CharacterData.data = CursedAPI.GetCharacterData(CursedAPI.E_ActionMode.Online);
+                ProgramCache.CursedAPI.bloodWebData = CursedAPI.GetBloodWebData(CursedAPI.E_ActionMode.Online);
             }
 
 
-            Globals_Cache.CursedAPI.charactersList = CursedAPI.GetCharactersList(CursedAPI.E_ActionMode.Online);
-            Globals_Cache.CursedAPI.itemsList = CursedAPI.GetItemsList(CursedAPI.E_ActionMode.Online);
+            ProgramCache.CursedAPI.charactersList = CursedAPI.GetCharactersList(CursedAPI.E_ActionMode.Online);
+            ProgramCache.CursedAPI.itemsList = CursedAPI.GetItemsList(CursedAPI.E_ActionMode.Online);
 
 
             CursedAPI.ObtainCatalog();
             CursedAPI.ObtainAntiKillSwitch();
 
 
-            Globals.Application.initialized = true;
+            ProgramGlobals.isInitialized = true;
         }
 
 
@@ -521,14 +517,23 @@ namespace Cursed_Market
 
 
 
-        private void pictureBox_Buttons_Settings_MouseClick(object sender, MouseEventArgs e) => Globals_Cache.Forms.Settings.ShowDialog();
-        private void pictureBox_Button_CloudIDFriend_MouseClick(object sender, MouseEventArgs e) => Globals_Cache.Forms.CloudIDFriend.ShowDialog();
-        private void pictureBox_Button_CharactersPreset_MouseClick(object sender, MouseEventArgs e) => Globals_Cache.Forms.CharactersPreset.ShowDialog();
+        private void pictureBox_Buttons_Settings_MouseClick(object sender, MouseEventArgs e) => ProgramCache.Forms.Settings.ShowDialog();
+        private void pictureBox_Button_CloudIDFriend_MouseClick(object sender, MouseEventArgs e) => ProgramCache.Forms.CloudIDFriend.ShowDialog();
+        private void pictureBox_Button_CharactersPreset_MouseClick(object sender, MouseEventArgs e) => ProgramCache.Forms.CharactersPreset.ShowDialog();
         private void button_Start_MouseClick(object sender, MouseEventArgs e)
         {
-            if (Globals.Application.initialized == false)
+            if (ProgramGlobals.isInitialized == false)
                 return;
 
+            bool forceClearContentCache = ProgramStartupArguments.HasStartupArgument(ProgramStartupArguments.Common.forceClearContentCache);
+            if (ProgramFeatures.Catalog.enabled || forceClearContentCache)
+                if (Game.ClearContentCache("catalog.json") == false)
+                    Messaging.ShowMessage($"Cursed Market failed to clear content cache!\n\n\"{ProgramPaths.contentCacheDirectoryPath}\\catalog.json\"", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+
+            if (ProgramFeatures.AntiKillSwitch.enabled || forceClearContentCache)
+                if (Game.ClearContentCache("itemsKillswitch.json") == false)
+                    Messaging.ShowMessage($"Cursed Market failed to clear content cache!\n\n\"{ProgramPaths.contentCacheDirectoryPath}\\itemsKillswitch.json\"", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            
             if (FiddlerCore.Start() == false)
             {
                 Messaging.ShowMessage("Cursed Market failed to start proxy instance!", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
@@ -545,16 +550,16 @@ namespace Cursed_Market
         {
             if (MainCheckBox_01.Checked == true)
             {
-                Globals_Cache.Forms.Queue.Show();
+                ProgramCache.Forms.Queue.Show();
             }
             else
             {
-                Globals_Cache.Forms.Queue.Hide();
+                ProgramCache.Forms.Queue.Hide();
             }
         }
         private void MainCheckBox_02_CheckedChanged(object sender, EventArgs e)
         {
-            Globals.FiddlerCoreTunables.CurrencySpoof.enabled = MainCheckBox_02.Checked;
+            ProgramFeatures.CurrencySpoof.enabled = MainCheckBox_02.Checked;
             label_CurrenciesAdjustTitle.Visible = MainCheckBox_02.Checked;
 
             pictureBox_BloodPoints.Visible = MainCheckBox_02.Checked;
@@ -571,7 +576,7 @@ namespace Cursed_Market
             bool wasChecked = MainCheckBox_03.Checked;
 
 
-            Globals.FiddlerCoreTunables.CharacterData.enabled = wasChecked;
+            ProgramFeatures.CharacterData.enabled = wasChecked;
             if (wasChecked)
             {
                 Messaging.ShowMessage(Properties.Localization.WARNING_CharacterOwnership, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
@@ -591,7 +596,7 @@ namespace Cursed_Market
         {
             if (MainCheckBox_04.Checked == true)
             {
-                if (Globals.CharactersPreset.Obtain() == false)
+                if (ProgramFeatures.CharactersPreset.Obtain() == false)
                 {
                     Messaging.ShowMessage(Properties.Localization.MESSAGE_FailedToReadCharactersPreset, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                     MainCheckBox_04.Checked = false;
@@ -599,11 +604,11 @@ namespace Cursed_Market
                 }
 
 
-                Globals.CharactersPreset.SetEnabled(true);
+                ProgramFeatures.CharactersPreset.SetEnabled(true);
             }
             else
             {
-                Globals.CharactersPreset.SetEnabled(false);
+                ProgramFeatures.CharactersPreset.SetEnabled(false);
             }
         }
         private void MainCheckBox_05_CheckedChanged(object sender, EventArgs e)
@@ -611,34 +616,34 @@ namespace Cursed_Market
             if (MainCheckBox_05.Checked == true)
             {
                 SetGameChangerStatus(CursedAPI.E_GameChangers.customizationsKing, CursedAPI.E_GameChangerStatus.Disabled);
-                Globals.FiddlerCoreTunables.Catalog.enabled = false;
+                ProgramFeatures.Catalog.enabled = false;
 
                 SetGameChangerStatus(CursedAPI.E_GameChangers.antiKillSwitch, CursedAPI.E_GameChangerStatus.Disabled);
-                Globals.FiddlerCoreTunables.AntiKillSwitch.enabled = false;
+                ProgramFeatures.AntiKillSwitch.enabled = false;
             }
             else
             {
                 if (CursedAPI.ResponseFiles.catalog != null)
                 {
                     SetGameChangerStatus(CursedAPI.E_GameChangers.customizationsKing, CursedAPI.E_GameChangerStatus.Enabled);
-                    Globals.FiddlerCoreTunables.Catalog.enabled = true;
+                    ProgramFeatures.Catalog.enabled = true;
                 }
                 else
                 {
                     SetGameChangerStatus(CursedAPI.E_GameChangers.customizationsKing, CursedAPI.E_GameChangerStatus.Failed);
-                    Globals.FiddlerCoreTunables.Catalog.enabled = false;
+                    ProgramFeatures.Catalog.enabled = false;
                 }
 
 
                 if (CursedAPI.ResponseFiles.antiKillSwitch != null)
                 {
                     SetGameChangerStatus(CursedAPI.E_GameChangers.antiKillSwitch, CursedAPI.E_GameChangerStatus.Enabled);
-                    Globals.FiddlerCoreTunables.AntiKillSwitch.enabled = true;
+                    ProgramFeatures.AntiKillSwitch.enabled = true;
                 }
                 else
                 {
                     SetGameChangerStatus(CursedAPI.E_GameChangers.antiKillSwitch, CursedAPI.E_GameChangerStatus.Failed);
-                    Globals.FiddlerCoreTunables.AntiKillSwitch.enabled = false;
+                    ProgramFeatures.AntiKillSwitch.enabled = false;
                 }
             }
         }
@@ -646,7 +651,7 @@ namespace Cursed_Market
         {
             bool wasChecked = MainCheckBox_06.Checked;
 
-            if (Globals.Application.offlineMode == true)
+            if (ProgramGlobals.isOfflineMode == true)
             {
                 CursedAPI.ResponseFiles.market = CursedAPI.GetMarketFile(CursedAPI.E_ActionMode.Offline, wasChecked);
             }
@@ -657,44 +662,57 @@ namespace Cursed_Market
 
             if (FiddlerCore.IsRunning() == true)
             {
-                if (Globals.Game.IsRunning() == true)
+                if (Game.IsRunning() == true)
                 {
                     if (Messaging.ShowDialog("Swapping Market File on the run will likely lead to catastrophic results, it's required to restart the game!\n\nRestart the game now?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                        Globals.Game.Exit();
+                        Game.Exit();
                 }
             }
         }
         private void MainCheckBox_07_CheckedChanged(object sender, EventArgs e)
         {
-            Globals.FiddlerCoreTunables.GuaranteedQuests.enabled = MainCheckBox_07.Checked;
+            ProgramFeatures.GuaranteedQuests.enabled = MainCheckBox_07.Checked;
         }
 
 
 
 
-        private void UpdateCrosshair()
-        {
-            Globals_Cache.Forms.Crosshair.ForceInitializeSettings();
-        }
         private void SetCrosshairVisibility(bool newVisibility)
         {
-            if (newVisibility == true)
-            {
-                UpdateCrosshair(); // We want to update crosshair before we show it up
-                Globals_Cache.Forms.Crosshair.Show();
-            }
+            if (newVisibility)
+                ProgramFeatures.Crosshair.Show();
             else
-                Globals_Cache.Forms.Crosshair.Hide();
+                ProgramFeatures.Crosshair.Hide();
+
+            ProgramFeatures.Crosshair.Reload();
 
         }
         private void SetCrosshairOpacity(int newOpacity)
         {
-            if (WinReg.SetData_DWORD(WinReg.SE_CommonEntries.crosshairOpacity, newOpacity))
+            ProgramFeatures.Crosshair.SetOpacity(newOpacity);
+            if (ProgramFeatures.Crosshair.GetOpacity() == newOpacity)
             {
-                Globals.Crosshair.opacity = newOpacity;
-                label_CrosshairOpacityPercent.Text = $"{newOpacity}%";
-
-                UpdateCrosshair();
+                ProgramFeatures.Crosshair.Reload();
+            }
+        }
+        private void UpdateCrosshairOpacityUI()
+        {
+            label_CrosshairOpacityPercent.Text = $"{ProgramFeatures.Crosshair.GetOpacity()}%";
+        }
+        private void UpdateCrosshairVisibilityUI()
+        {
+            bool shouldBeVisible = ProgramFeatures.Crosshair.GetSelectedCrosshair() != ProgramFeatures.Crosshair.E_Crosshairs.none;
+            if (shouldBeVisible)
+            {
+                trackBar_CrosshairOpacity.Enabled = true;
+                SetCrosshairVisibility(true);
+                UpdateCrosshairOpacityUI();
+            }
+            else
+            {
+                trackBar_CrosshairOpacity.Enabled = false;
+                SetCrosshairVisibility(false);
+                label_CrosshairOpacityPercent.Text = "0%";
             }
         }
         
@@ -715,22 +733,22 @@ namespace Cursed_Market
             }
             return true;
         }
-        private void textBox_BloodPoints_TextChanged(object sender, EventArgs e) => Globals.FiddlerCoreTunables.CurrencySpoof.bloodpointsAmount = textBox_BloodPoints.Text;
+        private void textBox_BloodPoints_TextChanged(object sender, EventArgs e) => ProgramFeatures.CurrencySpoof.bloodpointsAmount = textBox_BloodPoints.Text;
         private void textBox_BloodPoints_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!isKeypressDigit(e, Globals.FiddlerCoreTunables.CurrencySpoof.bloodpointsAmount))
+            if (!isKeypressDigit(e, ProgramFeatures.CurrencySpoof.bloodpointsAmount))
                 e.Handled = true;
         }
-        private void textBox_IridescentShards_TextChanged(object sender, EventArgs e) => Globals.FiddlerCoreTunables.CurrencySpoof.iridescentShardsAmount = textBox_IridescentShards.Text;
+        private void textBox_IridescentShards_TextChanged(object sender, EventArgs e) => ProgramFeatures.CurrencySpoof.iridescentShardsAmount = textBox_IridescentShards.Text;
         private void textBox_IridescentShards_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!isKeypressDigit(e, Globals.FiddlerCoreTunables.CurrencySpoof.iridescentShardsAmount))
+            if (!isKeypressDigit(e, ProgramFeatures.CurrencySpoof.iridescentShardsAmount))
                 e.Handled = true;
         }
-        private void textBox_AuricCells_TextChanged(object sender, EventArgs e) => Globals.FiddlerCoreTunables.CurrencySpoof.auricCellsAmount = textBox_AuricCells.Text;
+        private void textBox_AuricCells_TextChanged(object sender, EventArgs e) => ProgramFeatures.CurrencySpoof.auricCellsAmount = textBox_AuricCells.Text;
         private void textBox_AuricCells_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!isKeypressDigit(e, Globals.FiddlerCoreTunables.CurrencySpoof.auricCellsAmount))
+            if (!isKeypressDigit(e, ProgramFeatures.CurrencySpoof.auricCellsAmount))
                 e.Handled = true;
         }
 
@@ -744,31 +762,30 @@ namespace Cursed_Market
 
         private void comboBox_Crosshairs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Globals.Application.initialized == true)
+            if (ProgramGlobals.isInitialized)
             {
-                if (WinReg.SetData_DWORD(WinReg.SE_CommonEntries.crosshair, comboBox_Crosshairs.SelectedIndex))
-                {
-                    Globals.Crosshair.selectedCrosshair = (Globals.Crosshair.E_Crosshairs)comboBox_Crosshairs.SelectedIndex;
-                    SetCrosshairVisibility(comboBox_Crosshairs.SelectedIndex != (int)Globals.Crosshair.E_Crosshairs.none);
-                }
+                ProgramFeatures.Crosshair.SetSelectedCrosshair((ProgramFeatures.Crosshair.E_Crosshairs)comboBox_Crosshairs.SelectedIndex);
+                UpdateCrosshairVisibilityUI();
             }
         }
 
         private void trackBar_CrosshairOpacity_ValueChanged(object sender, EventArgs e)
         {
-            if (Globals.Application.initialized == true)
+            if (ProgramGlobals.isInitialized == true)
             {
                 int crosshairOpacity = trackBar_CrosshairOpacity.Value * 10;
                 SetCrosshairOpacity(crosshairOpacity);
+
+                UpdateCrosshairOpacityUI();
             }
         }
 
         public void UpdateApiKey() 
         {
-            Globals_Cache.Forms.Main.Invoke(new Action(() =>
+            ProgramCache.Forms.Main.Invoke(new Action(() =>
             {
                 textBox_ApiKey.Width = 439; // What a generous approach <:3
-                textBox_ApiKey.Text = Globals_Session.Game.api_key;
+                textBox_ApiKey.Text = ProgramSession.Game.api_key;
 
                 button_ApiKeyCopy.Visible = true;
                 pictureBox_Button_CloudIDFriend.Visible = true;

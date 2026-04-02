@@ -6,6 +6,11 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
+
+
+
+
+
 namespace Cursed_Market
 {
     public partial class Form_Crosshair : Form
@@ -97,7 +102,7 @@ namespace Cursed_Market
                 {
                     if (wParam == (IntPtr)WM_RBUTTONDOWN)
                     {
-                        this.BeginInvoke((Action)(() => this.Opacity = (float)Globals.Crosshair.opacity / 100));
+                        this.BeginInvoke((Action)(() => this.Opacity = (float)ProgramFeatures.Crosshair.GetOpacity() / 100));
                     }
                     else if (wParam == (IntPtr)WM_RBUTTONUP)
                     {
@@ -140,7 +145,7 @@ namespace Cursed_Market
         {
             InitializeComponent();
             InitializeSettings();
-            if (Globals.Application.startupArguments.Contains(Globals.Application.SE_CommonStartupArguments.crosshairToggleFeature))
+            if (ProgramStartupArguments.HasStartupArgument(ProgramStartupArguments.Common.crosshairToggleFeature))
             {
                 InitializeBackgroundWorkers();
                 bgwHook.RunWorkerAsync();
@@ -193,121 +198,121 @@ namespace Cursed_Market
         public void ForceInitializeSettings() => InitializeSettings(); // Public proxy function for initializing settings at any time given, from any class.
         private void InitializeSettings()
         {
-            switch (Globals.Crosshair.selectedCrosshair)
+            switch (ProgramFeatures.Crosshair.GetSelectedCrosshair())
             {
                 default:
                     pictureBox_Crosshair.Image = Properties.Resources.IMG_MISSING; // Default crosshair to use if nothing is set.
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.none:
+                case ProgramFeatures.Crosshair.E_Crosshairs.none:
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.cs_nafany:
+                case ProgramFeatures.Crosshair.E_Crosshairs.cs_nafany:
                     pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_CS_nafany;
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.cs_donk:
+                case ProgramFeatures.Crosshair.E_Crosshairs.cs_donk:
                     pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_CS_donk;
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.cs_felps:
+                case ProgramFeatures.Crosshair.E_Crosshairs.cs_felps:
                     pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_CS_Felps;
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.circleAqua:
+                case ProgramFeatures.Crosshair.E_Crosshairs.circleAqua:
                     pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_DEFAULT_CIRCLE_AQUA;
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.circleWhite:
+                case ProgramFeatures.Crosshair.E_Crosshairs.circleWhite:
                     pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_DEFAULT_CIRCLE_WHITE;
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.dotAqua:
+                case ProgramFeatures.Crosshair.E_Crosshairs.dotAqua:
                     pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_DEFAULT_DOT_AQUA;
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.dotGreen:
+                case ProgramFeatures.Crosshair.E_Crosshairs.dotGreen:
                     pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_DEFAULT_DOT_GREEN;
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.dotRed:
+                case ProgramFeatures.Crosshair.E_Crosshairs.dotRed:
                     pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_DEFAULT_DOT_RED;
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.dotYellow:
+                case ProgramFeatures.Crosshair.E_Crosshairs.dotYellow:
                     pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_DEFAULT_DOT_YELLOW;
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.tacticAqua:
+                case ProgramFeatures.Crosshair.E_Crosshairs.tacticAqua:
                     pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_TACTIC_AQUA;
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.tacticWhite:
+                case ProgramFeatures.Crosshair.E_Crosshairs.tacticWhite:
                     pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_TACTIC_WHITE;
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom01:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair01FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom01:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair01FilePath);
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom02:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair02FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom02:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair02FilePath);
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom03:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair03FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom03:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair03FilePath);
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom04:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair04FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom04:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair04FilePath);
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom05:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair05FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom05:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair05FilePath);
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom06:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair06FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom06:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair06FilePath);
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom07:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair07FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom07:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair07FilePath);
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom08:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair08FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom08:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair08FilePath);
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom09:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair09FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom09:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair09FilePath);
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom10:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair10FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom10:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair10FilePath);
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom11:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair11FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom11:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair11FilePath);
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom12:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair12FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom12:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair12FilePath);
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom13:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair13FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom13:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair13FilePath);
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom14:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair14FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom14:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair14FilePath);
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom15:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair15FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom15:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair15FilePath);
                     break;
 
-                case Globals.Crosshair.E_Crosshairs.custom16:
-                    SetCrosshairFromFile(Globals.Crosshair.customCrosshair16FilePath);
+                case ProgramFeatures.Crosshair.E_Crosshairs.custom16:
+                    SetCrosshairFromFile(ProgramPaths.customCrosshair16FilePath);
                     break;
             }
 
@@ -317,7 +322,7 @@ namespace Cursed_Market
 
 
             pictureBox_Crosshair.Location = new Point(this.Width / 2 - (pictureBox_Crosshair.Width / 2), this.Height / 2 - (pictureBox_Crosshair.Height / 2)); // Calculating X & Y coordinates of the user screen center and moving crosshair to them.
-            this.Opacity = (float)Globals.Crosshair.opacity / 100; // Crosshair opacity is stored as percent number (0-100), bu WinForms opacity settings are designed for a float in range 0.0-1.0 | 100 / 100 = 1.0
+            this.Opacity = (float)ProgramFeatures.Crosshair.GetOpacity() / 100; // Crosshair opacity is stored as percent number (0-100), bu WinForms opacity settings are designed for a float in range 0.0-1.0 | 100 / 100 = 1.0
         }
     }
 }

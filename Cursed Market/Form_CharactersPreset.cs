@@ -6,6 +6,11 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
+
+
+
 namespace Cursed_Market
 {
     public partial class Form_CharactersPreset : Form
@@ -45,27 +50,27 @@ namespace Cursed_Market
         }
         private void Form_CharactersPreset_Shown(object sender, EventArgs e)
         {
-            if (File.Exists(Globals.CharactersPreset.charactersMapFilePath) == false)
+            if (File.Exists(ProgramPaths.charactersMapFilePath) == false)
             {
-                Messaging.ShowMessage($"\"CharactersMap.json\" File doesn't exist!\nFull Path: {Globals.CharactersPreset.charactersMapFilePath}", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                Messaging.ShowMessage($"\"CharactersMap.json\" File doesn't exist!\nFull Path: {ProgramPaths.charactersMapFilePath}", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 this.Close();
             }
 
-            if (File.Exists(Globals.CharactersPreset.charactersPresetFilePath) == false)
+            if (File.Exists(ProgramPaths.charactersPresetFilePath) == false)
             {
-                Messaging.ShowMessage($"\"CharactersPreset.json\" File doesn't exist!\nFull Path: {Globals.CharactersPreset.charactersPresetFilePath}", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                Messaging.ShowMessage($"\"CharactersPreset.json\" File doesn't exist!\nFull Path: {ProgramPaths.charactersPresetFilePath}", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 this.Close();
             }
 
 
-            string charactersMap = File.ReadAllText(Globals.CharactersPreset.charactersMapFilePath);
+            string charactersMap = File.ReadAllText(ProgramPaths.charactersMapFilePath);
             if (string.IsNullOrEmpty(charactersMap) || charactersMap.IsJson() == false)
             {
                 Messaging.ShowMessage($"Failed to read \"CharactersMap.json\" file! Make sure that file isn't empty and it's content is in JSON format.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 this.Close();
             }
 
-            string charactersPreset = File.ReadAllText(Globals.CharactersPreset.charactersPresetFilePath);
+            string charactersPreset = File.ReadAllText(ProgramPaths.charactersPresetFilePath);
             if (string.IsNullOrEmpty(charactersPreset) || charactersPreset.IsJson() == false)
             {
                 Messaging.ShowMessage($"Failed to read \"charactersPreset.json\" file! Make sure that file isn't empty and it's content is in JSON format.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
@@ -82,7 +87,7 @@ namespace Cursed_Market
 
                 if (string.IsNullOrEmpty(friendlyName) == false && string.IsNullOrEmpty(characterPortrait) == false) // Check if both character name & character portrait fields aren't empty & valid.
                 {
-                    string characterPortraitFilePath = Path.Combine(Globals.CharactersPreset.charactersPortraitsDirectory, characterPortrait);
+                    string characterPortraitFilePath = Path.Combine(ProgramPaths.charactersPortraitsDirectory, characterPortrait);
                     if (File.Exists(characterPortraitFilePath)) // Check if specified character portrait leads to an valid file.
                     {
                         Image characterPortraitImage = Image.FromFile(characterPortraitFilePath);
@@ -145,7 +150,7 @@ namespace Cursed_Market
 
         public void ReloadTheme()
         {
-            switch (Globals.Application.Theme.selectedTheme)
+            switch (ProgramThemes.GetSelectedTheme())
             {
                 default:
                     this.BackColor = Color.White;
@@ -164,7 +169,7 @@ namespace Cursed_Market
                     button_SaveChanges.FlatAppearance.BorderColor = Color.Gray;
                     break;
 
-                case Globals.Application.Theme.E_Themes.legacy:
+                case ProgramThemes.E_Themes.legacy:
                     this.BackColor = Color.FromArgb(255, 46, 51, 73);
                     panel_WindowHeader.BackColor = Color.FromArgb(255, 24, 30, 54);
                     label_CharactersPresetTitle.ForeColor = Color.White;
@@ -181,7 +186,7 @@ namespace Cursed_Market
                     button_SaveChanges.FlatAppearance.BorderColor = Color.DarkRed;
                     break;
 
-                case Globals.Application.Theme.E_Themes.darkMemories:
+                case ProgramThemes.E_Themes.darkMemories:
                     this.BackColor = Color.FromArgb(255, 44, 47, 51);
                     panel_WindowHeader.BackColor = Color.FromArgb(255, 35, 39, 42);
                     label_CharactersPresetTitle.ForeColor = Color.White;
@@ -198,7 +203,7 @@ namespace Cursed_Market
                     button_SaveChanges.FlatAppearance.BorderColor = Color.FromArgb(255, 95, 95, 95);
                     break;
 
-                case Globals.Application.Theme.E_Themes.saintsRow:
+                case ProgramThemes.E_Themes.saintsRow:
                     this.BackColor = Color.FromArgb(255, 37, 13, 57);
                     panel_WindowHeader.BackColor = Color.FromArgb(255, 55, 20, 86);
                     label_CharactersPresetTitle.ForeColor = Color.White;
@@ -215,7 +220,7 @@ namespace Cursed_Market
                     button_SaveChanges.FlatAppearance.BorderColor = Color.MediumPurple;
                     break;
 
-                case Globals.Application.Theme.E_Themes.dracula:
+                case ProgramThemes.E_Themes.dracula:
                     this.BackColor = Color.FromArgb(255, 40, 42, 54);
                     panel_WindowHeader.BackColor = Color.FromArgb(255, 68, 71, 90);
                     label_CharactersPresetTitle.ForeColor = Color.White;
@@ -232,7 +237,7 @@ namespace Cursed_Market
                     button_SaveChanges.FlatAppearance.BorderColor = Color.MediumPurple;
                     break;
 
-                case Globals.Application.Theme.E_Themes.christmas:
+                case ProgramThemes.E_Themes.christmas:
                     this.BackColor = Color.FromArgb(255, 24, 24, 24);
                     panel_WindowHeader.BackColor = Color.FromArgb(255, 14, 14, 14);
                     label_CharactersPresetTitle.ForeColor = Color.White;
@@ -489,7 +494,7 @@ namespace Cursed_Market
         private void button_SaveChanges_MouseClick(object sender, MouseEventArgs e)
         {
             changesWasMade = false;
-            File.WriteAllText(Globals.CharactersPreset.charactersPresetFilePath, outCharactersPreset.ToString());
+            File.WriteAllText(ProgramPaths.charactersPresetFilePath, outCharactersPreset.ToString());
             Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
         }
     }

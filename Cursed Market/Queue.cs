@@ -32,69 +32,73 @@ namespace Cursed_Market
         public static void UpdateQueue()
         {
             // Threading can f#ck things up, we need to check if Invoking is required.
-            if (Globals_Cache.Forms.Main.InvokeRequired)
+            if (ProgramCache.Forms.Main.InvokeRequired)
             {
-                Globals_Cache.Forms.Main.Invoke(new Action(() =>
-                    Globals_Cache.Forms.Main.LocalUpdateQueue(queueStatus, queuePosition)));
+                ProgramCache.Forms.Main.Invoke(new Action(() =>
+                    ProgramCache.Forms.Main.LocalUpdateQueue(queueStatus, queuePosition)));
             }
             else
             {
-                Globals_Cache.Forms.Main.LocalUpdateQueue(queueStatus, queuePosition);
+                ProgramCache.Forms.Main.LocalUpdateQueue(queueStatus, queuePosition);
             }
 
 
             // Threading can f#ck things up, we need to check if Invoking is required.
-            if (Globals_Cache.Forms.Queue.InvokeRequired)
+            if (ProgramCache.Forms.Queue.InvokeRequired)
             {
-                Globals_Cache.Forms.Queue.Invoke(new Action(() =>
-                    Globals_Cache.Forms.Queue.LocalUpdateQueue(queueStatus, queuePosition)));
+                ProgramCache.Forms.Queue.Invoke(new Action(() =>
+                    ProgramCache.Forms.Queue.LocalUpdateQueue(queueStatus, queuePosition)));
             }
             else
             {
-                Globals_Cache.Forms.Queue.LocalUpdateQueue(queueStatus, queuePosition);
+                ProgramCache.Forms.Queue.LocalUpdateQueue(queueStatus, queuePosition);
             }
         }
 
         
         public static void PlaySound()
         {
-            switch (Globals.Queue.selectedNotifySound)
+            switch (ProgramFeatures.QueueNotify.GetSelectedNotifySound())
             {
-                case Globals.Queue.E_NotifySounds.none:
+                case ProgramFeatures.QueueNotify.E_NotifySounds.none:
                     break;
 
-                case Globals.Queue.E_NotifySounds.gongHit:
+                case ProgramFeatures.QueueNotify.E_NotifySounds.gongHit:
                     Media.PlaySoundFromStream(Properties.Resources.SFX_GongHit);
                     break;
 
-                case Globals.Queue.E_NotifySounds.okLetsGo:
+                case ProgramFeatures.QueueNotify.E_NotifySounds.okLetsGo:
                     Media.PlaySoundFromStream(Properties.Resources.SFX_OKLetsGo);
                     break;
 
-                case Globals.Queue.E_NotifySounds.NFLTheme:
+                case ProgramFeatures.QueueNotify.E_NotifySounds.NFLTheme:
                     Media.PlaySoundFromStream(Properties.Resources.SFX_NFLTheme);
                     break;
 
-                case Globals.Queue.E_NotifySounds.gayEcho:
+                case ProgramFeatures.QueueNotify.E_NotifySounds.gayEcho:
                     Media.PlaySoundFromStream(Properties.Resources.SFX_GayEcho);
                     break;
 
-                case Globals.Queue.E_NotifySounds.rizzMelody:
+                case ProgramFeatures.QueueNotify.E_NotifySounds.rizzMelody:
                     Media.PlaySoundFromStream(Properties.Resources.SFX_Rizz);
                     break;
 
-                case Globals.Queue.E_NotifySounds.runSong:
+                case ProgramFeatures.QueueNotify.E_NotifySounds.runSong:
                     Media.PlaySoundFromStream(Properties.Resources.SFX_Run);
                     break;
 
-                case Globals.Queue.E_NotifySounds.pedroSong:
+                case ProgramFeatures.QueueNotify.E_NotifySounds.pedroSong:
                     Media.PlaySoundFromStream(Properties.Resources.SFX_PedroSong);
                     break;
 
-                case Globals.Queue.E_NotifySounds.militaryHorn:
+                case ProgramFeatures.QueueNotify.E_NotifySounds.militaryHorn:
                     Media.PlaySoundFromStream(Properties.Resources.SFX_MilitaryHorn);
                     break;
             }
+        }
+        public static void StopSound()
+        {
+            Media.StopSound();
         }
     }
 }

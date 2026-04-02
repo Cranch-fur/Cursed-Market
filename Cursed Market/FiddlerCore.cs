@@ -10,36 +10,15 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 
+
+
+
+
+
 namespace Cursed_Market
 {
     public static class FiddlerCore
     {
-        public static class RootCertificate
-        {
-            public static string filePath = $"{Globals.Application.GetDataFolderPath()}\\Cursed Market Root Certificate.p12";
-            public static string passwordFilePath = $"{Globals.Application.GetDataFolderPath()}\\Cursed Market Root Certificate Password.txt";
-
-            public const string password = "QLa7X9G6mvNbHuhRjtAnSZ8f3y52DzpwCPeKFJBcVgxMq4dY";
-            
-            public static bool WritePasswordFile()
-            {
-                if (Directory.Exists(Globals.Application.GetDataFolderPath()))
-                {
-                    try
-                    {
-                        File.WriteAllText(passwordFilePath, password);
-                        return true;
-                    }
-                    catch
-                    {
-                        throw new Exception($"Failed to write certificate password file!");
-                    }
-                }
-
-                return false;
-            }
-        }
-
         static FiddlerCore()
         {
             FiddlerApplication.BeforeRequest += FiddlerToCatchBeforeRequest;
@@ -53,20 +32,20 @@ namespace Cursed_Market
             BCCertMaker.BCCertMaker certProvider = new BCCertMaker.BCCertMaker();
             CertMaker.oCertProvider = certProvider;
 
-            if (File.Exists(RootCertificate.filePath) == false)
+            if (File.Exists(ProgramPaths.networkingCertificateFilePath) == false)
             {
                 certProvider.CreateRootCertificate();
-                certProvider.WriteRootCertificateAndPrivateKeyToPkcs12File(RootCertificate.filePath, RootCertificate.password);
+                certProvider.WriteRootCertificateAndPrivateKeyToPkcs12File(ProgramPaths.networkingCertificateFilePath, ProgramNetworking.password);
             }
             else
             {
                 try
                 {
-                    certProvider.ReadRootCertificateAndPrivateKeyFromPkcs12File(RootCertificate.filePath, RootCertificate.password);
+                    certProvider.ReadRootCertificateAndPrivateKeyFromPkcs12File(ProgramPaths.networkingCertificateFilePath, ProgramNetworking.password);
                 }
                 catch
                 {
-                    File.Delete(RootCertificate.filePath); // Destroy corrupt certificate file.
+                    File.Delete(ProgramPaths.networkingCertificateFilePath); // Destroy corrupt certificate file.
                     EnsureRootCertificate(); // Re-execute function to build a new certificate.
                 }
             }
@@ -150,17 +129,17 @@ namespace Cursed_Market
             
 
             List<string> runningExtraLogic = new List<string>();
-            if (LoadAndRunExtraLogic(Globals.FiddlerCoreTunables.extraLogicBeforeRequestFilePath))
+            if (LoadAndRunExtraLogic(ProgramPaths.extraLogicBeforeRequestFilePath))
             {
-                runningExtraLogic.Add(Globals.FiddlerCoreTunables.extraLogicBeforeRequestFilePath);
+                runningExtraLogic.Add(ProgramPaths.extraLogicBeforeRequestFilePath);
             }
-            if (LoadAndRunExtraLogic(Globals.FiddlerCoreTunables.extraLogicBeforeResponseFilePath))
+            if (LoadAndRunExtraLogic(ProgramPaths.extraLogicBeforeResponseFilePath))
             {
-                runningExtraLogic.Add(Globals.FiddlerCoreTunables.extraLogicBeforeResponseFilePath);
+                runningExtraLogic.Add(ProgramPaths.extraLogicBeforeResponseFilePath);
             }
-            if (LoadAndRunExtraLogic(Globals.FiddlerCoreTunables.extraLogicAfterSessionCompleteFilePath))
+            if (LoadAndRunExtraLogic(ProgramPaths.extraLogicAfterSessionCompleteFilePath))
             {
-                runningExtraLogic.Add(Globals.FiddlerCoreTunables.extraLogicAfterSessionCompleteFilePath);
+                runningExtraLogic.Add(ProgramPaths.extraLogicAfterSessionCompleteFilePath);
             }
 
 
@@ -204,22 +183,22 @@ namespace Cursed_Market
             if (oSession.uriContains("/login?token=") || oSession.uriContains("/loginWithTokenBody"))
             {
                 if (oSession.oRequest["User-Agent"].Length > 0)
-                    Globals_Session.Game.user_agent = oSession.oRequest["User-Agent"];
+                    ProgramSession.Game.user_agent = oSession.oRequest["User-Agent"];
 
                 if (oSession.oRequest["x-kraken-client-platform"].Length > 0)
-                    Globals_Session.Game.client_platform = oSession.oRequest["x-kraken-client-platform"];
+                    ProgramSession.Game.client_platform = oSession.oRequest["x-kraken-client-platform"];
 
                 if (oSession.oRequest["x-kraken-client-provider"].Length > 0)
-                    Globals_Session.Game.client_provider = oSession.oRequest["x-kraken-client-provider"];
+                    ProgramSession.Game.client_provider = oSession.oRequest["x-kraken-client-provider"];
 
                 if (oSession.oRequest["x-kraken-client-os"].Length > 0)
-                    Globals_Session.Game.client_os = oSession.oRequest["x-kraken-client-os"];
+                    ProgramSession.Game.client_os = oSession.oRequest["x-kraken-client-os"];
 
                 if (oSession.oRequest["x-kraken-client-version"].Length > 0)
-                    Globals_Session.Game.client_version = oSession.oRequest["x-kraken-client-version"];
+                    ProgramSession.Game.client_version = oSession.oRequest["x-kraken-client-version"];
 
 
-                Globals_Session.Game.Platform.currentPlatform = Globals_Session.Game.Platform.ResolvePlatformFromHostName(oSession.hostname);
+                ProgramSession.Game.Platform.currentPlatform = ProgramSession.Game.Platform.ResolvePlatformFromHostName(oSession.hostname);
             }
 
 
@@ -227,15 +206,15 @@ namespace Cursed_Market
             {
                 if (oSession.oRequest["api-key"].Length > 0)
                 {
-                    Globals_Session.Game.api_key = oSession.oRequest["api-key"];
-                    Globals_Cache.Forms.Main.UpdateApiKey();
+                    ProgramSession.Game.api_key = oSession.oRequest["api-key"];
+                    ProgramCache.Forms.Main.UpdateApiKey();
                 }
 
                 return;
             }
 
 
-            if (Globals_Session.Game.Platform.GetCurrentPlatformHostNames().Contains(oSession.hostname))
+            if (ProgramSession.Game.Platform.GetCurrentPlatformHostNames().Contains(oSession.hostname))
             {
                 if (oSession.uriContains("/api/v1/inventories"))
                 {
@@ -259,11 +238,11 @@ namespace Cursed_Market
                 }
 
 
-                if (Globals.FiddlerCoreTunables.Catalog.enabled == true)
+                if (ProgramFeatures.Catalog.enabled == true)
                 {
-                    if (Globals_Session.Game.Platform.limitedPlatforms.Contains(Globals_Session.Game.Platform.currentPlatform))
+                    if (ProgramSession.Game.Platform.limitedPlatforms.Contains(ProgramSession.Game.Platform.currentPlatform))
                     {
-                        Globals.FiddlerCoreTunables.Catalog.enabled = false;
+                        ProgramFeatures.Catalog.enabled = false;
                         return;
                     }
 
@@ -277,11 +256,11 @@ namespace Cursed_Market
                 }
 
 
-                if (Globals.FiddlerCoreTunables.AntiKillSwitch.enabled == true)
+                if (ProgramFeatures.AntiKillSwitch.enabled == true)
                 {
-                    if (Globals_Session.Game.Platform.limitedPlatforms.Contains(Globals_Session.Game.Platform.currentPlatform))
+                    if (ProgramSession.Game.Platform.limitedPlatforms.Contains(ProgramSession.Game.Platform.currentPlatform))
                     {
-                        Globals.FiddlerCoreTunables.AntiKillSwitch.enabled = false;
+                        ProgramFeatures.AntiKillSwitch.enabled = false;
                         return;
                     }
 
@@ -296,10 +275,10 @@ namespace Cursed_Market
 
                 if (oSession.uriContains("/api/v1/dbd-character-data/get-all"))
                 {
-                    if (Globals.FiddlerCoreTunables.CharacterData.enabled == true)
+                    if (ProgramFeatures.CharacterData.enabled == true)
                     {
                         oSession.utilCreateResponseAndBypassServer();
-                        oSession.utilSetResponseBody(Globals_Cache.CursedAPI.CharacterData.data);
+                        oSession.utilSetResponseBody(ProgramCache.CursedAPI.CharacterData.data);
                         return;
                     }
                 }
@@ -312,7 +291,7 @@ namespace Cursed_Market
                 }
 
 
-                if (Globals.FiddlerCoreTunables.CurrencySpoof.enabled == true)
+                if (ProgramFeatures.CurrencySpoof.enabled == true)
                 {
                     if (oSession.uriContains("api/v1/wallet/currencies"))
                     {
@@ -328,8 +307,7 @@ namespace Cursed_Market
                         oSession.utilCreateResponseAndBypassServer();
                         string requestBody = oSession.GetRequestBodyAsString();
 
-                        WinReg.SetData_SZ(WinReg.SE_CommonEntries.gameProfile, requestBody);
-                        Globals.GameProfile.selectedPreset = requestBody;
+                        ProgramFeatures.GameProfile.SetStoredPreset(requestBody);
 
                         oSession.utilSetResponseBody(requestBody);
                         return;
@@ -337,11 +315,11 @@ namespace Cursed_Market
 
                     if (oSession.url.EndsWith("/get"))
                     {
-                        if (Globals.GameProfile.selectedPreset != null)
+                        if (ProgramFeatures.GameProfile.GetStoredPreset() != null)
                         {
                             oSession.utilCreateResponseAndBypassServer();
 
-                            oSession.utilSetResponseBody(Globals.GameProfile.selectedPreset);
+                            oSession.utilSetResponseBody(ProgramFeatures.GameProfile.GetStoredPreset());
                             return;
                         }
                     }
@@ -351,16 +329,16 @@ namespace Cursed_Market
 
         public static void FiddlerToCatchBeforeResponse(Session oSession)
         {
-            if (Globals_Session.Game.Platform.GetCurrentPlatformHostNames().Contains(oSession.hostname))
+            if (ProgramSession.Game.Platform.GetCurrentPlatformHostNames().Contains(oSession.hostname))
             {
                 if (oSession.uriContains("/api/v1/dbd-inventories/all"))
                 {
                     string responseBody = oSession.GetResponseBodyAsString();
 
 
-                    if (Globals.FiddlerCoreTunables.CharacterData.enabled == true)
+                    if (ProgramFeatures.CharacterData.enabled == true)
                     {
-                        if (Globals_Session.Game.isInMatch)
+                        if (ProgramSession.Game.isInMatch)
                         {
                             oSession.utilSetResponseBody(CursedAPI.GetPopulatedMarketFile(responseBody, CursedAPI.E_MarketFilePopulationType.All));
                         }
@@ -378,7 +356,7 @@ namespace Cursed_Market
 
                 if (oSession.uriContains("/api/v1/dbd-character-data/bloodweb"))
                 {
-                    if (Globals.FiddlerCoreTunables.CharacterData.enabled == true || (Globals.FiddlerCoreTunables.CharacterData.enabled == false && oSession.responseCode != 200)) // Requesting bloodweb for a character we doesn't own results server to return an exception, so we need to swap data for these characters anyways.
+                    if (ProgramFeatures.CharacterData.enabled == true || (ProgramFeatures.CharacterData.enabled == false && oSession.responseCode != 200)) // Requesting bloodweb for a character we doesn't own results server to return an exception, so we need to swap data for these characters anyways.
                     {
                         string requestBody = oSession.GetRequestBodyAsString();
                         if (requestBody.IsJson())
@@ -386,11 +364,11 @@ namespace Cursed_Market
                             JObject requestBodyJSON = JObject.Parse(requestBody);
                             string characterName = (string)requestBodyJSON["characterName"]; // Get name (ID) of the character game is currently requesting bloodweb for.
 
-                            JObject customResponseJSON = JObject.Parse(Globals_Cache.CursedAPI.bloodWebData);
+                            JObject customResponseJSON = JObject.Parse(ProgramCache.CursedAPI.bloodWebData);
                             customResponseJSON["characterName"] = characterName; // Apply character name (ID) we've got from game request to our response.
 
 
-                            if (Globals.FiddlerCoreTunables.CharacterData.enabled == false)
+                            if (ProgramFeatures.CharacterData.enabled == false)
                             {
                                 customResponseJSON["characterItems"] = new JArray(); // We want to remove all character progression from response if user isn't looking for it.
                                 customResponseJSON["bloodWebLevel"] = 1; // Invalidate bloodWebLevel.
@@ -398,13 +376,13 @@ namespace Cursed_Market
                                 customResponseJSON["legacyPrestigeLevel"] = 0; // Invalidate legacyPrestigeLevel. (Legacy Prestige indicates prestige character had before maximum number of prestiges was increased 3 --> 100)
 
                             }
-                            if (Globals.FiddlerCoreTunables.CharactersPreset.enabled == true)
+                            if (ProgramFeatures.CharactersPreset.enabled == true)
                             {
-                                if (Globals.CharacterData.characterDataMap.ContainsKey(characterName)) // Check if characters map contains character we're currently looking for.
+                                if (ProgramFeatures.CharacterData.characterDataMap.ContainsKey(characterName)) // Check if characters map contains character we're currently looking for.
                                 {
-                                    customResponseJSON["bloodWebLevel"] = Globals.CharacterData.characterDataMap[characterName].bloodWebLevel; // Set custom bloodWebLevel.
-                                    customResponseJSON["prestigeLevel"] = Globals.CharacterData.characterDataMap[characterName].prestigeLevel; // Set custom prestigeLevel.
-                                    customResponseJSON["legacyPrestigeLevel"] = Globals.CharacterData.characterDataMap[characterName].legacyPrestigeLevel; // Set custom legacyPrestigeLevel. (Legacy Prestige indicates prestige character had before maximum number of prestiges was increased 3 --> 100)
+                                    customResponseJSON["bloodWebLevel"] = ProgramFeatures.CharacterData.characterDataMap[characterName].bloodWebLevel; // Set custom bloodWebLevel.
+                                    customResponseJSON["prestigeLevel"] = ProgramFeatures.CharacterData.characterDataMap[characterName].prestigeLevel; // Set custom prestigeLevel.
+                                    customResponseJSON["legacyPrestigeLevel"] = ProgramFeatures.CharacterData.characterDataMap[characterName].legacyPrestigeLevel; // Set custom legacyPrestigeLevel. (Legacy Prestige indicates prestige character had before maximum number of prestiges was increased 3 --> 100)
                                 }
 
                             }
@@ -416,13 +394,13 @@ namespace Cursed_Market
                         }
                         else
                         {
-                            oSession.utilSetResponseBody(Globals_Cache.CursedAPI.bloodWebData.ToString());
+                            oSession.utilSetResponseBody(ProgramCache.CursedAPI.bloodWebData.ToString());
                             return;
                         }
                     }
                 }
 
-                if (Globals.FiddlerCoreTunables.CurrencySpoof.enabled == true)
+                if (ProgramFeatures.CurrencySpoof.enabled == true)
                 {
                     if (oSession.uriContains("api/v1/wallet/currencies"))
                     {
@@ -441,15 +419,15 @@ namespace Cursed_Market
                                         break;
 
                                     case "BonusBloodpoints":
-                                        currency["balance"] = Globals.FiddlerCoreTunables.CurrencySpoof.bloodpointsAmount;
+                                        currency["balance"] = ProgramFeatures.CurrencySpoof.bloodpointsAmount;
                                         break;
 
                                     case "Shards":
-                                        currency["balance"] = Globals.FiddlerCoreTunables.CurrencySpoof.iridescentShardsAmount;
+                                        currency["balance"] = ProgramFeatures.CurrencySpoof.iridescentShardsAmount;
                                         break;
 
                                     case "Cells":
-                                        currency["balance"] = Globals.FiddlerCoreTunables.CurrencySpoof.auricCellsAmount;
+                                        currency["balance"] = ProgramFeatures.CurrencySpoof.auricCellsAmount;
                                         break;
                                 }
                             }
@@ -463,12 +441,12 @@ namespace Cursed_Market
         }
         public static void FiddlerToCatchAfterSessionComplete(Session oSession)
         {
-            if (Globals_Session.Game.Platform.GetCurrentPlatformHostNames().Contains(oSession.hostname))
+            if (ProgramSession.Game.Platform.GetCurrentPlatformHostNames().Contains(oSession.hostname))
             {
                 if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/login") || oSession.uriContains("grdk/loginWithTokenBody"))
                 {
                     oSession.utilDecodeResponse();
-                    Globals.GameAuth.ResolveUserID(oSession.GetResponseBodyAsString());
+                    ProgramGlobals.GameAuth.ResolveUserID(oSession.GetResponseBodyAsString());
                 }
 
                 if (oSession.uriContains("/api/v1/queue"))
@@ -482,13 +460,13 @@ namespace Cursed_Market
                     }
 
 
-                    Globals_Session.Game.isInQueue = true;
-                    Globals_Session.Game.isInMatch = false; // Searching for a new lobby means that player is no longer in the match.
+                    ProgramSession.Game.isInQueue = true;
+                    ProgramSession.Game.isInMatch = false; // Searching for a new lobby means that player is no longer in the match.
 
 
-                    Globals_Session.Game.matchId = null; // We're currently looking for a new match, invalidate old matchId.
-                    Globals_Session.Game.matchType = Globals_Session.Game.E_MatchType.None;
-                    Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.None;
+                    ProgramSession.Game.matchId = null; // We're currently looking for a new match, invalidate old matchId.
+                    ProgramSession.Game.matchType = ProgramSession.Game.E_MatchType.None;
+                    ProgramSession.Game.playerRole = ProgramSession.Game.E_PlayerRole.None;
 
 
                     oSession.utilDecodeResponse();
@@ -533,7 +511,7 @@ namespace Cursed_Market
                             JArray survivorsArray = (JArray)responseJson["sideB"];
                             JArray killersArray = (JArray)responseJson["sideA"];
 
-                            if (Globals_Session.Game.isInQueue == true)
+                            if (ProgramSession.Game.isInQueue == true)
                             {
                                 int survivorsCount = survivorsArray.Count;
 
@@ -542,20 +520,20 @@ namespace Cursed_Market
                                     Queue.SetQueueStatus(Queue.E_QueueStatus.LobbyIdle);
                                     Queue.UpdateQueue();
 
-                                    Globals_Session.Game.isInQueue = false;
+                                    ProgramSession.Game.isInQueue = false;
                                 }
                             }
 
                             foreach (string killer in killersArray)
                             {
-                                if (killer == Globals_Session.Game.userId)
-                                    Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.Killer;
+                                if (killer == ProgramSession.Game.userId)
+                                    ProgramSession.Game.playerRole = ProgramSession.Game.E_PlayerRole.Killer;
                             }
 
                             foreach (string survivor in survivorsArray)
                             {
-                                if (survivor == Globals_Session.Game.userId)
-                                    Globals_Session.Game.playerRole = Globals_Session.Game.E_PlayerRole.Survivor;
+                                if (survivor == ProgramSession.Game.userId)
+                                    ProgramSession.Game.playerRole = ProgramSession.Game.E_PlayerRole.Survivor;
                             }
                         }
                         
@@ -563,25 +541,25 @@ namespace Cursed_Market
                         {
                             if ((string)responseJson["status"] == "CLOSED" && (string)responseJson["reason"] == "closed")
                             {
-                                if (Globals_Session.Game.isInMatch == false) // There's additional /match request at the end of the match, so we have to make sure that we aren't already in match first.
+                                if (ProgramSession.Game.isInMatch == false) // There's additional /match request at the end of the match, so we have to make sure that we aren't already in match first.
                                 {
                                     if (responseJson.ContainsKey("props"))
                                     {
                                         if ((string)responseJson["props"]["GameType"] == ":1") // GameType :1 - Custom Game. We do not want our Queue Status logic to apply to the custom match.
                                         {
-                                            Globals_Session.Game.matchType = Globals_Session.Game.E_MatchType.Custom;
+                                            ProgramSession.Game.matchType = ProgramSession.Game.E_MatchType.Custom;
                                         }
                                         else
                                         {
-                                            Globals_Session.Game.matchType = Globals_Session.Game.E_MatchType.Default;
+                                            ProgramSession.Game.matchType = ProgramSession.Game.E_MatchType.Default;
 
                                             Queue.SetQueueStatus(Queue.E_QueueStatus.MatchStarting);
                                             Queue.UpdateQueue();
                                         }
                                     }
 
-                                    Globals_Session.Game.isInQueue = false; // Not really needed since we already have that check above, let it be here just in case.
-                                    Globals_Session.Game.isInMatch = true; // Match was found and closed, at this point player is already loading in.
+                                    ProgramSession.Game.isInQueue = false; // Not really needed since we already have that check above, let it be here just in case.
+                                    ProgramSession.Game.isInMatch = true; // Match was found and closed, at this point player is already loading in.
                                 }
                             }
                         }
@@ -590,14 +568,14 @@ namespace Cursed_Market
                         Match match = Regex.Match(oSession.fullUrl, searchPattern);
                         if (match.Success)
                         {
-                            Globals_Session.Game.matchId = match.Groups[1].Value;
+                            ProgramSession.Game.matchId = match.Groups[1].Value;
                         }
 
                     }
                 }
 
 
-                if (Globals.FiddlerCoreTunables.GuaranteedQuests.enabled == true)
+                if (ProgramFeatures.GuaranteedQuests.enabled == true)
                 {
                     if (oSession.uriContains("/api/v1/gameDataAnalytics/v2/batch"))
                     {

@@ -1,6 +1,11 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
+
+
+
+
+
 namespace Cursed_Market
 {
     public partial class Form_Wait : Form
@@ -41,7 +46,7 @@ namespace Cursed_Market
 
         private void Form_Startup_Load(object sender, System.EventArgs e)
         {
-            Globals_Cache.Forms.Wait = this;
+            ProgramCache.Forms.Wait = this;
             label_Wait.Text = Properties.Localization.PLEASE_WAIT;
         }
         private void Form_Wait_FormClosing(object sender, FormClosingEventArgs e)
@@ -54,34 +59,34 @@ namespace Cursed_Market
 
         public void ReloadTheme()
         {
-            switch (Globals.Application.Theme.selectedTheme)
+            switch (ProgramThemes.GetSelectedTheme())
             {
                 default:
                     label_Wait.ForeColor = Color.Black;
                     this.BackColor = Color.WhiteSmoke;
                     break;
 
-                case Globals.Application.Theme.E_Themes.legacy:
+                case ProgramThemes.E_Themes.legacy:
                     label_Wait.ForeColor = Color.White;
                     this.BackColor = Color.FromArgb(255, 46, 51, 73);
                     break;
 
-                case Globals.Application.Theme.E_Themes.darkMemories:
+                case ProgramThemes.E_Themes.darkMemories:
                     label_Wait.ForeColor = Color.White;
                     this.BackColor = Color.FromArgb(255, 44, 47, 51);
                     break;
 
-                case Globals.Application.Theme.E_Themes.saintsRow:
+                case ProgramThemes.E_Themes.saintsRow:
                     label_Wait.ForeColor = Color.FromArgb(255, 146, 71, 214);
                     this.BackColor = Color.FromArgb(255, 37, 13, 57);
                     break;
 
-                case Globals.Application.Theme.E_Themes.dracula:
+                case ProgramThemes.E_Themes.dracula:
                     label_Wait.ForeColor = Color.FromArgb(255, 248, 248, 242);
                     this.BackColor = Color.FromArgb(255, 40, 42, 54);
                     break;
 
-                case Globals.Application.Theme.E_Themes.christmas:
+                case ProgramThemes.E_Themes.christmas:
                     label_Wait.ForeColor = Color.FromArgb(255, 255, 207, 109);
                     this.BackColor = Color.FromArgb(255, 24, 24, 24);
                     break;

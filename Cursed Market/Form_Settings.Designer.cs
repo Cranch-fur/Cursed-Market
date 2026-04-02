@@ -59,6 +59,7 @@ namespace Cursed_Market
             this.label_DisabledPlatformsTitle = new System.Windows.Forms.Label();
             this.pictureBox_Telegram = new System.Windows.Forms.PictureBox();
             this.pictureBox_Boosty = new System.Windows.Forms.PictureBox();
+            this.button_ClearContentCache = new System.Windows.Forms.Button();
             this.panel_WindowHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ControlPanelSubFrame)).BeginInit();
@@ -138,7 +139,7 @@ namespace Cursed_Market
             this.pictureBox_Background.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox_Background.Location = new System.Drawing.Point(0, 22);
             this.pictureBox_Background.Name = "pictureBox_Background";
-            this.pictureBox_Background.Size = new System.Drawing.Size(600, 378);
+            this.pictureBox_Background.Size = new System.Drawing.Size(600, 398);
             this.pictureBox_Background.TabIndex = 12;
             this.pictureBox_Background.TabStop = false;
             // 
@@ -148,7 +149,7 @@ namespace Cursed_Market
             this.button_ClearCertificates.FlatAppearance.BorderSize = 0;
             this.button_ClearCertificates.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_ClearCertificates.ForeColor = System.Drawing.Color.Black;
-            this.button_ClearCertificates.Location = new System.Drawing.Point(107, 249);
+            this.button_ClearCertificates.Location = new System.Drawing.Point(107, 243);
             this.button_ClearCertificates.Name = "button_ClearCertificates";
             this.button_ClearCertificates.Size = new System.Drawing.Size(180, 25);
             this.button_ClearCertificates.TabIndex = 13;
@@ -161,7 +162,7 @@ namespace Cursed_Market
             this.pictureBox_ControlPanelSubFrame.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox_ControlPanelSubFrame.Location = new System.Drawing.Point(91, 235);
             this.pictureBox_ControlPanelSubFrame.Name = "pictureBox_ControlPanelSubFrame";
-            this.pictureBox_ControlPanelSubFrame.Size = new System.Drawing.Size(404, 129);
+            this.pictureBox_ControlPanelSubFrame.Size = new System.Drawing.Size(404, 148);
             this.pictureBox_ControlPanelSubFrame.TabIndex = 14;
             this.pictureBox_ControlPanelSubFrame.TabStop = false;
             // 
@@ -181,9 +182,9 @@ namespace Cursed_Market
             this.button_ResetApplicationSettings.FlatAppearance.BorderSize = 0;
             this.button_ResetApplicationSettings.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_ResetApplicationSettings.ForeColor = System.Drawing.Color.Black;
-            this.button_ResetApplicationSettings.Location = new System.Drawing.Point(299, 280);
+            this.button_ResetApplicationSettings.Location = new System.Drawing.Point(107, 304);
             this.button_ResetApplicationSettings.Name = "button_ResetApplicationSettings";
-            this.button_ResetApplicationSettings.Size = new System.Drawing.Size(180, 25);
+            this.button_ResetApplicationSettings.Size = new System.Drawing.Size(372, 25);
             this.button_ResetApplicationSettings.TabIndex = 16;
             this.button_ResetApplicationSettings.Text = "Reset Cursed Market Settings";
             this.button_ResetApplicationSettings.UseVisualStyleBackColor = false;
@@ -195,7 +196,7 @@ namespace Cursed_Market
             this.button_DisableProxy.FlatAppearance.BorderSize = 0;
             this.button_DisableProxy.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_DisableProxy.ForeColor = System.Drawing.Color.Black;
-            this.button_DisableProxy.Location = new System.Drawing.Point(107, 280);
+            this.button_DisableProxy.Location = new System.Drawing.Point(107, 274);
             this.button_DisableProxy.Name = "button_DisableProxy";
             this.button_DisableProxy.Size = new System.Drawing.Size(180, 25);
             this.button_DisableProxy.TabIndex = 17;
@@ -263,7 +264,7 @@ namespace Cursed_Market
             this.comboBox_DisabledPlatforms.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_DisabledPlatforms.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox_DisabledPlatforms.FormattingEnabled = true;
-            this.comboBox_DisabledPlatforms.Location = new System.Drawing.Point(107, 331);
+            this.comboBox_DisabledPlatforms.Location = new System.Drawing.Point(107, 352);
             this.comboBox_DisabledPlatforms.Name = "comboBox_DisabledPlatforms";
             this.comboBox_DisabledPlatforms.Size = new System.Drawing.Size(112, 21);
             this.comboBox_DisabledPlatforms.TabIndex = 23;
@@ -274,7 +275,7 @@ namespace Cursed_Market
             this.button_RemoveDisabledPlatform.FlatAppearance.BorderSize = 0;
             this.button_RemoveDisabledPlatform.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_RemoveDisabledPlatform.ForeColor = System.Drawing.Color.Black;
-            this.button_RemoveDisabledPlatform.Location = new System.Drawing.Point(230, 331);
+            this.button_RemoveDisabledPlatform.Location = new System.Drawing.Point(230, 352);
             this.button_RemoveDisabledPlatform.Name = "button_RemoveDisabledPlatform";
             this.button_RemoveDisabledPlatform.Size = new System.Drawing.Size(248, 23);
             this.button_RemoveDisabledPlatform.TabIndex = 24;
@@ -346,7 +347,7 @@ namespace Cursed_Market
             // 
             this.pictureBox_Discord.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox_Discord.Image = global::Cursed_Market.Properties.Resources.IMG_SOCIAL_DISCORD_BLACK;
-            this.pictureBox_Discord.Location = new System.Drawing.Point(246, 365);
+            this.pictureBox_Discord.Location = new System.Drawing.Point(246, 386);
             this.pictureBox_Discord.Name = "pictureBox_Discord";
             this.pictureBox_Discord.Size = new System.Drawing.Size(32, 32);
             this.pictureBox_Discord.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -361,7 +362,7 @@ namespace Cursed_Market
             this.button_CreateCertificatePassword.FlatAppearance.BorderSize = 0;
             this.button_CreateCertificatePassword.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_CreateCertificatePassword.ForeColor = System.Drawing.Color.Black;
-            this.button_CreateCertificatePassword.Location = new System.Drawing.Point(299, 249);
+            this.button_CreateCertificatePassword.Location = new System.Drawing.Point(299, 243);
             this.button_CreateCertificatePassword.Name = "button_CreateCertificatePassword";
             this.button_CreateCertificatePassword.Size = new System.Drawing.Size(152, 25);
             this.button_CreateCertificatePassword.TabIndex = 47;
@@ -372,7 +373,7 @@ namespace Cursed_Market
             // button_OpenCertificateDirectory
             // 
             this.button_OpenCertificateDirectory.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_OpenCertificateDirectory.Location = new System.Drawing.Point(454, 249);
+            this.button_OpenCertificateDirectory.Location = new System.Drawing.Point(454, 243);
             this.button_OpenCertificateDirectory.Name = "button_OpenCertificateDirectory";
             this.button_OpenCertificateDirectory.Size = new System.Drawing.Size(25, 25);
             this.button_OpenCertificateDirectory.TabIndex = 48;
@@ -383,7 +384,7 @@ namespace Cursed_Market
             // label_DisabledPlatformsTitle
             // 
             this.label_DisabledPlatformsTitle.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_DisabledPlatformsTitle.Location = new System.Drawing.Point(210, 313);
+            this.label_DisabledPlatformsTitle.Location = new System.Drawing.Point(210, 334);
             this.label_DisabledPlatformsTitle.Name = "label_DisabledPlatformsTitle";
             this.label_DisabledPlatformsTitle.Size = new System.Drawing.Size(180, 15);
             this.label_DisabledPlatformsTitle.TabIndex = 49;
@@ -394,7 +395,7 @@ namespace Cursed_Market
             // 
             this.pictureBox_Telegram.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox_Telegram.Image = global::Cursed_Market.Properties.Resources.IMG_SOCIAL_TELEGRAM_BLACK;
-            this.pictureBox_Telegram.Location = new System.Drawing.Point(284, 365);
+            this.pictureBox_Telegram.Location = new System.Drawing.Point(284, 386);
             this.pictureBox_Telegram.Name = "pictureBox_Telegram";
             this.pictureBox_Telegram.Size = new System.Drawing.Size(32, 32);
             this.pictureBox_Telegram.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -407,7 +408,7 @@ namespace Cursed_Market
             // 
             this.pictureBox_Boosty.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox_Boosty.Image = global::Cursed_Market.Properties.Resources.IMG_SOCIAL_BOOSTY_BLACK;
-            this.pictureBox_Boosty.Location = new System.Drawing.Point(322, 365);
+            this.pictureBox_Boosty.Location = new System.Drawing.Point(322, 386);
             this.pictureBox_Boosty.Name = "pictureBox_Boosty";
             this.pictureBox_Boosty.Size = new System.Drawing.Size(32, 32);
             this.pictureBox_Boosty.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -416,12 +417,27 @@ namespace Cursed_Market
             this.pictureBox_Boosty.Visible = false;
             this.pictureBox_Boosty.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_Boosty_MouseClick);
             // 
+            // button_ClearContentCache
+            // 
+            this.button_ClearContentCache.BackColor = System.Drawing.Color.Transparent;
+            this.button_ClearContentCache.FlatAppearance.BorderSize = 0;
+            this.button_ClearContentCache.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_ClearContentCache.ForeColor = System.Drawing.Color.Black;
+            this.button_ClearContentCache.Location = new System.Drawing.Point(299, 274);
+            this.button_ClearContentCache.Name = "button_ClearContentCache";
+            this.button_ClearContentCache.Size = new System.Drawing.Size(180, 25);
+            this.button_ClearContentCache.TabIndex = 52;
+            this.button_ClearContentCache.Text = "Clear Content Cache";
+            this.button_ClearContentCache.UseVisualStyleBackColor = false;
+            this.button_ClearContentCache.MouseClick += new System.Windows.Forms.MouseEventHandler(this.button_ClearContentCache_MouseClick);
+            // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(600, 400);
+            this.ClientSize = new System.Drawing.Size(600, 420);
+            this.Controls.Add(this.button_ClearContentCache);
             this.Controls.Add(this.pictureBox_Boosty);
             this.Controls.Add(this.pictureBox_Telegram);
             this.Controls.Add(this.label_DisabledPlatformsTitle);
@@ -501,5 +517,6 @@ namespace Cursed_Market
         private System.Windows.Forms.Label label_DisabledPlatformsTitle;
         private System.Windows.Forms.PictureBox pictureBox_Telegram;
         private System.Windows.Forms.PictureBox pictureBox_Boosty;
+        private System.Windows.Forms.Button button_ClearContentCache;
     }
 }

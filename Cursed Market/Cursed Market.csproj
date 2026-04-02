@@ -213,9 +213,12 @@
     <Compile Include="Form_Timer.Designer.cs">
       <DependentUpon>Form_Timer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Globals.cs" />
-    <Compile Include="Globals_Cache.cs" />
-    <Compile Include="Globals_Session.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="ProgramFeatures.cs" />
+    <Compile Include="ProgramGlobals.cs" />
+    <Compile Include="ProgramCache.cs" />
+    <Compile Include="ProgramNetworking.cs" />
+    <Compile Include="ProgramSession.cs" />
     <Compile Include="Media.cs" />
     <Compile Include="Messaging.cs" />
     <Compile Include="Form_Queue.cs">
@@ -225,6 +228,8 @@
       <DependentUpon>Form_Queue.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="ProgramStartupArguments.cs" />
+    <Compile Include="ProgramThemes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Localization.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -236,6 +241,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OfflineAPI.resx</DependentUpon>
     </Compile>
+    <Compile Include="ProgramPaths.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

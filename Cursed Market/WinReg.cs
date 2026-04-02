@@ -1,6 +1,11 @@
 ﻿using Microsoft.Win32;
 using System;
 
+
+
+
+
+
 namespace Cursed_Market
 {
     public static class WinReg
@@ -21,7 +26,7 @@ namespace Cursed_Market
 
 
 
-        public class SE_CommonEntries
+        public class Common
         {
             public static readonly string firstLaunch      = "First Launch Complete";
             public static readonly string applicationTheme = "Application Theme";

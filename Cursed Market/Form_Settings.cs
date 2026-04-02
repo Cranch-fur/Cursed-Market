@@ -6,6 +6,11 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
+
+
+
 namespace Cursed_Market
 {
     public partial class Form_Settings : Form
@@ -32,7 +37,7 @@ namespace Cursed_Market
 
         public void ReloadTheme()
         {
-            switch (Globals.Application.Theme.selectedTheme)
+            switch (ProgramThemes.GetSelectedTheme())
             {
                 default:
                     comboBox_ApplicationTheme.SelectedIndex = 0;
@@ -50,7 +55,7 @@ namespace Cursed_Market
                     pictureBox_Boosty.Image = Properties.Resources.IMG_SOCIAL_BOOSTY_BLACK;
                     break;
 
-                case Globals.Application.Theme.E_Themes.legacy:
+                case ProgramThemes.E_Themes.legacy:
                     comboBox_ApplicationTheme.SelectedIndex = 1;
                     this.BackColor = Color.FromArgb(255, 46, 51, 73);
                     panel_WindowHeader.BackColor = Color.FromArgb(255, 24, 30, 54);
@@ -66,7 +71,7 @@ namespace Cursed_Market
                     pictureBox_Boosty.Image = Properties.Resources.IMG_SOCIAL_BOOSTY_WHITE;
                     break;
 
-                case Globals.Application.Theme.E_Themes.darkMemories:
+                case ProgramThemes.E_Themes.darkMemories:
                     comboBox_ApplicationTheme.SelectedIndex = 2;
                     this.BackColor = Color.FromArgb(255, 44, 47, 51);
                     panel_WindowHeader.BackColor = Color.FromArgb(255, 35, 39, 42);
@@ -82,7 +87,7 @@ namespace Cursed_Market
                     pictureBox_Boosty.Image = Properties.Resources.IMG_SOCIAL_BOOSTY_WHITE;
                     break;
 
-                case Globals.Application.Theme.E_Themes.saintsRow:
+                case ProgramThemes.E_Themes.saintsRow:
                     comboBox_ApplicationTheme.SelectedIndex = 3;
                     this.BackColor = Color.FromArgb(255, 37, 13, 57);
                     panel_WindowHeader.BackColor = Color.FromArgb(255, 55, 20, 86);
@@ -98,7 +103,7 @@ namespace Cursed_Market
                     pictureBox_Boosty.Image = Properties.Resources.IMG_SOCIAL_BOOSTY_WHITE;
                     break;
 
-                case Globals.Application.Theme.E_Themes.dracula:
+                case ProgramThemes.E_Themes.dracula:
                     comboBox_ApplicationTheme.SelectedIndex = 4;
                     this.BackColor = Color.FromArgb(255, 40, 42, 54);
                     panel_WindowHeader.BackColor = Color.FromArgb(255, 68, 71, 90);
@@ -114,7 +119,7 @@ namespace Cursed_Market
                     pictureBox_Boosty.Image = Properties.Resources.IMG_SOCIAL_BOOSTY_WHITE;
                     break;
 
-                case Globals.Application.Theme.E_Themes.christmas:
+                case ProgramThemes.E_Themes.christmas:
                     comboBox_ApplicationTheme.SelectedIndex = 5;
                     this.BackColor = Color.FromArgb(255, 24, 24, 24);
                     panel_WindowHeader.BackColor = Color.FromArgb(255, 14, 14, 14);
@@ -140,7 +145,7 @@ namespace Cursed_Market
             ReloadTheme();
 
 
-            comboBox_MatchFoundSound.SelectedIndex = (int)Globals.Queue.selectedNotifySound;
+            comboBox_MatchFoundSound.SelectedIndex = (int)ProgramFeatures.QueueNotify.GetSelectedNotifySound();
         }
 
 
@@ -150,9 +155,9 @@ namespace Cursed_Market
         {
             if (applicationRestartRequired == true)
             {
-                if (Globals.Game.IsRunning())
+                if (Game.IsRunning())
                 {
-                    Globals.Game.Exit();
+                    Game.Exit();
                 }
 
                 if (FiddlerCore.IsRunning() == true)
@@ -183,8 +188,8 @@ namespace Cursed_Market
 
         private void button_UpdateDebug_MouseClick(object sender, MouseEventArgs e)
         {
-            textBox_Culture.Text = Globals.Application.culture.TwoLetterISOLanguageName ?? "NONE";
-            textBox_Platform.Text = Globals_Session.Game.Platform.currentPlatform.ToString() ?? "NONE";
+            textBox_Culture.Text = ProgramGlobals.culture.TwoLetterISOLanguageName ?? "NONE";
+            textBox_Platform.Text = ProgramSession.Game.Platform.currentPlatform.ToString() ?? "NONE";
         }
 
 
@@ -192,23 +197,36 @@ namespace Cursed_Market
 
         private void comboBox_Themes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox_ApplicationTheme.SelectedIndex != (int)Globals.Application.Theme.selectedTheme)
+            if (comboBox_ApplicationTheme.SelectedIndex != (int)ProgramThemes.GetSelectedTheme())
             {
-                if (WinReg.SetData_DWORD(WinReg.SE_CommonEntries.applicationTheme, comboBox_ApplicationTheme.SelectedIndex))
-                {
-                    Globals.Application.Theme.selectedTheme = (Globals.Application.Theme.E_Themes)comboBox_ApplicationTheme.SelectedIndex;
-                    Globals.Application.ReloadThemes();
-                }
+                ProgramThemes.SetSelectedTheme((ProgramThemes.E_Themes)comboBox_ApplicationTheme.SelectedIndex);
+                ProgramThemes.Reload();
             }
         }
+
+
+
+
         private void comboBox_QueueNotifySound_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (WinReg.SetData_DWORD(WinReg.SE_CommonEntries.queueNotifySound, comboBox_MatchFoundSound.SelectedIndex))
-            {
-                Globals.Queue.selectedNotifySound = (Globals.Queue.E_NotifySounds)comboBox_MatchFoundSound.SelectedIndex;
-            }
+            ProgramFeatures.QueueNotify.SetSelectedNotifySound((ProgramFeatures.QueueNotify.E_NotifySounds)comboBox_MatchFoundSound.SelectedIndex);
+            UpdateQueueNotifyUI();
         }
         private void button_QueueNotifySound_MouseClick(object sender, MouseEventArgs e) => Queue.PlaySound();
+
+        private void UpdateQueueNotifyUI()
+        {
+            if (ProgramFeatures.QueueNotify.GetSelectedNotifySound() != ProgramFeatures.QueueNotify.E_NotifySounds.none)
+            {
+                button_QueueNotifySound.Visible = true;
+            }
+            else
+            {
+                button_QueueNotifySound.Visible = false;
+            }
+
+            Media.StopSound();
+        }
 
 
 
@@ -236,19 +254,22 @@ namespace Cursed_Market
         }
         private void button_CreateCertificatePassword_MouseClick(object sender, MouseEventArgs e)
         {
-            if (FiddlerCore.RootCertificate.WritePasswordFile())
-                Process.Start(FiddlerCore.RootCertificate.passwordFilePath);
-
-            else
-                Messaging.ShowMessage($"Failed To Write Certificate Password File!\nCertificate Password: {FiddlerCore.RootCertificate.passwordFilePath}", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+            if (ProgramNetworking.WritePasswordFile(true) == false)
+                Messaging.ShowMessage($"Failed To Write Certificate Password File!\nCertificate Password: {ProgramNetworking.password}", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
         }
         private void button_OpenCertificateDirectory_MouseClick(object sender, MouseEventArgs e)
         {
-            if (Directory.Exists(Globals.Application.GetDataFolderPath()))
-                Process.Start(Globals.Application.GetDataFolderPath());
-
+            if (Directory.Exists(ProgramPaths.GetDataFolderPath()))
+                Process.Start(ProgramPaths.GetDataFolderPath());
             else
                 Messaging.ShowMessage($"Failed To Open Cursed Market Data Folder!\nCursed Market Must be Started At Least Once To Create Data Folder.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+        }
+        private void button_ClearContentCache_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (Game.ClearContentCache() == false)
+                Messaging.ShowMessage($"Cursed Market failed to clear content cache!\n\n\"{ProgramPaths.contentCacheDirectoryPath}\"", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            else
+                Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
         }
         private void button_SettingsReset_MouseClick(object sender, MouseEventArgs e)
         {
@@ -260,11 +281,11 @@ namespace Cursed_Market
 
                 if (WinReg.DestroySubKey())
                 {
-                    if (File.Exists(FiddlerCore.RootCertificate.filePath))
-                        File.Delete(FiddlerCore.RootCertificate.filePath);
+                    if (File.Exists(ProgramPaths.networkingCertificateFilePath))
+                        File.Delete(ProgramPaths.networkingCertificateFilePath);
                 }
 
-                Globals.Application.Restart();
+                ProgramGlobals.Restart();
             }
         }
 
@@ -275,7 +296,7 @@ namespace Cursed_Market
         {
             comboBox_DisabledPlatforms.Items.Clear();
 
-            foreach (Globals_Session.Game.Platform.E_GamePlatform limitedPlatform in Globals_Session.Game.Platform.limitedPlatforms)
+            foreach (ProgramSession.Game.Platform.E_GamePlatform limitedPlatform in ProgramSession.Game.Platform.limitedPlatforms)
                 comboBox_DisabledPlatforms.Items.Add(limitedPlatform);
 
             if (comboBox_DisabledPlatforms.Items.Count > 0)
@@ -285,10 +306,10 @@ namespace Cursed_Market
         {
             if (comboBox_DisabledPlatforms.Items.Count > 0)
             {
-                List<Globals_Session.Game.Platform.E_GamePlatform> platforms = new List<Globals_Session.Game.Platform.E_GamePlatform>(Globals_Session.Game.Platform.limitedPlatforms);
+                List<ProgramSession.Game.Platform.E_GamePlatform> platforms = new List<ProgramSession.Game.Platform.E_GamePlatform>(ProgramSession.Game.Platform.limitedPlatforms);
                 platforms.RemoveAt(comboBox_DisabledPlatforms.SelectedIndex);
 
-                Globals_Session.Game.Platform.limitedPlatforms = platforms;
+                ProgramSession.Game.Platform.limitedPlatforms = platforms;
                 ObtainLimitedPlatforms();
             }
         }
