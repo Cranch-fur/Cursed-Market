@@ -61,7 +61,7 @@ namespace Cursed_Market.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to eJytXVt32kjW/S9+7ofYTqc7/WbwLbGJaUPs1fOtWV4FKkCNUDG62CG95r/PPiUJhJxU7cLfA/d9KKlOXU6d6z9Hk8SY6FFPbvWzTvoLlc51dPTHTCW5/uWoXEeq0NGjShJd5Ed//N+/fzmaLlSmpoXOvqiVPvrj6OiX/f84+uP03S9H60znRTzX9Vf4pgGdq0Id/fHP0VoVC/nLo3dPx++O8S/yelK/ntav7+vXX+vXD3gFukbiucbiuUbjucbjeUvxoW5DaE9a75p/Oan/Rd5V/3KKd9W/yLvqX97j3W/bd7/XbZy8+9i8O35Xt3ZyXLUh76QNtFm3hue6NTzXreG5bg3PdWt4rlvDc90anuvW8Fy3hue6NTw3rR1LG/LdKdo9te3iGe+kXTzjnbSLZ7yTdvGMd9IunvFO2sUz3km7eMY7aRfPT6e2XTzjnW0D7Z7advEM3PERRkkWp/OK0//3z1FqIr334ROGGIZEXmB0YQj1DcYXhlR09N9///eX [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to eJytXVl34jrW/S95vg+VpOpObwEyVYUKN1DJuv2tXlkCC3DHtmgPSVG9+r/3PrINhqSkLfI9MO9jGR0NR2f8z9E0MSZ60NMb/ayT/lJlCx0d/TlXSaF/OapWkSp19KCSRJfF0Z//989fjmZLlatZqfOvKtVHfx4d/bJ7jaM/Tz/8crTKdVHGC918hW9a0ECV6ujP/xytVLmUSx59eDz+cIyryOtJ83ravH5sXj81r7/iFegGiecGi+cGjecGj+cNxa9NG0J70nnXXuWkuYq8q69yinf1VeRdfZWPePfb5t3vTRsnH/5o3x1/aFo7Oa7bkHfSBtpsWsNz0xqem9bw3LSG56Y1PDet4blpDc9Na3huWsNz0xqe29aOpQ357hTtntp28Yx30i6e8U7axTPeSbt4xjtpF894J+3iGe+kXTzjnbSL58dT2y6e8c62gXZPbbt4Bu74CKMkj7NFzen/+89RZiK98+EaQwxDoigxujCE+gbjC0MqOvrvP//7yx5+ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string BloodWebData {
             get {
@@ -70,7 +70,7 @@ namespace Cursed_Market.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to eJylfVd34srS9n+Z630xY3vSvrONcWTMBmyvfc46y0ugBrQREkdhsOZd579/VS21Ep4KfBekUApdHaorPM//fQiDNPvw57//78Ni7SXeIjPJD29rPvz54T4IQ5N8/Prhjw+hWXmLYpyYNAtW5sH8NOGHPz/+0YjcZmab2qME8O7WB3H86nUaeunaJK+XYextLkwYwsH+m3tRFmTFhz8/f/zfH7+TuD/9OI73JhELzOJka6JsFPtGcZJT2Ukuve2u/P8sTxKTic/wl5d5SdmSutt5GF6uvSBKvb3ibk6Ud3Nytd2JDz8BtSepuTBeMks8udz9yZnqsi7jKPO2QeRlQRxNTZJvxaeaZl64UTTy9TpOM51e3KjAL8VCw8REvwqFIr8oFfll5K2Chf3uAkYk6Ok42TjOjpN8NovIuyr4ofdb4Rsv8uUt5EXxPFY06Gedlseht8qNTuYiDCJN57s//a47wY2XLdaKuef+TDmF3p8KR2oztIXt+gBLSpTByF4G [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to eJylfVlz20jS7X/xcz/Ykttu95vWxaIsNklJ0TMxoQDJIokmCHCwSKK/mP9+8xRQ2ChnZvE+cEcSQGUtWbmc838fojDLP/z57//7MFsFaTDLTfoj2JgPf364DaPIpB+/fvjtQ2SWwWw3TE2Wh0szMC8m+vDnx98akZvcbDL7LyG9u5mTOL56HkdBtjLp8+3x12HyalL6r/8WQZyH+e7Dn79//N9vvxb4QylQpC/hS5I+nwVRsAnS8CyJ82ATxkEeJvEJSc6T3HB/cxmmZhHtBvSzSWPxhGfBZksXeIkLjcLlKn8eBfE82WgF78z8NvQVmiRJNE3ePKVuzc734oKtVsJp6mqVZLmnco+0yq0EhlGwLIyfzFmUBOtTE0VqicHl2SoI4yx49biT33VXNaAxFefUNxfhskht31Sf5K8gD9JyNPoOos++At88BT5/9D2DssEagWOdgOvzx8eTIk1Nrj7DdZDPVh7H3x573/OR5y0cXWy2+r8P4mSaeHRZZaeo [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CharacterData {
             get {
@@ -79,7 +79,7 @@ namespace Cursed_Market.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to eJwlkc1u2zAQhN/F5xwckW6ao38SF95GacBD0RY50DItEaYogxJj9O3NGR08WpCc/WbX/xa7m2+7afGweHNt0W2w+eSmyZX6YC/41M4WXTeot11uLsGNpdwMx6I/fAib8vtf6t9+ajo8HaFSVUVNpWGzMfqjDTxWPF4V/Wlz8mhrOnvF99VFhJDS0KXlEyjOJjzoB2YRtjPVNyoe1Ijf24Tbj+zi5GOpfnn0eUm+oQmwbRhuuBLL4czVJ4+51yfbs9t3Pp07PyOda/0Ax8Gdz7wDz6glYpWEwATb5nlVcY6HJkY9Ft13wzidLdcmbGgUN6KwgJ3rh3ZILQG1jQ0WaCb3hefv0Rf9k6F1TiPO9jmOwcfWYR1/bfIR/4pUSGO4aqmANfN+FfekMLhRnEnN6eeAjKPp1XRpRtP0ano1vZpeTa+mV9O7gle4C+G4wuGEwwnpQrqQLqQL6UK6kC6kC+lCupAupAvpQrqQLqRLoX/eATElrDw=.
+        ///   Looks up a localized string similar to eJwtkk9v1DAQxb/LnjmUTezAsX+gaF8pRTkgQBzcrTdrNetU2YSKb1/PzxxiW3bezPvNzO+N0jjG+aLbvNtoe1HWvtmyNtw4Oy/xb+TuY1k/zWlftvs0HJdTmO3hfp3Ptl/FMJftYQzDiuAYXti33tbWQvaNJbk9TuflEPaopkfuP5T1Lg5pykjMUd+2uLDz9zXmJdmb8HYdck6PYbT8Ie//8btZV2Oiy/MRqZ2/5cTZ7D+kgT/NhQBSY+5u4mkapnmo2VvjFpbUWPb7KZvXm1fDLoev0cJcj2F9istiT9fHdf88xnM5fik1vSqfefqRlr052YVnShWDmavg5RdLdpp4+rmay8uncLLLlzQnS/Q5Zsu0C+RX855a0RZ891sz2W9ru+xVofoZp9daSSvKrzCnbKlv13weUx6idUpVTFDVoK2d78I6J/LVzlE5/R8MRoUu9lS6Z0iEg108HLiqfUPQ1ubXfpKvtXC9I4QDyPGnY0AcQR1uHFqH1qF1aD1a [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CharactersList {
             get {
@@ -88,7 +88,7 @@ namespace Cursed_Market.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to eJyNfVt327qu7n+Zz/uhTTtv5y12bm2SxjN2mzHXHnt40BZta1kWvXRp6p5x/vv+AIoiINGZ58G2AFAUSBEgAIL0//3laKt9/cv/+e9fJq4x5Wl5X7rXwmZb+8t//XJ9OJpmd8LV3Bab5dRUhL3MKluaIi8J+KvN13t82YZKHau8bJaTtqoJnLiqcq82W+QHKkp1zNvNJl/ntiT6g900E7vLy4wKF85ld65lYFbZzDSuort2JnOvK1eVBFz8Nnv3PlxchIsPuPiW17krTUXcXtkazTKNfbSmbitbU/1tXjQL92CYtZsiP94U7siE9b6wX+lyscMdTVPYp82joec9gHaaVNbsqd3lCfWV9Re7tnXtn8Q013LjP7zveKML5o0uiLf5h98DCReehAsiXVmT3ZmKGv3FPebNzlKjX2xlb11Zmof8u71xlf3O6NnOVAezpgd/y7d5QSXN3vM+AeO2Writ7eq4yX+gB6jiT2Vpq3mDt7Ztdtxnv4ZexIXvRVwQ [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to eJyNfV1327jO7n+Z633Rpp2ZPe9dbOejTdJ4YrdZs8/ay4u2aFs7suitj6buWee/vw9AUQQkOnMubAsARYIkCIIgSP/fX462eql/+Z//88vi46/zd+9/+Yd/uAgPH/Bw9+GfnsQPROIHT/o9kPDgSXgg0tJsmnyTm3JSmLp5yEu7mprCHEyVS+pzXtmlOUraxDaNrZZuZ5u9rYC4zn+YxmZ4+lSWtlo0lS13zZ54vPjYcU0PzDU9UPmLD+87Ej0wiR486SKQ8OBJeGCSK/IMbDQnAHOX11zsrTXZY8m5/xHKw4MvDw/85kXXFPzgSV1T3Lebl9OksuYFwGV5erCmrL/Yja1rU1FBTHNtg8cZiro1FZX6xT3kXQs828reuLI09/l3e+0q+53Ri4vfQpl48GXiwdcx9Cc9+Dp2/bn4ECpBD57UVeK6yI/XhTsST2C6sF/pcbm3D+iTwj5uHww1w8SsT3VOvQRgSv1mMlvllrKyG1dmz3lJNbgLbcIPLB6h [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ItemsList {
             get {
@@ -106,7 +106,7 @@ namespace Cursed_Market.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to eJyt/WlvJEe2ron+lYP9qS9w0CAZQQ3nm5RSlao0bmVWqfe5uCC4lSyJVymympkqHXWj/3u7e4SZm7/LlufzGveHGBAR9oQPNixb4//9b/+4f3P36o9/3v3b//i3r2+ffrl799/+NH3y3/63P/325s3/59/++7/9+HR3++7+8eGz23fzbw4X//vFh//71cXV9X+7PPyPw/X0i38+Pf7r/vXd0/Tti9+e3t69/m9n0Cff/WX6+v7hX3cP7x6f/vjLu7tf3/7b//j//t//9ub27bu//fP1RPzk3b/9j8sPrw8ffXR18eHhv//b43/+/+9+fPeX1xPrs5sv7m5fX1xOiP/zt9uHd/fv/ph++//896T58cOPu81vvsOIi+sPt4g/FcZXHHI8dI/jCjY/fHjRa36g/375QfcUjrT91Ueb9q9+uPkBH/vF9XHT+Iv7N2/+c3r8cfPV3U9v+W34SG7DzavHp7eP/A5k7Z2u8JF0xj9ViNEXLj/Wm3mC0At6vLrq [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to eJyt/emPHEe25Yv+K43z6T3gosHkkEN/o4Yq1aGmI7KKt/vhIZFHzJL4RCXrJqnSUT/c//26e7iZm69t2/lblhVABAIRsVe427BtT8P//9/+/vbd7as//nH7b//j3765uf/l9uN/+9P0yX/7f/3pt3fv/t//9n/824/3tzcf376/++Lm4/ybx8/++6Mn//3xo8fn/+3Rxf84u5p+8Y/79/98++b2fvr289/uP9y++W8r0PPv/zJ9/fbun7d3H9/f//GXj7e/fvi3//H/+f//27ubDx//+o83E+Lzj//2P84uLp4+ffzk0dPH/8e/vf/P/9/tjx//8mbC+uL6q9ubN4/OJoj/67ebu49vP/4x/fb//j/65I8vzq+65NffY4jLR8/2EH8qGF9zkPOnj3rX8ZjexpPuKDxh5E8eXcoorLfwFP791dXTHf2r19ev6bU/eXS1v/av3r5795/T84/rr29/+sBn8umFDMGr9/cf3mP6q8uzPr2xFM7Pz3UcC4ix [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MarketFull {
             get {
