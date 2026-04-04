@@ -1,11 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 
 
 
@@ -67,32 +63,6 @@ namespace Cursed_Market
         {
             Process.Start(ProgramPaths.executablePath);
             Close();
-        }
-
-
-
-
-
-
-
-        
-
-
-
-
-        public static class GameAuth
-        {
-            public static void ResolveUserID(string gameAuthResponse)
-            {
-                if (gameAuthResponse.IsJson() == true)
-                {
-                    JObject json = JObject.Parse(gameAuthResponse);
-                    if (json.ContainsKey("userId") == true)
-                    {
-                        ProgramSession.Game.userId = (string)json["userId"];
-                    }
-                }
-            }
         }
 
 

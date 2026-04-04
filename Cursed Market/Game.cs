@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+
+
+
+
 
 namespace Cursed_Market
 {
@@ -73,6 +74,21 @@ namespace Cursed_Market
                 catch
                 {
                     return false;
+                }
+            }
+        }
+
+
+
+
+        public static void ResolveUserID(string gameAuthResponse)
+        {
+            if (gameAuthResponse.IsJson() == true)
+            {
+                JObject json = JObject.Parse(gameAuthResponse);
+                if (json.ContainsKey("userId") == true)
+                {
+                    ProgramSession.Game.userId = (string)json["userId"];
                 }
             }
         }

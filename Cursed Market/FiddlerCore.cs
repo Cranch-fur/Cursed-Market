@@ -446,7 +446,7 @@ namespace Cursed_Market
                 if (oSession.uriContains("/login?token=") || oSession.uriContains("steam/login") || oSession.uriContains("grdk/loginWithTokenBody"))
                 {
                     oSession.utilDecodeResponse();
-                    ProgramGlobals.GameAuth.ResolveUserID(oSession.GetResponseBodyAsString());
+                    Game.ResolveUserID(oSession.GetResponseBodyAsString());
                 }
 
                 if (oSession.uriContains("/api/v1/queue"))
@@ -459,15 +459,12 @@ namespace Cursed_Market
                         Queue.SetQueueStatus(Queue.E_QueueStatus.None);
                     }
 
-
                     ProgramSession.Game.isInQueue = true;
                     ProgramSession.Game.isInMatch = false; // Searching for a new lobby means that player is no longer in the match.
-
 
                     ProgramSession.Game.matchId = null; // We're currently looking for a new match, invalidate old matchId.
                     ProgramSession.Game.matchType = ProgramSession.Game.E_MatchType.None;
                     ProgramSession.Game.playerRole = ProgramSession.Game.E_PlayerRole.None;
-
 
                     oSession.utilDecodeResponse();
                     string responseBody = oSession.GetResponseBodyAsString();
@@ -491,7 +488,6 @@ namespace Cursed_Market
                             Queue.UpdateQueue();
                         }
                     }
-
 
                     return;
                 }
