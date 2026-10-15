@@ -1,5 +1,4 @@
-﻿
-namespace Cursed_Market
+﻿namespace Cursed_Market
 {
     partial class Form_Main
     {
@@ -78,6 +77,8 @@ namespace Cursed_Market
             this.pictureBox_MainFeaturesBorder = new System.Windows.Forms.PictureBox();
             this.pictureBox_WindowBorder = new System.Windows.Forms.PictureBox();
             this.pictureBox_Button_CharactersPreset = new System.Windows.Forms.PictureBox();
+            this.pictureBox_Button_CrosshairSettings = new System.Windows.Forms.PictureBox();
+            this.pictureBox_Button_API = new System.Windows.Forms.PictureBox();
             this.panel_WindowHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_CrosshairOpacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Button_CloudIDFriend)).BeginInit();
@@ -91,6 +92,8 @@ namespace Cursed_Market
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_MainFeaturesBorder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_WindowBorder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Button_CharactersPreset)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Button_CrosshairSettings)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Button_API)).BeginInit();
             this.SuspendLayout();
             // 
             // panel_WindowHeader
@@ -316,7 +319,7 @@ namespace Cursed_Market
             this.MainCheckBox_06.Font = new System.Drawing.Font("Roboto", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MainCheckBox_06.Location = new System.Drawing.Point(100, 480);
             this.MainCheckBox_06.Name = "MainCheckBox_06";
-            this.MainCheckBox_06.Size = new System.Drawing.Size(123, 18);
+            this.MainCheckBox_06.Size = new System.Drawing.Size(122, 18);
             this.MainCheckBox_06.TabIndex = 26;
             this.MainCheckBox_06.Text = "Only Unlock DLC\'s";
             this.MainCheckBox_06.UseVisualStyleBackColor = true;
@@ -381,33 +384,18 @@ namespace Cursed_Market
             this.comboBox_Crosshairs.FormattingEnabled = true;
             this.comboBox_Crosshairs.Items.AddRange(new object[] {
             "Disabled",
-            "Counter-Strike: nafany",
-            "Counter-Strike: donk",
-            "Counter-Strike: Felps",
+            "Customizable",
             "Circle (Aqua)",
             "Circle (White)",
             "Dot (Aqua)",
+            "Dot (Green)",
             "Dot (Red)",
             "Dot (Yellow)",
-            "Dot (Green)",
             "Tactic (Aqua)",
             "Tactic (White)",
             "Custom #01",
             "Custom #02",
-            "Custom #03",
-            "Custom #04",
-            "Custom #05",
-            "Custom #06",
-            "Custom #07",
-            "Custom #08",
-            "Custom #09",
-            "Custom #10",
-            "Custom #11",
-            "Custom #12",
-            "Custom #13",
-            "Custom #14",
-            "Custom #15",
-            "Custom #16"});
+            "Custom #03"});
             this.comboBox_Crosshairs.Location = new System.Drawing.Point(99, 549);
             this.comboBox_Crosshairs.Name = "comboBox_Crosshairs";
             this.comboBox_Crosshairs.Size = new System.Drawing.Size(198, 21);
@@ -541,7 +529,7 @@ namespace Cursed_Market
             // 
             this.pictureBox_Button_CloudIDFriend.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox_Button_CloudIDFriend.Image = global::Cursed_Market.Properties.Resources.IMG_BUTTON_ADDFRIEND_BLACK;
-            this.pictureBox_Button_CloudIDFriend.Location = new System.Drawing.Point(12, 633);
+            this.pictureBox_Button_CloudIDFriend.Location = new System.Drawing.Point(12, 589);
             this.pictureBox_Button_CloudIDFriend.Name = "pictureBox_Button_CloudIDFriend";
             this.pictureBox_Button_CloudIDFriend.Size = new System.Drawing.Size(32, 32);
             this.pictureBox_Button_CloudIDFriend.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -654,12 +642,39 @@ namespace Cursed_Market
             this.pictureBox_Button_CharactersPreset.Visible = false;
             this.pictureBox_Button_CharactersPreset.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_Button_CharactersPreset_MouseClick);
             // 
+            // pictureBox_Button_CrosshairSettings
+            // 
+            this.pictureBox_Button_CrosshairSettings.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox_Button_CrosshairSettings.Image = global::Cursed_Market.Properties.Resources.IMG_BUTTON_CHARACTERSPRESET_BLACK;
+            this.pictureBox_Button_CrosshairSettings.Location = new System.Drawing.Point(301, 551);
+            this.pictureBox_Button_CrosshairSettings.Name = "pictureBox_Button_CrosshairSettings";
+            this.pictureBox_Button_CrosshairSettings.Size = new System.Drawing.Size(18, 18);
+            this.pictureBox_Button_CrosshairSettings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_Button_CrosshairSettings.TabIndex = 57;
+            this.pictureBox_Button_CrosshairSettings.TabStop = false;
+            this.pictureBox_Button_CrosshairSettings.Visible = false;
+            this.pictureBox_Button_CrosshairSettings.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_Button_CrosshairSettings_MouseClick);
+            // 
+            // pictureBox_Button_API
+            // 
+            this.pictureBox_Button_API.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox_Button_API.Image = global::Cursed_Market.Properties.Resources.IMG_BUTTON_API_BLACK;
+            this.pictureBox_Button_API.Location = new System.Drawing.Point(12, 633);
+            this.pictureBox_Button_API.Name = "pictureBox_Button_API";
+            this.pictureBox_Button_API.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox_Button_API.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_Button_API.TabIndex = 58;
+            this.pictureBox_Button_API.TabStop = false;
+            this.pictureBox_Button_API.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_Button_API_MouseClick);
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(660, 720);
+            this.Controls.Add(this.pictureBox_Button_API);
+            this.Controls.Add(this.pictureBox_Button_CrosshairSettings);
             this.Controls.Add(this.pictureBox_Button_CharactersPreset);
             this.Controls.Add(this.pictureBox_Button_CloudIDFriend);
             this.Controls.Add(this.MainCheckBox_07);
@@ -702,7 +717,7 @@ namespace Cursed_Market
             this.Controls.Add(this.pictureBox_MainFeaturesBorder);
             this.Controls.Add(this.pictureBox_WindowBorder);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Cursed_Market.Properties.Resources.Icon;
             this.Name = "Form_Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cursed Market";
@@ -721,6 +736,8 @@ namespace Cursed_Market
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_MainFeaturesBorder)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_WindowBorder)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Button_CharactersPreset)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Button_CrosshairSettings)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Button_API)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -775,6 +792,7 @@ namespace Cursed_Market
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.PictureBox pictureBox_Button_CloudIDFriend;
         private System.Windows.Forms.PictureBox pictureBox_Button_CharactersPreset;
+        private System.Windows.Forms.PictureBox pictureBox_Button_CrosshairSettings;
+        private System.Windows.Forms.PictureBox pictureBox_Button_API;
     }
 }
-

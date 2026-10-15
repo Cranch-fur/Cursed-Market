@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 
 
@@ -77,11 +76,11 @@ namespace Cursed_Market
                 return;
             }
 
-            if (CursedAPI.HeartBeat() == false)
+            if (CursedAPI.Status() == false)
             {
                 if (Messaging.ShowDialog("Cursed Market failed to connect to it's web services! It's likely that you're facing one of these scenarios:\n1) ISP blacklisted Cursed Market services;\n2) Cursed Market API is currently on maintance.\n\nWould you like to open Cursed Market API status checked in your internet browser? The page should say \"OK\" if services are up and you have access to them.", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    Process.Start(CursedAPI.SE_CommonEndpoints.heartBeat);
+                    Process.Start(new ProcessStartInfo(CursedAPI.SE_CommonEndpoints.status) { UseShellExecute = true });
                 }
 
                 InitializeOffline();
@@ -99,7 +98,7 @@ namespace Cursed_Market
                 ProgramCache.Forms.Timer.Show();
             }
 
-            ProgramCache.Forms.Wait.Hide();
+            ProgramCache.Forms.Wait?.Hide();
             this.TopMost = false;
         }
 
@@ -108,212 +107,36 @@ namespace Cursed_Market
 
         public void ReloadTheme()
         {
-            switch (ProgramThemes.GetSelectedTheme())
-            {
-                default:
-                    pictureBox_WindowBorder.Visible = true;
-                    pictureBox_Title.Image = Properties.Resources.IMG_BANNER_BLACK;
-                    pictureBox_Button_Settings.Image = Properties.Resources.IMG_BUTTON_SETTINGS_BLACK;
-                    pictureBox_Button_CloudIDFriend.Image = Properties.Resources.IMG_BUTTON_ADDFRIEND_BLACK;
-                    pictureBox_Button_CharactersPreset.Image = Properties.Resources.IMG_BUTTON_CHARACTERSPRESET_BLACK;
-                    this.BackColor = Color.White;
-                    panel_WindowHeader.BackColor = SystemColors.Control;
-                    label_GameChangersTitle.ForeColor = Color.Black;
-                    label_CustomizationsKingTitle.ForeColor = Color.Black;
-                    label_MainFeaturesTitle.ForeColor = Color.Black;
-                    label_QueueStatus.ForeColor = Color.Black;
-                    label_CurrenciesAdjustTitle.ForeColor = Color.Black;
-                    label_AuthorWaterMark.ForeColor = Color.Gainsboro;
-                    label_CrosshairOpacityPercent.ForeColor = Color.Black;
-                    label_AntiKillSwitchTitle.ForeColor = Color.Black;
-                    label_VersionWaterMark.ForeColor = Color.Gainsboro;
-                    label_CustomizationsKingDescription.ForeColor = SystemColors.ControlText;
-                    label_AntiKillSwitchDescription.ForeColor = SystemColors.ControlText;
-                    label_CrosshairTitle.ForeColor = Color.Black;
-                    label_CrosshairOpacityTitle.ForeColor = Color.Black;
-                    MainCheckBox_01.ForeColor = Color.Black;
-                    MainCheckBox_02.ForeColor = Color.Black;
-                    MainCheckBox_03.ForeColor = Color.Black;
-                    MainCheckBox_04.ForeColor = Color.Black;
-                    MainCheckBox_05.ForeColor = Color.Black;
-                    MainCheckBox_06.ForeColor = Color.Black;
-                    MainCheckBox_07.ForeColor = Color.Black;
-                    button_Start.BackColor = Color.Black;
-                    button_Start.ForeColor = Color.White;
-                    button_WindowTray.BackColor = Color.DarkGray;
-                    button_ApiKeyCopy.BackColor = Color.DimGray;
-                    break;
+            var theme = ProgramThemes.GetCurrentPalette();
 
-                case ProgramThemes.E_Themes.legacy:
-                    pictureBox_WindowBorder.Visible = false;
-                    pictureBox_Title.Image = Properties.Resources.IMG_BANNER_WHITE;
-                    pictureBox_Button_Settings.Image = Properties.Resources.IMG_BUTTON_SETTINGS_WHITE;
-                    pictureBox_Button_CloudIDFriend.Image = Properties.Resources.IMG_BUTTON_ADDFRIEND_WHITE;
-                    pictureBox_Button_CharactersPreset.Image = Properties.Resources.IMG_BUTTON_CHARACTERSPRESET_WHITE;
-                    this.BackColor = Color.FromArgb(255, 46, 51, 73);
-                    panel_WindowHeader.BackColor = Color.FromArgb(255, 24, 30, 54);
-                    label_GameChangersTitle.ForeColor = Color.White;
-                    label_CustomizationsKingTitle.ForeColor = Color.White;
-                    label_MainFeaturesTitle.ForeColor = Color.White;
-                    label_QueueStatus.ForeColor = Color.White;
-                    label_CurrenciesAdjustTitle.ForeColor = Color.White;
-                    label_AuthorWaterMark.ForeColor = Color.DimGray;
-                    label_CrosshairOpacityPercent.ForeColor = Color.White;
-                    label_AntiKillSwitchTitle.ForeColor = Color.White;
-                    label_VersionWaterMark.ForeColor = Color.DimGray;
-                    label_CustomizationsKingDescription.ForeColor = Color.DimGray;
-                    label_AntiKillSwitchDescription.ForeColor = Color.DimGray;
-                    label_CrosshairTitle.ForeColor = Color.White;
-                    label_CrosshairOpacityTitle.ForeColor = Color.White;
-                    MainCheckBox_01.ForeColor = Color.White;
-                    MainCheckBox_02.ForeColor = Color.White;
-                    MainCheckBox_03.ForeColor = Color.White;
-                    MainCheckBox_04.ForeColor = Color.White;
-                    MainCheckBox_05.ForeColor = Color.White;
-                    MainCheckBox_06.ForeColor = Color.White;
-                    MainCheckBox_07.ForeColor = Color.White;
-                    button_Start.BackColor = Color.IndianRed;
-                    button_Start.ForeColor = Color.White;
-                    button_WindowTray.BackColor = Color.SlateBlue;
-                    button_ApiKeyCopy.BackColor = Color.RoyalBlue;
-                    break;
+            this.BackColor = theme.FormBack;
+            panel_WindowHeader.BackColor = theme.HeaderBack;
+            pictureBox_WindowBorder.Visible = theme.IsLightTheme;
 
-                case ProgramThemes.E_Themes.darkMemories:
-                    pictureBox_WindowBorder.Visible = false;
-                    pictureBox_Title.Image = Properties.Resources.IMG_BANNER_WHITE;
-                    pictureBox_Button_Settings.Image = Properties.Resources.IMG_BUTTON_SETTINGS_WHITE;
-                    pictureBox_Button_CloudIDFriend.Image = Properties.Resources.IMG_BUTTON_ADDFRIEND_WHITE;
-                    pictureBox_Button_CharactersPreset.Image = Properties.Resources.IMG_BUTTON_CHARACTERSPRESET_WHITE;
-                    this.BackColor = Color.FromArgb(255, 44, 47, 51);
-                    panel_WindowHeader.BackColor = Color.FromArgb(255, 35, 39, 42);
-                    label_GameChangersTitle.ForeColor = Color.White;
-                    label_CustomizationsKingTitle.ForeColor = Color.White;
-                    label_MainFeaturesTitle.ForeColor = Color.White;
-                    label_QueueStatus.ForeColor = Color.White;
-                    label_CurrenciesAdjustTitle.ForeColor = Color.White;
-                    label_AuthorWaterMark.ForeColor = Color.DimGray;
-                    label_CrosshairOpacityPercent.ForeColor = Color.White;
-                    label_AntiKillSwitchTitle.ForeColor = Color.White;
-                    label_VersionWaterMark.ForeColor = Color.DimGray;
-                    label_CustomizationsKingDescription.ForeColor = Color.DimGray;
-                    label_AntiKillSwitchDescription.ForeColor = Color.DimGray;
-                    label_CrosshairTitle.ForeColor = Color.White;
-                    label_CrosshairOpacityTitle.ForeColor = Color.White;
-                    MainCheckBox_01.ForeColor = Color.White;
-                    MainCheckBox_02.ForeColor = Color.White;
-                    MainCheckBox_03.ForeColor = Color.White;
-                    MainCheckBox_04.ForeColor = Color.White;
-                    MainCheckBox_05.ForeColor = Color.White;
-                    MainCheckBox_06.ForeColor = Color.White;
-                    MainCheckBox_07.ForeColor = Color.White;
-                    button_Start.BackColor = Color.FromArgb(255, 65, 65, 65);
-                    button_Start.ForeColor = Color.White;
-                    button_WindowTray.BackColor = Color.SlateBlue;
-                    button_ApiKeyCopy.BackColor = Color.FromArgb(255, 85, 85, 85);
-                    break;
+            pictureBox_Title.Image = theme.BannerImage;
+            pictureBox_Button_Settings.Image = theme.SettingsIcon;
+            pictureBox_Button_API.Image = theme.APIIcon;
+            pictureBox_Button_CloudIDFriend.Image = theme.AddFriendIcon;
+            pictureBox_Button_CharactersPreset.Image = theme.CharactersPresetIcon;
+            pictureBox_Button_CrosshairSettings.Image = theme.CharactersPresetIcon;
 
-                case ProgramThemes.E_Themes.saintsRow:
-                    pictureBox_WindowBorder.Visible = false;
-                    pictureBox_Title.Image = Properties.Resources.IMG_BANNER_WHITE;
-                    pictureBox_Button_Settings.Image = Properties.Resources.IMG_BUTTON_SETTINGS_WHITE;
-                    pictureBox_Button_CloudIDFriend.Image = Properties.Resources.IMG_BUTTON_ADDFRIEND_WHITE;
-                    pictureBox_Button_CharactersPreset.Image = Properties.Resources.IMG_BUTTON_CHARACTERSPRESET_WHITE;
-                    this.BackColor = Color.FromArgb(255, 37, 13, 57);
-                    panel_WindowHeader.BackColor = Color.FromArgb(255, 55, 20, 86);
-                    label_GameChangersTitle.ForeColor = Color.White;
-                    label_CustomizationsKingTitle.ForeColor = Color.White;
-                    label_MainFeaturesTitle.ForeColor = Color.White;
-                    label_QueueStatus.ForeColor = Color.White;
-                    label_CurrenciesAdjustTitle.ForeColor = Color.White;
-                    label_AuthorWaterMark.ForeColor = Color.DimGray;
-                    label_CrosshairOpacityPercent.ForeColor = Color.White;
-                    label_AntiKillSwitchTitle.ForeColor = Color.White;
-                    label_VersionWaterMark.ForeColor = Color.DimGray;
-                    label_CustomizationsKingDescription.ForeColor = Color.DimGray;
-                    label_AntiKillSwitchDescription.ForeColor = Color.DimGray;
-                    label_CrosshairTitle.ForeColor = Color.White;
-                    label_CrosshairOpacityTitle.ForeColor = Color.White;
-                    MainCheckBox_01.ForeColor = Color.White;
-                    MainCheckBox_02.ForeColor = Color.White;
-                    MainCheckBox_03.ForeColor = Color.White;
-                    MainCheckBox_04.ForeColor = Color.White;
-                    MainCheckBox_05.ForeColor = Color.White;
-                    MainCheckBox_06.ForeColor = Color.White;
-                    MainCheckBox_07.ForeColor = Color.White;
-                    button_Start.BackColor = Color.FromArgb(255, 89, 67, 218);
-                    button_Start.ForeColor = Color.White;
-                    button_WindowTray.BackColor = Color.SlateBlue;
-                    button_ApiKeyCopy.BackColor = Color.FromArgb(255, 118, 93, 222);
-                    break;
+            ProgramThemes.ApplyForeColor(theme.PrimaryText,
+                label_GameChangersTitle, label_CustomizationsKingTitle, label_MainFeaturesTitle,
+                label_QueueStatus, label_CurrenciesAdjustTitle, label_CrosshairOpacityPercent,
+                label_AntiKillSwitchTitle, label_CrosshairOpacityTitle,
+                MainCheckBox_01, MainCheckBox_02, MainCheckBox_03, MainCheckBox_04,
+                MainCheckBox_05, MainCheckBox_06, MainCheckBox_07);
 
-                case ProgramThemes.E_Themes.dracula:
-                    pictureBox_WindowBorder.Visible = false;
-                    pictureBox_Title.Image = Properties.Resources.IMG_BANNER_WHITE;
-                    pictureBox_Button_Settings.Image = Properties.Resources.IMG_BUTTON_SETTINGS_WHITE;
-                    pictureBox_Button_CloudIDFriend.Image = Properties.Resources.IMG_BUTTON_ADDFRIEND_WHITE;
-                    pictureBox_Button_CharactersPreset.Image = Properties.Resources.IMG_BUTTON_CHARACTERSPRESET_WHITE;
-                    this.BackColor = Color.FromArgb(255, 40, 42, 54);
-                    panel_WindowHeader.BackColor = Color.FromArgb(255, 68, 71, 90);
-                    label_GameChangersTitle.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    label_CustomizationsKingTitle.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    label_MainFeaturesTitle.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    label_QueueStatus.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    label_CurrenciesAdjustTitle.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    label_AuthorWaterMark.ForeColor = Color.FromArgb(255, 98, 114, 164);
-                    label_CrosshairOpacityPercent.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    label_AntiKillSwitchTitle.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    label_VersionWaterMark.ForeColor = Color.FromArgb(255, 98, 114, 164);
-                    label_CustomizationsKingDescription.ForeColor = Color.FromArgb(255, 98, 114, 164);
-                    label_AntiKillSwitchDescription.ForeColor = Color.FromArgb(255, 98, 114, 164);
-                    label_CrosshairTitle.ForeColor = Color.White;
-                    label_CrosshairOpacityTitle.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    MainCheckBox_01.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    MainCheckBox_02.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    MainCheckBox_03.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    MainCheckBox_04.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    MainCheckBox_05.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    MainCheckBox_06.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    MainCheckBox_07.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    button_Start.BackColor = Color.FromArgb(255, 89, 67, 218);
-                    button_Start.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    button_WindowTray.BackColor = Color.SlateBlue;
-                    button_ApiKeyCopy.BackColor = Color.FromArgb(255, 118, 93, 222);
-                    break;
+            label_CrosshairTitle.ForeColor = theme.TitleText;
 
-                case ProgramThemes.E_Themes.christmas:
-                    pictureBox_WindowBorder.Visible = false;
-                    pictureBox_Title.Image = Properties.Resources.IMG_BANNER_CHRISTMAS2022;
-                    pictureBox_Button_Settings.Image = Properties.Resources.IMG_BUTTON_SETTINGS_WHITE;
-                    pictureBox_Button_CloudIDFriend.Image = Properties.Resources.IMG_BUTTON_ADDFRIEND_WHITE;
-                    pictureBox_Button_CharactersPreset.Image = Properties.Resources.IMG_BUTTON_CHARACTERSPRESET_WHITE;
-                    this.BackColor = Color.FromArgb(255, 24, 24, 24);
-                    panel_WindowHeader.BackColor = Color.FromArgb(255, 14, 14, 14);
-                    label_GameChangersTitle.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    label_CustomizationsKingTitle.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    label_MainFeaturesTitle.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    label_QueueStatus.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    label_CurrenciesAdjustTitle.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    label_AuthorWaterMark.ForeColor = Color.FromArgb(255, 170, 142, 87);
-                    label_CrosshairOpacityPercent.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    label_AntiKillSwitchTitle.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    label_VersionWaterMark.ForeColor = Color.FromArgb(255, 170, 142, 87);
-                    label_CustomizationsKingDescription.ForeColor = Color.FromArgb(255, 170, 142, 87);
-                    label_AntiKillSwitchDescription.ForeColor = Color.FromArgb(255, 170, 142, 87);
-                    label_CrosshairTitle.ForeColor = Color.White;
-                    label_CrosshairOpacityTitle.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    MainCheckBox_01.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    MainCheckBox_02.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    MainCheckBox_03.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    MainCheckBox_04.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    MainCheckBox_05.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    MainCheckBox_06.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    MainCheckBox_07.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    button_Start.BackColor = Color.FromArgb(255, 221, 34, 85);
-                    button_Start.ForeColor = Color.White;
-                    button_WindowTray.BackColor = Color.SlateBlue;
-                    button_ApiKeyCopy.BackColor = Color.FromArgb(255, 142, 22, 55);
-                    break;
-            }
+            Color watermarkColor = theme.IsLightTheme ? Color.Gainsboro : theme.MutedText;
+            ProgramThemes.ApplyForeColor(watermarkColor, label_AuthorWaterMark, label_VersionWaterMark);
+            ProgramThemes.ApplyForeColor(theme.MutedText, label_CustomizationsKingDescription, label_AntiKillSwitchDescription);
+
+            button_Start.BackColor = theme.PrimaryButtonBack;
+            button_Start.ForeColor = theme.PrimaryButtonText;
+            button_WindowTray.BackColor = theme.TrayButtonBack;
+            button_ApiKeyCopy.BackColor = theme.SecondaryButtonBack;
         }
 
 
@@ -324,8 +147,17 @@ namespace Cursed_Market
             ReloadTheme();
             label_VersionWaterMark.Text = $"{ProgramGlobals.version[0]}.{ProgramGlobals.version[1]}.{ProgramGlobals.version[2]}.{ProgramGlobals.version[3]}";
 
+            ProgramFeatures.Crosshair.E_Crosshairs initialCrosshair = ProgramFeatures.Crosshair.GetSelectedCrosshair();
+            comboBox_Crosshairs.SelectedIndex = (int)initialCrosshair;
+            pictureBox_Button_CrosshairSettings.Visible = initialCrosshair == ProgramFeatures.Crosshair.E_Crosshairs.customizable;
 
-            comboBox_Crosshairs.SelectedIndex = (int)ProgramFeatures.Crosshair.GetSelectedCrosshair();
+            if (initialCrosshair == ProgramFeatures.Crosshair.E_Crosshairs.none)
+            {
+                label_CrosshairOpacityTitle.Visible = false;
+                trackBar_CrosshairOpacity.Visible = false;
+                label_CrosshairOpacityPercent.Visible = false;
+            }
+
             trackBar_CrosshairOpacity.Value = (ProgramFeatures.Crosshair.GetOpacity() / 10).Clamp(trackBar_CrosshairOpacity.Minimum, trackBar_CrosshairOpacity.Maximum); // Clamp value between minimum & maximum trackBar can handle.
             UpdateCrosshairOpacityUI();
 
@@ -364,18 +196,14 @@ namespace Cursed_Market
 
         private void button_WindowClose_Click(object sender, EventArgs e) => this.Close();
         private void button_WindowMinimize_Click(object sender, EventArgs e) => this.WindowState = FormWindowState.Minimized;
-        private async void panel_WindowHeader_MouseDown(object sender, MouseEventArgs e)
+        private void panel_WindowHeader_MouseDown(object sender, MouseEventArgs e)
         {
-            panel_WindowHeader.Capture = false;
-
-            await Task.Run(() =>
+            if (e.Button == MouseButtons.Left)
             {
-                this.Invoke(new Action(() =>
-                {
-                    Message mouse = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero); // 0xA1 - WM_NCLBUTTONDOWN (Posted when the user presses the left mouse button while the cursor is within the nonclient area of a window) | new IntPtr(2) - HTCAPTION (We're making system aware that we have pressed LMB in window title area) | IntPtr.Zero - lParam (Unused in our scenario)
-                    WndProc(ref mouse);
-                }));
-            });
+                panel_WindowHeader.Capture = false;
+                Message mouse = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero);
+                WndProc(ref mouse);
+            }
         }
         private void button_WindowTray_MouseClick(object sender, MouseEventArgs e)
         {
@@ -412,7 +240,7 @@ namespace Cursed_Market
         }
         public void InitializeOnline()
         {
-            CursedAPI.VersionCheck();
+            CursedAPI.Update();
 
             CursedAPI.ResponseFiles.market = CursedAPI.GetMarketFile(CursedAPI.E_ActionMode.Online);
 
@@ -433,7 +261,7 @@ namespace Cursed_Market
 
 
             CursedAPI.ObtainCatalog();
-            CursedAPI.ObtainAntiKillSwitch();
+            CursedAPI.ObtainKillSwitch();
 
 
             ProgramGlobals.isInitialized = true;
@@ -452,12 +280,15 @@ namespace Cursed_Market
                     break;
 
                 case CursedAPI.E_GameChangers.antiKillSwitch:
-                    statusLabel =  label_AntiKillSwitchTitle;
+                    statusLabel = label_AntiKillSwitchTitle;
                     break;
             }
 
             string statusText = statusLabel.Text;
-            string cleanStatusText = statusText.Substring(0, statusText.IndexOf(':') + 1).TrimEnd();
+            int colonIndex = statusText.IndexOf(':');
+            string cleanStatusText = colonIndex >= 0
+                ? statusText.Substring(0, colonIndex + 1).TrimEnd()
+                : statusText.TrimEnd() + ":";
 
             switch (newStatus)
             {
@@ -485,30 +316,37 @@ namespace Cursed_Market
             {
                 case CursedAPI.E_MainFunctions.MainFunction_01:
                     MainCheckBox_01.Enabled = enabled;
+                    MainCheckBox_01.Visible = enabled;
                     break;
 
                 case CursedAPI.E_MainFunctions.MainFunction_02:
                     MainCheckBox_02.Enabled = enabled;
+                    MainCheckBox_02.Visible = enabled;
                     break;
 
                 case CursedAPI.E_MainFunctions.MainFunction_03:
                     MainCheckBox_03.Enabled = enabled;
+                    MainCheckBox_03.Visible = enabled;
                     break;
 
                 case CursedAPI.E_MainFunctions.MainFunction_04:
                     MainCheckBox_04.Enabled = enabled;
+                    MainCheckBox_04.Visible = enabled;
                     break;
 
                 case CursedAPI.E_MainFunctions.MainFunction_05:
                     MainCheckBox_05.Enabled = enabled;
+                    MainCheckBox_05.Visible = enabled;
                     break;
 
                 case CursedAPI.E_MainFunctions.MainFunction_06:
                     MainCheckBox_06.Enabled = enabled;
+                    MainCheckBox_06.Visible = enabled;
                     break;
 
                 case CursedAPI.E_MainFunctions.MainFunction_07:
                     MainCheckBox_07.Enabled = enabled;
+                    MainCheckBox_07.Visible = enabled;
                     break;
             }
         }
@@ -517,6 +355,7 @@ namespace Cursed_Market
 
 
         private void pictureBox_Buttons_Settings_MouseClick(object sender, MouseEventArgs e) => ProgramCache.Forms.Settings.ShowDialog();
+        private void pictureBox_Button_API_MouseClick(object sender, MouseEventArgs e) => ProgramCache.Forms.APIConfig.ShowDialog();
         private void pictureBox_Button_CloudIDFriend_MouseClick(object sender, MouseEventArgs e) => ProgramCache.Forms.CloudIDFriend.ShowDialog();
         private void pictureBox_Button_CharactersPreset_MouseClick(object sender, MouseEventArgs e) => ProgramCache.Forms.CharactersPreset.ShowDialog();
         private void button_Start_MouseClick(object sender, MouseEventArgs e)
@@ -532,13 +371,13 @@ namespace Cursed_Market
             if (ProgramFeatures.AntiKillSwitch.enabled || forceClearContentCache)
                 if (Game.ClearContentCache("itemsKillswitch.json") == false)
                     Messaging.ShowMessage($"Cursed Market failed to clear content cache!\n\n\"{ProgramPaths.contentCacheDirectoryPath}\\itemsKillswitch.json\"", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
-            
+
             if (FiddlerCore.Start() == false)
             {
                 Messaging.ShowMessage("Cursed Market failed to start proxy instance!", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 return;
             }
-            
+
             button_Start.Visible = false;
         }
 
@@ -574,16 +413,7 @@ namespace Cursed_Market
         {
             bool wasChecked = MainCheckBox_03.Checked;
 
-
             ProgramFeatures.CharacterData.enabled = wasChecked;
-            if (wasChecked)
-            {
-                Messaging.ShowMessage(Properties.Localization.WARNING_CharacterOwnership, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
-            }
-            else
-            {
-                MainCheckBox_04.Checked = false;
-            }
 
             pictureBox_CharactersPresetDisabled.Visible = !wasChecked; // Show when checkBox isn't checked and hide when it's checked.
             pictureBox_Button_CharactersPreset.Visible = wasChecked; // Show when checkBox is checked and hide when it's not.
@@ -622,7 +452,12 @@ namespace Cursed_Market
             }
             else
             {
-                if (CursedAPI.ResponseFiles.catalog != null)
+                if (CursedAPI.KillSwitch.isCatalogDisabled || ProgramStartupArguments.HasStartupArgument(ProgramStartupArguments.Common.noCustomizationsKing))
+                {
+                    SetGameChangerStatus(CursedAPI.E_GameChangers.customizationsKing, CursedAPI.E_GameChangerStatus.Disabled);
+                    ProgramFeatures.Catalog.enabled = false;
+                }
+                else if (CursedAPI.ResponseFiles.catalog != null)
                 {
                     SetGameChangerStatus(CursedAPI.E_GameChangers.customizationsKing, CursedAPI.E_GameChangerStatus.Enabled);
                     ProgramFeatures.Catalog.enabled = true;
@@ -634,7 +469,12 @@ namespace Cursed_Market
                 }
 
 
-                if (CursedAPI.ResponseFiles.antiKillSwitch != null)
+                if (CursedAPI.KillSwitch.isAntiKillSwitchDisabled || ProgramStartupArguments.HasStartupArgument(ProgramStartupArguments.Common.noAntiKillSwitch))
+                {
+                    SetGameChangerStatus(CursedAPI.E_GameChangers.antiKillSwitch, CursedAPI.E_GameChangerStatus.Disabled);
+                    ProgramFeatures.AntiKillSwitch.enabled = false;
+                }
+                else if (CursedAPI.ResponseFiles.killSwitch != null)
                 {
                     SetGameChangerStatus(CursedAPI.E_GameChangers.antiKillSwitch, CursedAPI.E_GameChangerStatus.Enabled);
                     ProgramFeatures.AntiKillSwitch.enabled = true;
@@ -714,48 +554,60 @@ namespace Cursed_Market
                 label_CrosshairOpacityPercent.Text = "0%";
             }
         }
-        
 
 
 
-        private static bool isKeypressDigit(KeyPressEventArgs e, string currentstring)
+
+        private static bool IsKeypressDigit(KeyPressEventArgs e)
         {
-            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != 127)
-                return false;
-            else if (currentstring != "")
-            {
-                if (currentstring[0] == '0')
-                {
-                    if (e.KeyChar >= 49 && e.KeyChar <= 57 && e.KeyChar != 8)
-                        return false;
-                }
-            }
-            return true;
+            /* Only allow numbers and control keys (such as Backspace). */
+            return char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar);
         }
-        private void textBox_BloodPoints_TextChanged(object sender, EventArgs e) => ProgramFeatures.CurrencySpoof.bloodpointsAmount = textBox_BloodPoints.Text;
+
+        private static void NormalizeCurrencyTextBox(TextBox textBox, Action<string> updateValue)
+        {
+            if (string.IsNullOrEmpty(textBox.Text))
+            {
+                textBox.Text = "0";
+                textBox.SelectionStart = 1;
+            }
+            else if (textBox.Text.Length > 1 && textBox.Text.StartsWith("0"))
+            {
+                int selectionStart = textBox.SelectionStart;
+                textBox.Text = textBox.Text.TrimStart('0');
+                if (string.IsNullOrEmpty(textBox.Text)) textBox.Text = "0";
+                textBox.SelectionStart = Math.Max(0, selectionStart - 1);
+            }
+
+            updateValue(textBox.Text);
+        }
+        private void textBox_BloodPoints_TextChanged(object sender, EventArgs e) => NormalizeCurrencyTextBox(textBox_BloodPoints, val => ProgramFeatures.CurrencySpoof.bloodpointsAmount = val);
         private void textBox_BloodPoints_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!isKeypressDigit(e, ProgramFeatures.CurrencySpoof.bloodpointsAmount))
+            if (!IsKeypressDigit(e))
                 e.Handled = true;
         }
-        private void textBox_IridescentShards_TextChanged(object sender, EventArgs e) => ProgramFeatures.CurrencySpoof.iridescentShardsAmount = textBox_IridescentShards.Text;
+        private void textBox_IridescentShards_TextChanged(object sender, EventArgs e) => NormalizeCurrencyTextBox(textBox_IridescentShards, val => ProgramFeatures.CurrencySpoof.iridescentShardsAmount = val);
         private void textBox_IridescentShards_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!isKeypressDigit(e, ProgramFeatures.CurrencySpoof.iridescentShardsAmount))
+            if (!IsKeypressDigit(e))
                 e.Handled = true;
         }
-        private void textBox_AuricCells_TextChanged(object sender, EventArgs e) => ProgramFeatures.CurrencySpoof.auricCellsAmount = textBox_AuricCells.Text;
+        private void textBox_AuricCells_TextChanged(object sender, EventArgs e) => NormalizeCurrencyTextBox(textBox_AuricCells, val => ProgramFeatures.CurrencySpoof.auricCellsAmount = val);
         private void textBox_AuricCells_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!isKeypressDigit(e, ProgramFeatures.CurrencySpoof.auricCellsAmount))
+            if (!IsKeypressDigit(e))
                 e.Handled = true;
         }
 
 
         private void button_ApiKeyCopy_MouseClick(object sender, MouseEventArgs e)
         {
-            Clipboard.SetText(textBox_ApiKey.Text);
-            Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
+            if (!string.IsNullOrEmpty(textBox_ApiKey.Text))
+            {
+                Clipboard.SetText(textBox_ApiKey.Text);
+                Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
+            }
         }
 
 
@@ -763,10 +615,21 @@ namespace Cursed_Market
         {
             if (ProgramGlobals.isInitialized)
             {
-                ProgramFeatures.Crosshair.SetSelectedCrosshair((ProgramFeatures.Crosshair.E_Crosshairs)comboBox_Crosshairs.SelectedIndex);
+                ProgramFeatures.Crosshair.E_Crosshairs crosshair = (ProgramFeatures.Crosshair.E_Crosshairs)comboBox_Crosshairs.SelectedIndex;
+
+                bool crosshairEnabled = crosshair != ProgramFeatures.Crosshair.E_Crosshairs.none;
+                label_CrosshairOpacityTitle.Visible = crosshairEnabled;
+                trackBar_CrosshairOpacity.Visible = crosshairEnabled;
+                label_CrosshairOpacityPercent.Visible = crosshairEnabled;
+
+                ProgramFeatures.Crosshair.SetSelectedCrosshair(crosshair);
                 UpdateCrosshairVisibilityUI();
+
+                pictureBox_Button_CrosshairSettings.Visible = crosshair == ProgramFeatures.Crosshair.E_Crosshairs.customizable;
             }
         }
+
+        private void pictureBox_Button_CrosshairSettings_MouseClick(object sender, MouseEventArgs e) => ProgramCache.Forms.CrosshairSettings.ShowDialog();
 
         private void trackBar_CrosshairOpacity_ValueChanged(object sender, EventArgs e)
         {
@@ -779,11 +642,11 @@ namespace Cursed_Market
             }
         }
 
-        public void UpdateApiKey() 
+        public void UpdateApiKey()
         {
             ProgramCache.Forms.Main.Invoke(new Action(() =>
             {
-                textBox_ApiKey.Width = 439; // What a generous approach <:3
+                textBox_ApiKey.Width = 439; // What a generous approach <:3.
                 textBox_ApiKey.Text = ProgramSession.Game.api_key;
 
                 button_ApiKeyCopy.Visible = true;
@@ -791,9 +654,9 @@ namespace Cursed_Market
             }));
         }
 
-        private string GetRandomGreetingsText() // This function is being executed once at Main Form Load event, at every next found match then.
+        private string GetRandomGreetingsText()
         {
-            List<string> greetingsPhrases = new List<string>()
+            string[] greetingsPhrases =
             {
                 Properties.Localization.GREETINGS_01,
                 Properties.Localization.GREETINGS_02,
@@ -805,9 +668,8 @@ namespace Cursed_Market
                 Properties.Localization.GREETINGS_08
             };
 
-
             Random rnd = new Random();
-            return $">>> {greetingsPhrases[rnd.Next(greetingsPhrases.Count)]} <<<";
+            return $">>> {greetingsPhrases[rnd.Next(greetingsPhrases.Length)]} <<<";
         }
         public void LocalUpdateQueue(Queue.E_QueueStatus newQueueStatus, int newQueuePosition)
         {
@@ -838,7 +700,7 @@ namespace Cursed_Market
         private void button_DebugButton_MouseClick(object sender, MouseEventArgs e)
         {
 #if DEBUG
-            Messaging.ShowMessage($"User-ID: {Globals_Session.Game.userId}\nMatch-ID: {Globals_Session.Game.matchId}\nMatch Type: {Globals_Session.Game.matchType}\nPlayer Role: {Globals_Session.Game.playerRole}", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            Messaging.ShowMessage($"User-ID: {ProgramSession.Game.userId}\nMatch-ID: {ProgramSession.Game.matchId}\nMatch Type: {ProgramSession.Game.matchType}\nPlayer Role: {ProgramSession.Game.playerRole}", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 #endif
         }
     }

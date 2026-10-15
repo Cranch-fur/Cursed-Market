@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -148,7 +89,7 @@
     <value>Пользовательский пресет персонажей</value>
   </data>
   <data name="MAIN_MainCheckBox_05" xml:space="preserve">
-    <value>Отключить измененные правила игры</value>
+    <value>Отключить изменённые правила игры</value>
   </data>
   <data name="MAIN_MainCheckBox_06" xml:space="preserve">
     <value>Открывать только DLC</value>
@@ -242,14 +183,90 @@
   <data name="CHARACTERSPRESET_RandomizePresets" xml:space="preserve">
     <value>Случайный пресет для всех персонажей</value>
   </data>
+  <data name="CHARACTERSPRESET_MaximumBloodWebLevelTitle" xml:space="preserve">
+    <value>МАКС. УРОВЕНЬ ПАУТИНЫ</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumPrestigeLevelTitle" xml:space="preserve">
+    <value>МАКС. УРОВЕНЬ ПРЕСТИЖА</value>
+  </data>
   <data name="CHARACTERSPRESET_SaveChanges" xml:space="preserve">
     <value>Подтвердить и сохранить изменения</value>
   </data>
   <data name="MESSAGE_CharactersPresetUnsavedChanges" xml:space="preserve">
     <value>Были внесены изменения в предустановки персонажей, но они не были сохранены! Закрыть окно без сохранения?</value>
   </data>
+  <data name="CROSSHAIRSETTINGS_Title" xml:space="preserve">
+    <value>НАСТРОИТЬ ПРИЦЕЛ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_LengthTitle" xml:space="preserve">
+    <value>ДЛИНА</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ThicknessTitle" xml:space="preserve">
+    <value>ТОЛЩИНА</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GapTitle" xml:space="preserve">
+    <value>ЗАЗОР</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineTitle" xml:space="preserve">
+    <value>ОБВОДКА</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_DotSizeTitle" xml:space="preserve">
+    <value>РАЗМЕР ТОЧКИ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleRadiusTitle" xml:space="preserve">
+    <value>РАДИУС КРУГА</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineCheckBox" xml:space="preserve">
+    <value>Обводка</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CenterDotCheckBox" xml:space="preserve">
+    <value>Точка</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleCheckBox" xml:space="preserve">
+    <value>Круг</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_TStyleCheckBox" xml:space="preserve">
+    <value>Т-стиль</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ColorPresetTitle" xml:space="preserve">
+    <value>ПРЕСЕТ ЦВЕТА</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_AlphaTitle" xml:space="preserve">
+    <value>АЛЬФА (10-255)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_RedTitle" xml:space="preserve">
+    <value>КРАСНЫЙ (R)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GreenTitle" xml:space="preserve">
+    <value>ЗЕЛЁНЫЙ (G)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_BlueTitle" xml:space="preserve">
+    <value>СИНИЙ (B)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeSectionTitle" xml:space="preserve">
+    <value>КОД ПРИЦЕЛА И ДЕЙСТВИЯ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeInputTitle" xml:space="preserve">
+    <value>ТЕКУЩИЙ / ИМПОРТИРУЕМЫЙ КОД ПРИЦЕЛА (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ImportShareCode" xml:space="preserve">
+    <value>Применить код</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ResetDefault" xml:space="preserve">
+    <value>Сбросить прицел по умолчанию</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_SaveChanges" xml:space="preserve">
+    <value>Подтвердить и сохранить прицел</value>
+  </data>
+  <data name="MESSAGE_CrosshairSettingsUnsavedChanges" xml:space="preserve">
+    <value>Были внесены изменения в настройки прицела, но они не были сохранены! Закрыть окно без сохранения?</value>
+  </data>
+  <data name="MESSAGE_InvalidCrosshairShareCode" xml:space="preserve">
+    <value>Некорректный код прицела!
+Убедитесь, что код имеет правильный формат (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX).</value>
+  </data>
   <data name="GREETINGS_01" xml:space="preserve">
-    <value>Встряхнемся! 🤘</value>
+    <value>Встряхнёмся! 🤘</value>
   </data>
   <data name="GREETINGS_02" xml:space="preserve">
     <value>Как прошёл твой день?</value>
@@ -278,10 +295,10 @@
 Программа не будет работать должным образом, пока шрифт не установлен: "{0}"</value>
   </data>
   <data name="MESSAGE_DataFolderCreationFailed" xml:space="preserve">
-    <value>Cursed Market не удалось создать папку данных в %localappdata%! Пожалуйста, проверьте, запущена ли программа с правами администратора.</value>
+    <value>Cursed Market не удалось создать папку данных в %appdata%! Пожалуйста, проверьте, запущена ли программа с правами администратора.</value>
   </data>
   <data name="MESSAGE_FailedToReadCharactersPreset" xml:space="preserve">
-    <value>Не удалось прочитать файл "charactersPreset.json"! Убедитесь, что файл не пустой и его содержимое соответствует формату JSON.</value>
+    <value>Не удалось прочитать файл "CharactersPreset.json"! Убедитесь, что файл не пустой и его содержимое соответствует формату JSON.</value>
   </data>
   <data name="MAIN_Start" xml:space="preserve">
     <value>СТАРТ</value>

@@ -292,4 +292,80 @@ Software won't work properly until the font is installed: "{0}"</value>
   <data name="PLEASE_WAIT" xml:space="preserve">
     <value>Please, wait...</value>
   </data>
+  <data name="CHARACTERSPRESET_MaximumBloodWebLevelTitle" xml:space="preserve">
+    <value>MAX BLOODWEB LEVEL</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumPrestigeLevelTitle" xml:space="preserve">
+    <value>MAX PRESTIGE LEVEL</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_Title" xml:space="preserve">
+    <value>CONFIGURE CROSSHAIR</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_LengthTitle" xml:space="preserve">
+    <value>LENGTH</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ThicknessTitle" xml:space="preserve">
+    <value>THICKNESS</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GapTitle" xml:space="preserve">
+    <value>CENTER GAP</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineTitle" xml:space="preserve">
+    <value>OUTLINE SIZE</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_DotSizeTitle" xml:space="preserve">
+    <value>DOT SIZE</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleRadiusTitle" xml:space="preserve">
+    <value>CIRCLE RADIUS</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineCheckBox" xml:space="preserve">
+    <value>Draw Outline</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CenterDotCheckBox" xml:space="preserve">
+    <value>Center Dot</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleCheckBox" xml:space="preserve">
+    <value>Center Circle</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_TStyleCheckBox" xml:space="preserve">
+    <value>T-Style</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ColorPresetTitle" xml:space="preserve">
+    <value>COLOR PRESET</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_AlphaTitle" xml:space="preserve">
+    <value>ALPHA (10-255)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_RedTitle" xml:space="preserve">
+    <value>RED (R)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GreenTitle" xml:space="preserve">
+    <value>GREEN (G)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_BlueTitle" xml:space="preserve">
+    <value>BLUE (B)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeSectionTitle" xml:space="preserve">
+    <value>SHARE CODE &amp;&amp; ACTIONS</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeInputTitle" xml:space="preserve">
+    <value>CURRENT / IMPORT SHARE CODE (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ImportShareCode" xml:space="preserve">
+    <value>Apply Share Code</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ResetDefault" xml:space="preserve">
+    <value>Reset to Default Crosshair</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_SaveChanges" xml:space="preserve">
+    <value>Confirm and Save Crosshair</value>
+  </data>
+  <data name="MESSAGE_CrosshairSettingsUnsavedChanges" xml:space="preserve">
+    <value>Changes were made to the crosshair settings, but they were not saved! Close the window without saving?</value>
+  </data>
+  <data name="MESSAGE_InvalidCrosshairShareCode" xml:space="preserve">
+    <value>Invalid Crosshair Share Code!
+Make sure the code has a valid format (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX).</value>
+  </data>
 </root>

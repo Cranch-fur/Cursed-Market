@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -124,46 +65,46 @@
     <value>커스터마이징 왕의 상태:  </value>
   </data>
   <data name="MAIN_CustomizationsKingDescription" xml:space="preserve">
-    <value>일부 사용자 지정 세트는 특정 날짜에만 표시되고 출시되도록 설계되었습니다. 이 제한은 이제 제거되었습니다.</value>
+    <value>일부 치장 세트는 특정 날짜에만 표시되고 출시되도록 설계되었습니다. 이제 이 제한이 해제되었습니다.</value>
   </data>
   <data name="MAIN_AntiKillSwitchTitle" xml:space="preserve">
-    <value>안티 금지 장치 상태:  </value>
+    <value>킬스위치 해제 상태:  </value>
   </data>
   <data name="MAIN_AntiKillSwitchDescription" xml:space="preserve">
-    <value>가끔 일부 게임 내 아이템이 버그가 있는 것처럼 보일 수 있으므로 개발자들은 이를 비활성화합니다. 이 제한은 이제 해제되었습니다.</value>
+    <value>가끔 일부 게임 내 아이템에 버그가 발생하면 개발자가 이를 비활성화합니다. 이제 이 제한이 해제되었습니다.</value>
   </data>
   <data name="MAIN_MainFeaturesTitle" xml:space="preserve">
     <value>주요 기능</value>
   </data>
   <data name="MAIN_MainCheckBox_01" xml:space="preserve">
-    <value>대기열 위치 표시</value>
+    <value>대기열 위치 오버레이</value>
   </data>
   <data name="MAIN_MainCheckBox_02" xml:space="preserve">
-    <value>통화 조정(비주얼)</value>
+    <value>재화 수량 조정 (시각 효과)</value>
   </data>
   <data name="MAIN_MainCheckBox_03" xml:space="preserve">
-    <value>임시 저장 활성화</value>
+    <value>임시 세이브 파일 활성화</value>
   </data>
   <data name="MAIN_MainCheckBox_04" xml:space="preserve">
     <value>사용자 정의 캐릭터 프리셋</value>
   </data>
   <data name="MAIN_MainCheckBox_05" xml:space="preserve">
-    <value>변경된 게임 규칙 비활성화</value>
+    <value>게임 규칙 변경 비활성화</value>
   </data>
   <data name="MAIN_MainCheckBox_06" xml:space="preserve">
-    <value>DLC만 해제</value>
+    <value>DLC만 잠금 해제</value>
   </data>
   <data name="MAIN_CurrenciesAdjustTitle" xml:space="preserve">
-    <value>통화 수량</value>
+    <value>재화 수량</value>
   </data>
   <data name="MAIN_CrosshairTitle" xml:space="preserve">
     <value>조준선</value>
   </data>
   <data name="MAIN_CrosshairOpacityTitle" xml:space="preserve">
-    <value>조준선 투명도</value>
+    <value>조준선 불투명도</value>
   </data>
   <data name="MAIN_ApiKey" xml:space="preserve">
-    <value>여기에 귀하의 ApiKey이 있습니다...</value>
+    <value>여기에 ApiKey가 표시됩니다...</value>
   </data>
   <data name="MAIN_MainCheckBox_07" xml:space="preserve">
     <value>퀘스트 완료 보장</value>
@@ -196,16 +137,16 @@
     <value>닫기</value>
   </data>
   <data name="FRIEND_Title" xml:space="preserve">
-    <value>CLOUD-ID를 통한 친구 요청</value>
+    <value>CLOUD-ID 친구 요청</value>
   </data>
   <data name="FRIEND_MyCloudIDTitle" xml:space="preserve">
-    <value>당신의 Cloud-ID</value>
+    <value>내 Cloud-ID</value>
   </data>
   <data name="FRIEND_FriendCloudIDTitle" xml:space="preserve">
-    <value>요청을 보낼 Cloud-ID</value>
+    <value>친구 요청을 보낼 Cloud-ID</value>
   </data>
   <data name="QUEUE_Idle" xml:space="preserve">
-    <value>대기열 위치가 여기 표시됩니다</value>
+    <value>대기열 위치가 여기에 표시됩니다</value>
   </data>
   <data name="QUEUE_LobbyFound" xml:space="preserve">
     <value>~ 로비 찾음 ~</value>
@@ -216,10 +157,10 @@
   <data name="MESSAGE_FirstLaunch" xml:space="preserve">
     <value>Cursed Market에 오신 것을 환영합니다!
 
-이 소프트웨어는 오픈 소스이며 무료입니다! 결제를 요구받았다면, 판매자에게 불만을 제기하는 것이 좋습니다.</value>
+이 소프트웨어는 오픈 소스이며 무료입니다! 만약 유료로 구매하셨다면 판매자에게 환불 및 신고하시는 것을 권장합니다.</value>
   </data>
   <data name="CHARACTERSPRESET_CharactersPresetTitle" xml:space="preserve">
-    <value>캐릭터 프리셋 구성</value>
+    <value>캐릭터 프리셋 설정</value>
   </data>
   <data name="CHARACTERSPRESET_CharacterSelectTitle" xml:space="preserve">
     <value>캐릭터 선택</value>
@@ -228,68 +169,144 @@
     <value>블러드웹 레벨</value>
   </data>
   <data name="CHARACTERSPRESET_PrestigeTitle" xml:space="preserve">
-    <value>명예 레벨</value>
+    <value>환생 레벨</value>
   </data>
   <data name="CHARACTERSPRESET_LegacyPrestigeTitle" xml:space="preserve">
-    <value>유산 명예 레벨</value>
+    <value>레거시 환생 레벨</value>
   </data>
   <data name="CHARACTERSPRESET_ExtraActionsTitle" xml:space="preserve">
-    <value>추가 동작</value>
+    <value>추가 작업</value>
   </data>
   <data name="CHARACTERSPRESET_SpreadPreset" xml:space="preserve">
     <value>현재 프리셋을 모든 캐릭터에 적용</value>
   </data>
   <data name="CHARACTERSPRESET_RandomizePresets" xml:space="preserve">
-    <value>모든 캐릭터 프리셋 무작위화</value>
+    <value>모든 캐릭터 프리셋 무작위 설정</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumBloodWebLevelTitle" xml:space="preserve">
+    <value>최대 블러드웹 레벨</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumPrestigeLevelTitle" xml:space="preserve">
+    <value>최대 환생 레벨</value>
   </data>
   <data name="CHARACTERSPRESET_SaveChanges" xml:space="preserve">
     <value>변경 사항 확인 및 저장</value>
   </data>
   <data name="MESSAGE_CharactersPresetUnsavedChanges" xml:space="preserve">
-    <value>캐릭터의 기본 설정이 변경되었지만 저장되지 않았습니다! 저장하지 않고 창을 닫겠습니까?</value>
+    <value>캐릭터 프리셋이 변경되었지만 저장되지 않았습니다! 저장하지 않고 창을 닫으시겠습니까?</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_Title" xml:space="preserve">
+    <value>조준선 설정</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_LengthTitle" xml:space="preserve">
+    <value>길이</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ThicknessTitle" xml:space="preserve">
+    <value>두께</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GapTitle" xml:space="preserve">
+    <value>중앙 간격</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineTitle" xml:space="preserve">
+    <value>윤곽선 두께</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_DotSizeTitle" xml:space="preserve">
+    <value>점 크기</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleRadiusTitle" xml:space="preserve">
+    <value>원 반경</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineCheckBox" xml:space="preserve">
+    <value>윤곽선 표시</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CenterDotCheckBox" xml:space="preserve">
+    <value>중앙 점</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleCheckBox" xml:space="preserve">
+    <value>중앙 원</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_TStyleCheckBox" xml:space="preserve">
+    <value>T자 스타일</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ColorPresetTitle" xml:space="preserve">
+    <value>색상 프리셋</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_AlphaTitle" xml:space="preserve">
+    <value>투명도 (10-255)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_RedTitle" xml:space="preserve">
+    <value>빨강 (R)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GreenTitle" xml:space="preserve">
+    <value>초록 (G)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_BlueTitle" xml:space="preserve">
+    <value>파랑 (B)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeSectionTitle" xml:space="preserve">
+    <value>공유 코드 &amp;&amp; 작업</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeInputTitle" xml:space="preserve">
+    <value>현재 / 가져올 공유 코드 (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ImportShareCode" xml:space="preserve">
+    <value>공유 코드 적용</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ResetDefault" xml:space="preserve">
+    <value>기본 조준선으로 초기화</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_SaveChanges" xml:space="preserve">
+    <value>조준선 확인 및 저장</value>
+  </data>
+  <data name="MESSAGE_CrosshairSettingsUnsavedChanges" xml:space="preserve">
+    <value>조준선 설정이 변경되었지만 저장되지 않았습니다! 저장하지 않고 창을 닫으시겠습니까?</value>
+  </data>
+  <data name="MESSAGE_InvalidCrosshairShareCode" xml:space="preserve">
+    <value>유효하지 않은 조준선 공유 코드입니다!
+코드 형식이 올바른지 확인하세요 (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX).</value>
   </data>
   <data name="GREETINGS_01" xml:space="preserve">
-    <value>흔들어 보자! 🤘</value>
+    <value>신나게 달려보자! 🤘</value>
   </data>
   <data name="GREETINGS_02" xml:space="preserve">
-    <value>오늘 하루 어땠어?</value>
+    <value>오늘 하루 어땠나요?</value>
   </data>
   <data name="GREETINGS_03" xml:space="preserve">
-    <value>춤추자! 🕺</value>
+    <value>함께 춤춰요! 🕺</value>
   </data>
   <data name="GREETINGS_04" xml:space="preserve">
-    <value>게임 시간! ⚔</value>
+    <value>게임할 시간! ⚔</value>
   </data>
   <data name="GREETINGS_05" xml:space="preserve">
-    <value>그루브 타자! 🎵</value>
+    <value>리듬을 타볼까요! 🎵</value>
   </data>
   <data name="GREETINGS_06" xml:space="preserve">
-    <value>또 다른 하루, 또 다른 도전!</value>
+    <value>새로운 하루, 새로운 도전!</value>
   </data>
   <data name="GREETINGS_07" xml:space="preserve">
-    <value>가자! 🎲</value>
+    <value>출발합시다! 🎲</value>
   </data>
   <data name="GREETINGS_08" xml:space="preserve">
-    <value>빛날 시간! ✨</value>
+    <value>빛날 시간입니다! ✨</value>
   </data>
   <data name="MESSAGE_RobotoFontMissing" xml:space="preserve">
-    <value>Cursed Market는 "Roboto-Regular" 폰트를 사용하여 설계되었습니다!
+    <value>Cursed Market은 "Roboto-Regular" 폰트를 기준으로 설계되었습니다!
 
-폰트 "{0}"가 설치되지 않으면 소프트웨어가 제대로 작동하지 않습니다.</value>
+다음 폰트가 설치되기 전까지 소프트웨어가 정상적으로 작동하지 않습니다: "{0}"</value>
   </data>
   <data name="MESSAGE_DataFolderCreationFailed" xml:space="preserve">
-    <value>Cursed Market가 %localappdata%에 데이터 폴더를 생성하지 못했습니다! 프로그램이 관리자 권한으로 실행 중인지 확인하세요.</value>
+    <value>Cursed Market이 %appdata%에 데이터 폴더를 생성하지 못했습니다! 프로그램이 관리자 권한으로 실행 중인지 확인하세요.</value>
   </data>
   <data name="MESSAGE_FailedToReadCharactersPreset" xml:space="preserve">
-    <value>"charactersPreset.json" 파일을 읽을 수 없습니다! 파일이 비어 있지 않고 내용이 JSON 형식인지 확인하세요.</value>
+    <value>"CharactersPreset.json" 파일을 읽지 못했습니다! 파일이 비어 있지 않고 내용이 JSON 형식인지 확인하세요.</value>
   </data>
   <data name="MAIN_Start" xml:space="preserve">
     <value>시작</value>
   </data>
   <data name="WARNING_CharacterOwnership" xml:space="preserve">
-    <value>경고! 프로그램이 모든 게임 내 캐릭터에 대한 접근을 해제해주지만, 실제로 소유하지 않은 캐릭터를 사용하려 하면 메인 메뉴로 강제로 이동되며 일시적으로 차단됩니다!</value>
+    <value>경고! 이 프로그램은 모든 게임 내 캐릭터의 잠금을 해제하지만, 실제로 소유하지 않은 캐릭터를 사용하려고 시도하면 메인 메뉴로 강제 이동된 후 일시적인 이용 정지가 발생할 수 있습니다!</value>
   </data>
   <data name="PLEASE_WAIT" xml:space="preserve">
-    <value>잠시 기다려 주십시오...</value>
+    <value>잠시만 기다려 주세요...</value>
   </data>
 </root>

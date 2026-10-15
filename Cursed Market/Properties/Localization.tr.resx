@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -118,58 +59,58 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="MAIN_GameChangersTitle" xml:space="preserve">
-    <value>OYUN KURALLARINI DEĞİŞTİRMEK</value>
+    <value>OYUN KURALLARINI DEĞİŞTİR</value>
   </data>
   <data name="MAIN_CustomizationsKingTitle" xml:space="preserve">
     <value>Özelleştirmeler Kralı Durumu:  </value>
   </data>
   <data name="MAIN_CustomizationsKingDescription" xml:space="preserve">
-    <value>Bazı özelleştirme setleri, yalnızca belirli bir tarihte görünmek ve yayımlanmak üzere tasarlanmıştır. Bu kısıtlama şimdi kaldırıldı.</value>
+    <value>Bazı özelleştirme setleri yalnızca belirli bir tarihte görünecek ve yayınlanacak şekilde tasarlanmıştır. Bu kısıtlama artık kaldırıldı.</value>
   </data>
   <data name="MAIN_AntiKillSwitchTitle" xml:space="preserve">
-    <value>Anti-Yasak Durumu:  </value>
+    <value>KillSwitch Kaldırıcı Durumu:  </value>
   </data>
   <data name="MAIN_AntiKillSwitchDescription" xml:space="preserve">
-    <value>Zaman zaman bazı oyun içi öğelerin hatalı olabileceği görülmektedir, bu yüzden geliştiriciler bunları devre dışı bırakır. Bu kısıtlama artık kaldırıldı.</value>
+    <value>Zaman zaman bazı oyun içi öğeler hatalı çıkabilir ve geliştiriciler bunları devre dışı bırakır. Bu kısıtlama artık kaldırıldı.</value>
   </data>
   <data name="MAIN_MainFeaturesTitle" xml:space="preserve">
     <value>ANA ÖZELLİKLER</value>
   </data>
   <data name="MAIN_MainCheckBox_01" xml:space="preserve">
-    <value>Kuyrukta konumu göster</value>
+    <value>Sıra Konumu Göstergesi</value>
   </data>
   <data name="MAIN_MainCheckBox_02" xml:space="preserve">
-    <value>Para Birimi Ayarı (Görsel)</value>
+    <value>Para Birimi Miktarını Ayarla (Görsel)</value>
   </data>
   <data name="MAIN_MainCheckBox_03" xml:space="preserve">
-    <value>Geçici kaydı etkinleştir</value>
+    <value>Geçici Kayıt Dosyasını Etkinleştir</value>
   </data>
   <data name="MAIN_MainCheckBox_04" xml:space="preserve">
     <value>Özel Karakter Ön Ayarı</value>
   </data>
   <data name="MAIN_MainCheckBox_05" xml:space="preserve">
-    <value>Değiştirilmiş oyun kurallarını devre dışı bırak</value>
+    <value>Oyun Değiştiricileri Devre Dışı Bırak</value>
   </data>
   <data name="MAIN_MainCheckBox_06" xml:space="preserve">
-    <value>Sadece DLC'yi aç</value>
+    <value>Yalnızca DLC'leri Aç</value>
   </data>
   <data name="MAIN_CurrenciesAdjustTitle" xml:space="preserve">
-    <value>PARA BİRİMLERİ MİKTARI</value>
+    <value>PARA BİRİMİ MİKTARLARI</value>
   </data>
   <data name="MAIN_CrosshairTitle" xml:space="preserve">
     <value>NİŞANGAH</value>
   </data>
   <data name="MAIN_CrosshairOpacityTitle" xml:space="preserve">
-    <value>NİŞANGAH ŞEFFAFLIĞI</value>
+    <value>NİŞANGAH OPAKLIĞI</value>
   </data>
   <data name="MAIN_ApiKey" xml:space="preserve">
-    <value>Burada sizin ApiKey'ınız olacak...</value>
+    <value>ApiKey burada gösterilecek...</value>
   </data>
   <data name="MAIN_MainCheckBox_07" xml:space="preserve">
-    <value>Görevin Tamamlanması Garantili</value>
+    <value>Garantili Görev Tamamlama</value>
   </data>
   <data name="MAIN_GAMECHANGERSTATUS_CurrentlyInUse" xml:space="preserve">
-    <value>Şu anda kullanılıyor</value>
+    <value>Şu anda kullanımda</value>
   </data>
   <data name="MAIN_GAMECHANGERSTATUS_FailedToObtain" xml:space="preserve">
     <value>Alınamadı</value>
@@ -181,7 +122,7 @@
     <value>ÇEVRİMDIŞI MOD</value>
   </data>
   <data name="MAIN_QUEUE_LobbyFound" xml:space="preserve">
-    <value>LOBBY BULUNDU...</value>
+    <value>LOBİ BULUNDU...</value>
   </data>
   <data name="MAIN_QUEUE_MatchStarting" xml:space="preserve">
     <value>MAÇ BAŞLIYOR!</value>
@@ -196,19 +137,19 @@
     <value>Kapat</value>
   </data>
   <data name="FRIEND_Title" xml:space="preserve">
-    <value>CLOUD-ID ÜZERİNDEN ARKADAŞLIK İSTEĞİ</value>
+    <value>CLOUD-ID ARKADAŞLIK İSTEĞİ</value>
   </data>
   <data name="FRIEND_MyCloudIDTitle" xml:space="preserve">
-    <value>Senin Cloud-ID'in</value>
+    <value>Senin Cloud-ID'n</value>
   </data>
   <data name="FRIEND_FriendCloudIDTitle" xml:space="preserve">
-    <value>Arkadaşlık isteği göndermek için Cloud-ID</value>
+    <value>Arkadaşlık isteği gönderilecek Cloud-ID</value>
   </data>
   <data name="QUEUE_Idle" xml:space="preserve">
-    <value>SIRADA Kİ POZİSYON BURADA GÖSTERİLECEK</value>
+    <value>SIRADAKİ POZİSYON BURADA GÖSTERİLECEK</value>
   </data>
   <data name="QUEUE_LobbyFound" xml:space="preserve">
-    <value>~ LOBBY BULUNDU ~</value>
+    <value>~ LOBİ BULUNDU ~</value>
   </data>
   <data name="QUEUE_MatchStarting" xml:space="preserve">
     <value>MAÇ BAŞLIYOR!</value>
@@ -216,7 +157,7 @@
   <data name="MESSAGE_FirstLaunch" xml:space="preserve">
     <value>Cursed Market'e hoş geldiniz!
 
-Bu yazılım Açık Kaynaklıdır ve Ücretsizdir! Eğer ödeme yapmanız gerektiği konusunda ikna edildiyseniz, satıcıya şikayet göndermeniz tavsiye edilir.</value>
+Bu yazılım açık kaynaklıdır ve kullanımı tamamen ücretsizdir! Eğer bunun için ödeme yapmaya ikna edildiyseniz, satıcıyı şikayet etmeniz önerilir.</value>
   </data>
   <data name="CHARACTERSPRESET_CharactersPresetTitle" xml:space="preserve">
     <value>KARAKTER ÖN AYARLARINI YAPILANDIR</value>
@@ -231,25 +172,101 @@ Bu yazılım Açık Kaynaklıdır ve Ücretsizdir! Eğer ödeme yapmanız gerekt
     <value>PRESTİJ SEVİYESİ</value>
   </data>
   <data name="CHARACTERSPRESET_LegacyPrestigeTitle" xml:space="preserve">
-    <value>MİRASA PRESTİJ SEVİYESİ</value>
+    <value>MİRAS PRESTİJ SEVİYESİ</value>
   </data>
   <data name="CHARACTERSPRESET_ExtraActionsTitle" xml:space="preserve">
-    <value>EKSTRA EYLEMLER</value>
+    <value>EKSTRA İŞLEMLER</value>
   </data>
   <data name="CHARACTERSPRESET_SpreadPreset" xml:space="preserve">
-    <value>Mevcut ön ayarı tüm karakterlere yay</value>
+    <value>Mevcut ön ayarı tüm karakterlere uygula</value>
   </data>
   <data name="CHARACTERSPRESET_RandomizePresets" xml:space="preserve">
-    <value>Tüm karakter ön ayarlarını rastgele yap</value>
+    <value>Tüm karakter ön ayarlarını rastgele ata</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumBloodWebLevelTitle" xml:space="preserve">
+    <value>MAKS. KAN AĞI SEVİYESİ</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumPrestigeLevelTitle" xml:space="preserve">
+    <value>MAKS. PRESTİJ SEVİYESİ</value>
   </data>
   <data name="CHARACTERSPRESET_SaveChanges" xml:space="preserve">
     <value>Değişiklikleri Onayla ve Kaydet</value>
   </data>
   <data name="MESSAGE_CharactersPresetUnsavedChanges" xml:space="preserve">
-    <value>Karakter ön ayarlarında değişiklik yapıldı, ancak kaydedilmedi! Kaydetmeden pencereyi kapatmak mı?</value>
+    <value>Karakter ön ayarlarında değişiklik yapıldı ancak kaydedilmedi! Kaydetmeden pencereyi kapatmak istiyor musunuz?</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_Title" xml:space="preserve">
+    <value>NİŞANGAHI YAPILANDIR</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_LengthTitle" xml:space="preserve">
+    <value>UZUNLUK</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ThicknessTitle" xml:space="preserve">
+    <value>KALINLIK</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GapTitle" xml:space="preserve">
+    <value>MERKEZ BOŞLUĞU</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineTitle" xml:space="preserve">
+    <value>DIŞ ÇİZGİ BOYUTU</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_DotSizeTitle" xml:space="preserve">
+    <value>NOKTA BOYUTU</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleRadiusTitle" xml:space="preserve">
+    <value>DAİRE YARIÇAPI</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineCheckBox" xml:space="preserve">
+    <value>Dış Çizgi</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CenterDotCheckBox" xml:space="preserve">
+    <value>Merkez Noktası</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleCheckBox" xml:space="preserve">
+    <value>Merkez Dairesi</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_TStyleCheckBox" xml:space="preserve">
+    <value>T-Stili</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ColorPresetTitle" xml:space="preserve">
+    <value>RENK ÖN AYARI</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_AlphaTitle" xml:space="preserve">
+    <value>ALFA (10-255)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_RedTitle" xml:space="preserve">
+    <value>KIRMIZI (R)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GreenTitle" xml:space="preserve">
+    <value>YEŞİL (G)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_BlueTitle" xml:space="preserve">
+    <value>MAVİ (B)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeSectionTitle" xml:space="preserve">
+    <value>PAYLAŞIM KODU &amp;&amp; İŞLEMLER</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeInputTitle" xml:space="preserve">
+    <value>MEVCUT / İÇE AKTARILACAK PAYLAŞIM KODU (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ImportShareCode" xml:space="preserve">
+    <value>Kodu Uygula</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ResetDefault" xml:space="preserve">
+    <value>Varsayılan Nişangaha Sıfırla</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_SaveChanges" xml:space="preserve">
+    <value>Nişangahı Onayla ve Kaydet</value>
+  </data>
+  <data name="MESSAGE_CrosshairSettingsUnsavedChanges" xml:space="preserve">
+    <value>Nişangah ayarlarında değişiklik yapıldı ancak kaydedilmedi! Kaydetmeden pencereyi kapatmak istiyor musunuz?</value>
+  </data>
+  <data name="MESSAGE_InvalidCrosshairShareCode" xml:space="preserve">
+    <value>Geçersiz Nişangah Paylaşım Kodu!
+Kodun geçerli bir formatta olduğundan emin olun (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX).</value>
   </data>
   <data name="GREETINGS_01" xml:space="preserve">
-    <value>Haydi rock yapalım! 🤘</value>
+    <value>Haydi coşalım! 🤘</value>
   </data>
   <data name="GREETINGS_02" xml:space="preserve">
     <value>Günün nasıl geçti?</value>
@@ -261,10 +278,10 @@ Bu yazılım Açık Kaynaklıdır ve Ücretsizdir! Eğer ödeme yapmanız gerekt
     <value>Oyun zamanı! ⚔</value>
   </data>
   <data name="GREETINGS_05" xml:space="preserve">
-    <value>Hadi groovelamaya başlayalım! 🎵</value>
+    <value>Ritme kapılma zamanı! 🎵</value>
   </data>
   <data name="GREETINGS_06" xml:space="preserve">
-    <value>Yeni bir gün, yeni bir meydan okuma!</value>
+    <value>Yeni bir gün, yeni bir mücadele!</value>
   </data>
   <data name="GREETINGS_07" xml:space="preserve">
     <value>Haydi başlayalım! 🎲</value>
@@ -275,21 +292,21 @@ Bu yazılım Açık Kaynaklıdır ve Ücretsizdir! Eğer ödeme yapmanız gerekt
   <data name="MESSAGE_RobotoFontMissing" xml:space="preserve">
     <value>Cursed Market, "Roboto-Regular" yazı tipi düşünülerek tasarlandı!
 
-Yazılım, yazı tipi "{0}" yüklenmeden düzgün çalışmaz.</value>
+Yazı tipi yüklenene kadar yazılım düzgün çalışmayacaktır: "{0}"</value>
   </data>
   <data name="MESSAGE_DataFolderCreationFailed" xml:space="preserve">
-    <value>Cursed Market, %localappdata% içinde veri klasörü oluşturamadı! Lütfen programın yönetici yetkileriyle çalıştığını doğrulayın.</value>
+    <value>Cursed Market, %appdata% içinde veri klasörü oluşturamadı! Lütfen programın yönetici yetkileriyle çalıştığını doğrulayın.</value>
   </data>
   <data name="MESSAGE_FailedToReadCharactersPreset" xml:space="preserve">
-    <value>"charactersPreset.json" dosyası okunamadı! Dosyanın boş olmadığından ve içeriğinin JSON formatında olduğundan emin olun.</value>
+    <value>"CharactersPreset.json" dosyası okunamadı! Dosyanın boş olmadığından ve içeriğinin JSON formatında olduğundan emin olun.</value>
   </data>
   <data name="MAIN_Start" xml:space="preserve">
     <value>BAŞLAT</value>
   </data>
   <data name="WARNING_CharacterOwnership" xml:space="preserve">
-    <value>DİKKAT! Program, oyundaki tüm karakterlere erişiminizi açsa da gerçekte sahip olmadığınız karakterleri kullanmaya çalışmanız sizi ana menüye geri atacak ve ardından geçici süreyle engellenmenize neden olacaktır!</value>
+    <value>UYARI! Bu program oyundaki tüm karakterlere erişimi açsa da, gerçekte sahip olmadığınız karakterleri kullanmaya çalışmanız ana menüye atılmanıza ve ardından geçici olarak yasaklanmanıza neden olacaktır!</value>
   </data>
   <data name="PLEASE_WAIT" xml:space="preserve">
-    <value>Lütfen bekleyiniz...</value>
+    <value>Lütfen bekleyin...</value>
   </data>
 </root>

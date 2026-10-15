@@ -29,14 +29,13 @@ namespace Cursed_Market
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Crosshair));
             this.pictureBox_Crosshair = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Crosshair)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox_Crosshair
             // 
-            this.pictureBox_Crosshair.Image = global::Cursed_Market.Properties.Resources.IMG_CROSSHAIR_DEFAULT_CIRCLE_AQUA;
+            this.pictureBox_Crosshair.Image = global::Cursed_Market.Properties.Resources.IMG_CROSSHAIR_MISSING;
             this.pictureBox_Crosshair.Location = new System.Drawing.Point(640, 176);
             this.pictureBox_Crosshair.Name = "pictureBox_Crosshair";
             this.pictureBox_Crosshair.Size = new System.Drawing.Size(512, 512);
@@ -52,14 +51,13 @@ namespace Cursed_Market
             this.ClientSize = new System.Drawing.Size(1920, 1080);
             this.Controls.Add(this.pictureBox_Crosshair);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Cursed_Market.Properties.Resources.Icon_Other;
             this.Name = "Form_Crosshair";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Crosshair";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Crosshair_FormClosing);
-            this.Load += new System.EventHandler(this.Form_Crosshair_Load);
             this.Shown += new System.EventHandler(this.Form_Crosshair_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Crosshair)).EndInit();
             this.ResumeLayout(false);

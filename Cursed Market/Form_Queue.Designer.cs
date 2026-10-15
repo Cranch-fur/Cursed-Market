@@ -52,7 +52,7 @@ namespace Cursed_Market
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.label_QueueStatus);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Cursed_Market.Properties.Resources.Icon_Other;
             this.Name = "Form_Queue";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

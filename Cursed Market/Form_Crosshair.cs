@@ -1,7 +1,7 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -15,76 +15,93 @@ namespace Cursed_Market
 {
     public partial class Form_Crosshair : Form
     {
+        #region Win32 API (Hooks & Layered Window)
+
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelMouseProc lpfn, IntPtr hMod, uint dwThreadId);
-
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool UnhookWindowsHookEx(IntPtr hhk);
 
-
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
-
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr GetModuleHandle(string lpModuleName);
 
+        [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
+        private static extern bool UpdateLayeredWindow(IntPtr hwnd, IntPtr hdcDst, ref Point pptDst, ref Size psize, IntPtr hdcSrc, ref Point pptSrc, uint crKey, [In] ref BLENDFUNCTION pblend, uint dwFlags);
 
-        // Delegate for the hook callback function
+        [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
+        private static extern IntPtr GetDC(IntPtr hWnd);
+
+        [DllImport("user32.dll", ExactSpelling = true)]
+        private static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+
+        [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
+        private static extern IntPtr CreateCompatibleDC(IntPtr hDC);
+
+        [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
+        private static extern bool DeleteDC(IntPtr hdc);
+
+        [DllImport("gdi32.dll", ExactSpelling = true)]
+        private static extern IntPtr SelectObject(IntPtr hDC, IntPtr hObject);
+
+        [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
+        private static extern bool DeleteObject(IntPtr hObject);
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        private struct BLENDFUNCTION
+        {
+            public byte BlendOp;
+            public byte BlendFlags;
+            public byte SourceConstantAlpha;
+            public byte AlphaFormat;
+        }
+
+        private const byte AC_SRC_OVER = 0x00;
+        private const byte AC_SRC_ALPHA = 0x01;
+        private const uint ULW_ALPHA = 0x00000002;
+
         private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
 
-
-
+        #endregion
 
         protected override CreateParams CreateParams
         {
             get
             {
-                // Retrieve the base window creation parameters.
                 CreateParams createParams = base.CreateParams;
-
-                // The ExStyle property sets the extended window styles.
-                // Here we enable several flags using the bitwise OR operator:
-                //
-                // 0x20  - WS_EX_TRANSPARENT:
-                //         Makes the window transparent to mouse events, meaning that clicks pass through the window.
-                //
-                // 0x80  - WS_EX_TOOLWINDOW:
-                //         Designates the window as a tool window, which prevents it from appearing on the taskbar.
-                //
-                // 0x80000  - WS_EX_LAYERED:
-                //         Allows the use of transparency effects and alpha blending for the window.
-                //
-                // 0x08000000  - WS_EX_NOACTIVATE:
-                //         Prevents the window from being activated when clicked, i.e., it does not gain focus.
+                /* 0x20 (WS_EX_TRANSPARENT) | 0x80 (WS_EX_TOOLWINDOW) | 0x80000 (WS_EX_LAYERED) | 0x08000000 (WS_EX_NOACTIVATE). */
                 createParams.ExStyle |= 0x20 | 0x80 | 0x80000 | 0x08000000;
-
-
                 return createParams;
             }
         }
 
-
-
-
-        // Global hook variables
         private IntPtr _hookID = IntPtr.Zero;
-        private LowLevelMouseProc _proc;
+        private readonly LowLevelMouseProc _proc;
+        private Bitmap _currentBitmap;
 
-        // Constants for hook and mouse event
         private const int WH_MOUSE_LL = 14;
         private const int WM_RBUTTONDOWN = 0x204;
         private const int WM_RBUTTONUP = 0x205;
 
-        // Background workers for mouse hook and timer
-        private BackgroundWorker bgwHook;
+        public Form_Crosshair()
+        {
+            InitializeComponent();
 
+            /* Hide legacy PictureBox since UpdateLayeredWindow renders directly onto the form surface. */
+            pictureBox_Crosshair.Visible = false;
 
+            _proc = HookCallback;
 
+            if (ProgramStartupArguments.HasStartupArgument(ProgramStartupArguments.Common.crosshairToggleFeature))
+            {
+                _hookID = SetHook(_proc);
+            }
+        }
 
-        // Set the global mouse hook
         private IntPtr SetHook(LowLevelMouseProc proc)
         {
             using (Process curProcess = Process.GetCurrentProcess())
@@ -93,88 +110,112 @@ namespace Cursed_Market
                 return SetWindowsHookEx(WH_MOUSE_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
             }
         }
-        // Global hook callback function
+
         private IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
-            if (nCode >= 0)
+            if (nCode >= 0 && this.IsHandleCreated && !this.IsDisposed)
             {
-                if (this.IsHandleCreated && this.Handle != IntPtr.Zero)
+                if (wParam == (IntPtr)WM_RBUTTONDOWN)
                 {
-                    if (wParam == (IntPtr)WM_RBUTTONDOWN)
-                    {
-                        this.BeginInvoke((Action)(() => this.Opacity = (float)ProgramFeatures.Crosshair.GetOpacity() / 100));
-                    }
-                    else if (wParam == (IntPtr)WM_RBUTTONUP)
-                    {
-                        this.BeginInvoke((Action)(() => this.Opacity = 0));
-                    }
+                    this.BeginInvoke((Action)(() => ApplyLayeredBitmap(_currentBitmap, ProgramFeatures.Crosshair.GetOpacity())));
+                }
+                else if (wParam == (IntPtr)WM_RBUTTONUP)
+                {
+                    this.BeginInvoke((Action)(() => ApplyLayeredBitmap(_currentBitmap, 0)));
                 }
             }
-
 
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }
 
-
-
-
-        // Background worker method for global mouse hook
-        private void bgwHook_DoWork(object sender, DoWorkEventArgs e)
-        {
-            // Set the global hook
-            _hookID = SetHook(_proc);
-            // Start a message loop to keep the hook active
-            Application.Run();
-        }
-
-
-
-
-        private void InitializeBackgroundWorkers()
-        {
-            // Initialize background worker for global mouse hook
-            bgwHook = new BackgroundWorker();
-            bgwHook.WorkerSupportsCancellation = true;
-            bgwHook.DoWork += bgwHook_DoWork;
-        }
-
-
-
-
-        public Form_Crosshair()
-        {
-            InitializeComponent();
-            InitializeSettings();
-            if (ProgramStartupArguments.HasStartupArgument(ProgramStartupArguments.Common.crosshairToggleFeature))
-            {
-                InitializeBackgroundWorkers();
-                bgwHook.RunWorkerAsync();
-            }
-                
-
-            // Initialize mouse hook delegate
-            _proc = HookCallback;
-
-
-            this.Width = Screen.PrimaryScreen.Bounds.Width;   // Get user screen size and apply it to Crosshair Form width.
-            this.Height = Screen.PrimaryScreen.Bounds.Height; // Get user screen size and apply it to Crosshair Form height.
-        }
         private void Form_Crosshair_Load(object sender, EventArgs e)
-        {
-            CheckForIllegalCrossThreadCalls = false; // We need to disable Safety Measures in order to call user32.dll.
-            SetStyle(ControlStyles.SupportsTransparentBackColor, true); // Enables transparent background support for our Form.
-        }
-        private void Form_Crosshair_Shown(object sender, EventArgs e) // Update crosshair settings each time it's initially displayed on screen.
         {
             ForceInitializeSettings();
         }
-        private void Crosshair_FormClosing(object sender, FormClosingEventArgs e) // Prevent Crosshair Form from being closed by any means.
+
+        private void Form_Crosshair_Shown(object sender, EventArgs e)
         {
-            e.Cancel = true;
+            ForceInitializeSettings();
         }
 
+        private void Crosshair_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                return;
+            }
 
+            if (_hookID != IntPtr.Zero)
+            {
+                UnhookWindowsHookEx(_hookID);
+                _hookID = IntPtr.Zero;
+            }
 
+            _currentBitmap?.Dispose();
+        }
+
+        /* Applies true 32-bit per-pixel alpha bitmap to the window. */
+        private void ApplyLayeredBitmap(Bitmap bitmap, int opacityPercent)
+        {
+            if (!this.IsHandleCreated || this.IsDisposed || bitmap == null)
+                return;
+
+            /* Ensure the bitmap is formatted as 32bppArgb for alpha channel support. */
+            Bitmap argbBitmap = bitmap.PixelFormat == PixelFormat.Format32bppArgb
+                ? bitmap
+                : bitmap.Clone(new Rectangle(0, 0, bitmap.Width, bitmap.Height), PixelFormat.Format32bppArgb);
+
+            IntPtr screenDc = GetDC(IntPtr.Zero);
+            IntPtr memDc = CreateCompatibleDC(screenDc);
+            IntPtr hBitmap = IntPtr.Zero;
+            IntPtr oldBitmap = IntPtr.Zero;
+
+            try
+            {
+                hBitmap = argbBitmap.GetHbitmap(Color.FromArgb(0));
+                oldBitmap = SelectObject(memDc, hBitmap);
+
+                Rectangle screenBounds = Screen.PrimaryScreen.Bounds;
+                Size size = new Size(argbBitmap.Width, argbBitmap.Height);
+                Point topPos = new Point(
+                    screenBounds.Width / 2 - size.Width / 2,
+                    screenBounds.Height / 2 - size.Height / 2);
+                Point pointSource = new Point(0, 0);
+
+                byte alphaValue = (byte)Math.Round(Math.Max(0, Math.Min(100, opacityPercent)) * 2.55f);
+
+                BLENDFUNCTION blend = new BLENDFUNCTION
+                {
+                    BlendOp = AC_SRC_OVER,
+                    BlendFlags = 0,
+                    SourceConstantAlpha = alphaValue,
+                    AlphaFormat = AC_SRC_ALPHA
+                };
+
+                UpdateLayeredWindow(this.Handle, screenDc, ref topPos, ref size, memDc, ref pointSource, 0, ref blend, ULW_ALPHA);
+            }
+            finally
+            {
+                ReleaseDC(IntPtr.Zero, screenDc);
+                if (hBitmap != IntPtr.Zero)
+                {
+                    SelectObject(memDc, oldBitmap);
+                    DeleteObject(hBitmap);
+                }
+                DeleteDC(memDc);
+
+                if (!ReferenceEquals(argbBitmap, bitmap))
+                    argbBitmap.Dispose();
+            }
+        }
+
+        private void SetCrosshairBitmap(Image sourceImage)
+        {
+            _currentBitmap?.Dispose();
+            _currentBitmap = sourceImage != null ? new Bitmap(sourceImage) : new Bitmap(1, 1, PixelFormat.Format32bppArgb);
+            ApplyLayeredBitmap(_currentBitmap, ProgramFeatures.Crosshair.GetOpacity());
+        }
 
         private void SetCrosshairFromFile(string filePath)
         {
@@ -182,147 +223,72 @@ namespace Cursed_Market
             {
                 try
                 {
-                    Image crosshairImage = Image.FromFile(filePath);
-                    pictureBox_Crosshair.Image = crosshairImage;
-                    return; // Code is complete, we force return to never reach ICON_MISSING scenario.
+                    byte[] bytes = File.ReadAllBytes(filePath);
+                    using (MemoryStream ms = new MemoryStream(bytes))
+                    using (Image img = Image.FromStream(ms))
+                    {
+                        SetCrosshairBitmap(img);
+                        return;
+                    }
                 }
                 catch { }
             }
 
-            pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_MISSING; // Use missing icon if either file doesn't exist or there wasn't any success reading it as an image.
+            SetCrosshairBitmap(Properties.Resources.IMG_CROSSHAIR_MISSING);
         }
 
+        public void ForceInitializeSettings() => InitializeSettings();
 
-
-
-        public void ForceInitializeSettings() => InitializeSettings(); // Public proxy function for initializing settings at any time given, from any class.
         private void InitializeSettings()
         {
             switch (ProgramFeatures.Crosshair.GetSelectedCrosshair())
             {
                 default:
-                    pictureBox_Crosshair.Image = Properties.Resources.IMG_MISSING; // Default crosshair to use if nothing is set.
+                    SetCrosshairBitmap(Properties.Resources.IMG_MISSING);
                     break;
-
                 case ProgramFeatures.Crosshair.E_Crosshairs.none:
+                    SetCrosshairBitmap(null);
                     break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.cs_nafany:
-                    pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_CS_nafany;
+                case ProgramFeatures.Crosshair.E_Crosshairs.customizable:
+                    using (Bitmap customBmp = CrosshairGenerator.RenderCrosshair(ProgramFeatures.Crosshair.Settings))
+                    {
+                        SetCrosshairBitmap(customBmp);
+                    }
                     break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.cs_donk:
-                    pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_CS_donk;
-                    break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.cs_felps:
-                    pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_CS_Felps;
-                    break;
-
                 case ProgramFeatures.Crosshair.E_Crosshairs.circleAqua:
-                    pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_DEFAULT_CIRCLE_AQUA;
+                    SetCrosshairBitmap(Properties.Resources.IMG_CROSSHAIR_DEFAULT_CIRCLE_AQUA);
                     break;
-
                 case ProgramFeatures.Crosshair.E_Crosshairs.circleWhite:
-                    pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_DEFAULT_CIRCLE_WHITE;
+                    SetCrosshairBitmap(Properties.Resources.IMG_CROSSHAIR_DEFAULT_CIRCLE_WHITE);
                     break;
-
                 case ProgramFeatures.Crosshair.E_Crosshairs.dotAqua:
-                    pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_DEFAULT_DOT_AQUA;
+                    SetCrosshairBitmap(Properties.Resources.IMG_CROSSHAIR_DEFAULT_DOT_AQUA);
                     break;
-
                 case ProgramFeatures.Crosshair.E_Crosshairs.dotGreen:
-                    pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_DEFAULT_DOT_GREEN;
+                    SetCrosshairBitmap(Properties.Resources.IMG_CROSSHAIR_DEFAULT_DOT_GREEN);
                     break;
-
                 case ProgramFeatures.Crosshair.E_Crosshairs.dotRed:
-                    pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_DEFAULT_DOT_RED;
+                    SetCrosshairBitmap(Properties.Resources.IMG_CROSSHAIR_DEFAULT_DOT_RED);
                     break;
-
                 case ProgramFeatures.Crosshair.E_Crosshairs.dotYellow:
-                    pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_DEFAULT_DOT_YELLOW;
+                    SetCrosshairBitmap(Properties.Resources.IMG_CROSSHAIR_DEFAULT_DOT_YELLOW);
                     break;
-
                 case ProgramFeatures.Crosshair.E_Crosshairs.tacticAqua:
-                    pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_TACTIC_AQUA;
+                    SetCrosshairBitmap(Properties.Resources.IMG_CROSSHAIR_TACTIC_AQUA);
                     break;
-
                 case ProgramFeatures.Crosshair.E_Crosshairs.tacticWhite:
-                    pictureBox_Crosshair.Image = Properties.Resources.IMG_CROSSHAIR_TACTIC_WHITE;
+                    SetCrosshairBitmap(Properties.Resources.IMG_CROSSHAIR_TACTIC_WHITE);
                     break;
-
                 case ProgramFeatures.Crosshair.E_Crosshairs.custom01:
                     SetCrosshairFromFile(ProgramPaths.customCrosshair01FilePath);
                     break;
-
                 case ProgramFeatures.Crosshair.E_Crosshairs.custom02:
                     SetCrosshairFromFile(ProgramPaths.customCrosshair02FilePath);
                     break;
-
                 case ProgramFeatures.Crosshair.E_Crosshairs.custom03:
                     SetCrosshairFromFile(ProgramPaths.customCrosshair03FilePath);
                     break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.custom04:
-                    SetCrosshairFromFile(ProgramPaths.customCrosshair04FilePath);
-                    break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.custom05:
-                    SetCrosshairFromFile(ProgramPaths.customCrosshair05FilePath);
-                    break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.custom06:
-                    SetCrosshairFromFile(ProgramPaths.customCrosshair06FilePath);
-                    break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.custom07:
-                    SetCrosshairFromFile(ProgramPaths.customCrosshair07FilePath);
-                    break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.custom08:
-                    SetCrosshairFromFile(ProgramPaths.customCrosshair08FilePath);
-                    break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.custom09:
-                    SetCrosshairFromFile(ProgramPaths.customCrosshair09FilePath);
-                    break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.custom10:
-                    SetCrosshairFromFile(ProgramPaths.customCrosshair10FilePath);
-                    break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.custom11:
-                    SetCrosshairFromFile(ProgramPaths.customCrosshair11FilePath);
-                    break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.custom12:
-                    SetCrosshairFromFile(ProgramPaths.customCrosshair12FilePath);
-                    break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.custom13:
-                    SetCrosshairFromFile(ProgramPaths.customCrosshair13FilePath);
-                    break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.custom14:
-                    SetCrosshairFromFile(ProgramPaths.customCrosshair14FilePath);
-                    break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.custom15:
-                    SetCrosshairFromFile(ProgramPaths.customCrosshair15FilePath);
-                    break;
-
-                case ProgramFeatures.Crosshair.E_Crosshairs.custom16:
-                    SetCrosshairFromFile(ProgramPaths.customCrosshair16FilePath);
-                    break;
             }
-
-
-            this.BackColor = this.pictureBox_Crosshair.BackColor; // Applying crosshair back color to the Form itself.
-            this.TransparencyKey = this.pictureBox_Crosshair.BackColor; // Announcing Form back color as Form transparency key. This way we're getting rid of background color, making crosshair display as a proper PNG image.
-
-
-            pictureBox_Crosshair.Location = new Point(this.Width / 2 - (pictureBox_Crosshair.Width / 2), this.Height / 2 - (pictureBox_Crosshair.Height / 2)); // Calculating X & Y coordinates of the user screen center and moving crosshair to them.
-            this.Opacity = (float)ProgramFeatures.Crosshair.GetOpacity() / 100; // Crosshair opacity is stored as percent number (0-100), bu WinForms opacity settings are designed for a float in range 0.0-1.0 | 100 / 100 = 1.0
         }
     }
 }

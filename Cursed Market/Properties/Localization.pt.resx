@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -127,10 +68,10 @@
     <value>Alguns conjuntos de personalização foram projetados para aparecer e ser lançados apenas em uma data específica. Essa restrição foi removida.</value>
   </data>
   <data name="MAIN_AntiKillSwitchTitle" xml:space="preserve">
-    <value>Status do Anti-Proibidor:  </value>
+    <value>Status do Removedor de KillSwitch:  </value>
   </data>
   <data name="MAIN_AntiKillSwitchDescription" xml:space="preserve">
-    <value>De tempos em tempos, alguns itens do jogo podem se mostrar com bugs, então os desenvolvedores os desativam. Essa restrição foi removida.</value>
+    <value>De tempos em tempos, alguns itens do jogo podem apresentar bugs, então os desenvolvedores os desativam. Essa restrição foi removida.</value>
   </data>
   <data name="MAIN_MainFeaturesTitle" xml:space="preserve">
     <value>FUNCIONALIDADES PRINCIPAIS</value>
@@ -139,7 +80,7 @@
     <value>Mostrar posição na fila</value>
   </data>
   <data name="MAIN_MainCheckBox_02" xml:space="preserve">
-    <value>Ajuste de Moeda (Visual)</value>
+    <value>Ajustar Quantidade de Moedas (Visual)</value>
   </data>
   <data name="MAIN_MainCheckBox_03" xml:space="preserve">
     <value>Ativar salvamento temporário</value>
@@ -151,7 +92,7 @@
     <value>Desativar regras de jogo alteradas</value>
   </data>
   <data name="MAIN_MainCheckBox_06" xml:space="preserve">
-    <value>Liberar apenas DLC</value>
+    <value>Desbloquear apenas DLCs</value>
   </data>
   <data name="MAIN_CurrenciesAdjustTitle" xml:space="preserve">
     <value>QUANTIDADE DE MOEDAS</value>
@@ -160,10 +101,10 @@
     <value>MIRA</value>
   </data>
   <data name="MAIN_CrosshairOpacityTitle" xml:space="preserve">
-    <value>TRANSPARÊNCIA DA MIRA</value>
+    <value>OPACIDADE DA MIRA</value>
   </data>
   <data name="MAIN_ApiKey" xml:space="preserve">
-    <value>Seu ApiKey estará aqui...</value>
+    <value>Sua ApiKey será exibida aqui...</value>
   </data>
   <data name="MAIN_MainCheckBox_07" xml:space="preserve">
     <value>Conclusão de missão garantida</value>
@@ -202,7 +143,7 @@
     <value>Seu Cloud-ID</value>
   </data>
   <data name="FRIEND_FriendCloudIDTitle" xml:space="preserve">
-    <value>Cloud-ID para enviar solicitação de amizade</value>
+    <value>Cloud-ID para enviar pedido de amizade</value>
   </data>
   <data name="QUEUE_Idle" xml:space="preserve">
     <value>A POSIÇÃO NA FILA SERÁ EXIBIDA AQUI</value>
@@ -216,10 +157,10 @@
   <data name="MESSAGE_FirstLaunch" xml:space="preserve">
     <value>Bem-vindo ao Cursed Market!
 
-Este software é de código aberto e gratuito! Se você foi convencido a pagar por ele, é recomendado enviar uma reclamação ao vendedor.</value>
+Este software é de código aberto e gratuito! Se você foi convencido a pagar por ele, recomenda-se enviar uma reclamação ao vendedor.</value>
   </data>
   <data name="CHARACTERSPRESET_CharactersPresetTitle" xml:space="preserve">
-    <value>CONFIGURAR O PREDEFINIDO DOS PERSONAGENS</value>
+    <value>CONFIGURAR PREDEFINIÇÃO DE PERSONAGENS</value>
   </data>
   <data name="CHARACTERSPRESET_CharacterSelectTitle" xml:space="preserve">
     <value>SELECIONAR PERSONAGEM</value>
@@ -237,16 +178,92 @@ Este software é de código aberto e gratuito! Se você foi convencido a pagar p
     <value>AÇÕES EXTRAS</value>
   </data>
   <data name="CHARACTERSPRESET_SpreadPreset" xml:space="preserve">
-    <value>Aplicar o predefinido atual a todos os personagens</value>
+    <value>Aplicar a predefinição atual a todos os personagens</value>
   </data>
   <data name="CHARACTERSPRESET_RandomizePresets" xml:space="preserve">
     <value>Aleatorizar predefinições de todos os personagens</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumBloodWebLevelTitle" xml:space="preserve">
+    <value>NÍVEL MÁX. DA TEIA DE SANGUE</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumPrestigeLevelTitle" xml:space="preserve">
+    <value>NÍVEL MÁX. DE PRESTÍGIO</value>
   </data>
   <data name="CHARACTERSPRESET_SaveChanges" xml:space="preserve">
     <value>Confirmar e salvar alterações</value>
   </data>
   <data name="MESSAGE_CharactersPresetUnsavedChanges" xml:space="preserve">
-    <value>Foram feitas alterações nas predefinições dos personagens, mas não foram guardadas! Fechar a janela sem salvar?</value>
+    <value>Foram feitas alterações na predefinição de personagens, mas elas não foram salvas! Fechar a janela sem salvar?</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_Title" xml:space="preserve">
+    <value>CONFIGURAR MIRA</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_LengthTitle" xml:space="preserve">
+    <value>COMPRIMENTO</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ThicknessTitle" xml:space="preserve">
+    <value>ESPESSURA</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GapTitle" xml:space="preserve">
+    <value>ESPAÇO CENTRAL</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineTitle" xml:space="preserve">
+    <value>BORDA</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_DotSizeTitle" xml:space="preserve">
+    <value>TAMANHO DO PONTO</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleRadiusTitle" xml:space="preserve">
+    <value>RAIO DO CÍRCULO</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineCheckBox" xml:space="preserve">
+    <value>Contorno</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CenterDotCheckBox" xml:space="preserve">
+    <value>Ponto central</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleCheckBox" xml:space="preserve">
+    <value>Círculo central</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_TStyleCheckBox" xml:space="preserve">
+    <value>Estilo T</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ColorPresetTitle" xml:space="preserve">
+    <value>PREDEFINIÇÃO DE COR</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_AlphaTitle" xml:space="preserve">
+    <value>ALFA (10-255)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_RedTitle" xml:space="preserve">
+    <value>VERMELHO (R)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GreenTitle" xml:space="preserve">
+    <value>VERDE (G)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_BlueTitle" xml:space="preserve">
+    <value>AZUL (B)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeSectionTitle" xml:space="preserve">
+    <value>CÓDIGO DE COMPARTILHAMENTO &amp;&amp; AÇÕES</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeInputTitle" xml:space="preserve">
+    <value>CÓDIGO ATUAL / IMPORTAR CÓDIGO (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ImportShareCode" xml:space="preserve">
+    <value>Aplicar código</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ResetDefault" xml:space="preserve">
+    <value>Redefinir para a mira padrão</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_SaveChanges" xml:space="preserve">
+    <value>Confirmar e salvar mira</value>
+  </data>
+  <data name="MESSAGE_CrosshairSettingsUnsavedChanges" xml:space="preserve">
+    <value>Foram feitas alterações nas configurações da mira, mas elas não foram salvas! Fechar a janela sem salvar?</value>
+  </data>
+  <data name="MESSAGE_InvalidCrosshairShareCode" xml:space="preserve">
+    <value>Código de compartilhamento de mira inválido!
+Certifique-se de que o código está em um formato válido (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX).</value>
   </data>
   <data name="GREETINGS_01" xml:space="preserve">
     <value>Vamos arrasar! 🤘</value>
@@ -261,7 +278,7 @@ Este software é de código aberto e gratuito! Se você foi convencido a pagar p
     <value>Hora de jogar! ⚔</value>
   </data>
   <data name="GREETINGS_05" xml:space="preserve">
-    <value>Hora de dançar! 🎵</value>
+    <value>Hora de curtir! 🎵</value>
   </data>
   <data name="GREETINGS_06" xml:space="preserve">
     <value>Mais um dia, mais um desafio!</value>
@@ -273,18 +290,18 @@ Este software é de código aberto e gratuito! Se você foi convencido a pagar p
     <value>Hora de brilhar! ✨</value>
   </data>
   <data name="MESSAGE_RobotoFontMissing" xml:space="preserve">
-    <value>Cursed Market foi projetado com a fonte "Roboto-Regular" em mente!
+    <value>O Cursed Market foi projetado com a fonte "Roboto-Regular" em mente!
 
 O software não funcionará corretamente até que a fonte seja instalada: "{0}"</value>
   </data>
   <data name="MESSAGE_DataFolderCreationFailed" xml:space="preserve">
-    <value>Cursed Market não conseguiu criar a pasta de dados em %localappdata%! Por favor, verifique se o programa está sendo executado com privilégios de administrador.</value>
+    <value>O Cursed Market não conseguiu criar a pasta de dados em %appdata%! Verifique se o programa está sendo executado com privilégios de administrador.</value>
   </data>
   <data name="MESSAGE_FailedToReadCharactersPreset" xml:space="preserve">
-    <value>Falha ao ler o arquivo "charactersPreset.json"! Certifique-se de que o arquivo não está vazio e que seu conteúdo está no formato JSON.</value>
+    <value>Falha ao ler o arquivo "CharactersPreset.json"! Certifique-se de que o arquivo não está vazio e que seu conteúdo está no formato JSON.</value>
   </data>
   <data name="MAIN_Start" xml:space="preserve">
-    <value>INÍCIO</value>
+    <value>INICIAR</value>
   </data>
   <data name="WARNING_CharacterOwnership" xml:space="preserve">
     <value>ATENÇÃO! Embora o programa desbloqueie o acesso a todos os personagens do jogo, tentar usar personagens que você não possui de fato resultará na expulsão para o menu principal, seguida de um bloqueio temporário!</value>

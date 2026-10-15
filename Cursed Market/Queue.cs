@@ -36,31 +36,35 @@ namespace Cursed_Market
         }
         public static void UpdateQueue()
         {
-            // Threading can f#ck things up, we need to check if Invoking is required.
-            if (ProgramCache.Forms.Main.InvokeRequired)
-            {
-                ProgramCache.Forms.Main.Invoke(new Action(() =>
-                    ProgramCache.Forms.Main.LocalUpdateQueue(queueStatus, queuePosition)));
-            }
-            else
-            {
-                ProgramCache.Forms.Main.LocalUpdateQueue(queueStatus, queuePosition);
-            }
+            E_QueueStatus currentStatus = queueStatus;
+            int currentPosition = queuePosition;
 
-
-            // Threading can f#ck things up, we need to check if Invoking is required.
-            if (ProgramCache.Forms.Queue.InvokeRequired)
+            /* Dispatch UI updates through Main form thread to avoid cross-thread access on unshown forms. */
+            if (ProgramCache.Forms.Main != null && !ProgramCache.Forms.Main.IsDisposed && ProgramCache.Forms.Main.IsHandleCreated)
             {
-                ProgramCache.Forms.Queue.Invoke(new Action(() =>
-                    ProgramCache.Forms.Queue.LocalUpdateQueue(queueStatus, queuePosition)));
-            }
-            else
-            {
-                ProgramCache.Forms.Queue.LocalUpdateQueue(queueStatus, queuePosition);
+                if (ProgramCache.Forms.Main.InvokeRequired)
+                {
+                    ProgramCache.Forms.Main.Invoke(new Action(() =>
+                    {
+                        ProgramCache.Forms.Main.LocalUpdateQueue(currentStatus, currentPosition);
+                        if (ProgramCache.Forms.Queue != null && !ProgramCache.Forms.Queue.IsDisposed)
+                        {
+                            ProgramCache.Forms.Queue.LocalUpdateQueue(currentStatus, currentPosition);
+                        }
+                    }));
+                }
+                else
+                {
+                    ProgramCache.Forms.Main.LocalUpdateQueue(currentStatus, currentPosition);
+                    if (ProgramCache.Forms.Queue != null && !ProgramCache.Forms.Queue.IsDisposed)
+                    {
+                        ProgramCache.Forms.Queue.LocalUpdateQueue(currentStatus, currentPosition);
+                    }
+                }
             }
         }
 
-        
+
         public static void PlaySound()
         {
             switch (ProgramFeatures.QueueNotify.GetSelectedNotifySound())

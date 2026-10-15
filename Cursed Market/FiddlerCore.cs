@@ -267,7 +267,7 @@ namespace Cursed_Market
                     if (oSession.uriContains("/itemsKillswitch.json"))
                     {
                         oSession.utilCreateResponseAndBypassServer();
-                        oSession.utilSetResponseBody(CursedAPI.ResponseFiles.antiKillSwitch);
+                        oSession.utilSetResponseBody(CursedAPI.ResponseFiles.killSwitch);
                         return;
                     }
                 }
@@ -275,12 +275,8 @@ namespace Cursed_Market
 
                 if (oSession.uriContains("/api/v1/dbd-character-data/get-all"))
                 {
-                    if (ProgramFeatures.CharacterData.enabled == true)
-                    {
-                        oSession.utilCreateResponseAndBypassServer();
-                        oSession.utilSetResponseBody(ProgramCache.CursedAPI.CharacterData.data);
-                        return;
-                    }
+                    oSession.bBufferResponse = true;
+                    return;
                 }
 
 
@@ -293,7 +289,13 @@ namespace Cursed_Market
 
                 if (ProgramFeatures.CurrencySpoof.enabled == true)
                 {
-                    if (oSession.uriContains("api/v1/wallet/currencies"))
+                    if (oSession.uriContains("/api/v1/wallet/currencies") || oSession.uriContains("/api/v1/extensions/wallet/getLocalizedCurrenciesAfterLogin"))
+                    {
+                        oSession.bBufferResponse = true;
+                        return;
+                    }
+
+                    if (oSession.uriContains("api/v1/mystery-box/StoreFeaturedWeekly/claim"))
                     {
                         oSession.bBufferResponse = true;
                         return;
@@ -354,6 +356,19 @@ namespace Cursed_Market
                 }
 
 
+                if (oSession.uriContains("/api/v1/dbd-character-data/get-all"))
+                {
+                    string responseBody = oSession.GetResponseBodyAsString();
+
+
+                    if (ProgramFeatures.CharacterData.enabled == true)
+                    {
+                        oSession.utilSetResponseBody(CursedAPI.GetReasonableCharacterData(responseBody));
+                        return;
+                    }
+                }
+
+
                 if (oSession.uriContains("/api/v1/dbd-character-data/bloodweb"))
                 {
                     if (ProgramFeatures.CharacterData.enabled == true || (ProgramFeatures.CharacterData.enabled == false && oSession.responseCode != 200)) // Requesting bloodweb for a character we doesn't own results server to return an exception, so we need to swap data for these characters anyways.
@@ -402,7 +417,7 @@ namespace Cursed_Market
 
                 if (ProgramFeatures.CurrencySpoof.enabled == true)
                 {
-                    if (oSession.uriContains("api/v1/wallet/currencies"))
+                    if (oSession.uriContains("/api/v1/wallet/currencies") || oSession.uriContains("/api/v1/extensions/wallet/getLocalizedCurrenciesAfterLogin"))
                     {
                         string responseBody = oSession.GetResponseBodyAsString();
                         if (responseBody.IsJson())
@@ -431,6 +446,19 @@ namespace Cursed_Market
                                         break;
                                 }
                             }
+
+                            oSession.utilSetResponseBody(responseBodyJSON.ToString());
+                            return;
+                        }
+                    }
+
+                    if (oSession.uriContains("/api/v1/mystery-box/StoreFeaturedWeekly/claim"))
+                    {
+                        string responseBody = oSession.GetResponseBodyAsString();
+                        if (responseBody.IsJson())
+                        {
+                            JObject responseBodyJSON = JObject.Parse(responseBody);
+                            responseBodyJSON["mysteryBox"]["reward"]["balance"] = ProgramFeatures.CurrencySpoof.bloodpointsAmount;
 
                             oSession.utilSetResponseBody(responseBodyJSON.ToString());
                             return;

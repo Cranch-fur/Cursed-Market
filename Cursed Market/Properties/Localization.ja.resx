@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -118,40 +59,40 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="MAIN_GameChangersTitle" xml:space="preserve">
-    <value>ゲームのルールを変更する</value>
+    <value>ゲームチェンジャー</value>
   </data>
   <data name="MAIN_CustomizationsKingTitle" xml:space="preserve">
     <value>カスタマイズの王のステータス:  </value>
   </data>
   <data name="MAIN_CustomizationsKingDescription" xml:space="preserve">
-    <value>いくつかのカスタマイズセットは、特定の日付にのみ表示され、リリースされるように設計されました。この制限は現在解除されました。</value>
+    <value>一部のカスタマイズセットは、特定の日付にのみ表示・リリースされるように設計されています。この制限は現在解除されています。</value>
   </data>
   <data name="MAIN_AntiKillSwitchTitle" xml:space="preserve">
-    <value>アンチ禁止のステータス:  </value>
+    <value>キルスイッチ解除のステータス:  </value>
   </data>
   <data name="MAIN_AntiKillSwitchDescription" xml:space="preserve">
-    <value>時々、いくつかのゲーム内アイテムはバグがあるように見えることがあるため、開発者はそれらをオフにします。この制限は現在解除されました。</value>
+    <value>ゲーム内アイテムに不具合が見つかった際、開発者によって一時的に無効化されることがあります。この制限は現在解除されています。</value>
   </data>
   <data name="MAIN_MainFeaturesTitle" xml:space="preserve">
     <value>主な機能</value>
   </data>
   <data name="MAIN_MainCheckBox_01" xml:space="preserve">
-    <value>キューの位置を表示</value>
+    <value>キュー順位オーバーレイ</value>
   </data>
   <data name="MAIN_MainCheckBox_02" xml:space="preserve">
-    <value>通貨調整（ビジュアル）</value>
+    <value>通貨量の調整（表示のみ）</value>
   </data>
   <data name="MAIN_MainCheckBox_03" xml:space="preserve">
-    <value>一時保存を有効にする</value>
+    <value>一時セーブファイルを有効化</value>
   </data>
   <data name="MAIN_MainCheckBox_04" xml:space="preserve">
     <value>カスタムキャラクタープリセット</value>
   </data>
   <data name="MAIN_MainCheckBox_05" xml:space="preserve">
-    <value>変更されたゲームルールを無効にする</value>
+    <value>ゲームチェンジャーを無効化</value>
   </data>
   <data name="MAIN_MainCheckBox_06" xml:space="preserve">
-    <value>DLCのみを解除する</value>
+    <value>DLCのみをアンロック</value>
   </data>
   <data name="MAIN_CurrenciesAdjustTitle" xml:space="preserve">
     <value>通貨の数量</value>
@@ -160,19 +101,19 @@
     <value>クロスヘア</value>
   </data>
   <data name="MAIN_CrosshairOpacityTitle" xml:space="preserve">
-    <value>クロスヘアの透明度</value>
+    <value>クロスヘアの不透明度</value>
   </data>
   <data name="MAIN_ApiKey" xml:space="preserve">
-    <value>ここにあなたのApiKeyがあります...</value>
+    <value>ここに ApiKey が表示されます...</value>
   </data>
   <data name="MAIN_MainCheckBox_07" xml:space="preserve">
-    <value>クエストの確実な完了</value>
+    <value>クエスト完了を保証</value>
   </data>
   <data name="MAIN_GAMECHANGERSTATUS_CurrentlyInUse" xml:space="preserve">
     <value>現在使用中</value>
   </data>
   <data name="MAIN_GAMECHANGERSTATUS_FailedToObtain" xml:space="preserve">
-    <value>取得に失敗しました</value>
+    <value>取得失敗</value>
   </data>
   <data name="MAIN_GAMECHANGERSTATUS_Disabled" xml:space="preserve">
     <value>無効</value>
@@ -187,7 +128,7 @@
     <value>マッチ開始！</value>
   </data>
   <data name="MAIN_QUEUE_QueuePosition" xml:space="preserve">
-    <value>キューの位置：</value>
+    <value>キューの位置:</value>
   </data>
   <data name="MAIN_NOTIFYICON_Show" xml:space="preserve">
     <value>表示</value>
@@ -196,16 +137,16 @@
     <value>閉じる</value>
   </data>
   <data name="FRIEND_Title" xml:space="preserve">
-    <value>CLOUD-ID を使ったフレンドリクエスト</value>
+    <value>CLOUD-ID フレンドリクエスト</value>
   </data>
   <data name="FRIEND_MyCloudIDTitle" xml:space="preserve">
     <value>あなたの Cloud-ID</value>
   </data>
   <data name="FRIEND_FriendCloudIDTitle" xml:space="preserve">
-    <value>リクエストを送る Cloud-ID</value>
+    <value>フレンドリクエストを送る Cloud-ID</value>
   </data>
   <data name="QUEUE_Idle" xml:space="preserve">
-    <value>キューの位置はここに表示されます</value>
+    <value>キューの位置がここに表示されます</value>
   </data>
   <data name="QUEUE_LobbyFound" xml:space="preserve">
     <value>~ ロビーが見つかりました ~</value>
@@ -214,9 +155,9 @@
     <value>マッチ開始！</value>
   </data>
   <data name="MESSAGE_FirstLaunch" xml:space="preserve">
-    <value>Cursed Marketへようこそ！
+    <value>Cursed Market へようこそ！
 
-このソフトウェアはオープンソースで無料です！支払いを強いられた場合は、販売者に苦情を送ることをお勧めします。</value>
+このソフトウェアはオープンソースであり、無料でご利用いただけます！もし代金を支払わされた場合は、販売者に苦情を申し立てることをお勧めします。</value>
   </data>
   <data name="CHARACTERSPRESET_CharactersPresetTitle" xml:space="preserve">
     <value>キャラクタープリセットの設定</value>
@@ -242,17 +183,93 @@
   <data name="CHARACTERSPRESET_RandomizePresets" xml:space="preserve">
     <value>すべてのキャラクタープリセットをランダム化</value>
   </data>
+  <data name="CHARACTERSPRESET_MaximumBloodWebLevelTitle" xml:space="preserve">
+    <value>最大ブラッドウェブレベル</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumPrestigeLevelTitle" xml:space="preserve">
+    <value>最大プレステージレベル</value>
+  </data>
   <data name="CHARACTERSPRESET_SaveChanges" xml:space="preserve">
     <value>変更を確認して保存</value>
   </data>
   <data name="MESSAGE_CharactersPresetUnsavedChanges" xml:space="preserve">
-    <value>キャラクターのプリセットに変更が加えられましたが、保存されていません！保存せずにウィンドウを閉じますか？</value>
+    <value>キャラクタープリセットに変更が加えられましたが、保存されていません！保存せずにウィンドウを閉じますか？</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_Title" xml:space="preserve">
+    <value>クロスヘアの設定</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_LengthTitle" xml:space="preserve">
+    <value>長さ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ThicknessTitle" xml:space="preserve">
+    <value>太さ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GapTitle" xml:space="preserve">
+    <value>中央の隙間</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineTitle" xml:space="preserve">
+    <value>輪郭の太さ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_DotSizeTitle" xml:space="preserve">
+    <value>ドットのサイズ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleRadiusTitle" xml:space="preserve">
+    <value>円の半径</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineCheckBox" xml:space="preserve">
+    <value>輪郭を描画</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CenterDotCheckBox" xml:space="preserve">
+    <value>中央ドット</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleCheckBox" xml:space="preserve">
+    <value>中央サークル</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_TStyleCheckBox" xml:space="preserve">
+    <value>T字スタイル</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ColorPresetTitle" xml:space="preserve">
+    <value>カラープリセット</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_AlphaTitle" xml:space="preserve">
+    <value>アルファ値 (10-255)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_RedTitle" xml:space="preserve">
+    <value>赤 (R)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GreenTitle" xml:space="preserve">
+    <value>緑 (G)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_BlueTitle" xml:space="preserve">
+    <value>青 (B)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeSectionTitle" xml:space="preserve">
+    <value>共有コード &amp;&amp; 操作</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeInputTitle" xml:space="preserve">
+    <value>現在 / インポートする共有コード (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ImportShareCode" xml:space="preserve">
+    <value>共有コードを適用</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ResetDefault" xml:space="preserve">
+    <value>デフォルトのクロスヘアに戻す</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_SaveChanges" xml:space="preserve">
+    <value>クロスヘアを確認して保存</value>
+  </data>
+  <data name="MESSAGE_CrosshairSettingsUnsavedChanges" xml:space="preserve">
+    <value>クロスヘアの設定が変更されましたが、保存されていません！保存せずにウィンドウを閉じますか？</value>
+  </data>
+  <data name="MESSAGE_InvalidCrosshairShareCode" xml:space="preserve">
+    <value>無効なクロスヘア共有コードです！
+コードの形式が正しいか確認してください (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)。</value>
   </data>
   <data name="GREETINGS_01" xml:space="preserve">
     <value>ロックしようぜ！🤘</value>
   </data>
   <data name="GREETINGS_02" xml:space="preserve">
-    <value>今日どうだった？</value>
+    <value>今日はどんな一日だった？</value>
   </data>
   <data name="GREETINGS_03" xml:space="preserve">
     <value>一緒に踊ろう！🕺</value>
@@ -261,7 +278,7 @@
     <value>ゲームの時間だ！⚔</value>
   </data>
   <data name="GREETINGS_05" xml:space="preserve">
-    <value>是时候跳舞了！🎵</value>
+    <value>ノリノリで行こう！🎵</value>
   </data>
   <data name="GREETINGS_06" xml:space="preserve">
     <value>今日も新たな挑戦！</value>
@@ -273,21 +290,21 @@
     <value>輝く時だ！✨</value>
   </data>
   <data name="MESSAGE_RobotoFontMissing" xml:space="preserve">
-    <value>Cursed Market は "Roboto-Regular" フォントを使用して設計されました！
+    <value>Cursed Market は "Roboto-Regular" フォントを使用して設計されています！
 
-フォント "{0}" がインストールされていないと、ソフトウェアは正常に動作しません。</value>
+フォントがインストールされるまでソフトウェアは正常に動作しません: "{0}"</value>
   </data>
   <data name="MESSAGE_DataFolderCreationFailed" xml:space="preserve">
-    <value>Cursed Market は %localappdata% にデータフォルダを作成できませんでした！プログラムが管理者権限で実行されているか確認してください。</value>
+    <value>Cursed Market は %appdata% にデータフォルダを作成できませんでした！プログラムが管理者権限で実行されているか確認してください。</value>
   </data>
   <data name="MESSAGE_FailedToReadCharactersPreset" xml:space="preserve">
-    <value>ファイル "charactersPreset.json" を読み取れませんでした！ファイルが空でないこと、およびその内容がJSON形式であることを確認してください。</value>
+    <value>ファイル "CharactersPreset.json" を読み取れませんでした！ファイルが空でないこと、および内容が JSON 形式であることを確認してください。</value>
   </data>
   <data name="MAIN_Start" xml:space="preserve">
     <value>スタート</value>
   </data>
   <data name="WARNING_CharacterOwnership" xml:space="preserve">
-    <value>注意！このプログラムはゲーム内のすべてのキャラクターへのアクセスを解除しますが、実際には所有していないキャラクターを使用しようとすると、メインメニューに戻され、一時的なブロック措置が取られます！</value>
+    <value>警告！このプログラムはゲーム内のすべてのキャラクターへのアクセスを解除しますが、実際に所有していないキャラクターを使用しようとすると、メインメニューに戻され、一時的なBAN措置が取られます！</value>
   </data>
   <data name="PLEASE_WAIT" xml:space="preserve">
     <value>しばらくお待ちください...</value>

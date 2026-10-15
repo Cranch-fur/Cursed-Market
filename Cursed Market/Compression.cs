@@ -16,6 +16,9 @@ namespace Cursed_Market
         {
             public static string Compress(string input)
             {
+                if (string.IsNullOrEmpty(input))
+                    return string.Empty;
+
                 byte[] bytes = Encoding.UTF8.GetBytes(input);
 
                 using (MemoryStream memoryStream = new MemoryStream())
@@ -33,19 +36,18 @@ namespace Cursed_Market
 
             public static string Decompress(string base64Input)
             {
+                if (string.IsNullOrEmpty(base64Input))
+                    return string.Empty;
+
                 byte[] compressedBytes = Convert.FromBase64String(base64Input);
 
                 using (MemoryStream memoryStream = new MemoryStream(compressedBytes))
+                using (var gzipStream = new GZipStream(memoryStream, CompressionMode.Decompress))
+                using (var resultStream = new MemoryStream())
                 {
-                    using (var gzipStream = new GZipStream(memoryStream, CompressionMode.Decompress))
-                    {
-                        using (var resultStream = new MemoryStream())
-                        {
-                            gzipStream.CopyTo(resultStream);
-                            byte[] decompressedBytes = resultStream.ToArray();
-                            return Encoding.UTF8.GetString(decompressedBytes);
-                        }
-                    }
+                    gzipStream.CopyTo(resultStream);
+                    byte[] decompressedBytes = resultStream.ToArray();
+                    return Encoding.UTF8.GetString(decompressedBytes);
                 }
             }
         }

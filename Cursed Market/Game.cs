@@ -13,31 +13,64 @@ namespace Cursed_Market
     {
         private static Process GetProcess()
         {
+            Process matchedProcess = null;
             Process[] processArray = Process.GetProcesses();
-            if (processArray.Length > 0)
+
+            foreach (Process process in processArray)
             {
-                foreach (Process process in processArray)
+                try
                 {
-                    if (process.ProcessName.Contains("DeadByDaylight-"))
-                        return process;
+                    if (matchedProcess == null && process.ProcessName.Contains("DeadByDaylight-"))
+                    {
+                        matchedProcess = process;
+                        continue;
+                    }
                 }
+                catch // Ignore processes that exited or denied access during enumeration.
+                { }
+
+                process.Dispose();
             }
 
-            return null;
+            return matchedProcess;
         }
 
         public static bool IsRunning()
         {
-            Process gameProcess = GetProcess();
-            return gameProcess.Responding;
+            using (Process gameProcess = GetProcess())
+            {
+                if (gameProcess == null)
+                    return false;
+
+                try
+                {
+                    return !gameProcess.HasExited && gameProcess.Responding;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
         }
 
         public static bool Exit()
         {
-            Process gameProcess = GetProcess();
-            gameProcess.Kill();
+            using (Process gameProcess = GetProcess())
+            {
+                if (gameProcess == null)
+                    return true;
 
-            return gameProcess.HasExited;
+                try
+                {
+                    gameProcess.Kill();
+                    gameProcess.WaitForExit(5000);
+                    return gameProcess.HasExited;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
         }
 
 
@@ -83,13 +116,18 @@ namespace Cursed_Market
 
         public static void ResolveUserID(string gameAuthResponse)
         {
-            if (gameAuthResponse.IsJson() == true)
+            if (!string.IsNullOrWhiteSpace(gameAuthResponse) && gameAuthResponse.IsJson())
             {
-                JObject json = JObject.Parse(gameAuthResponse);
-                if (json.ContainsKey("userId") == true)
+                try
                 {
-                    ProgramSession.Game.userId = (string)json["userId"];
+                    JToken token = JToken.Parse(gameAuthResponse);
+                    if (token is JObject json && json.ContainsKey("userId"))
+                    {
+                        ProgramSession.Game.userId = (string)json["userId"];
+                    }
                 }
+                catch // Ignore malformed auth payloads.
+                { }
             }
         }
     }

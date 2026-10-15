@@ -176,7 +176,7 @@ namespace Cursed_Market
             this.Controls.Add(this.panel_WindowHeader);
             this.Controls.Add(this.pictureBox_WindowBorder);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Cursed_Market.Properties.Resources.Icon_Other;
             this.Name = "Form_CloudIDFriend";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cloud-ID Friend Request";

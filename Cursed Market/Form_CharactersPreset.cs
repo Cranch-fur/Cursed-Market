@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -29,92 +28,139 @@ namespace Cursed_Market
             }
         }
 
+        /* Cache prestige icons once in memory. */
+        private static readonly Bitmap[] PrestigeImages = new Bitmap[]
+        {
+            Properties.Resources.IMG_PRESTIGE_M01_ASH,
+            Properties.Resources.IMG_PRESTIGE_M01_BRONZE,
+            Properties.Resources.IMG_PRESTIGE_M01_SILVER,
+            Properties.Resources.IMG_PRESTIGE_M01_GOLD,
+            Properties.Resources.IMG_PRESTIGE_M01_IRIDESCENT,
+            Properties.Resources.IMG_PRESTIGE_M02_ASH,
+            Properties.Resources.IMG_PRESTIGE_M02_BRONZE,
+            Properties.Resources.IMG_PRESTIGE_M02_SILVER,
+            Properties.Resources.IMG_PRESTIGE_M02_GOLD,
+            Properties.Resources.IMG_PRESTIGE_M02_IRIDESCENT,
+            Properties.Resources.IMG_PRESTIGE_M03_ASH,
+            Properties.Resources.IMG_PRESTIGE_M03_BRONZE,
+            Properties.Resources.IMG_PRESTIGE_M03_SILVER,
+            Properties.Resources.IMG_PRESTIGE_M03_GOLD,
+            Properties.Resources.IMG_PRESTIGE_M03_IRIDESCENT,
+            Properties.Resources.IMG_PRESTIGE_M04_ASH,
+            Properties.Resources.IMG_PRESTIGE_M04_BRONZE,
+            Properties.Resources.IMG_PRESTIGE_M04_SILVER,
+            Properties.Resources.IMG_PRESTIGE_M04_GOLD,
+            Properties.Resources.IMG_PRESTIGE_M04_IRIDESCENT
+        };
+
+        private static readonly Bitmap Prestige100Image = Properties.Resources.IMG_PRESTIGE_M05;
+        private static readonly Bitmap PrestigeLegacyBg = Properties.Resources.IMG_PRESTIGE_LEGACY;
+        private static readonly Random Rnd = new Random();
 
         internal Dictionary<string, S_Character> charactersDictionary = new Dictionary<string, S_Character>();
         internal JObject outCharactersPreset;
 
-
         internal string _selectedCharacterID = null;
         internal bool updateCharacterDisplayInProgress = false;
-
-
         internal bool changesWasMade = false;
-
-
-
 
         public Form_CharactersPreset()
         {
             InitializeComponent();
             InitializeSettings();
         }
+
+        private void EnsureCharacterPresetEntry(string characterId)
+        {
+            if (outCharactersPreset == null || string.IsNullOrEmpty(characterId))
+                return;
+
+            if (!(outCharactersPreset[characterId] is JObject))
+            {
+                outCharactersPreset[characterId] = new JObject
+                {
+                    ["bloodWebLevel"] = 1,
+                    ["prestigeLevel"] = 0,
+                    ["legacyPrestigeLevel"] = 0
+                };
+            }
+        }
+
         private void Form_CharactersPreset_Shown(object sender, EventArgs e)
         {
-            if (File.Exists(ProgramPaths.charactersMapFilePath) == false)
+            /* Clear previous state when the dialog is reopened. */
+            CleanupCharacterResources();
+
+            if (!File.Exists(ProgramPaths.charactersMapFilePath))
             {
                 Messaging.ShowMessage($"\"CharactersMap.json\" File doesn't exist!\nFull Path: {ProgramPaths.charactersMapFilePath}", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 this.Close();
+                return;
             }
 
-            if (File.Exists(ProgramPaths.charactersPresetFilePath) == false)
+            if (!File.Exists(ProgramPaths.charactersPresetFilePath))
             {
                 Messaging.ShowMessage($"\"CharactersPreset.json\" File doesn't exist!\nFull Path: {ProgramPaths.charactersPresetFilePath}", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 this.Close();
+                return;
             }
 
-
             string charactersMap = File.ReadAllText(ProgramPaths.charactersMapFilePath);
-            if (string.IsNullOrEmpty(charactersMap) || charactersMap.IsJson() == false)
+            if (string.IsNullOrEmpty(charactersMap) || !charactersMap.IsJson())
             {
-                Messaging.ShowMessage($"Failed to read \"CharactersMap.json\" file! Make sure that file isn't empty and it's content is in JSON format.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                Messaging.ShowMessage("Failed to read \"CharactersMap.json\" file! Make sure that the file isn't empty and its content is in JSON format.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 this.Close();
+                return;
             }
 
             string charactersPreset = File.ReadAllText(ProgramPaths.charactersPresetFilePath);
-            if (string.IsNullOrEmpty(charactersPreset) || charactersPreset.IsJson() == false)
+            if (string.IsNullOrEmpty(charactersPreset) || !charactersPreset.IsJson())
             {
-                Messaging.ShowMessage($"Failed to read \"charactersPreset.json\" file! Make sure that file isn't empty and it's content is in JSON format.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                Messaging.ShowMessage("Failed to read \"CharactersPreset.json\" file! Make sure that the file isn't empty and its content is in JSON format.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 this.Close();
+                return;
             }
 
+            outCharactersPreset = JObject.Parse(charactersPreset);
 
             JObject charactersMapJSON = JObject.Parse(charactersMap);
-            foreach (var character in charactersMapJSON) // Iterate through each character we have listed in mappings file. 
+            foreach (var character in charactersMapJSON)
             {
                 string friendlyName = (string)character.Value["friendlyName"];
                 string characterPortrait = (string)character.Value["charPortrait"];
-                bool canObtainLegacy = (bool)character.Value["canObtainLegacy"];
+                bool canObtainLegacy = (bool)(character.Value["canObtainLegacy"] ?? false);
 
-                if (string.IsNullOrEmpty(friendlyName) == false && string.IsNullOrEmpty(characterPortrait) == false) // Check if both character name & character portrait fields aren't empty & valid.
+                if (!string.IsNullOrEmpty(friendlyName) && !string.IsNullOrEmpty(characterPortrait))
                 {
                     string characterPortraitFilePath = Path.Combine(ProgramPaths.charactersPortraitsDirectory, characterPortrait);
-                    if (File.Exists(characterPortraitFilePath)) // Check if specified character portrait leads to an valid file.
+                    if (File.Exists(characterPortraitFilePath))
                     {
-                        Image characterPortraitImage = Image.FromFile(characterPortraitFilePath);
-                        comboBox_CharacterSelect.Items.Add(friendlyName); // For end-user, we only display friendly character name (such as Dwight Fairfield).
-
-                        S_Character characterObject = new S_Character()
+                        /* Load image into memory without locking the file on disk. */
+                        byte[] imgBytes = File.ReadAllBytes(characterPortraitFilePath);
+                        Image characterPortraitImage;
+                        using (MemoryStream ms = new MemoryStream(imgBytes))
                         {
-                            friendlyName = friendlyName,
-                            characterPortrait = characterPortraitImage,
-                            canObtainLegacy = canObtainLegacy
-                        };
-                        charactersDictionary.Add(character.Key, characterObject); // {Character ID}, {S_Character}
+                            characterPortraitImage = new Bitmap(ms);
+                        }
+
+                        comboBox_CharacterSelect.Items.Add(friendlyName);
+                        charactersDictionary[character.Key] = new S_Character(friendlyName, characterPortraitImage, canObtainLegacy);
+                        EnsureCharacterPresetEntry(character.Key);
                     }
                 }
             }
 
-
-            outCharactersPreset = JObject.Parse(charactersPreset);
-
-
             changesWasMade = false;
-            comboBox_CharacterSelect.SelectedIndex = 0;
-            UpdateCharacterDisplay();
+
+            if (comboBox_CharacterSelect.Items.Count > 0)
+            {
+                comboBox_CharacterSelect.SelectedIndex = 0;
+            }
         }
+
         private void Form_CharactersPreset_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (changesWasMade == true)
+            if (changesWasMade && e.CloseReason == CloseReason.UserClosing)
             {
                 if (Messaging.ShowDialog(Properties.Localization.MESSAGE_CharactersPresetUnsavedChanges, MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.OK)
                 {
@@ -122,149 +168,70 @@ namespace Cursed_Market
                 }
             }
         }
+
         private void Form_CharactersPreset_FormClosed(object sender, FormClosedEventArgs e)
         {
-            charactersDictionary.Clear();
+            CleanupCharacterResources();
         }
 
-
-
+        private void CleanupCharacterResources()
+        {
+            changesWasMade = false;
+            _selectedCharacterID = null;
+            pictureBox_CharacterPortrait.Image = null;
+            foreach (var kvp in charactersDictionary)
+            {
+                kvp.Value.characterPortrait?.Dispose();
+            }
+            charactersDictionary.Clear();
+            comboBox_CharacterSelect.Items.Clear();
+        }
 
         private void button_WindowClose_MouseClick(object sender, MouseEventArgs e) => this.Close();
-        private async void panel_WindowHeader_MouseDown(object sender, MouseEventArgs e)
+
+        private void panel_WindowHeader_MouseDown(object sender, MouseEventArgs e)
         {
-            panel_WindowHeader.Capture = false;
-
-            await Task.Run(() =>
+            if (e.Button == MouseButtons.Left)
             {
-                this.Invoke(new Action(() =>
-                {
-                    Message mouse = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero); // 0xA1 - WM_NCLBUTTONDOWN (Posted when the user presses the left mouse button while the cursor is within the nonclient area of a window) | new IntPtr(2) - HTCAPTION (We're making system aware that we have pressed LMB in window title area) | IntPtr.Zero - lParam (Unused in our scenario)
-                    WndProc(ref mouse);
-                }));
-            });
-        }
-
-
-
-
-        public void ReloadTheme()
-        {
-            switch (ProgramThemes.GetSelectedTheme())
-            {
-                default:
-                    this.BackColor = Color.White;
-                    panel_WindowHeader.BackColor = SystemColors.Control;
-                    label_CharactersPresetTitle.ForeColor = Color.Black;
-                    label_CharacterSelectTitle.ForeColor = Color.Black;
-                    label_BloodWebTitle.ForeColor = Color.Black;
-                    label_PrestigeTitle.ForeColor = Color.Black;
-                    label_LegacyPrestigeTitle.ForeColor = Color.Black;
-                    label_ExtraActionsTitle.ForeColor = Color.Black;
-                    label_MaximumBloodWebLevelTitle.ForeColor = Color.Black;
-                    label_MaximumPrestigeLevelTitle.ForeColor = Color.Black;
-                    pictureBox_CharacterPortrait.BackColor = Color.WhiteSmoke;
-                    button_SaveChanges.BackColor = Color.Black;
-                    button_SaveChanges.ForeColor = Color.White;
-                    button_SaveChanges.FlatAppearance.BorderColor = Color.Gray;
-                    break;
-
-                case ProgramThemes.E_Themes.legacy:
-                    this.BackColor = Color.FromArgb(255, 46, 51, 73);
-                    panel_WindowHeader.BackColor = Color.FromArgb(255, 24, 30, 54);
-                    label_CharactersPresetTitle.ForeColor = Color.White;
-                    label_CharacterSelectTitle.ForeColor = Color.White;
-                    label_BloodWebTitle.ForeColor = Color.White;
-                    label_PrestigeTitle.ForeColor = Color.White;
-                    label_LegacyPrestigeTitle.ForeColor = Color.White;
-                    label_ExtraActionsTitle.ForeColor = Color.White;
-                    label_MaximumBloodWebLevelTitle.ForeColor = Color.White;
-                    label_MaximumPrestigeLevelTitle.ForeColor = Color.White;
-                    pictureBox_CharacterPortrait.BackColor = Color.FromArgb(255, 19, 24, 45);
-                    button_SaveChanges.BackColor = Color.IndianRed;
-                    button_SaveChanges.ForeColor = Color.White;
-                    button_SaveChanges.FlatAppearance.BorderColor = Color.DarkRed;
-                    break;
-
-                case ProgramThemes.E_Themes.darkMemories:
-                    this.BackColor = Color.FromArgb(255, 44, 47, 51);
-                    panel_WindowHeader.BackColor = Color.FromArgb(255, 35, 39, 42);
-                    label_CharactersPresetTitle.ForeColor = Color.White;
-                    label_CharacterSelectTitle.ForeColor = Color.White;
-                    label_BloodWebTitle.ForeColor = Color.White;
-                    label_PrestigeTitle.ForeColor = Color.White;
-                    label_LegacyPrestigeTitle.ForeColor = Color.White;
-                    label_ExtraActionsTitle.ForeColor = Color.White;
-                    label_MaximumBloodWebLevelTitle.ForeColor = Color.White;
-                    label_MaximumPrestigeLevelTitle.ForeColor = Color.White;
-                    pictureBox_CharacterPortrait.BackColor = Color.FromArgb(255, 40, 43, 46);
-                    button_SaveChanges.BackColor = Color.FromArgb(255, 65, 65, 65);
-                    button_SaveChanges.ForeColor = Color.White;
-                    button_SaveChanges.FlatAppearance.BorderColor = Color.FromArgb(255, 95, 95, 95);
-                    break;
-
-                case ProgramThemes.E_Themes.saintsRow:
-                    this.BackColor = Color.FromArgb(255, 37, 13, 57);
-                    panel_WindowHeader.BackColor = Color.FromArgb(255, 55, 20, 86);
-                    label_CharactersPresetTitle.ForeColor = Color.White;
-                    label_CharacterSelectTitle.ForeColor = Color.White;
-                    label_BloodWebTitle.ForeColor = Color.White;
-                    label_PrestigeTitle.ForeColor = Color.White;
-                    label_LegacyPrestigeTitle.ForeColor = Color.White;
-                    label_ExtraActionsTitle.ForeColor = Color.White;
-                    label_MaximumBloodWebLevelTitle.ForeColor = Color.White;
-                    label_MaximumPrestigeLevelTitle.ForeColor = Color.White;
-                    pictureBox_CharacterPortrait.BackColor = Color.FromArgb(255, 31, 10, 48);
-                    button_SaveChanges.BackColor = Color.FromArgb(255, 89, 67, 218);
-                    button_SaveChanges.ForeColor = Color.White;
-                    button_SaveChanges.FlatAppearance.BorderColor = Color.MediumPurple;
-                    break;
-
-                case ProgramThemes.E_Themes.dracula:
-                    this.BackColor = Color.FromArgb(255, 40, 42, 54);
-                    panel_WindowHeader.BackColor = Color.FromArgb(255, 68, 71, 90);
-                    label_CharactersPresetTitle.ForeColor = Color.White;
-                    label_CharacterSelectTitle.ForeColor = Color.White;
-                    label_BloodWebTitle.ForeColor = Color.White;
-                    label_PrestigeTitle.ForeColor = Color.White;
-                    label_LegacyPrestigeTitle.ForeColor = Color.White;
-                    label_ExtraActionsTitle.ForeColor = Color.White;
-                    label_MaximumBloodWebLevelTitle.ForeColor = Color.White;
-                    label_MaximumPrestigeLevelTitle.ForeColor = Color.White;
-                    pictureBox_CharacterPortrait.BackColor = Color.FromArgb(255, 62, 65, 83);
-                    button_SaveChanges.BackColor = Color.FromArgb(255, 89, 67, 218);
-                    button_SaveChanges.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    button_SaveChanges.FlatAppearance.BorderColor = Color.MediumPurple;
-                    break;
-
-                case ProgramThemes.E_Themes.christmas:
-                    this.BackColor = Color.FromArgb(255, 24, 24, 24);
-                    panel_WindowHeader.BackColor = Color.FromArgb(255, 14, 14, 14);
-                    label_CharactersPresetTitle.ForeColor = Color.White;
-                    label_CharacterSelectTitle.ForeColor = Color.White;
-                    label_BloodWebTitle.ForeColor = Color.White;
-                    label_PrestigeTitle.ForeColor = Color.White;
-                    label_LegacyPrestigeTitle.ForeColor = Color.White;
-                    label_ExtraActionsTitle.ForeColor = Color.White;
-                    label_MaximumBloodWebLevelTitle.ForeColor = Color.White;
-                    label_MaximumPrestigeLevelTitle.ForeColor = Color.White;
-                    pictureBox_CharacterPortrait.BackColor = Color.FromArgb(255, 19, 19, 19);
-                    button_SaveChanges.BackColor = Color.FromArgb(255, 221, 34, 85);
-                    button_SaveChanges.ForeColor = Color.White;
-                    button_SaveChanges.FlatAppearance.BorderColor = Color.HotPink;
-                    break;
+                panel_WindowHeader.Capture = false;
+                Message mouse = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero);
+                WndProc(ref mouse);
             }
         }
 
+        public void ReloadTheme()
+        {
+            var theme = ProgramThemes.GetCurrentPalette();
 
+            this.BackColor = theme.FormBack;
+            panel_WindowHeader.BackColor = theme.HeaderBack;
 
+            ProgramThemes.ApplyForeColor(theme.TitleText,
+                label_CharactersPresetTitle, label_CharacterSelectTitle, label_BloodWebTitle,
+                label_PrestigeTitle, label_LegacyPrestigeTitle, label_ExtraActionsTitle,
+                label_MaximumBloodWebLevelTitle, label_MaximumPrestigeLevelTitle);
+
+            pictureBox_CharacterPortrait.BackColor = theme.SecondaryCardBack;
+            button_SaveChanges.BackColor = theme.PrimaryButtonBack;
+            button_SaveChanges.ForeColor = theme.PrimaryButtonText;
+            button_SaveChanges.FlatAppearance.BorderColor = theme.PrimaryButtonBorder;
+        }
 
         private void InitializeSettings()
         {
             ReloadTheme();
 
+            pictureBox_CharacterPrestige.Parent = pictureBox_CharacterPortrait;
+            pictureBox_CharacterPrestige.BackColor = Color.Transparent;
+            pictureBox_CharacterPrestige.Location = new Point(
+                pictureBox_CharacterPortrait.Width - pictureBox_CharacterPrestige.Width - 8,
+                pictureBox_CharacterPortrait.Height - pictureBox_CharacterPrestige.Height - 8);
 
-
+            label_CharacterPrestige.Parent = pictureBox_CharacterPrestige;
+            label_CharacterPrestige.BackColor = Color.Transparent;
+            label_CharacterPrestige.Location = new Point(
+                (pictureBox_CharacterPrestige.Width - label_CharacterPrestige.Width) / 2 + 1,
+                (pictureBox_CharacterPrestige.Height - label_CharacterPrestige.Height) / 2);
 
             #region localization
             label_CharactersPresetTitle.Text = Properties.Localization.CHARACTERSPRESET_CharactersPresetTitle;
@@ -279,14 +246,15 @@ namespace Cursed_Market
             #endregion
         }
 
-
-
+        private static decimal ClampDecimal(int value, NumericUpDown control)
+        {
+            return Math.Max(control.Minimum, Math.Min(control.Maximum, value));
+        }
 
         private void UpdateCharacterPrestigeDisplay()
         {
             int prestigeLevel = (int)numericUpDown_Prestige.Value;
             int legacyPrestigeLevel = (int)numericUpDown_LegacyPrestige.Value;
-
 
             if (prestigeLevel == 0)
             {
@@ -298,86 +266,43 @@ namespace Cursed_Market
                 label_CharacterPrestige.Visible = true;
                 pictureBox_CharacterPrestige.Visible = true;
 
-
-
-                pictureBox_CharacterPrestige.Parent = pictureBox_CharacterPortrait;
-                pictureBox_CharacterPrestige.BackColor = Color.Transparent;
-
-                int prestigeImageRelativeLocationX = pictureBox_CharacterPortrait.Width - pictureBox_CharacterPrestige.Width; // Right
-                prestigeImageRelativeLocationX -= 8; // Left offset
-                int prestigeImageRelativeLocationY = pictureBox_CharacterPortrait.Height - pictureBox_CharacterPrestige.Height; // Bottom
-                prestigeImageRelativeLocationY -= 8; // Up offset
-                pictureBox_CharacterPrestige.Location = new Point(prestigeImageRelativeLocationX, prestigeImageRelativeLocationY);
-
-
-                label_CharacterPrestige.Parent = pictureBox_CharacterPrestige;
-                label_CharacterPrestige.BackColor = Color.Transparent;
-
-                int prestigeNumberRelativeLocationX = pictureBox_CharacterPrestige.Width - label_CharacterPrestige.Width; // Right
-                prestigeNumberRelativeLocationX /= 2; // Horizontal center
-                prestigeNumberRelativeLocationX += 1; // Right offset (P.S: Horizontal formula (/=2) makes label slightly off to the left)
-                int prestigeNumberRelativeLocationY = pictureBox_CharacterPrestige.Height - label_CharacterPrestige.Height; // Bottom
-                prestigeNumberRelativeLocationY /= 2; // Vertical center
-                label_CharacterPrestige.Location = new Point(prestigeNumberRelativeLocationX, prestigeNumberRelativeLocationY);
-
-
-
                 if (prestigeLevel == 100)
                 {
-                    pictureBox_CharacterPrestige.Image = Properties.Resources.IMG_PRESTIGE_M05;
+                    pictureBox_CharacterPrestige.Image = Prestige100Image;
                 }
                 else
                 {
-                    Bitmap[] prestigeImages = new Bitmap[]
-                    {
-                        Properties.Resources.IMG_PRESTIGE_M01_ASH,
-                        Properties.Resources.IMG_PRESTIGE_M01_BRONZE,
-                        Properties.Resources.IMG_PRESTIGE_M01_SILVER,
-                        Properties.Resources.IMG_PRESTIGE_M01_GOLD,
-                        Properties.Resources.IMG_PRESTIGE_M01_IRIDESCENT,
-                        Properties.Resources.IMG_PRESTIGE_M02_ASH,
-                        Properties.Resources.IMG_PRESTIGE_M02_BRONZE,
-                        Properties.Resources.IMG_PRESTIGE_M02_SILVER,
-                        Properties.Resources.IMG_PRESTIGE_M02_GOLD,
-                        Properties.Resources.IMG_PRESTIGE_M02_IRIDESCENT,
-                        Properties.Resources.IMG_PRESTIGE_M03_ASH,
-                        Properties.Resources.IMG_PRESTIGE_M03_BRONZE,
-                        Properties.Resources.IMG_PRESTIGE_M03_SILVER,
-                        Properties.Resources.IMG_PRESTIGE_M03_GOLD,
-                        Properties.Resources.IMG_PRESTIGE_M03_IRIDESCENT,
-                        Properties.Resources.IMG_PRESTIGE_M04_ASH,
-                        Properties.Resources.IMG_PRESTIGE_M04_BRONZE,
-                        Properties.Resources.IMG_PRESTIGE_M04_SILVER,
-                        Properties.Resources.IMG_PRESTIGE_M04_GOLD,
-                        Properties.Resources.IMG_PRESTIGE_M04_IRIDESCENT
-                    };
-
-                    int imageIndex = (prestigeLevel - 1) / 5; // Each 5 levels correspond to one image in the array (e.g., levels 1-5 use the first image, levels 6-10 use the second, and so on).
-                    imageIndex = Math.Min(imageIndex, prestigeImages.Length - 1); // Ensure the index does not exceed the bounds of the prestigeImages array.
-                    pictureBox_CharacterPrestige.Image = prestigeImages[imageIndex];
+                    int imageIndex = Math.Min((prestigeLevel - 1) / 5, PrestigeImages.Length - 1);
+                    pictureBox_CharacterPrestige.Image = PrestigeImages[imageIndex];
                 }
-
 
                 label_CharacterPrestige.Text = prestigeLevel.ToString();
             }
 
-
-            pictureBox_CharacterPortrait.BackgroundImage = legacyPrestigeLevel == 3 ? Properties.Resources.IMG_PRESTIGE_LEGACY : null;
+            pictureBox_CharacterPortrait.BackgroundImage = legacyPrestigeLevel == 3 ? PrestigeLegacyBg : null;
         }
+
         private void UpdateCharacterDisplay()
         {
+            if (string.IsNullOrEmpty(_selectedCharacterID) || outCharactersPreset == null || !charactersDictionary.ContainsKey(_selectedCharacterID))
+                return;
+
+            EnsureCharacterPresetEntry(_selectedCharacterID);
+
             updateCharacterDisplayInProgress = true;
 
+            int bwLevel = (int)(outCharactersPreset[_selectedCharacterID]["bloodWebLevel"] ?? 1);
+            int pLevel = (int)(outCharactersPreset[_selectedCharacterID]["prestigeLevel"] ?? 0);
+            int lpLevel = (int)(outCharactersPreset[_selectedCharacterID]["legacyPrestigeLevel"] ?? 0);
 
-            numericUpDown_BloodWeb.Value = (int)outCharactersPreset[_selectedCharacterID]["bloodWebLevel"];
-            numericUpDown_Prestige.Value = (int)outCharactersPreset[_selectedCharacterID]["prestigeLevel"];
-
+            numericUpDown_BloodWeb.Value = ClampDecimal(bwLevel, numericUpDown_BloodWeb);
+            numericUpDown_Prestige.Value = ClampDecimal(pLevel, numericUpDown_Prestige);
 
             var character = charactersDictionary[_selectedCharacterID];
-            if (character.canObtainLegacy == true)
+            if (character.canObtainLegacy)
             {
                 numericUpDown_LegacyPrestige.Enabled = true;
-                numericUpDown_LegacyPrestige.Value = (int)outCharactersPreset[_selectedCharacterID]["legacyPrestigeLevel"];
+                numericUpDown_LegacyPrestige.Value = ClampDecimal(lpLevel, numericUpDown_LegacyPrestige);
             }
             else
             {
@@ -385,84 +310,80 @@ namespace Cursed_Market
                 numericUpDown_LegacyPrestige.Value = 0;
             }
 
-
             pictureBox_CharacterPortrait.Image = character.characterPortrait;
             UpdateCharacterPrestigeDisplay();
-              
 
             updateCharacterDisplayInProgress = false;
         }
 
-
-
-
         private void OnCharacterPresetChanged()
         {
-            if (updateCharacterDisplayInProgress == false)
+            if (!updateCharacterDisplayInProgress && !string.IsNullOrEmpty(_selectedCharacterID) && outCharactersPreset != null)
             {
+                EnsureCharacterPresetEntry(_selectedCharacterID);
+
                 outCharactersPreset[_selectedCharacterID]["bloodWebLevel"] = (int)numericUpDown_BloodWeb.Value;
                 outCharactersPreset[_selectedCharacterID]["prestigeLevel"] = (int)numericUpDown_Prestige.Value;
                 outCharactersPreset[_selectedCharacterID]["legacyPrestigeLevel"] = (int)numericUpDown_LegacyPrestige.Value;
             }
         }
 
-
-
-
         private void comboBox_CharacterSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBox_CharacterSelect.SelectedItem == null) return;
+            string selectedName = comboBox_CharacterSelect.SelectedItem.ToString();
+
             foreach (var character in charactersDictionary)
             {
-                if (character.Value.friendlyName == comboBox_CharacterSelect.SelectedItem.ToString())
-                { 
+                if (character.Value.friendlyName == selectedName)
+                {
                     _selectedCharacterID = character.Key;
+                    break;
                 }
             }
 
             UpdateCharacterDisplay();
         }
 
-
-
-
         private void numericUpDown_BloodWeb_ValueChanged(object sender, EventArgs e)
         {
-            if (updateCharacterDisplayInProgress == false)
+            if (!updateCharacterDisplayInProgress)
                 changesWasMade = true;
 
             OnCharacterPresetChanged();
         }
+
         private void numericUpDown_Prestige_ValueChanged(object sender, EventArgs e)
         {
-            if (updateCharacterDisplayInProgress == false)
+            if (!updateCharacterDisplayInProgress)
                 changesWasMade = true;
 
             UpdateCharacterPrestigeDisplay();
             OnCharacterPresetChanged();
         }
+
         private void numericUpDown_LegacyPrestige_ValueChanged(object sender, EventArgs e)
         {
-            if (updateCharacterDisplayInProgress == false)
+            if (!updateCharacterDisplayInProgress)
                 changesWasMade = true;
 
             UpdateCharacterPrestigeDisplay();
             OnCharacterPresetChanged();
         }
-
-        
-
 
         private void button_SpreadPreset_MouseClick(object sender, MouseEventArgs e)
         {
+            if (outCharactersPreset == null) return;
+
             foreach (var character in charactersDictionary)
             {
+                EnsureCharacterPresetEntry(character.Key);
+
                 outCharactersPreset[character.Key]["bloodWebLevel"] = (int)numericUpDown_BloodWeb.Value;
                 outCharactersPreset[character.Key]["prestigeLevel"] = (int)numericUpDown_Prestige.Value;
-
-                if (character.Value.canObtainLegacy == true)
-                {
-                    outCharactersPreset[character.Key]["legacyPrestigeLevel"] = numericUpDown_LegacyPrestige.Value;
-                }
+                outCharactersPreset[character.Key]["legacyPrestigeLevel"] = character.Value.canObtainLegacy
+                    ? (int)numericUpDown_LegacyPrestige.Value
+                    : 0;
             }
 
             changesWasMade = true;
@@ -471,30 +392,40 @@ namespace Cursed_Market
 
         private void button_RandomizePresets_MouseClick(object sender, MouseEventArgs e)
         {
-            Random rnd = new Random();
+            if (outCharactersPreset == null) return;
+
+            int maxBw = (int)numericUpDown_MaximumBloodWebLevel.Value;
+            int maxPrestige = (int)numericUpDown_MaximumPrestigeLevel.Value;
+
             foreach (var character in charactersDictionary)
             {
-                outCharactersPreset[character.Key]["bloodWebLevel"] = rnd.Next(15, (int)numericUpDown_MaximumBloodWebLevel.Value);
-                outCharactersPreset[character.Key]["prestigeLevel"] = rnd.Next(0, (int)numericUpDown_MaximumPrestigeLevel.Value);
+                EnsureCharacterPresetEntry(character.Key);
 
-                if (character.Value.canObtainLegacy == true)
-                {
-                    outCharactersPreset[character.Key]["legacyPrestigeLevel"] = rnd.Next(0, 3);
-                }
+                outCharactersPreset[character.Key]["bloodWebLevel"] = Rnd.Next(15, maxBw + 1); // 15 to maxBw inclusive.
+                outCharactersPreset[character.Key]["prestigeLevel"] = Rnd.Next(0, maxPrestige + 1);
+                outCharactersPreset[character.Key]["legacyPrestigeLevel"] = character.Value.canObtainLegacy
+                    ? Rnd.Next(0, 4) // 0 to 3 inclusive.
+                    : 0;
             }
 
             changesWasMade = true;
-            UpdateCharacterDisplay(); // We've made changes to ALL characters including one we're currently on, UI update is required.
+            UpdateCharacterDisplay();
             Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
         }
 
-
-
-
         private void button_SaveChanges_MouseClick(object sender, MouseEventArgs e)
         {
+            if (outCharactersPreset == null) return;
+
             changesWasMade = false;
             File.WriteAllText(ProgramPaths.charactersPresetFilePath, outCharactersPreset.ToString());
+
+            /* Immediately reload active preset in memory if the feature is currently enabled in Form_Main. */
+            if (ProgramFeatures.CharactersPreset.enabled && ProgramFeatures.CharactersPreset.Obtain())
+            {
+                ProgramFeatures.CharactersPreset.SetEnabled(true);
+            }
+
             Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
         }
     }

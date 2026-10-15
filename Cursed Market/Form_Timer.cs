@@ -32,7 +32,7 @@ namespace Cursed_Market
         private static extern IntPtr GetModuleHandle(string lpModuleName);
 
 
-        // Delegate for the hook callback function
+        /* Delegate for the hook callback function. */
         private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
 
 
@@ -42,7 +42,7 @@ namespace Cursed_Market
         {
             get
             {
-                // Retrieve the base window creation parameters.
+                /* Retrieve the base window creation parameters. */
                 CreateParams createParams = base.CreateParams;
 
                 // The ExStyle property sets the extended window styles.
@@ -69,25 +69,25 @@ namespace Cursed_Market
 
 
 
-        // Global hook variables
+        /* Global hook variables. */
         private IntPtr _hookID = IntPtr.Zero;
         private LowLevelMouseProc _proc;
 
-        // Constants for hook and mouse event
+        /* Constants for hook and mouse event. */
         private const int WH_MOUSE_LL = 14;
         private const int WM_MBUTTONDOWN = 0x207;
 
-        // Background workers for mouse hook and timer
+        /* Background workers for mouse hook and timer. */
         private BackgroundWorker bgwHook;
         private BackgroundWorker bgwTimer;
 
-        // Timer duration in seconds
+        /* Timer duration in seconds. */
         private const int TimerDuration = 60;
 
 
 
 
-        // Set the global mouse hook
+        /* Set the global mouse hook. */
         private IntPtr SetHook(LowLevelMouseProc proc)
         {
             using (Process curProcess = Process.GetCurrentProcess())
@@ -96,10 +96,10 @@ namespace Cursed_Market
                 return SetWindowsHookEx(WH_MOUSE_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
             }
         }
-        // Global hook callback function
+        /* Global hook callback function. */
         private IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
-            // If nCode is non-negative and the event is middle mouse button down
+            /* If nCode is non-negative and the event is middle mouse button down. */
             if (nCode >= 0 && wParam == (IntPtr)WM_MBUTTONDOWN)
             {
                 // Invoke ToggleTimer on the UI thread
@@ -108,29 +108,27 @@ namespace Cursed_Market
                     ToggleTimer();
                 }));
             }
-            // Pass the hook information to the next hook in the chain
+            /* Pass the hook information to the next hook in the chain. */
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }
 
 
 
 
-        // Background worker method for global mouse hook
+        /* Background worker method for global mouse hook. */
         private void bgwHook_DoWork(object sender, DoWorkEventArgs e)
         {
-            // Set the global hook
-            _hookID = SetHook(_proc);
-            // Start a message loop to keep the hook active
-            Application.Run();
+            _hookID = SetHook(_proc); // Set the global hook.
+            Application.Run(); // Start a message loop to keep the hook active.
         }
 
-        // Background worker method for the timer
+        /* Background worker method for the timer. */
         private void bgwTimer_DoWork(object sender, DoWorkEventArgs e)
         {
             int remaining = TimerDuration;
             while (remaining >= 0)
             {
-                // Check if cancellation is requested
+                /* Check if cancellation is requested. */
                 if (bgwTimer.CancellationPending)
                 {
                     e.Cancel = true;
@@ -144,7 +142,7 @@ namespace Cursed_Market
                 }
 
 
-                // Report progress with the remaining time
+                /* Report progress with the remaining time. */
                 bgwTimer.ReportProgress(0, remaining);
                 Thread.Sleep(1000);
                 remaining--;
@@ -154,7 +152,7 @@ namespace Cursed_Market
 
 
 
-        // Update the label with the remaining time (executed on the UI thread)
+        /* Update the label with the remaining time (executed on the UI thread). */
         private void bgwTimer_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             int remaining = (int)e.UserState;
@@ -164,7 +162,7 @@ namespace Cursed_Market
             this.Opacity = 100;
         }
 
-        // Hide the label when the timer completes or is cancelled
+        /* Hide the label when the timer completes or is cancelled. */
         private void bgwTimer_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             this.Opacity = 0;
@@ -173,7 +171,7 @@ namespace Cursed_Market
 
 
 
-        // Toggle timer: start it if not running, or stop it if already running
+        /* Toggle timer: start it if not running, or stop it if already running. */
         public void ToggleTimer()
         {
             if (bgwTimer.IsBusy)
@@ -193,13 +191,13 @@ namespace Cursed_Market
 
         private void InitializeBackgroundWorkers()
         {
-            // Initialize background worker for global mouse hook
+            /* Initialize background worker for global mouse hook. */
             bgwHook = new BackgroundWorker();
             bgwHook.WorkerSupportsCancellation = true;
             bgwHook.DoWork += bgwHook_DoWork;
 
 
-            // Initialize background worker for timer
+            /* Initialize background worker for timer. */
             bgwTimer = new BackgroundWorker();
             bgwTimer.WorkerReportsProgress = true;
             bgwTimer.WorkerSupportsCancellation = true;
@@ -217,12 +215,9 @@ namespace Cursed_Market
             InitializeSettings();
             InitializeBackgroundWorkers();
 
+            _proc = HookCallback; // Initialize mouse hook delegate.
 
-            // Initialize mouse hook delegate
-            _proc = HookCallback;
-
-
-            // Move the Form to right top
+            /* Move the Form to right top. */
             Rectangle workingArea = Screen.PrimaryScreen.WorkingArea;
             this.Location = new Point(workingArea.Right - this.Width, workingArea.Top);
         }

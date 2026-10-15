@@ -106,6 +106,24 @@ namespace Cursed_Market.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MAX BLOODWEB LEVEL.
+        /// </summary>
+        internal static string CHARACTERSPRESET_MaximumBloodWebLevelTitle {
+            get {
+                return ResourceManager.GetString("CHARACTERSPRESET_MaximumBloodWebLevelTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MAX PRESTIGE LEVEL.
+        /// </summary>
+        internal static string CHARACTERSPRESET_MaximumPrestigeLevelTitle {
+            get {
+                return ResourceManager.GetString("CHARACTERSPRESET_MaximumPrestigeLevelTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PRESTIGE LEVEL.
         /// </summary>
         internal static string CHARACTERSPRESET_PrestigeTitle {
@@ -138,6 +156,195 @@ namespace Cursed_Market.Properties {
         internal static string CHARACTERSPRESET_SpreadPreset {
             get {
                 return ResourceManager.GetString("CHARACTERSPRESET_SpreadPreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ALPHA (10-255).
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_AlphaTitle {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_AlphaTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BLUE (B).
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_BlueTitle {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_BlueTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Center Dot.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_CenterDotCheckBox {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_CenterDotCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Center Circle.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_CircleCheckBox {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_CircleCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CIRCLE RADIUS.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_CircleRadiusTitle {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_CircleRadiusTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to COLOR PRESET.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_ColorPresetTitle {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_ColorPresetTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DOT SIZE.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_DotSizeTitle {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_DotSizeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CENTER GAP.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_GapTitle {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_GapTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GREEN (G).
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_GreenTitle {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_GreenTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply Share Code.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_ImportShareCode {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_ImportShareCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LENGTH.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_LengthTitle {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_LengthTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Draw Outline.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_OutlineCheckBox {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_OutlineCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OUTLINE SIZE.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_OutlineTitle {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_OutlineTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RED (R).
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_RedTitle {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_RedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset to Default Crosshair.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_ResetDefault {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_ResetDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm and Save Crosshair.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_SaveChanges {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_SaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CURRENT / IMPORT SHARE CODE (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX).
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_ShareCodeInputTitle {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_ShareCodeInputTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SHARE CODE &amp;&amp; ACTIONS.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_ShareCodeSectionTitle {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_ShareCodeSectionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to THICKNESS.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_ThicknessTitle {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_ThicknessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CONFIGURE CROSSHAIR.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_Title {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to T-Style.
+        /// </summary>
+        internal static string CROSSHAIRSETTINGS_TStyleCheckBox {
+            get {
+                return ResourceManager.GetString("CROSSHAIRSETTINGS_TStyleCheckBox", resourceCulture);
             }
         }
         
@@ -493,6 +700,15 @@ namespace Cursed_Market.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changes were made to the crosshair settings, but they were not saved! Close the window without saving?.
+        /// </summary>
+        internal static string MESSAGE_CrosshairSettingsUnsavedChanges {
+            get {
+                return ResourceManager.GetString("MESSAGE_CrosshairSettingsUnsavedChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cursed Market failed to create data folder in %localappdata%! Please, verify that program is running with administrator privileges..
         /// </summary>
         internal static string MESSAGE_DataFolderCreationFailed {
@@ -518,6 +734,16 @@ namespace Cursed_Market.Properties {
         internal static string MESSAGE_FirstLaunch {
             get {
                 return ResourceManager.GetString("MESSAGE_FirstLaunch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Crosshair Share Code!
+        ///Make sure the code has a valid format (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)..
+        /// </summary>
+        internal static string MESSAGE_InvalidCrosshairShareCode {
+            get {
+                return ResourceManager.GetString("MESSAGE_InvalidCrosshairShareCode", resourceCulture);
             }
         }
         

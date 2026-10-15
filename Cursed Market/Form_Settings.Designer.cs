@@ -29,7 +29,6 @@ namespace Cursed_Market
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Settings));
             this.panel_WindowHeader = new System.Windows.Forms.Panel();
             this.button_WindowClose = new System.Windows.Forms.Button();
             this.textBox_Culture = new System.Windows.Forms.TextBox();
@@ -179,7 +178,7 @@ namespace Cursed_Market
             // button_ResetApplicationSettings
             // 
             this.button_ResetApplicationSettings.BackColor = System.Drawing.Color.Transparent;
-            this.button_ResetApplicationSettings.FlatAppearance.BorderSize = 0;
+            this.button_ResetApplicationSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_ResetApplicationSettings.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_ResetApplicationSettings.ForeColor = System.Drawing.Color.Black;
             this.button_ResetApplicationSettings.Location = new System.Drawing.Point(107, 304);
@@ -467,7 +466,7 @@ namespace Cursed_Market
             this.Controls.Add(this.pictureBox_ControlPanelFrame);
             this.Controls.Add(this.pictureBox_Background);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Cursed_Market.Properties.Resources.Icon_Settings;
             this.Name = "Form_Settings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings";

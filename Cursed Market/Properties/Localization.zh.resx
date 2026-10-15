@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -124,31 +65,31 @@
     <value>自定义之王状态：  </value>
   </data>
   <data name="MAIN_CustomizationsKingDescription" xml:space="preserve">
-    <value>一些定制套件被设计为仅在特定日期出现和发布。此限制现已取消。</value>
+    <value>某些自定义套装被设计为仅在特定日期显示并发布。此限制现已解除。</value>
   </data>
   <data name="MAIN_AntiKillSwitchTitle" xml:space="preserve">
-    <value>反限制器状态：  </value>
+    <value>禁用解除器状态：  </value>
   </data>
   <data name="MAIN_AntiKillSwitchDescription" xml:space="preserve">
-    <value>不时地，一些游戏物品可能被发现有bug，因此开发者会将其关闭。这个限制现在已经解除。</value>
+    <value>有时部分游戏内物品可能出现错误而被开发者暂时禁用。此限制现已解除。</value>
   </data>
   <data name="MAIN_MainFeaturesTitle" xml:space="preserve">
     <value>主要功能</value>
   </data>
   <data name="MAIN_MainCheckBox_01" xml:space="preserve">
-    <value>显示排队位置</value>
+    <value>排队位置悬浮窗</value>
   </data>
   <data name="MAIN_MainCheckBox_02" xml:space="preserve">
-    <value>货币调整（视觉）</value>
+    <value>调整货币数量（仅视觉）</value>
   </data>
   <data name="MAIN_MainCheckBox_03" xml:space="preserve">
-    <value>启用临时保存</value>
+    <value>启用临时存档文件</value>
   </data>
   <data name="MAIN_MainCheckBox_04" xml:space="preserve">
     <value>自定义角色预设</value>
   </data>
   <data name="MAIN_MainCheckBox_05" xml:space="preserve">
-    <value>禁用更改的游戏规则</value>
+    <value>禁用游戏规则修改</value>
   </data>
   <data name="MAIN_MainCheckBox_06" xml:space="preserve">
     <value>仅解锁 DLC</value>
@@ -160,13 +101,13 @@
     <value>十字准星</value>
   </data>
   <data name="MAIN_CrosshairOpacityTitle" xml:space="preserve">
-    <value>十字准星透明度</value>
+    <value>十字准星不透明度</value>
   </data>
   <data name="MAIN_ApiKey" xml:space="preserve">
-    <value>你的 ApiKey 将在这里...</value>
+    <value>您的 ApiKey 将显示在这里...</value>
   </data>
   <data name="MAIN_MainCheckBox_07" xml:space="preserve">
-    <value>任务完成有保障</value>
+    <value>保证完成任务</value>
   </data>
   <data name="MAIN_GAMECHANGERSTATUS_CurrentlyInUse" xml:space="preserve">
     <value>当前正在使用</value>
@@ -181,13 +122,13 @@
     <value>离线模式</value>
   </data>
   <data name="MAIN_QUEUE_LobbyFound" xml:space="preserve">
-    <value>大厅已找到...</value>
+    <value>已找到大厅...</value>
   </data>
   <data name="MAIN_QUEUE_MatchStarting" xml:space="preserve">
-    <value>比赛即将开始！</value>
+    <value>对局即将开始！</value>
   </data>
   <data name="MAIN_QUEUE_QueuePosition" xml:space="preserve">
-    <value>队列位置：</value>
+    <value>排队位置：</value>
   </data>
   <data name="MAIN_NOTIFYICON_Show" xml:space="preserve">
     <value>显示</value>
@@ -196,7 +137,7 @@
     <value>关闭</value>
   </data>
   <data name="FRIEND_Title" xml:space="preserve">
-    <value>通过 CLOUD-ID 的好友请求</value>
+    <value>通过 CLOUD-ID 发送好友请求</value>
   </data>
   <data name="FRIEND_MyCloudIDTitle" xml:space="preserve">
     <value>您的 Cloud-ID</value>
@@ -205,18 +146,18 @@
     <value>要发送好友请求的 Cloud-ID</value>
   </data>
   <data name="QUEUE_Idle" xml:space="preserve">
-    <value>队列位置将显示在这里</value>
+    <value>排队位置将显示在这里</value>
   </data>
   <data name="QUEUE_LobbyFound" xml:space="preserve">
-    <value>~ 大厅已找到 ~</value>
+    <value>~ 已找到大厅 ~</value>
   </data>
   <data name="QUEUE_MatchStarting" xml:space="preserve">
-    <value>比赛即将开始！</value>
+    <value>对局即将开始！</value>
   </data>
   <data name="MESSAGE_FirstLaunch" xml:space="preserve">
-    <value>欢迎来到 Cursed Market！
+    <value>欢迎使用 Cursed Market！
 
-该软件是开源且免费使用的！如果你被说服支付费用，建议向卖家投诉。</value>
+本软件为开源且完全免费！如果您被诱导付费购买了本软件，建议向卖家发起投诉。</value>
   </data>
   <data name="CHARACTERSPRESET_CharactersPresetTitle" xml:space="preserve">
     <value>配置角色预设</value>
@@ -228,25 +169,101 @@
     <value>血网等级</value>
   </data>
   <data name="CHARACTERSPRESET_PrestigeTitle" xml:space="preserve">
-    <value>声望等级</value>
+    <value>转生等级</value>
   </data>
   <data name="CHARACTERSPRESET_LegacyPrestigeTitle" xml:space="preserve">
-    <value>传承声望等级</value>
+    <value>传承转生等级</value>
   </data>
   <data name="CHARACTERSPRESET_ExtraActionsTitle" xml:space="preserve">
     <value>额外操作</value>
   </data>
   <data name="CHARACTERSPRESET_SpreadPreset" xml:space="preserve">
-    <value>将当前预设应用于所有角色</value>
+    <value>将当前预设应用到所有角色</value>
   </data>
   <data name="CHARACTERSPRESET_RandomizePresets" xml:space="preserve">
-    <value>随机化所有角色的预设</value>
+    <value>随机生成所有角色预设</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumBloodWebLevelTitle" xml:space="preserve">
+    <value>最高血网等级</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumPrestigeLevelTitle" xml:space="preserve">
+    <value>最高转生等级</value>
   </data>
   <data name="CHARACTERSPRESET_SaveChanges" xml:space="preserve">
     <value>确认并保存更改</value>
   </data>
   <data name="MESSAGE_CharactersPresetUnsavedChanges" xml:space="preserve">
-    <value>已更改角色的预设，但未保存！不保存关闭窗口？</value>
+    <value>角色预设已修改但尚未保存！是否不保存并关闭窗口？</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_Title" xml:space="preserve">
+    <value>配置十字准星</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_LengthTitle" xml:space="preserve">
+    <value>长度</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ThicknessTitle" xml:space="preserve">
+    <value>粗细</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GapTitle" xml:space="preserve">
+    <value>中心间隙</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineTitle" xml:space="preserve">
+    <value>描边粗细</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_DotSizeTitle" xml:space="preserve">
+    <value>中心点大小</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleRadiusTitle" xml:space="preserve">
+    <value>圆环半径</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineCheckBox" xml:space="preserve">
+    <value>显示描边</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CenterDotCheckBox" xml:space="preserve">
+    <value>中心点</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleCheckBox" xml:space="preserve">
+    <value>中心圆环</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_TStyleCheckBox" xml:space="preserve">
+    <value>T型准星</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ColorPresetTitle" xml:space="preserve">
+    <value>颜色预设</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_AlphaTitle" xml:space="preserve">
+    <value>不透明度 (10-255)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_RedTitle" xml:space="preserve">
+    <value>红 (R)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GreenTitle" xml:space="preserve">
+    <value>绿 (G)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_BlueTitle" xml:space="preserve">
+    <value>蓝 (B)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeSectionTitle" xml:space="preserve">
+    <value>分享代码 &amp;&amp; 操作</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeInputTitle" xml:space="preserve">
+    <value>当前 / 导入分享代码 (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ImportShareCode" xml:space="preserve">
+    <value>应用分享代码</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ResetDefault" xml:space="preserve">
+    <value>重置为默认准星</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_SaveChanges" xml:space="preserve">
+    <value>确认并保存准星</value>
+  </data>
+  <data name="MESSAGE_CrosshairSettingsUnsavedChanges" xml:space="preserve">
+    <value>十字准星设置已修改但尚未保存！是否不保存并关闭窗口？</value>
+  </data>
+  <data name="MESSAGE_InvalidCrosshairShareCode" xml:space="preserve">
+    <value>无效的十字准星分享代码！
+请确保代码格式正确 (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)。</value>
   </data>
   <data name="GREETINGS_01" xml:space="preserve">
     <value>来摇滚吧！🤘</value>
@@ -255,16 +272,16 @@
     <value>今天过得怎么样？</value>
   </data>
   <data name="GREETINGS_03" xml:space="preserve">
-    <value>一起来跳舞吧！🕺</value>
+    <value>一起来嗨吧！🕺</value>
   </data>
   <data name="GREETINGS_04" xml:space="preserve">
     <value>游戏时间！⚔</value>
   </data>
   <data name="GREETINGS_05" xml:space="preserve">
-    <value>是时候跳舞了！🎵</value>
+    <value>是时候律动起来了！🎵</value>
   </data>
   <data name="GREETINGS_06" xml:space="preserve">
-    <value>又是一天，新的挑战！</value>
+    <value>新的一天，新的挑战！</value>
   </data>
   <data name="GREETINGS_07" xml:space="preserve">
     <value>出发吧！🎲</value>
@@ -273,21 +290,21 @@
     <value>是时候闪耀了！✨</value>
   </data>
   <data name="MESSAGE_RobotoFontMissing" xml:space="preserve">
-    <value>Cursed Market 是以 "Roboto-Regular" 字体设计的！
+    <value>Cursed Market 是基于 "Roboto-Regular" 字体设计的！
 
-软件在未安装字体 "{0}" 之前无法正常运行。</value>
+在安装该字体之前，软件将无法正常运行："{0}"</value>
   </data>
   <data name="MESSAGE_DataFolderCreationFailed" xml:space="preserve">
-    <value>Cursed Market 未能在 %localappdata% 中创建数据文件夹！请确认程序是否以管理员权限运行。</value>
+    <value>Cursed Market 未能在 %appdata% 中创建数据文件夹！请确认程序是否以管理员权限运行。</value>
   </data>
   <data name="MESSAGE_FailedToReadCharactersPreset" xml:space="preserve">
-    <value>无法读取文件 "charactersPreset.json"！请确保该文件不为空，并且其内容是 JSON 格式。</value>
+    <value>无法读取文件 "CharactersPreset.json"！请确保该文件不为空，并且其内容为 JSON 格式。</value>
   </data>
   <data name="MAIN_Start" xml:space="preserve">
-    <value>开始</value>
+    <value>启动</value>
   </data>
   <data name="WARNING_CharacterOwnership" xml:space="preserve">
-    <value>警告！尽管本程序会解锁所有游戏内角色，但若尝试使用你实际并未拥有的角色，将导致你被踢回主菜单并暂时封禁！</value>
+    <value>警告！尽管本程序会解锁所有游戏内角色，但若尝试使用您实际并未拥有的角色，将导致您被踢回主菜单并受到临时封禁！</value>
   </data>
   <data name="PLEASE_WAIT" xml:space="preserve">
     <value>请稍候...</value>

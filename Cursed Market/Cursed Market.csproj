@@ -200,8 +200,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compression.cs" />
+    <Compile Include="CrosshairGenerator.cs" />
     <Compile Include="CursedAPI.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Form_APIConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_APIConfig.Designer.cs">
+      <DependentUpon>Form_APIConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_CloudIDFriend.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,6 +228,12 @@
       <DependentUpon>Form_Crosshair.cs</DependentUpon>
     </Compile>
     <Compile Include="FiddlerCore.cs" />
+    <Compile Include="Form_CrosshairSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_CrosshairSettings.Designer.cs">
+      <DependentUpon>Form_CrosshairSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -283,6 +296,9 @@
     <Compile Include="Timer.cs" />
     <Compile Include="Archives.cs" />
     <Compile Include="WinReg.cs" />
+    <EmbeddedResource Include="Form_APIConfig.resx">
+      <DependentUpon>Form_APIConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_CloudIDFriend.resx">
       <DependentUpon>Form_CloudIDFriend.cs</DependentUpon>
     </EmbeddedResource>
@@ -291,6 +307,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Crosshair.resx">
       <DependentUpon>Form_Crosshair.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_CrosshairSettings.resx">
+      <DependentUpon>Form_CrosshairSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
@@ -494,9 +513,6 @@
     <None Include="Resources\IMG_CURRENCY_BLOODPOINTS.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\IMG_MISSING.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\IMG_BUTTON_ADDFRIEND_BLACK.png" />
   </ItemGroup>
   <ItemGroup>
@@ -534,15 +550,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\IMG_SOCIAL_TELEGRAM_WHITE.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\IMG_CROSSHAIR_CS_donk.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\IMG_CROSSHAIR_CS_Felps.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\IMG_CROSSHAIR_CS_nafany.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\IMG_CROSSHAIR_DEFAULT_CIRCLE_AQUA.png" />
@@ -584,9 +591,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\IMG_CROSSHAIR_MISSING.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\IMG_BUTTON_CHARACTERSPRESET_BLACK.png" />
   </ItemGroup>
   <ItemGroup>
@@ -604,6 +608,18 @@
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.3.11.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.3.11.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_MISSING.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_CROSSHAIR_MISSING.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_BUTTON_API_BLACK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_BUTTON_API_WHITE.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.8.2\build\Fody.targets" Condition="Exists('..\packages\Fody.6.8.2\build\Fody.targets')" />

@@ -14,6 +14,9 @@ namespace Cursed_Market
     {
         public static bool IsJson(this string input)
         {
+            if (string.IsNullOrWhiteSpace(input))
+                return false;
+
             try
             {
                 JContainer.Parse(input);
@@ -30,7 +33,9 @@ namespace Cursed_Market
 
         public static long NextLong(this Random random)
         {
-            return random.NextLong(long.MinValue, long.MaxValue);
+            byte[] buffer = new byte[8];
+            random.NextBytes(buffer);
+            return BitConverter.ToInt64(buffer, 0);
         }
         public static long NextLong(this Random random, long maxValue)
         {
@@ -43,13 +48,22 @@ namespace Cursed_Market
                 throw new ArgumentOutOfRangeException(nameof(minValue), "minValue must be less than or equal to maxValue");
             }
 
+            if (minValue == maxValue)
+                return minValue;
+
+            ulong uRange = (ulong)(maxValue - minValue);
             byte[] buffer = new byte[8];
-            random.NextBytes(buffer);
+            ulong ulongRand;
 
-            long longRand = BitConverter.ToInt64(buffer, 0);
-            longRand = Math.Abs(longRand);
+            /* Reject values that would introduce modulo bias. */
+            ulong limit = ulong.MaxValue - ((ulong.MaxValue % uRange) + 1) % uRange;
+            do
+            {
+                random.NextBytes(buffer);
+                ulongRand = BitConverter.ToUInt64(buffer, 0);
+            } while (ulongRand > limit);
 
-            return minValue + (longRand % (maxValue - minValue));
+            return (long)(ulongRand % uRange) + minValue;
         }
 
 
@@ -84,29 +98,38 @@ namespace Cursed_Market
 
         public static string ComputeHash(this byte[] input, HashType hashType)
         {
+            if (input == null)
+                return string.Empty;
+
             byte[] hashBytes = null;
             switch (hashType)
             {
                 case HashType.MD5:
-                    hashBytes = MD5.Create().ComputeHash(input);
+                    using (MD5 md5 = MD5.Create())
+                        hashBytes = md5.ComputeHash(input);
                     break;
                 case HashType.SHA1:
-                    hashBytes = SHA1.Create().ComputeHash(input);
+                    using (SHA1 sha1 = SHA1.Create())
+                        hashBytes = sha1.ComputeHash(input);
                     break;
                 case HashType.SHA256:
-                    hashBytes = SHA256.Create().ComputeHash(input);
+                    using (SHA256 sha256 = SHA256.Create())
+                        hashBytes = sha256.ComputeHash(input);
                     break;
                 case HashType.SHA384:
-                    hashBytes = SHA384.Create().ComputeHash(input);
+                    using (SHA384 sha384 = SHA384.Create())
+                        hashBytes = sha384.ComputeHash(input);
                     break;
                 case HashType.SHA512:
-                    hashBytes = SHA512.Create().ComputeHash(input);
+                    using (SHA512 sha512 = SHA512.Create())
+                        hashBytes = sha512.ComputeHash(input);
                     break;
+                default:
+                    return string.Empty;
             }
 
-            StringBuilder stringBuilder = new StringBuilder();
-            int hashBytesLength = hashBytes.Length;
-            for (int i = 0; i < hashBytesLength; i++)
+            StringBuilder stringBuilder = new StringBuilder(hashBytes.Length * 2);
+            for (int i = 0; i < hashBytes.Length; i++)
             {
                 stringBuilder.Append(hashBytes[i].ToString("x2"));
             }

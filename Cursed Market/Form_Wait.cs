@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 
 
@@ -14,7 +13,7 @@ namespace Cursed_Market
         {
             get
             {
-                // Retrieve the base window creation parameters.
+                /* Retrieve the base window creation parameters. */
                 CreateParams createParams = base.CreateParams;
 
                 // The ExStyle property sets the extended window styles.
@@ -51,7 +50,8 @@ namespace Cursed_Market
         }
         private void Form_Wait_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
+            if (e.CloseReason == CloseReason.UserClosing)
+                e.Cancel = true;
         }
 
 
@@ -59,38 +59,9 @@ namespace Cursed_Market
 
         public void ReloadTheme()
         {
-            switch (ProgramThemes.GetSelectedTheme())
-            {
-                default:
-                    label_Wait.ForeColor = Color.Black;
-                    this.BackColor = Color.WhiteSmoke;
-                    break;
-
-                case ProgramThemes.E_Themes.legacy:
-                    label_Wait.ForeColor = Color.White;
-                    this.BackColor = Color.FromArgb(255, 46, 51, 73);
-                    break;
-
-                case ProgramThemes.E_Themes.darkMemories:
-                    label_Wait.ForeColor = Color.White;
-                    this.BackColor = Color.FromArgb(255, 44, 47, 51);
-                    break;
-
-                case ProgramThemes.E_Themes.saintsRow:
-                    label_Wait.ForeColor = Color.FromArgb(255, 146, 71, 214);
-                    this.BackColor = Color.FromArgb(255, 37, 13, 57);
-                    break;
-
-                case ProgramThemes.E_Themes.dracula:
-                    label_Wait.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    this.BackColor = Color.FromArgb(255, 40, 42, 54);
-                    break;
-
-                case ProgramThemes.E_Themes.christmas:
-                    label_Wait.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    this.BackColor = Color.FromArgb(255, 24, 24, 24);
-                    break;
-            }
+            var theme = ProgramThemes.GetCurrentPalette();
+            this.BackColor = theme.OverlayBack;
+            label_Wait.ForeColor = theme.OverlayText;
         }
 
 

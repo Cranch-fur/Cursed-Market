@@ -48,9 +48,21 @@ namespace Cursed_Market
         public static CultureInfo GetCulture()
         {
             /* Lookup if application was started with "-lang=" argument, use current Windows UI language if it wasn't. */
-            return startupArguments.FirstOrDefault(arg => arg.StartsWith(Common.languageOverride)) != null && startupArguments.FirstOrDefault(arg => arg.StartsWith(Common.languageOverride)).Length == 8
-            ? new CultureInfo(startupArguments.First(arg => arg.StartsWith(Common.languageOverride)).Substring(6))
-            : CultureInfo.InstalledUICulture;
+            string langArg = startupArguments.FirstOrDefault(arg => arg.StartsWith(Common.languageOverride, StringComparison.OrdinalIgnoreCase));
+            if (!string.IsNullOrEmpty(langArg) && langArg.Length > Common.languageOverride.Length)
+            {
+                string cultureCode = langArg.Substring(Common.languageOverride.Length);
+                try
+                {
+                    return new CultureInfo(cultureCode);
+                }
+                catch (CultureNotFoundException)
+                {
+                    /* Fallback to installed UI culture if an invalid culture code was provided. */
+                }
+            }
+
+            return CultureInfo.InstalledUICulture;
         }
     }
 }

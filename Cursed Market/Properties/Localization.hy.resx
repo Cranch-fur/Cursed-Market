@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -118,76 +59,76 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="MAIN_GameChangersTitle" xml:space="preserve">
-    <value>Խաղի կանոնները փոխել</value>
+    <value>ՓՈԽԵԼ ԽԱՂԻ ԿԱՆՈՆՆԵՐԸ</value>
   </data>
   <data name="MAIN_CustomizationsKingTitle" xml:space="preserve">
-    <value>Կարգավորումների թագավորի կարգավիճակը:  </value>
+    <value>Անհատականացման արքայի կարգավիճակը.  </value>
   </data>
   <data name="MAIN_CustomizationsKingDescription" xml:space="preserve">
-    <value>Որոշ հարմարեցման հավաքածուներ նախատեսված էին, որպեսզի նրանք հայտնվեն և թողարկվեն միայն հստակ ամսաթվի վրա: Այս սահմանափակումը այժմ հանված է:</value>
+    <value>Որոշ անհատականացման հավաքածուներ նախագծվել են այնպես, որ հայտնվեն և թողարկվեն միայն որոշակի ամսաթվի: Այս սահմանափակումն այժմ հանված է:</value>
   </data>
   <data name="MAIN_AntiKillSwitchTitle" xml:space="preserve">
-    <value>Անտի-արգելողի կարգավիճակը:  </value>
+    <value>KillSwitch հեռացնողի կարգավիճակը.  </value>
   </data>
   <data name="MAIN_AntiKillSwitchDescription" xml:space="preserve">
-    <value>Ժամանակ առ ժամանակ որոշ խաղային իրեր կարող են լինել գերբեռնված, ուստի մշակողները դրանք отключают: Սա սահմանափակումն այժմ հանված է:</value>
+    <value>Ժամանակ առ ժամանակ որոշ խաղային իրեր կարող են խոտանված լինել, ուստի մշակողները ժամանակավորապես անջատում են դրանք: Այս սահմանափակումն այժմ հանված է:</value>
   </data>
   <data name="MAIN_MainFeaturesTitle" xml:space="preserve">
-    <value>ՀԱՎԱՔՎԵՐԻ ՆԻՍՏԱԲԱՆՈՒԹՅՈՒՆ</value>
+    <value>ՀԻՄՆԱԿԱՆ ԳՈՐԾԱՌՈՒՅԹՆԵՐ</value>
   </data>
   <data name="MAIN_MainCheckBox_01" xml:space="preserve">
-    <value>Թողնել սպասելիս</value>
+    <value>Ցուցադրել դիրքը հերթում</value>
   </data>
   <data name="MAIN_MainCheckBox_02" xml:space="preserve">
-    <value>Բաժանորդագրությունները (ՈՒՇԱԴՐՈՒԹՅՈՒՆ)</value>
+    <value>Արժույթների քանակի կարգավորում (Տեսողական)</value>
   </data>
   <data name="MAIN_MainCheckBox_03" xml:space="preserve">
-    <value>Աջակցել ժամանակավոր պահեստավորմանը</value>
+    <value>Միացնել ժամանակավոր պահպանումը</value>
   </data>
   <data name="MAIN_MainCheckBox_04" xml:space="preserve">
-    <value>Անհատականացված կերպարների նախադրյալ</value>
+    <value>Կերպարների օգտատիրոջ նախադրյալ</value>
   </data>
   <data name="MAIN_MainCheckBox_05" xml:space="preserve">
-    <value>Ավելի պարզեցված խաղի կանոնները</value>
+    <value>Անջատել խաղի փոփոխված կանոնները</value>
   </data>
   <data name="MAIN_MainCheckBox_06" xml:space="preserve">
-    <value>Միայն DLC սանդղական</value>
+    <value>Բացել միայն DLC-ները</value>
   </data>
   <data name="MAIN_CurrenciesAdjustTitle" xml:space="preserve">
-    <value>ԳՆԱՐՈՒՅԹՆԵՐԻ ՔԱՆԱԿԸ</value>
+    <value>ԱՐԺՈՒՅԹՆԵՐԻ ՔԱՆԱԿԸ</value>
   </data>
   <data name="MAIN_CrosshairTitle" xml:space="preserve">
-    <value>ԲԻՆԱ</value>
+    <value>ՆՇԱՆԱԿԵՏ</value>
   </data>
   <data name="MAIN_CrosshairOpacityTitle" xml:space="preserve">
-    <value>ԲԻՆԱԻ ՊԱՐԱՄԵՏՐԸ</value>
+    <value>ՆՇԱՆԱԿԵՏԻ ԹԱՓԱՆՑԻԿՈՒԹՅՈՒՆԸ</value>
   </data>
   <data name="MAIN_ApiKey" xml:space="preserve">
-    <value>ՍՅՈՒՐԲ ՕՐԻՆԱԿԸ ԴՈՒՐՍ ՆԵՐԱԲԱՆԱՆՔ...</value>
+    <value>Այստեղ կցուցադրվի ձեր ApiKey-ը...</value>
   </data>
   <data name="MAIN_MainCheckBox_07" xml:space="preserve">
-    <value>Երաշխավորված առաջադրանքի ավարտ</value>
+    <value>Առաջադրանքի երաշխավորված կատարում</value>
   </data>
   <data name="MAIN_GAMECHANGERSTATUS_CurrentlyInUse" xml:space="preserve">
-    <value>Այս պահին օգտագործվում է</value>
+    <value>Այժմ օգտագործվում է</value>
   </data>
   <data name="MAIN_GAMECHANGERSTATUS_FailedToObtain" xml:space="preserve">
     <value>Չհաջողվեց ստանալ</value>
   </data>
   <data name="MAIN_GAMECHANGERSTATUS_Disabled" xml:space="preserve">
-    <value>Ակտիվ չէ</value>
+    <value>Անջատված է</value>
   </data>
   <data name="MAIN_GAMECHANGERSTATUS_Offline" xml:space="preserve">
-    <value>ԱՅԼԻՆ ՄՈԴ</value>
+    <value>ՕՖԼԱՅՆ ՌԵԺԻՄ</value>
   </data>
   <data name="MAIN_QUEUE_LobbyFound" xml:space="preserve">
     <value>ԼՈԲԲԻՆ ԳՏՆՎԵՑ...</value>
   </data>
   <data name="MAIN_QUEUE_MatchStarting" xml:space="preserve">
-    <value>ՄՐՑՈՒՅԹԸ ՍԿՍՎՈՒՄ Է!</value>
+    <value>ԽԱՂԸ ՍԿՍՎՈՒՄ Է!</value>
   </data>
   <data name="MAIN_QUEUE_QueuePosition" xml:space="preserve">
-    <value>ՀԵՐԹԻ ԴԻՐՔԸ:</value>
+    <value>ԴԻՐՔԸ ՀԵՐԹՈՒՄ.</value>
   </data>
   <data name="MAIN_NOTIFYICON_Show" xml:space="preserve">
     <value>Ցուցադրել</value>
@@ -196,36 +137,36 @@
     <value>Փակել</value>
   </data>
   <data name="FRIEND_Title" xml:space="preserve">
-    <value>CLOUD-ID ԸՆԿԵՐՈՒԹՅԱՆ ՀԱՐՑՈՒՄ</value>
+    <value>ԸՆԿԵՐՈՒԹՅԱՆ ՀԱՐՑՈՒՄ CLOUD-ID-ՈՎ</value>
   </data>
   <data name="FRIEND_MyCloudIDTitle" xml:space="preserve">
-    <value>Ձեր Cloud-ID</value>
+    <value>Ձեր Cloud-ID-ն</value>
   </data>
   <data name="FRIEND_FriendCloudIDTitle" xml:space="preserve">
-    <value>Cloud-ID, որին ուղարկել ընկերության հարցում</value>
+    <value>Cloud-ID՝ ընկերության հարցում ուղարկելու համար</value>
   </data>
   <data name="QUEUE_Idle" xml:space="preserve">
-    <value>ԴԻՏԱՐԿՈՒԹՅՈՒՆԸ ԿԱՄ ՔԱՁԵԼԻ ԶԳՈՒՃՆԵՐԸ ԵՎ ԷԼ ՄԻԱԿԱՆԻԸ ԿՈՉ ՏՎԵՆ ԱՅՍՏԵՂ</value>
+    <value>ՀԵՐԹՈՒՄ ՁԵՐ ԴԻՐՔԸ ԿՑՈՒՑԱԴՐՎԻ ԱՅՍՏԵՂ</value>
   </data>
   <data name="QUEUE_LobbyFound" xml:space="preserve">
     <value>~ ԼՈԲԲԻՆ ԳՏՆՎԵՑ ~</value>
   </data>
   <data name="QUEUE_MatchStarting" xml:space="preserve">
-    <value>ՄՐՑՈՒՅԹԸ ՍԿՍՎՈՒՄ Է!</value>
+    <value>ԽԱՂԸ ՍԿՍՎՈՒՄ Է!</value>
   </data>
   <data name="MESSAGE_FirstLaunch" xml:space="preserve">
     <value>Բարի գալուստ Cursed Market!
 
-Այս ծրագրային ապահովումը բաց կոդով է և անվճար օգտագործման համար է։ Եթե Ձեզ համոզել են վճարել դրա համար, խորհուրդ է տրվում ուղարկել բողոք վաճառողին։</value>
+Այս ծրագրային ապահովումը բաց կոդով է և լիովին անվճար: Եթե ձեզ համոզել են վճարել դրա համար, խորհուրդ է տրվում բողոք ներկայացնել վաճառողի դեմ:</value>
   </data>
   <data name="CHARACTERSPRESET_CharactersPresetTitle" xml:space="preserve">
     <value>ԿԱՐԳԱՎՈՐԵԼ ԿԵՐՊԱՐՆԵՐԻ ՆԱԽԱԴՐՅԱԼԸ</value>
   </data>
   <data name="CHARACTERSPRESET_CharacterSelectTitle" xml:space="preserve">
-    <value>ԸՆՏՐԵՔ ՔԵՐՊԱՐԸ</value>
+    <value>ԸՆՏՐԵՔ ԿԵՐՊԱՐԸ</value>
   </data>
   <data name="CHARACTERSPRESET_BloodWebTitle" xml:space="preserve">
-    <value>ԱՐՅՈՒՆԱԲՃԻՋԻ ՄԱԿԱՐԴԱԿ</value>
+    <value>ԱՐՅՈՒՆՈՏ ՍԱՐԴՈՍՏԱՅՆԻ ՄԱԿԱՐԴԱԿ</value>
   </data>
   <data name="CHARACTERSPRESET_PrestigeTitle" xml:space="preserve">
     <value>ՀԵՂԻՆԱԿՈՒԹՅԱՆ ՄԱԿԱՐԴԱԿ</value>
@@ -234,60 +175,136 @@
     <value>ԺԱՌԱՆԳՈՒԹՅԱՆ ՀԵՂԻՆԱԿՈՒԹՅԱՆ ՄԱԿԱՐԴԱԿ</value>
   </data>
   <data name="CHARACTERSPRESET_ExtraActionsTitle" xml:space="preserve">
-    <value>ԼՐԱՑՈՒՑԻՉ ԳՈՐԾՈՒԹՅՈՒՆԵՐ</value>
+    <value>ԼՐԱՑՈՒՑԻՉ ԳՈՐԾՈՂՈՒԹՅՈՒՆՆԵՐ</value>
   </data>
   <data name="CHARACTERSPRESET_SpreadPreset" xml:space="preserve">
-    <value>Կիրառել ընթացիկ նախադրյալը բոլոր կերպարների վրա</value>
+    <value>Կիրառել ընթացիկ նախադրյալը բոլոր կերպարների համար</value>
   </data>
   <data name="CHARACTERSPRESET_RandomizePresets" xml:space="preserve">
-    <value>Բոլոր կերպարների նախադրյալները պատահականացնել</value>
+    <value>Պատահականացնել բոլոր կերպարների նախադրյալները</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumBloodWebLevelTitle" xml:space="preserve">
+    <value>ՍԱՐԴՈՍՏԱՅՆԻ ԱՌԱՎԵԼԱԳՈՒՅՆ ՄԱԿԱՐԴԱԿ</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumPrestigeLevelTitle" xml:space="preserve">
+    <value>ՀԵՂԻՆԱԿՈՒԹՅԱՆ ԱՌԱՎԵԼԱԳՈՒՅՆ ՄԱԿԱՐԴԱԿ</value>
   </data>
   <data name="CHARACTERSPRESET_SaveChanges" xml:space="preserve">
-    <value>Ավելացնել և պահպանել փոփոխությունները</value>
+    <value>Հաստատել և պահպանել փոփոխությունները</value>
   </data>
   <data name="MESSAGE_CharactersPresetUnsavedChanges" xml:space="preserve">
-    <value>Նկարագրված անձի նախնական կարգավորումները փոփոխվել են, բայց դրանք չեն պահպանվել: Փակել պատուհանը առանց պահպանելու?</value>
+    <value>Կերպարների նախադրյալում կատարվել են փոփոխություններ, սակայն դրանք չեն պահպանվել: Փակե՞լ պատուհանը առանց պահպանելու:</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_Title" xml:space="preserve">
+    <value>ԿԱՐԳԱՎՈՐԵԼ ՆՇԱՆԱԿԵՏԸ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_LengthTitle" xml:space="preserve">
+    <value>ԵՐԿԱՐՈՒԹՅՈՒՆ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ThicknessTitle" xml:space="preserve">
+    <value>ՀԱՍՏՈՒԹՅՈՒՆ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GapTitle" xml:space="preserve">
+    <value>ԿԵՆՏՐՈՆԱԿԱՆ ԲԱՑՎԱԾՔ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineTitle" xml:space="preserve">
+    <value>ԵԶՐԱԳԾԻ ՀԱՍՏՈՒԹՅՈՒՆ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_DotSizeTitle" xml:space="preserve">
+    <value>ԿԵՏԻ ՉԱՓՍ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleRadiusTitle" xml:space="preserve">
+    <value>ՇՐՋԱՆԻ ՇԱՌԱՎԻՂ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineCheckBox" xml:space="preserve">
+    <value>Եզրագիծ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CenterDotCheckBox" xml:space="preserve">
+    <value>Կենտրոնական կետ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleCheckBox" xml:space="preserve">
+    <value>Կենտրոնական շրջան</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_TStyleCheckBox" xml:space="preserve">
+    <value>T-ոճ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ColorPresetTitle" xml:space="preserve">
+    <value>ԳՈՒՅՆԻ ՆԱԽԱԴՐՅԱԼ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_AlphaTitle" xml:space="preserve">
+    <value>ԱԼՖԱ (10-255)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_RedTitle" xml:space="preserve">
+    <value>ԿԱՐՄԻՐ (R)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GreenTitle" xml:space="preserve">
+    <value>ԿԱՆԱՉ (G)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_BlueTitle" xml:space="preserve">
+    <value>ԿԱՊՈՒՅՏ (B)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeSectionTitle" xml:space="preserve">
+    <value>ԿԻՍՎԵԼՈՒ ԿՈԴ &amp;&amp; ԳՈՐԾՈՂՈՒԹՅՈՒՆՆԵՐ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeInputTitle" xml:space="preserve">
+    <value>ԸՆԹԱՑԻԿ / ՆԵՐՄՈՒԾՎՈՂ ԿՈԴ (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ImportShareCode" xml:space="preserve">
+    <value>Կիրառել կոդը</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ResetDefault" xml:space="preserve">
+    <value>Վերականգնել լռելյայն նշանակետը</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_SaveChanges" xml:space="preserve">
+    <value>Հաստատել և պահպանել նշանակետը</value>
+  </data>
+  <data name="MESSAGE_CrosshairSettingsUnsavedChanges" xml:space="preserve">
+    <value>Նշանակետի կարգավորումներում կատարվել են փոփոխություններ, սակայն դրանք չեն պահպանվել: Փակե՞լ պատուհանը առանց պահպանելու:</value>
+  </data>
+  <data name="MESSAGE_InvalidCrosshairShareCode" xml:space="preserve">
+    <value>Նշանակետի անվավեր կոդ:
+Համոզվեք, որ կոդը ճիշտ ձևաչափով է (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX):</value>
   </data>
   <data name="GREETINGS_01" xml:space="preserve">
-    <value>Առաջ, ջարդենք! 🤘</value>
+    <value>Առաջ, ցնցե՛նք տարածքը: 🤘</value>
   </data>
   <data name="GREETINGS_02" xml:space="preserve">
-    <value>Օրը ինչպես անցավ?</value>
+    <value>Ինչպե՞ս անցավ օրդ:</value>
   </data>
   <data name="GREETINGS_03" xml:space="preserve">
-    <value>Պարի՛ր: 🕺</value>
+    <value>Պարե՛նք: 🕺</value>
   </data>
   <data name="GREETINGS_04" xml:space="preserve">
-    <value>Խաղի ժամանակն է! ⚔</value>
+    <value>Խաղի ժամանակն է: ⚔</value>
   </data>
   <data name="GREETINGS_05" xml:space="preserve">
-    <value>Պարի ժամանակն է! 🎵</value>
+    <value>Ռիթմի ժամանակն է: 🎵</value>
   </data>
   <data name="GREETINGS_06" xml:space="preserve">
-    <value>Մեկ օր, մեկ մարտահրավեր:</value>
+    <value>Նոր օր, նոր մարտահրավեր:</value>
   </data>
   <data name="GREETINGS_07" xml:space="preserve">
-    <value>Եկեք գնանք! 🎲</value>
+    <value>Գնացի՛նք: 🎲</value>
   </data>
   <data name="GREETINGS_08" xml:space="preserve">
-    <value>Ժամանակն է փայլելու! ✨</value>
+    <value>Փայլելու ժամանակն է: ✨</value>
   </data>
   <data name="MESSAGE_RobotoFontMissing" xml:space="preserve">
-    <value>Cursed Market-ը նախագծվել է "Roboto-Regular" տառատեսակով:
+    <value>Cursed Market-ը նախագծվել է "Roboto-Regular" տառատեսակի համար:
 
-Ծրագիրը ճիշտ չի գործի, քանի դեռ "{0}" տառատեսակը տեղադրված չէ:</value>
+Ծրագիրը ճիշտ չի աշխատի, քանի դեռ տառատեսակը տեղադրված չէ. "{0}"</value>
   </data>
   <data name="MESSAGE_DataFolderCreationFailed" xml:space="preserve">
-    <value>Cursed Market-ը չկարողացավ ստեղծել տվյալների պանակը %localappdata%-ում։ Խնդրում ենք ստուգել, արդյոք ծրագիրը գործարկվում է ադմինիստրատորի իրավունքներով:</value>
+    <value>Cursed Market-ին չհաջողվեց ստեղծել տվյալների պանակ %appdata%-ում: Խնդրում ենք ստուգել, արդյոք ծրագիրը գործարկված է ադմինիստրատորի իրավունքներով:</value>
   </data>
   <data name="MESSAGE_FailedToReadCharactersPreset" xml:space="preserve">
-    <value>Անհնար է ընթերցել "charactersPreset.json" ֆայլը: Համոզվեք, որ ֆայլը դատարկ չէ և նրա պարունակությունը JSON ձևաչափով է:</value>
+    <value>Չհաջողվեց կարդալ "CharactersPreset.json" ֆայլը: Համոզվեք, որ ֆայլը դատարկ չէ, և դրա պարունակությունը JSON ձևաչափով է:</value>
   </data>
   <data name="MAIN_Start" xml:space="preserve">
-    <value>ՍԿԻԶԲ</value>
+    <value>ՍԿՍԵԼ</value>
   </data>
   <data name="WARNING_CharacterOwnership" xml:space="preserve">
-    <value>ՈՒՇԱԴՐՈՒԹՅՈՒՆ։ Չնայած ծրագիրը բացում է խաղի բոլոր կերպարների հասանելիությունը, այնուամենայնիվ, այն կերպարներով խաղալու փորձերը, որոնց իրականում չեք տիրապետում, կհանգեցնեն գլխավոր ցանկ վերադարձին և ժամանակավոր արգելափակմանը։</value>
+    <value>ՈՒՇԱԴՐՈՒԹՅՈՒՆ: Թեև ծրագիրը բացում է խաղի բոլոր կերպարների հասանելիությունը, այն կերպարներով խաղալու փորձերը, որոնց իրականում չեք տիրապետում, կհանգեցնեն գլխավոր ընտրացանկ վերադարձին և ժամանակավոր արգելափակման:</value>
   </data>
   <data name="PLEASE_WAIT" xml:space="preserve">
     <value>Խնդրում ենք սպասել...</value>

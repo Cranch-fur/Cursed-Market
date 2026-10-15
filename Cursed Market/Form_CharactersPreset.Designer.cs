@@ -1,5 +1,4 @@
-﻿
-namespace Cursed_Market
+﻿namespace Cursed_Market
 {
     partial class Form_CharactersPreset
     {
@@ -104,6 +103,7 @@ namespace Cursed_Market
             // 
             // comboBox_CharacterSelect
             // 
+            this.comboBox_CharacterSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_CharacterSelect.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox_CharacterSelect.FormattingEnabled = true;
             this.comboBox_CharacterSelect.Location = new System.Drawing.Point(262, 99);
@@ -192,6 +192,16 @@ namespace Cursed_Market
             // 
             this.numericUpDown_Prestige.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.numericUpDown_Prestige.Location = new System.Drawing.Point(262, 209);
+            this.numericUpDown_Prestige.Maximum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDown_Prestige.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDown_Prestige.Name = "numericUpDown_Prestige";
             this.numericUpDown_Prestige.Size = new System.Drawing.Size(410, 23);
             this.numericUpDown_Prestige.TabIndex = 18;
@@ -213,6 +223,11 @@ namespace Cursed_Market
             this.numericUpDown_LegacyPrestige.Location = new System.Drawing.Point(262, 261);
             this.numericUpDown_LegacyPrestige.Maximum = new decimal(new int[] {
             3,
+            0,
+            0,
+            0});
+            this.numericUpDown_LegacyPrestige.Minimum = new decimal(new int[] {
+            0,
             0,
             0,
             0});
@@ -310,6 +325,16 @@ namespace Cursed_Market
             // 
             this.numericUpDown_MaximumPrestigeLevel.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.numericUpDown_MaximumPrestigeLevel.Location = new System.Drawing.Point(370, 464);
+            this.numericUpDown_MaximumPrestigeLevel.Maximum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDown_MaximumPrestigeLevel.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDown_MaximumPrestigeLevel.Name = "numericUpDown_MaximumPrestigeLevel";
             this.numericUpDown_MaximumPrestigeLevel.Size = new System.Drawing.Size(289, 23);
             this.numericUpDown_MaximumPrestigeLevel.TabIndex = 29;
@@ -382,7 +407,7 @@ namespace Cursed_Market
             this.Controls.Add(this.panel_WindowHeader);
             this.Controls.Add(this.pictureBox_Background);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Cursed_Market.Properties.Resources.Icon_Other;
             this.Name = "Form_CharactersPreset";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Characters Prestige Editor";

@@ -143,6 +143,26 @@ namespace Cursed_Market.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IMG_BUTTON_API_BLACK {
+            get {
+                object obj = ResourceManager.GetObject("IMG_BUTTON_API_BLACK", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IMG_BUTTON_API_WHITE {
+            get {
+                object obj = ResourceManager.GetObject("IMG_BUTTON_API_WHITE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap IMG_BUTTON_CHARACTERSPRESET_BLACK {
             get {
                 object obj = ResourceManager.GetObject("IMG_BUTTON_CHARACTERSPRESET_BLACK", resourceCulture);
@@ -176,36 +196,6 @@ namespace Cursed_Market.Properties {
         internal static System.Drawing.Bitmap IMG_BUTTON_SETTINGS_WHITE {
             get {
                 object obj = ResourceManager.GetObject("IMG_BUTTON_SETTINGS_WHITE", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap IMG_CROSSHAIR_CS_donk {
-            get {
-                object obj = ResourceManager.GetObject("IMG_CROSSHAIR_CS_donk", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap IMG_CROSSHAIR_CS_Felps {
-            get {
-                object obj = ResourceManager.GetObject("IMG_CROSSHAIR_CS_Felps", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap IMG_CROSSHAIR_CS_nafany {
-            get {
-                object obj = ResourceManager.GetObject("IMG_CROSSHAIR_CS_nafany", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

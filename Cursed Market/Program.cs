@@ -17,26 +17,21 @@ namespace Cursed_Market
 {
     static class Program
     {
-        private static void AttemptDisablingProxy()
+        public static void AttemptDisablingProxy()
         {
-            try
-            {
-                WinReg.DisableProxy();
-            }
-            catch
+            /* Check boolean return value instead of catching exceptions that WinReg already swallows. */
+            if (!WinReg.DisableProxy())
             {
                 MessageBox.Show("Cursed Market failed to disable proxy!", "Cursed Market Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                Process.Start("ms-settings:network-proxy"); // Windows Settings network proxy settings tab.
+                Process.Start(new ProcessStartInfo("ms-settings:network-proxy") { UseShellExecute = true }); // Windows Settings network proxy settings tab.
             }
         }
-
-
-
 
         private static void ProcessExitHandler(object sender, EventArgs e)
         {
             AttemptDisablingProxy();
         }
+
         private static void ExceptionHandler(object sender, ThreadExceptionEventArgs e)
         {
             string exceptionData = e.Exception.ToString();
@@ -44,14 +39,10 @@ namespace Cursed_Market
             try
             {
                 string tempFolder = Path.GetTempPath();
-                string logFile = Path.Combine(tempFolder, $"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH-mm-ss")}] Cursed Market Fatal Error.txt");
+                string logFile = Path.Combine(tempFolder, $"[{DateTime.UtcNow:yyyy-MM-dd HH-mm-ss}] Cursed Market Fatal Error.txt");
 
                 File.WriteAllText(logFile, exceptionData);
-
-                using (Process textviewer = Process.Start(new ProcessStartInfo(logFile)))
-                {
-                    textviewer.Dispose();
-                }
+                Process.Start(new ProcessStartInfo(logFile) { UseShellExecute = true })?.Dispose();
             }
             catch
             {
@@ -61,9 +52,6 @@ namespace Cursed_Market
             ProgramGlobals.Close();
         }
 
-
-
-
         [STAThread]
         private static void Main()
         {
@@ -71,40 +59,37 @@ namespace Cursed_Market
             Application.SetCompatibleTextRenderingDefault(false);
             Properties.Localization.Culture = ProgramGlobals.culture; // We need to clarify what localization culture we're looking to use.
 
-
-            if (ProgramPaths.GetDataFolderPath() == null) // We're getting a data folder path & verifying it's existence at the same time
+            if (ProgramPaths.GetDataFolderPath() == null) // We're getting a data folder path & verifying its existence at the same time.
             {
                 Messaging.ShowMessage(Properties.Localization.MESSAGE_DataFolderCreationFailed, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 ProgramGlobals.Close();
+                return;
             }
 
-
-            if (ProgramGlobals.GetIsFontInstalled() == false)
+            if (!ProgramGlobals.GetIsFontInstalled())
             {
-                if (File.Exists(ProgramPaths.fontFilePath) == true)
+                if (File.Exists(ProgramPaths.fontFilePath))
                 {
                     Messaging.ShowMessage(string.Format(Properties.Localization.MESSAGE_RobotoFontMissing, ProgramPaths.fontFilePath), MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                    Process.Start(ProgramPaths.fontFilePath);
+                    Process.Start(new ProcessStartInfo(ProgramPaths.fontFilePath) { UseShellExecute = true });
                 }
                 else
                 {
-                    Messaging.ShowMessage(string.Format(Properties.Localization.MESSAGE_RobotoFontMissing, CursedAPI.SE_CommonEndpoints.robotoFont), MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                    Process.Start(CursedAPI.SE_CommonEndpoints.robotoFont);
+                    Messaging.ShowMessage(string.Format(Properties.Localization.MESSAGE_RobotoFontMissing, CursedAPI.SE_CommonEndpoints.font), MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                    Process.Start(new ProcessStartInfo(CursedAPI.SE_CommonEndpoints.font) { UseShellExecute = true });
                 }
 
                 ProgramGlobals.Close();
+                return;
             }
 
-
 #if FORCED_OFFLINE
-            Globals.Application.startupArguments.Add(Globals.Application.SE_CommonStartupArguments.offlineMode);
+            ProgramStartupArguments.GetStartupArguments().Add(ProgramStartupArguments.Common.offlineMode);
 #endif
-
 
 #if PROCESS_EXIT_HANDLER
             AppDomain.CurrentDomain.ProcessExit += ProcessExitHandler;
 #endif
-
 
 #if EXCEPTION_HANDLER
             Application.ThreadException += new ThreadExceptionEventHandler(ExceptionHandler);
@@ -113,7 +98,6 @@ namespace Cursed_Market
                 Form_Wait formWait = new Form_Wait();
                 formWait.Show();
                 Application.DoEvents();
-
 
                 Application.Run(new Form_Main());
             }

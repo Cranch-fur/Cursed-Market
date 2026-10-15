@@ -4,14 +4,21 @@
     {
         public static class Forms
         {
+            /* Explicit static constructor removes 'beforefieldinit' so forms are never instantiated before SetCompatibleTextRenderingDefault. */
+            static Forms()
+            {
+            }
+
             public static Form_Main Main;
             public static Form_Wait Wait;
-            public static readonly Form_Settings Settings                     = new Form_Settings();
-            public static readonly Form_Queue Queue                           = new Form_Queue();
-            public static readonly Form_Crosshair Crosshair                   = new Form_Crosshair();
-            public static readonly Form_CloudIDFriend CloudIDFriend           = new Form_CloudIDFriend();
-            public static readonly Form_CharactersPreset CharactersPreset     = new Form_CharactersPreset();
-            public static readonly Form_Timer Timer                           = new Form_Timer();
+            public static readonly Form_Settings Settings = new Form_Settings();
+            public static readonly Form_Queue Queue = new Form_Queue();
+            public static readonly Form_Crosshair Crosshair = new Form_Crosshair();
+            public static readonly Form_CloudIDFriend CloudIDFriend = new Form_CloudIDFriend();
+            public static readonly Form_CharactersPreset CharactersPreset = new Form_CharactersPreset();
+            public static readonly Form_Timer Timer = new Form_Timer();
+            public static readonly Form_CrosshairSettings CrosshairSettings = new Form_CrosshairSettings();
+            public static readonly Form_APIConfig APIConfig = new Form_APIConfig();
         }
         public static class CursedAPI
         {

@@ -71,23 +71,41 @@ namespace Cursed_Market
             Offerings,
             All
         }
-        
+
 
 
 
         public static class SE_CommonEndpoints
         {
-            public static readonly string heartBeat      = "https://cursed.cranchpalace.info/DaylightGame/v2/heartBeat";
-            public static readonly string versionCheck   = "https://cursed.cranchpalace.info/DaylightGame/v2/versionCheck";
-            public static readonly string marketFull     = "https://cursed.cranchpalace.info/DaylightGame/v2/data/marketFull.json";
-            public static readonly string marketDLC      = "https://cursed.cranchpalace.info/DaylightGame/v2/data/marketDLC.json";
-            public static readonly string characterData  = "https://cursed.cranchpalace.info/DaylightGame/v2/data/characterData.json";
-            public static readonly string bloodwebData   = "https://cursed.cranchpalace.info/DaylightGame/v2/data/bloodwebData.json";
-            public static readonly string charactersList = "https://cursed.cranchpalace.info/DaylightGame/v2/data/charactersList.json";
-            public static readonly string itemsList      = "https://cursed.cranchpalace.info/DaylightGame/v2/data/itemsList.json";
-            public static readonly string catalog        = "https://cursed.cranchpalace.info/DaylightGame/v2/data/catalog.json";
-            public static readonly string antiKillSwitch = "https://cursed.cranchpalace.info/DaylightGame/v2/data/killSwitch.json";
-            public static readonly string robotoFont     = "https://cursed.cranchpalace.info/DaylightGame/v2/data/Roboto-Regular.ttf";
+            public static class Defaults
+            {
+                public const string Host = "api.cranchpalace.info";
+                public const string Status = "/status";
+                public const string Update = "/cm/update";
+                public const string MarketFull = "/cm/static/marketFull.json";
+                public const string MarketDLC = "/cm/static/marketDLC.json";
+                public const string CharacterData = "/cm/static/characterData.json";
+                public const string BloodwebData = "/cm/static/bloodwebData.json";
+                public const string CharactersList = "/cm/static/charactersList.json";
+                public const string ItemsList = "/cm/static/itemsList.json";
+                public const string Catalog = "/cm/static/catalog.json";
+                public const string AntiKillSwitch = "/cm/static/killSwitch.json";
+                public const string Font = "/cm/data/Roboto-Regular.ttf";
+            }
+
+            public static string Host => WinReg.GetData_SZ(WinReg.API.host, Defaults.Host);
+
+            public static string status => $"https://{Host}{WinReg.GetData_SZ(WinReg.API.pathStatus, Defaults.Status)}";
+            public static string update => $"https://{Host}{WinReg.GetData_SZ(WinReg.API.pathUpdate, Defaults.Update)}";
+            public static string marketFull => $"https://{Host}{WinReg.GetData_SZ(WinReg.API.pathMarketFull, Defaults.MarketFull)}";
+            public static string marketDLC => $"https://{Host}{WinReg.GetData_SZ(WinReg.API.pathMarketDLC, Defaults.MarketDLC)}";
+            public static string characterData => $"https://{Host}{WinReg.GetData_SZ(WinReg.API.pathCharacterData, Defaults.CharacterData)}";
+            public static string bloodwebData => $"https://{Host}{WinReg.GetData_SZ(WinReg.API.pathBloodwebData, Defaults.BloodwebData)}";
+            public static string charactersList => $"https://{Host}{WinReg.GetData_SZ(WinReg.API.pathCharactersList, Defaults.CharactersList)}";
+            public static string itemsList => $"https://{Host}{WinReg.GetData_SZ(WinReg.API.pathItemsList, Defaults.ItemsList)}";
+            public static string catalog => $"https://{Host}{WinReg.GetData_SZ(WinReg.API.pathCatalog, Defaults.Catalog)}";
+            public static string killSwitch => $"https://{Host}{WinReg.GetData_SZ(WinReg.API.pathAntiKillSwitch, Defaults.AntiKillSwitch)}";
+            public static string font => $"https://{Host}{WinReg.GetData_SZ(WinReg.API.pathFont, Defaults.Font)}";
         }
 
 
@@ -97,7 +115,13 @@ namespace Cursed_Market
         {
             public static string market         = null;
             public static string catalog        = null;
-            public static string antiKillSwitch = null;
+            public static string killSwitch = null;
+        }
+
+        public static class KillSwitch
+        {
+            public static bool isCatalogDisabled = false;
+            public static bool isAntiKillSwitchDisabled = false;
         }
 
         public static class SocialLinks
@@ -110,12 +134,12 @@ namespace Cursed_Market
 
 
 
-        public static bool HeartBeat()
+        public static bool Status()
         {
             try
             {
-                var heartBeatResponse = Networking.Get(SE_CommonEndpoints.heartBeat, ProgramNetworking.defaultHeaders);
-                return heartBeatResponse.statusCode == Networking.E_StatusCode.OK && heartBeatResponse.content == "OK";
+                var statusResponse = Networking.Get(SE_CommonEndpoints.status, ProgramNetworking.defaultHeaders);
+                return statusResponse.statusCode == Networking.E_StatusCode.OK && statusResponse.content == "OK";
             }
             catch
             {
@@ -124,29 +148,29 @@ namespace Cursed_Market
         }
 
 
-        public static void VersionCheck()
+        public static void Update()
         {
-            var versionCheckResponse = Networking.Get(SE_CommonEndpoints.versionCheck, ProgramNetworking.defaultHeaders);
-            if (versionCheckResponse.statusCode != Networking.E_StatusCode.OK)
+            var updateResponse = Networking.Get(SE_CommonEndpoints.update, ProgramNetworking.defaultHeaders);
+            if (updateResponse.statusCode != Networking.E_StatusCode.OK)
             {
-                Messaging.ShowMessage($"Cursed Market failed to check for updates!\nSTATUS CODE: {versionCheckResponse.statusCode}", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Messaging.ShowMessage($"Cursed Market failed to check for updates!\nSTATUS CODE: {updateResponse.statusCode}", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            if (versionCheckResponse.content.IsJson() == false)
+            if (updateResponse.content.IsJson() == false)
             {
-                Messaging.ShowMessage($"Cursed Market failed to check for updates!\n\nGiven by web server response has unexpected format and couldn't be parsed as JSON.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Messaging.ShowMessage("Cursed Market failed to check for updates!\n\nGiven by web server response has unexpected format and couldn't be parsed as JSON.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            JObject versionJson = JObject.Parse(versionCheckResponse.content);
-            bool updateRequired = (bool)versionJson["updateRequired"];
+            JObject updateJson = JObject.Parse(updateResponse.content);
+            bool updateRequired = (bool)(updateJson["updateRequired"] ?? false);
 
             if (updateRequired)
             {
                 string currentVersion = ProgramGlobals.version;
-                string latestVersion = (string)versionJson["latestVersion"];
-                string updateDownloadUrl = (string)versionJson["updateDownloadUrl"];
+                string latestVersion = (string)updateJson["latestVersion"];
+                string updateDownloadUrl = (string)updateJson["updateDownloadUrl"];
                 string downloadDestinationPath = ProgramPaths.Windows.downloadsDirectoryPath;
 
                 if (Messaging.ShowDialog($"Cursed Market update is available for download!\nCurrent Version: {currentVersion}\nLatest Version: {latestVersion}\n\nDo you want to download updated client now?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
@@ -154,7 +178,7 @@ namespace Cursed_Market
                     var updateDownloadRequest = Networking.Download(updateDownloadUrl, ProgramNetworking.defaultHeaders, downloadDestinationPath);
                     if (File.Exists(updateDownloadRequest.content) == true)
                     {
-                        Process.Start(updateDownloadRequest.content);
+                        Process.Start(new ProcessStartInfo(updateDownloadRequest.content) { UseShellExecute = true });
                         ProgramGlobals.Close();
                     }
                     else
@@ -162,28 +186,28 @@ namespace Cursed_Market
                         Messaging.ShowMessage(updateDownloadRequest.content);
                         if (Messaging.ShowDialog("Cursed Market failed to download update directly!\n\nShould we try alternative method instead?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
-                            Process.Start(updateDownloadUrl);
+                            Process.Start(new ProcessStartInfo(updateDownloadUrl) { UseShellExecute = true });
                             ProgramGlobals.Close();
                         }
                     }
                 }
             }
 
-            if (versionJson.ContainsKey("socialLinks"))
+            if (updateJson.ContainsKey("socialLinks"))
             {
-                if (versionJson["socialLinks"]["discord"] != null)
-                    SocialLinks.discord = (string)versionJson["socialLinks"]["discord"];
+                if (updateJson["socialLinks"]["discord"] != null)
+                    SocialLinks.discord = (string)updateJson["socialLinks"]["discord"];
 
-                if (versionJson["socialLinks"]["telegram"] != null)
-                    SocialLinks.telegram = (string)versionJson["socialLinks"]["telegram"];
+                if (updateJson["socialLinks"]["telegram"] != null)
+                    SocialLinks.telegram = (string)updateJson["socialLinks"]["telegram"];
 
-                if (versionJson["socialLinks"]["boosty"] != null)
-                    SocialLinks.boosty = (string)versionJson["socialLinks"]["boosty"];
+                if (updateJson["socialLinks"]["boosty"] != null)
+                    SocialLinks.boosty = (string)updateJson["socialLinks"]["boosty"];
             }
 
-            if (versionJson.ContainsKey("killSwitch"))
+            if (updateJson.ContainsKey("killSwitch"))
             {
-                JToken killSwitch = versionJson["killSwitch"];
+                JToken killSwitch = updateJson["killSwitch"];
 
 
                 if (killSwitch["platforms"] != null)
@@ -210,9 +234,43 @@ namespace Cursed_Market
                         }
                     }
                 }
+
+
+                JToken gameChangersToken = killSwitch["gameChangers"];
+                if (gameChangersToken != null)
+                {
+                    if (gameChangersToken.Type == JTokenType.Object)
+                    {
+                        KillSwitch.isCatalogDisabled = (bool)(gameChangersToken["catalog"] ?? gameChangersToken["customizationsKing"] ?? false);
+                        KillSwitch.isAntiKillSwitchDisabled = (bool)(gameChangersToken["killSwitch"] ?? gameChangersToken["antiKillSwitch"] ?? false);
+                    }
+                    else if (gameChangersToken.Type == JTokenType.Array)
+                    {
+                        foreach (string entry in gameChangersToken)
+                        {
+                            if (string.Equals(entry, "catalog", StringComparison.OrdinalIgnoreCase) ||
+                                string.Equals(entry, "catalog.json", StringComparison.OrdinalIgnoreCase) ||
+                                string.Equals(entry, nameof(E_GameChangers.customizationsKing), StringComparison.OrdinalIgnoreCase))
+                            {
+                                KillSwitch.isCatalogDisabled = true;
+                            }
+                            else if (string.Equals(entry, "killSwitch", StringComparison.OrdinalIgnoreCase) ||
+                                     string.Equals(entry, "killSwitch.json", StringComparison.OrdinalIgnoreCase) ||
+                                     string.Equals(entry, nameof(E_GameChangers.antiKillSwitch), StringComparison.OrdinalIgnoreCase))
+                            {
+                                KillSwitch.isAntiKillSwitchDisabled = true;
+                            }
+                        }
+                    }
+
+                    if (KillSwitch.isCatalogDisabled && KillSwitch.isAntiKillSwitchDisabled)
+                    {
+                        ProgramGlobals.SetMainFunctionEnabled(E_MainFunctions.MainFunction_05, false);
+                    }
+                }
             }
 
-            if (versionJson.TryGetValue("extraActions", out var extraActions) && extraActions != null)
+            if (updateJson.TryGetValue("extraActions", out var extraActions) && extraActions != null)
             {
                 foreach (JObject action in extraActions)
                 {
@@ -246,14 +304,14 @@ namespace Cursed_Market
             switch (actionMode)
             {
                 case E_ActionMode.Online:
-                    // Check if we already have requested data pre-cached in the memory.
+                    /* Check if we already have requested data pre-cached in the memory. */
                     if (!dlcOnly && ProgramCache.CursedAPI.Market.full != null)
                         return ProgramCache.CursedAPI.Market.full;
 
                     if (dlcOnly && ProgramCache.CursedAPI.Market.DLC != null)
                         return ProgramCache.CursedAPI.Market.DLC;
 
-                    // Send web request for the Market File. 
+                    /* Send web request for the Market File. */
                     var marketFileResponse = dlcOnly
                         ? Networking.Get(SE_CommonEndpoints.marketDLC, ProgramNetworking.defaultHeaders)   // Request DLC Market File if dlcOnly == true.
                         : Networking.Get(SE_CommonEndpoints.marketFull, ProgramNetworking.defaultHeaders); // Request Full Market File if dlcOnly == false.
@@ -264,7 +322,7 @@ namespace Cursed_Market
                         return GetMarketFile(E_ActionMode.Offline, dlcOnly);
                     }
 
-                    // Decompress server response and cache it in the memory.
+                    /* Decompress server response and cache it in the memory. */
                     string decompressedResult = Compression.ZLIB.Decompress(marketFileResponse.content);
                     if (dlcOnly == true)
                         ProgramCache.CursedAPI.Market.DLC = decompressedResult;
@@ -273,7 +331,7 @@ namespace Cursed_Market
 
                     return decompressedResult;
 
-                // There's no unique scenario for Local mode, so Offline & Local both return the same thing.
+                /* There's no unique scenario for Local mode, so Offline & Local both return the same thing.*/
                 case E_ActionMode.Offline:
                 case E_ActionMode.Local:
                     return dlcOnly
@@ -297,7 +355,8 @@ namespace Cursed_Market
                     if (ProgramCache.CursedAPI.CharacterData.data != null)
                         return ProgramCache.CursedAPI.CharacterData.data;
 
-                    var characterDataResponse = Networking.Get(SE_CommonEndpoints.characterData, ProgramNetworking.defaultHeaders, null, 30); // Character Data is a large chunk of data, so we want to await response for up to 30 seconds (in case someone has slow internet connection)
+                    /* Character Data is a large chunk of data, so we want to await response for up to 30 seconds (in case someone has slow internet connection). */
+                    var characterDataResponse = Networking.Get(SE_CommonEndpoints.characterData, ProgramNetworking.defaultHeaders, null, 30);
                     if (characterDataResponse.statusCode != Networking.E_StatusCode.OK)
                     {
                         Messaging.ShowMessage($"Cursed Market failed to obtain Character Data!\nSTATUS CODE: {characterDataResponse.statusCode}\n\nLocally stored, offline image will be used instead.", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -306,7 +365,7 @@ namespace Cursed_Market
 
                     return Compression.ZLIB.Decompress(characterDataResponse.content);
 
-                // There's no unique scenario for Local mode, so Offline & Local both return the same thing.
+                /* There's no unique scenario for Local mode, so Offline & Local both return the same thing. */
                 case E_ActionMode.Offline:
                 case E_ActionMode.Local:
                     return Compression.ZLIB.Decompress(Properties.OfflineAPI.CharacterData);
@@ -333,7 +392,7 @@ namespace Cursed_Market
 
                     return Compression.ZLIB.Decompress(bloodWebDataResponse.content);
 
-                // There's no unique scenario for Local mode, so Offline & Local both return the same thing.
+                /* There's no unique scenario for Local mode, so Offline & Local both return the same thing. */
                 case E_ActionMode.Offline:
                 case E_ActionMode.Local:
                     return Compression.ZLIB.Decompress(Properties.OfflineAPI.BloodWebData);
@@ -359,12 +418,12 @@ namespace Cursed_Market
                     if (charactersListResponse.statusCode != Networking.E_StatusCode.OK)
                     {
                         Messaging.ShowMessage($"Cursed Market failed to obtain Characters List!\nSTATUS CODE: {charactersListResponse.statusCode}\n\nLocally stored, offline image will be used instead.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return GetItemsList(E_ActionMode.Offline);
+                        return GetCharactersList(E_ActionMode.Offline);
                     }
 
                     return Compression.ZLIB.Decompress(charactersListResponse.content);
 
-                // There's no unique scenario for Local mode, so Offline & Local both return the same thing.
+                /* There's no unique scenario for Local mode, so Offline & Local both return the same thing. */
                 case E_ActionMode.Offline:
                 case E_ActionMode.Local:
                     return Compression.ZLIB.Decompress(Properties.OfflineAPI.CharactersList);
@@ -391,7 +450,7 @@ namespace Cursed_Market
 
                     return Compression.ZLIB.Decompress(itemsListResponse.content);
 
-                // There's no unique scenario for Local mode, so Offline & Local both return the same thing.
+                /* There's no unique scenario for Local mode, so Offline & Local both return the same thing. */
                 case E_ActionMode.Offline:
                 case E_ActionMode.Local:
                     return Compression.ZLIB.Decompress(Properties.OfflineAPI.ItemsList);
@@ -406,13 +465,16 @@ namespace Cursed_Market
 
         public static void ObtainCatalog()
         {
-            if (ProgramStartupArguments.HasStartupArgument(ProgramStartupArguments.Common.noCustomizationsKing))
+            if (KillSwitch.isCatalogDisabled || ProgramStartupArguments.HasStartupArgument(ProgramStartupArguments.Common.noCustomizationsKing))
             {
+                ResponseFiles.catalog = null;
+                ProgramFeatures.Catalog.enabled = false;
                 ProgramGlobals.SetGameChangerStatus(E_GameChangers.customizationsKing, E_GameChangerStatus.Disabled);
                 return;
             }
 
-            var catalogResponse = Networking.Get(SE_CommonEndpoints.catalog, ProgramNetworking.defaultHeaders, null, 30); // Catalog is a large chunk of data, so we want to await response for up to 30 seconds (in case someone has slow internet connection)
+            /* Catalog is a large chunk of data, so we want to await response for up to 30 seconds (in case someone has slow internet connection). */
+            var catalogResponse = Networking.Get(SE_CommonEndpoints.catalog, ProgramNetworking.defaultHeaders, null, 30);
             if (catalogResponse.statusCode == Networking.E_StatusCode.OK)
             {
                 ResponseFiles.catalog = catalogResponse.content;
@@ -426,19 +488,21 @@ namespace Cursed_Market
             }
         }
 
-        public static void ObtainAntiKillSwitch()
+        public static void ObtainKillSwitch()
         {
-            if (ProgramStartupArguments.HasStartupArgument(ProgramStartupArguments.Common.noAntiKillSwitch))
+            if (KillSwitch.isAntiKillSwitchDisabled || ProgramStartupArguments.HasStartupArgument(ProgramStartupArguments.Common.noAntiKillSwitch))
             {
+                ResponseFiles.killSwitch = null;
+                ProgramFeatures.AntiKillSwitch.enabled = false;
                 ProgramGlobals.SetGameChangerStatus(E_GameChangers.antiKillSwitch, E_GameChangerStatus.Disabled);
                 return;
             }
 
-            var antiKillSwitchResponse = Networking.Get(SE_CommonEndpoints.antiKillSwitch, ProgramNetworking.defaultHeaders);
+            var antiKillSwitchResponse = Networking.Get(SE_CommonEndpoints.killSwitch, ProgramNetworking.defaultHeaders);
             if (antiKillSwitchResponse.statusCode == Networking.E_StatusCode.OK)
             {
                 ProgramFeatures.AntiKillSwitch.enabled = true;
-                ResponseFiles.antiKillSwitch = antiKillSwitchResponse.content;
+                ResponseFiles.killSwitch = antiKillSwitchResponse.content;
 
                 ProgramGlobals.SetGameChangerStatus(E_GameChangers.antiKillSwitch, E_GameChangerStatus.Enabled);
             }
@@ -451,53 +515,67 @@ namespace Cursed_Market
 
 
 
-        public static string GetPopulatedMarketFile(string actualMarketFile, E_MarketFilePopulationType populationType)
+        public static string GetPopulatedMarketFile(string actualMarketFile, E_MarketFilePopulationType populationType, bool unlockAllCharacters = false)
         {
             JArray charactersArray = JArray.Parse(ProgramCache.CursedAPI.charactersList);
             JObject actualMarketFileJSON = JObject.Parse(actualMarketFile);
             JObject modifiedMarketFileJSON = JObject.Parse(ResponseFiles.market);
 
-
-            HashSet<string> actualItemsList = new HashSet<string>(actualMarketFileJSON["inventoryItems"].Select(item => (string)item["objectId"]));
-            List<JObject> charactersToAdd = charactersArray
-                .Where(c => actualItemsList.Contains((string)c))
-                .Select(c => new JObject
-                {
-                    ["objectId"] = c,
-                    ["quantity"] = 1
-                })
-                .ToList();
-
-
             JArray modifiedMarketItems = (JArray)modifiedMarketFileJSON["inventoryItems"];
-            foreach (var character in charactersToAdd)
-            {
-                modifiedMarketItems.Add(character);
-            }
 
+            /* Get ID's of items player actually own. */
+            HashSet<string> actualItemsList = new HashSet<string>(actualMarketFileJSON["inventoryItems"].Select(item => (string)item["objectId"]));
+
+            /* Convert characters list to HashSet for faster search. */
+            HashSet<string> allKnownCharacters = new HashSet<string>(charactersArray.Select(c => (string)c));
+
+            if (!unlockAllCharacters)
+            {
+                /* Remove all characters player doesn't own. */
+                for (int i = modifiedMarketItems.Count - 1; i >= 0; i--)
+                {
+                    string objId = (string)modifiedMarketItems[i]["objectId"];
+
+                    /* If element is a character and player doesn't own it - remove. */
+                    if (allKnownCharacters.Contains(objId) && !actualItemsList.Contains(objId))
+                    {
+                        modifiedMarketItems.RemoveAt(i);
+                    }
+                }
+
+                /* Add characters that player own yet they've been missing from Market file. */
+                HashSet<string> modifiedItemsList = new HashSet<string>(modifiedMarketItems.Select(item => (string)item["objectId"]));
+                foreach (string characterId in allKnownCharacters)
+                {
+                    if (actualItemsList.Contains(characterId) && !modifiedItemsList.Contains(characterId))
+                    {
+                        modifiedMarketItems.Add(new JObject
+                        {
+                            ["objectId"] = characterId,
+                            ["quantity"] = 1
+                        });
+                    }
+                }
+            }
 
             if (populationType != E_MarketFilePopulationType.None)
             {
                 JArray inventory = (JArray)modifiedMarketFileJSON["inventoryItems"];
                 JObject itemsList = JObject.Parse(ProgramCache.CursedAPI.itemsList);
 
-
                 Random rnd = new Random();
                 long startupTimeStamp = ProgramGlobals.startupTimeStamp;
 
-
-                // Mapping types to property names.
+                /* Mapping types to property names. */
                 var propertyMapping = new Dictionary<E_MarketFilePopulationType, string>
-                    {
-                        { E_MarketFilePopulationType.Perks, "perks" },
-                        { E_MarketFilePopulationType.Items, "items" },
-                        { E_MarketFilePopulationType.Addons, "addons" },
-                        { E_MarketFilePopulationType.Offerings, "offerings" }
-                    };
-                // If specific populationType is selected, we only add it.
-                // If E_MarketFilePopulationType.All is selected, add all types.
-                IEnumerable<string> propertiesToProcess = populationType == E_MarketFilePopulationType.All ? propertyMapping.Values : propertyMapping.Where(p => p.Key == populationType).Select(p => p.Value);
+                {
+                    { E_MarketFilePopulationType.Perks, "perks" },
+                    { E_MarketFilePopulationType.Items, "items" },
+                    { E_MarketFilePopulationType.Addons, "addons" },
+                    { E_MarketFilePopulationType.Offerings, "offerings" }
+                };
 
+                IEnumerable<string> propertiesToProcess = populationType == E_MarketFilePopulationType.All ? propertyMapping.Values : propertyMapping.Where(p => p.Key == populationType).Select(p => p.Value);
 
                 foreach (var property in propertiesToProcess)
                 {
@@ -507,14 +585,68 @@ namespace Cursed_Market
                         inventory.Add(new JObject(
                             new JProperty("lastUpdateAt", rnd.NextLong(startupTimeStamp - 300, startupTimeStamp + 300)),
                             new JProperty("objectId", content),
-                            new JProperty("quantity", property == "perks" ? 3 : 50) // Quantity determines 
+                            new JProperty("quantity", property == "perks" ? 3 : 50)
                         ));
                     }
                 }
             }
 
-
             return modifiedMarketFileJSON.ToString();
+        }
+
+
+
+
+        public static string GetReasonableCharacterData(string actualCharacterData, bool unlockAllCharacters = false)
+        {
+            JObject actualCharacterDataJSON = JObject.Parse(actualCharacterData);
+            JObject modifiedCharacterDataJSON = JObject.Parse(ProgramCache.CursedAPI.CharacterData.data);
+
+            JArray actualCharactersList = (JArray)actualCharacterDataJSON["list"];
+            JArray modifiedCharactersList = (JArray)modifiedCharacterDataJSON["list"];
+
+            if (!unlockAllCharacters)
+            {
+                /* Get the list of characters actually owned by the player (isEntitled == true). */
+                HashSet<string> ownedCharacters = new HashSet<string>(
+                    actualCharactersList
+                        .Where(c => (bool?)c["isEntitled"] == true)
+                        .Select(c => (string)c["characterName"]),
+                    StringComparer.OrdinalIgnoreCase
+                );
+
+                /* Set isEntitled = false for characters not owned by the player. */
+                foreach (JObject character in modifiedCharactersList)
+                {
+                    string characterName = (string)character["characterName"];
+                    character["isEntitled"] = ownedCharacters.Contains(characterName);
+                }
+
+                /* If the player owns a character that is missing from the modified file, add it. */
+                HashSet<string> modifiedCharacterNames = new HashSet<string>(
+                    modifiedCharactersList.Select(c => (string)c["characterName"]),
+                    StringComparer.OrdinalIgnoreCase
+                );
+
+                foreach (JObject actualCharacter in actualCharactersList)
+                {
+                    string characterName = (string)actualCharacter["characterName"];
+                    if (ownedCharacters.Contains(characterName) && !modifiedCharacterNames.Contains(characterName))
+                    {
+                        modifiedCharactersList.Add(actualCharacter.DeepClone());
+                    }
+                }
+            }
+            else
+            {
+                /* Ensure that all characters are unlocked when unlockAllCharacters = true. */
+                foreach (JObject character in modifiedCharactersList)
+                {
+                    character["isEntitled"] = true;
+                }
+            }
+
+            return modifiedCharacterDataJSON.ToString();
         }
     }
 }

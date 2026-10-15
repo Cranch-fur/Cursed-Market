@@ -52,7 +52,7 @@
             this.ClientSize = new System.Drawing.Size(60, 35);
             this.Controls.Add(this.label_Timer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Cursed_Market.Properties.Resources.Icon_Other;
             this.MaximumSize = new System.Drawing.Size(60, 35);
             this.MinimumSize = new System.Drawing.Size(60, 35);
             this.Name = "Form_Timer";

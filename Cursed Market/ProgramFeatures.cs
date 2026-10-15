@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -16,21 +17,14 @@ namespace Cursed_Market
             public static bool enabled = false;
         }
 
-
-
-
         public static class AntiKillSwitch
         {
             public static bool enabled = false;
         }
 
-
-
-
         public static class CharacterData
         {
             public static bool enabled = false;
-
 
             public struct S_CharacterData
             {
@@ -50,66 +44,69 @@ namespace Cursed_Market
             public static Dictionary<string, S_CharacterData> characterDataMap = new Dictionary<string, S_CharacterData>();
         }
 
-
-
         public static class CharactersPreset
         {
             public static bool enabled = false;
 
-
             public static bool Obtain()
             {
-                if (File.Exists(ProgramPaths.charactersPresetFilePath)) // Make sure that file we're looking for does exist in first place.
+                if (File.Exists(ProgramPaths.charactersPresetFilePath)) // Make sure that the file we're looking for exists in the first place.
                 {
                     string charactersPreset = File.ReadAllText(ProgramPaths.charactersPresetFilePath);
-                    if (string.IsNullOrEmpty(charactersPreset) == false && charactersPreset.IsJson()) // Make sure that file isn't empty.
+                    if (!string.IsNullOrEmpty(charactersPreset) && charactersPreset.IsJson()) // Make sure that the file isn't empty and contains valid JSON.
                     {
                         ProgramCache.Custom.charactersPreset = charactersPreset;
                         return true;
                     }
-                    else
-                        return false;
                 }
-                else
-                    return false;
+                return false;
             }
 
-
-            public static void SetEnabled(bool enabled)
+            public static void SetEnabled(bool enable)
             {
-                if (enabled == true)
+                if (enable)
                 {
+                    if (string.IsNullOrEmpty(ProgramCache.CursedAPI.CharacterData.data) || string.IsNullOrEmpty(ProgramCache.Custom.charactersPreset))
+                        return;
+
+                    /* If already enabled, restore original data first so we don't overwrite the backup with modified data. */
+                    if (CharactersPreset.enabled)
+                    {
+                        ProgramCache.CursedAPI.CharacterData.Restore();
+                        CharacterData.characterDataMap.Clear();
+                    }
+
                     JObject characterDataJSON = JObject.Parse(ProgramCache.CursedAPI.CharacterData.data); // Whatever happens next relies on CharacterData - obtaining it is the very first thing we want to do.
-                    if (CharacterData.characterDataMap.Count == 0) // Each time custom characters prestige is enabled, we need to build a new charactersMap if it's not build yet.
+                    if (CharacterData.characterDataMap.Count == 0) // Each time custom characters prestige is enabled, we need to build a new charactersMap if it's not built yet.
                     {
                         int count = 0;
                         JArray charactersListArray = (JArray)characterDataJSON["list"];
 
-                        foreach (JToken characterEntry in charactersListArray)
+                        if (charactersListArray != null)
                         {
-                            string characterName = (string)characterEntry["characterName"];
-                            int characterBloodWebLevel = (int)characterEntry["bloodWebLevel"];
-                            int characterPrestigeLevel = (int)characterEntry["prestigeLevel"];
-                            int characterLegacyPrestigeLevel = (int)characterEntry["legacyPrestigeLevel"];
+                            foreach (JToken characterEntry in charactersListArray)
+                            {
+                                string characterName = (string)characterEntry["characterName"];
+                                int characterBloodWebLevel = (int)characterEntry["bloodWebLevel"];
+                                int characterPrestigeLevel = (int)characterEntry["prestigeLevel"];
+                                int characterLegacyPrestigeLevel = (int)characterEntry["legacyPrestigeLevel"];
 
-                            CharacterData.characterDataMap.Add(characterName, new CharacterData.S_CharacterData(count, characterBloodWebLevel, characterPrestigeLevel, characterLegacyPrestigeLevel));
-
-                            count++;
+                                CharacterData.characterDataMap[characterName] = new CharacterData.S_CharacterData(count, characterBloodWebLevel, characterPrestigeLevel, characterLegacyPrestigeLevel);
+                                count++;
+                            }
                         }
                     }
-
 
                     JObject charactersPresetJSON = JObject.Parse(ProgramCache.Custom.charactersPreset);
                     foreach (var character in charactersPresetJSON)
                     {
                         string characterName = character.Key;
-                        if (CharacterData.characterDataMap.ContainsKey(characterName))
+                        if (CharacterData.characterDataMap.TryGetValue(characterName, out CharacterData.S_CharacterData charData))
                         {
-                            int characterIndex = CharacterData.characterDataMap[characterName].index;
-                            int characterBloodWebLevel = CharacterData.characterDataMap[characterName].bloodWebLevel;
-                            int characterPrestigeLevel = CharacterData.characterDataMap[characterName].prestigeLevel;
-                            int characterLegacyPrestigeLevel = CharacterData.characterDataMap[characterName].legacyPrestigeLevel;
-
+                            int characterIndex = charData.index;
+                            int characterBloodWebLevel = charData.bloodWebLevel;
+                            int characterPrestigeLevel = charData.prestigeLevel;
+                            int characterLegacyPrestigeLevel = charData.legacyPrestigeLevel;
 
                             JToken charBloodWebToken = character.Value["bloodWebLevel"]; // Check if we have this value set in characters prestige file and that its type is Integer.
                             if (charBloodWebToken != null && charBloodWebToken.Type == JTokenType.Integer)
@@ -129,13 +126,9 @@ namespace Cursed_Market
                                 characterLegacyPrestigeLevel = (int)charLegacyPrestigeToken; // Override default legacyPrestigeLevel with custom value.
                             }
 
-
-                            if (CharacterData.characterDataMap.ContainsKey(characterName))
-                            {
-                                characterDataJSON["list"][CharacterData.characterDataMap[characterName].index]["bloodWebLevel"] = characterBloodWebLevel;
-                                characterDataJSON["list"][CharacterData.characterDataMap[characterName].index]["prestigeLevel"] = characterPrestigeLevel;
-                                characterDataJSON["list"][CharacterData.characterDataMap[characterName].index]["legacyPrestigeLevel"] = characterLegacyPrestigeLevel;
-                            }
+                            characterDataJSON["list"][characterIndex]["bloodWebLevel"] = characterBloodWebLevel;
+                            characterDataJSON["list"][characterIndex]["prestigeLevel"] = characterPrestigeLevel;
+                            characterDataJSON["list"][characterIndex]["legacyPrestigeLevel"] = characterLegacyPrestigeLevel;
 
                             CharacterData.characterDataMap[characterName] = new CharacterData.S_CharacterData(characterIndex, characterBloodWebLevel, characterPrestigeLevel, characterLegacyPrestigeLevel);
                         }
@@ -149,14 +142,14 @@ namespace Cursed_Market
                 {
                     CharacterData.characterDataMap.Clear(); // Custom Characters Preset is OFF, invalidate characters map we have built earlier.
 
-                    ProgramCache.CursedAPI.CharacterData.Restore(); // Restore CharacterData variable to it's initial value.
+                    if (CharactersPreset.enabled)
+                    {
+                        ProgramCache.CursedAPI.CharacterData.Restore(); // Restore CharacterData variable to its initial value.
+                    }
                     CharactersPreset.enabled = false;
                 }
             }
         }
-
-
-
 
         public static class CurrencySpoof
         {
@@ -166,24 +159,15 @@ namespace Cursed_Market
             public static string auricCellsAmount = "0";
         }
 
-
-
-
         public static class GuaranteedQuests
         {
             public static bool enabled = false;
         }
 
-
-
-
         public static class GameProfile
         {
-            private static string storedPreset = WinReg.GetData_SZ(WinReg.Common.gameProfile) ?? null;
-            public static string GetStoredPreset()
-            {
-                return storedPreset;
-            }
+            private static string storedPreset = WinReg.GetData_SZ(WinReg.Common.gameProfile);
+            public static string GetStoredPreset() => storedPreset;
             public static void SetStoredPreset(string newPreset)
             {
                 if (WinReg.SetData_SZ(WinReg.Common.gameProfile, newPreset))
@@ -191,86 +175,72 @@ namespace Cursed_Market
             }
         }
 
-
-
-
         public static class Crosshair
         {
             public enum E_Crosshairs
             {
                 none,
-                cs_nafany,
-                cs_donk,
-                cs_felps,
+                customizable,
                 circleAqua,
                 circleWhite,
                 dotAqua,
+                dotGreen,
                 dotRed,
                 dotYellow,
-                dotGreen,
                 tacticAqua,
                 tacticWhite,
                 custom01,
                 custom02,
                 custom03,
-                custom04,
-                custom05,
-                custom06,
-                custom07,
-                custom08,
-                custom09,
-                custom10,
-                custom11,
-                custom12,
-                custom13,
-                custom14,
-                custom15,
-                custom16,
             }
 
+            public static CrosshairGenerator.S_CrosshairSettings Settings = LoadInitialSettings();
 
-            private static E_Crosshairs selectedCrosshair = (E_Crosshairs)WinReg.GetData_DWORD(WinReg.Common.crosshair, (int)E_Crosshairs.none);
-            public static E_Crosshairs GetSelectedCrosshair()
+            private static CrosshairGenerator.S_CrosshairSettings LoadInitialSettings()
             {
-                return selectedCrosshair;
+                string savedCode = WinReg.GetData_SZ(WinReg.Common.crosshairCode);
+                if (!string.IsNullOrEmpty(savedCode) && CrosshairGenerator.TryParseShareCode(savedCode, out var parsedFromCode))
+                {
+                    return parsedFromCode;
+                }
+
+                return CrosshairGenerator.S_CrosshairSettings.Default;
             }
+
+            public static void SaveSettings()
+            {
+                string shareCode = CrosshairGenerator.EncodeShareCode(Settings);
+                WinReg.SetData_SZ(WinReg.Common.crosshairCode, shareCode);
+            }
+
+            private static E_Crosshairs LoadInitialSelectedCrosshair()
+            {
+                int rawValue = WinReg.GetData_DWORD(WinReg.Common.crosshair, (int)E_Crosshairs.none);
+                return Enum.IsDefined(typeof(E_Crosshairs), rawValue)
+                    ? (E_Crosshairs)rawValue
+                    : E_Crosshairs.none;
+            }
+
+            private static E_Crosshairs selectedCrosshair = LoadInitialSelectedCrosshair();
+            public static E_Crosshairs GetSelectedCrosshair() => selectedCrosshair;
             public static void SetSelectedCrosshair(E_Crosshairs newCrosshair)
             {
                 if (WinReg.SetData_DWORD(WinReg.Common.crosshair, (int)newCrosshair))
                     selectedCrosshair = newCrosshair;
             }
 
-
             private static int opacity = WinReg.GetData_DWORD(WinReg.Common.crosshairOpacity, 100);
-            public static int GetOpacity()
-            {
-                return opacity;
-            }
+            public static int GetOpacity() => opacity;
             public static void SetOpacity(int newOpacity)
             {
                 if (WinReg.SetData_DWORD(WinReg.Common.crosshairOpacity, newOpacity))
                     opacity = newOpacity;
             }
 
-
-
-
-            public static void Show()
-            {
-                ProgramCache.Forms.Crosshair.Show();
-            }
-            public static void Hide()
-            {
-                ProgramCache.Forms.Crosshair.Hide();
-            }
-            public static void Reload()
-            {
-                ProgramCache.Forms.Crosshair.ForceInitializeSettings();
-            }
+            public static void Show() => ProgramCache.Forms.Crosshair.Show();
+            public static void Hide() => ProgramCache.Forms.Crosshair.Hide();
+            public static void Reload() => ProgramCache.Forms.Crosshair.ForceInitializeSettings();
         }
-
-
-
 
         public static class QueueNotify
         {
@@ -287,15 +257,12 @@ namespace Cursed_Market
                 militaryHorn
             }
 
-
             private static E_NotifySounds selectedNotifySound = (E_NotifySounds)WinReg.GetData_DWORD(WinReg.Common.queueNotifySound, (int)E_NotifySounds.none);
-            public static E_NotifySounds GetSelectedNotifySound()
-            {
-                return selectedNotifySound;
-            }
+            public static E_NotifySounds GetSelectedNotifySound() => selectedNotifySound;
             public static void SetSelectedNotifySound(E_NotifySounds newNotifySound)
             {
-                selectedNotifySound = newNotifySound;
+                if (WinReg.SetData_DWORD(WinReg.Common.queueNotifySound, (int)newNotifySound))
+                    selectedNotifySound = newNotifySound;
             }
         }
     }

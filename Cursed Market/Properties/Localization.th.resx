@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -121,58 +62,58 @@
     <value>เปลี่ยนกฎของเกม</value>
   </data>
   <data name="MAIN_CustomizationsKingTitle" xml:space="preserve">
-    <value>สถานะของราชาแห่งการปรับแต่ง:  </value>
+    <value>สถานะราชาแห่งการปรับแต่ง:  </value>
   </data>
   <data name="MAIN_CustomizationsKingDescription" xml:space="preserve">
-    <value>ชุดการปรับแต่งบางชุดได้รับการออกแบบให้ปรากฏและปล่อยเฉพาะในวันที่เฉพาะเจาะจงเท่านั้น ข้อจำกัดนี้ถูกยกเลิกแล้วตอนนี้.</value>
+    <value>ชุดปรับแต่งบางชุดถูกออกแบบมาให้แสดงและวางจำหน่ายเฉพาะในวันที่กำหนดเท่านั้น ข้อจำกัดนี้ได้ถูกยกเลิกแล้ว</value>
   </data>
   <data name="MAIN_AntiKillSwitchTitle" xml:space="preserve">
-    <value>สถานะของการต่อต้านการห้าม:  </value>
+    <value>สถานะตัวปลดล็อก KillSwitch:  </value>
   </data>
   <data name="MAIN_AntiKillSwitchDescription" xml:space="preserve">
-    <value>เป็นครั้งคราว ไอเทมในเกมบางรายการอาจแสดงให้เห็นว่ามีข้อผิดพลาด ดังนั้นนักพัฒนาจึงปิดใช้งานมัน ข้อจำกัดนี้ตอนนี้ได้ถูกยกเลิกแล้ว.</value>
+    <value>ในบางครั้ง ไอเทมในเกมบางชิ้นอาจมีบั๊กทำให้ผู้พัฒนาปิดการใช้งานชั่วคราว ข้อจำกัดนี้ได้ถูกยกเลิกแล้ว</value>
   </data>
   <data name="MAIN_MainFeaturesTitle" xml:space="preserve">
     <value>ฟีเจอร์หลัก</value>
   </data>
   <data name="MAIN_MainCheckBox_01" xml:space="preserve">
-    <value>แสดงตำแหน่งในคิว</value>
+    <value>แสดงลำดับคิวบนหน้าจอ</value>
   </data>
   <data name="MAIN_MainCheckBox_02" xml:space="preserve">
-    <value>การปรับเปลี่ยนสกุลเงิน (เชิงภาพ)</value>
+    <value>ปรับจำนวนสกุลเงิน (แสดงผลเท่านั้น)</value>
   </data>
   <data name="MAIN_MainCheckBox_03" xml:space="preserve">
-    <value>เปิดใช้งานการบันทึกชั่วคราว</value>
+    <value>เปิดใช้งานไฟล์บันทึกชั่วคราว</value>
   </data>
   <data name="MAIN_MainCheckBox_04" xml:space="preserve">
-    <value>พรีเซ็ตตัวละครที่กำหนดเอง</value>
+    <value>พรีเซ็ตตัวละครแบบกำหนดเอง</value>
   </data>
   <data name="MAIN_MainCheckBox_05" xml:space="preserve">
-    <value>ปิดการใช้งานกฎการเล่นที่เปลี่ยนแปลง</value>
+    <value>ปิดใช้งานการเปลี่ยนกฎของเกม</value>
   </data>
   <data name="MAIN_MainCheckBox_06" xml:space="preserve">
     <value>ปลดล็อกเฉพาะ DLC</value>
   </data>
   <data name="MAIN_CurrenciesAdjustTitle" xml:space="preserve">
-    <value>จำนวนเงินตรา</value>
+    <value>จำนวนสกุลเงิน</value>
   </data>
   <data name="MAIN_CrosshairTitle" xml:space="preserve">
-    <value>จุดศูนย์กลาง</value>
+    <value>เป้าเล็ง</value>
   </data>
   <data name="MAIN_CrosshairOpacityTitle" xml:space="preserve">
-    <value>ความโปร่งใสของจุดศูนย์กลาง</value>
+    <value>ความทึบของเป้าเล็ง</value>
   </data>
   <data name="MAIN_ApiKey" xml:space="preserve">
-    <value>ApiKey ของคุณจะอยู่ที่นี่...</value>
+    <value>ApiKey ของคุณจะแสดงที่นี่...</value>
   </data>
   <data name="MAIN_MainCheckBox_07" xml:space="preserve">
-    <value>การทำเควสให้สำเร็จที่รับประกัน</value>
+    <value>การันตีการทำเควสต์สำเร็จ</value>
   </data>
   <data name="MAIN_GAMECHANGERSTATUS_CurrentlyInUse" xml:space="preserve">
     <value>กำลังใช้งานอยู่</value>
   </data>
   <data name="MAIN_GAMECHANGERSTATUS_FailedToObtain" xml:space="preserve">
-    <value>ไม่สามารถรับได้</value>
+    <value>ไม่สามารถดึงข้อมูลได้</value>
   </data>
   <data name="MAIN_GAMECHANGERSTATUS_Disabled" xml:space="preserve">
     <value>ปิดใช้งาน</value>
@@ -181,13 +122,13 @@
     <value>โหมดออฟไลน์</value>
   </data>
   <data name="MAIN_QUEUE_LobbyFound" xml:space="preserve">
-    <value>พบล็อบบี้...</value>
+    <value>พบล็อบบี้แล้ว...</value>
   </data>
   <data name="MAIN_QUEUE_MatchStarting" xml:space="preserve">
-    <value>เริ่มการแข่งขัน!</value>
+    <value>การแข่งขันกำลังจะเริ่ม!</value>
   </data>
   <data name="MAIN_QUEUE_QueuePosition" xml:space="preserve">
-    <value>ตำแหน่งคิว:</value>
+    <value>ลำดับในคิว:</value>
   </data>
   <data name="MAIN_NOTIFYICON_Show" xml:space="preserve">
     <value>แสดง</value>
@@ -196,60 +137,136 @@
     <value>ปิด</value>
   </data>
   <data name="FRIEND_Title" xml:space="preserve">
-    <value>คำขอเป็นเพื่อนผ่าน CLOUD-ID</value>
+    <value>ส่งคำขอเป็นเพื่อนผ่าน CLOUD-ID</value>
   </data>
   <data name="FRIEND_MyCloudIDTitle" xml:space="preserve">
     <value>Cloud-ID ของคุณ</value>
   </data>
   <data name="FRIEND_FriendCloudIDTitle" xml:space="preserve">
-    <value>Cloud-ID เพื่อส่งคำขอเป็นเพื่อน</value>
+    <value>Cloud-ID ที่ต้องการส่งคำขอเป็นเพื่อน</value>
   </data>
   <data name="QUEUE_Idle" xml:space="preserve">
-    <value>ตำแหน่งในคิวจะแสดงที่นี่</value>
+    <value>ลำดับในคิวจะแสดงที่นี่</value>
   </data>
   <data name="QUEUE_LobbyFound" xml:space="preserve">
-    <value>~ พบล็อบบี้ ~</value>
+    <value>~ พบล็อบบี้แล้ว ~</value>
   </data>
   <data name="QUEUE_MatchStarting" xml:space="preserve">
-    <value>เริ่มการแข่งขัน!</value>
+    <value>การแข่งขันกำลังจะเริ่ม!</value>
   </data>
   <data name="MESSAGE_FirstLaunch" xml:space="preserve">
     <value>ยินดีต้อนรับสู่ Cursed Market!
 
-ซอฟต์แวร์นี้เป็นโอเพ่นซอร์สและใช้ฟรี! หากคุณถูกชักชวนให้จ่ายเงิน แนะนำให้ส่งข้อร้องเรียนถึงผู้ขาย</value>
+ซอฟต์แวร์นี้เป็นโอเพนซอร์สและใช้งานได้ฟรี! หากคุณถูกหลอกให้จ่ายเงินเพื่อซื้อโปรแกรมนี้ แนะนำให้ร้องเรียนผู้ขาย</value>
   </data>
   <data name="CHARACTERSPRESET_CharactersPresetTitle" xml:space="preserve">
-    <value>กำหนดค่าพรีเซ็ตตัวละคร</value>
+    <value>ตั้งค่าพรีเซ็ตตัวละคร</value>
   </data>
   <data name="CHARACTERSPRESET_CharacterSelectTitle" xml:space="preserve">
     <value>เลือกตัวละคร</value>
   </data>
   <data name="CHARACTERSPRESET_BloodWebTitle" xml:space="preserve">
-    <value>ระดับเลือดใยแมงมุม</value>
+    <value>ระดับบลัดเว็บ</value>
   </data>
   <data name="CHARACTERSPRESET_PrestigeTitle" xml:space="preserve">
-    <value>ระดับศักดิ์ศรี</value>
+    <value>ระดับเพรสทีจ</value>
   </data>
   <data name="CHARACTERSPRESET_LegacyPrestigeTitle" xml:space="preserve">
-    <value>ระดับศักดิ์ศรีแห่งมรดก</value>
+    <value>ระดับเลกาซีเพรสทีจ</value>
   </data>
   <data name="CHARACTERSPRESET_ExtraActionsTitle" xml:space="preserve">
     <value>การดำเนินการเพิ่มเติม</value>
   </data>
   <data name="CHARACTERSPRESET_SpreadPreset" xml:space="preserve">
-    <value>กระจายพรีเซ็ตปัจจุบันไปยังตัวละครทั้งหมด</value>
+    <value>ใช้พรีเซ็ตปัจจุบันกับตัวละครทั้งหมด</value>
   </data>
   <data name="CHARACTERSPRESET_RandomizePresets" xml:space="preserve">
-    <value>สุ่มพรีเซ็ตของตัวละครทั้งหมด</value>
+    <value>สุ่มพรีเซ็ตให้ตัวละครทั้งหมด</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumBloodWebLevelTitle" xml:space="preserve">
+    <value>ระดับบลัดเว็บสูงสุด</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumPrestigeLevelTitle" xml:space="preserve">
+    <value>ระดับเพรสทีจสูงสุด</value>
   </data>
   <data name="CHARACTERSPRESET_SaveChanges" xml:space="preserve">
     <value>ยืนยันและบันทึกการเปลี่ยนแปลง</value>
   </data>
   <data name="MESSAGE_CharactersPresetUnsavedChanges" xml:space="preserve">
-    <value>มีการเปลี่ยนแปลงการตั้งค่าล่วงหน้าของตัวละคร แต่ไม่ได้บันทึก! ปิดหน้าต่างโดยไม่บันทึก?</value>
+    <value>มีการแก้ไขพรีเซ็ตตัวละครแต่ยังไม่ได้บันทึก! ต้องการปิดหน้าต่างโดยไม่บันทึกหรือไม่?</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_Title" xml:space="preserve">
+    <value>ตั้งค่าเป้าเล็ง</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_LengthTitle" xml:space="preserve">
+    <value>ความยาว</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ThicknessTitle" xml:space="preserve">
+    <value>ความหนา</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GapTitle" xml:space="preserve">
+    <value>ระยะห่างตรงกลาง</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineTitle" xml:space="preserve">
+    <value>ขนาดเส้นขอบ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_DotSizeTitle" xml:space="preserve">
+    <value>ขนาดจุด</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleRadiusTitle" xml:space="preserve">
+    <value>รัศมีวงกลม</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineCheckBox" xml:space="preserve">
+    <value>แสดงเส้นขอบ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CenterDotCheckBox" xml:space="preserve">
+    <value>จุดตรงกลาง</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleCheckBox" xml:space="preserve">
+    <value>วงกลมตรงกลาง</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_TStyleCheckBox" xml:space="preserve">
+    <value>รูปทรงตัว T</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ColorPresetTitle" xml:space="preserve">
+    <value>พรีเซ็ตสี</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_AlphaTitle" xml:space="preserve">
+    <value>ความทึบแสง (10-255)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_RedTitle" xml:space="preserve">
+    <value>สีแดง (R)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GreenTitle" xml:space="preserve">
+    <value>สีเขียว (G)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_BlueTitle" xml:space="preserve">
+    <value>สีน้ำเงิน (B)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeSectionTitle" xml:space="preserve">
+    <value>รหัสแชร์ &amp;&amp; การดำเนินการ</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeInputTitle" xml:space="preserve">
+    <value>รหัสแชร์ปัจจุบัน / นำเข้า (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ImportShareCode" xml:space="preserve">
+    <value>ใช้รหัสแชร์</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ResetDefault" xml:space="preserve">
+    <value>รีเซ็ตเป็นเป้าเล็งเริ่มต้น</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_SaveChanges" xml:space="preserve">
+    <value>ยืนยันและบันทึกเป้าเล็ง</value>
+  </data>
+  <data name="MESSAGE_CrosshairSettingsUnsavedChanges" xml:space="preserve">
+    <value>มีการแก้ไขการตั้งค่าเป้าเล็งแต่ยังไม่ได้บันทึก! ต้องการปิดหน้าต่างโดยไม่บันทึกหรือไม่?</value>
+  </data>
+  <data name="MESSAGE_InvalidCrosshairShareCode" xml:space="preserve">
+    <value>รหัสแชร์เป้าเล็งไม่ถูกต้อง!
+โปรดตรวจสอบว่ารหัสอยู่ในรูปแบบที่ถูกต้อง (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</value>
   </data>
   <data name="GREETINGS_01" xml:space="preserve">
-    <value>มาร็อกกัน! 🤘</value>
+    <value>มาลุยกันเลย! 🤘</value>
   </data>
   <data name="GREETINGS_02" xml:space="preserve">
     <value>วันนี้เป็นยังไงบ้าง?</value>
@@ -261,35 +278,35 @@
     <value>ได้เวลาเล่นเกมแล้ว! ⚔</value>
   </data>
   <data name="GREETINGS_05" xml:space="preserve">
-    <value>ได้เวลาโยกแล้ว! 🎵</value>
+    <value>ได้เวลาสนุกแล้ว! 🎵</value>
   </data>
   <data name="GREETINGS_06" xml:space="preserve">
-    <value>อีกวัน อีกความท้าทาย!</value>
+    <value>วันใหม่ ความท้าทายใหม่!</value>
   </data>
   <data name="GREETINGS_07" xml:space="preserve">
     <value>ไปกันเลย! 🎲</value>
   </data>
   <data name="GREETINGS_08" xml:space="preserve">
-    <value>ได้เวลาเปล่งประกายแล้ว! ✨</value>
+    <value>ได้เวลาเฉิดฉายแล้ว! ✨</value>
   </data>
   <data name="MESSAGE_RobotoFontMissing" xml:space="preserve">
     <value>Cursed Market ได้รับการออกแบบโดยใช้ฟอนต์ "Roboto-Regular"!
 
-ซอฟต์แวร์จะไม่ทำงานอย่างถูกต้องจนกว่าฟอนต์จะติดตั้ง: "{0}"</value>
+ซอฟต์แวร์จะไม่ทำงานอย่างถูกต้องจนกว่าจะติดตั้งฟอนต์: "{0}"</value>
   </data>
   <data name="MESSAGE_DataFolderCreationFailed" xml:space="preserve">
-    <value>Cursed Market ไม่สามารถสร้างโฟลเดอร์ข้อมูลใน %localappdata% ได้! กรุณาตรวจสอบว่าโปรแกรมกำลังทำงานด้วยสิทธิ์ผู้ดูแลระบบ</value>
+    <value>Cursed Market ไม่สามารถสร้างโฟลเดอร์ข้อมูลใน %appdata% ได้! โปรดตรวจสอบว่าโปรแกรมกำลังทำงานด้วยสิทธิ์ผู้ดูแลระบบ</value>
   </data>
   <data name="MESSAGE_FailedToReadCharactersPreset" xml:space="preserve">
-    <value>ไม่สามารถอ่านไฟล์ "charactersPreset.json" ได้! โปรดตรวจสอบว่าไฟล์ไม่ว่างเปล่าและเนื้อหาอยู่ในรูปแบบ JSON</value>
+    <value>ไม่สามารถอ่านไฟล์ "CharactersPreset.json" ได้! โปรดตรวจสอบว่าไฟล์ไม่ว่างเปล่าและเนื้อหาอยู่ในรูปแบบ JSON</value>
   </data>
   <data name="MAIN_Start" xml:space="preserve">
     <value>เริ่มต้น</value>
   </data>
   <data name="WARNING_CharacterOwnership" xml:space="preserve">
-    <value>คำเตือน! แม้ว่าโปรแกรมนี้จะปลดล็อกให้คุณเข้าถึงตัวละครในเกมทั้งหมด แต่หากคุณพยายามใช้ตัวละครที่คุณไม่ได้เป็นเจ้าของจริงๆ คุณจะถูกส่งกลับไปยังเมนูหลัก และถูกระงับการใช้งานชั่วคราว!</value>
+    <value>คำเตือน! แม้ว่าโปรแกรมนี้จะปลดล็อกให้คุณเข้าถึงตัวละครในเกมทั้งหมด แต่หากคุณพยายามใช้ตัวละครที่คุณไม่ได้เป็นเจ้าของจริงๆ คุณจะถูกเตะกลับไปยังเมนูหลักและถูกระงับการใช้งานชั่วคราว!</value>
   </data>
   <data name="PLEASE_WAIT" xml:space="preserve">
-    <value>กรุณารอซักครู่...</value>
+    <value>กรุณารอสักครู่...</value>
   </data>
 </root>

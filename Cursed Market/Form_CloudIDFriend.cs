@@ -2,8 +2,6 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -24,14 +22,14 @@ namespace Cursed_Market
         {
             if (string.IsNullOrEmpty(ProgramSession.Game.userId) == false)
             {
-                textBox_MyCloudID.Width = 275; // What a generous approach <:3
+                textBox_MyCloudID.Width = 275; // What a generous approach <:3.
                 textBox_MyCloudID.Text = ProgramSession.Game.userId;
 
                 button_MyCloudIDCopy.Visible = true;
             }
             else
             {
-                textBox_MyCloudID.Width = 296; // What a generous approach <:3
+                textBox_MyCloudID.Width = 296; // What a generous approach <:3.
                 textBox_MyCloudID.Text = "NONE";
 
                 button_MyCloudIDCopy.Visible = false;
@@ -43,68 +41,17 @@ namespace Cursed_Market
 
         public void ReloadTheme()
         {
-            switch (ProgramThemes.GetSelectedTheme())
-            {
-                default:
-                    this.BackColor = Color.White;
-                    panel_WindowHeader.BackColor = SystemColors.Control;
-                    label_Title.ForeColor = Color.Black;
-                    label_MyCloudIDTitle.ForeColor = Color.Black;
-                    label_FriendCloudIDTitle.ForeColor = Color.Black;
-                    button_MyCloudIDCopy.BackColor = Color.DimGray;
-                    button_FriendCloudIDSend.BackColor = Color.DimGray;
-                    break;
+            var theme = ProgramThemes.GetCurrentPalette();
 
-                case ProgramThemes.E_Themes.legacy:
-                    this.BackColor = Color.FromArgb(255, 46, 51, 73);
-                    panel_WindowHeader.BackColor = Color.FromArgb(255, 24, 30, 54);
-                    label_Title.ForeColor = Color.White;
-                    label_MyCloudIDTitle.ForeColor = Color.White;
-                    label_FriendCloudIDTitle.ForeColor = Color.White;
-                    button_MyCloudIDCopy.BackColor = Color.RoyalBlue;
-                    button_FriendCloudIDSend.BackColor = Color.RoyalBlue;
-                    break;
+            this.BackColor = theme.FormBack;
+            panel_WindowHeader.BackColor = theme.HeaderBack;
+            pictureBox_WindowBorder.Visible = theme.IsLightTheme;
 
-                case ProgramThemes.E_Themes.darkMemories:
-                    this.BackColor = Color.FromArgb(255, 44, 47, 51);
-                    panel_WindowHeader.BackColor = Color.FromArgb(255, 35, 39, 42);
-                    label_Title.ForeColor = Color.White;
-                    label_MyCloudIDTitle.ForeColor = Color.White;
-                    label_FriendCloudIDTitle.ForeColor = Color.White;
-                    button_MyCloudIDCopy.BackColor = Color.FromArgb(255, 85, 85, 85);
-                    button_FriendCloudIDSend.BackColor = Color.FromArgb(255, 85, 85, 85);
-                    break;
+            ProgramThemes.ApplyForeColor(theme.PrimaryText,
+                label_Title, label_MyCloudIDTitle, label_FriendCloudIDTitle);
 
-                case ProgramThemes.E_Themes.saintsRow:
-                    this.BackColor = Color.FromArgb(255, 37, 13, 57);
-                    panel_WindowHeader.BackColor = Color.FromArgb(255, 55, 20, 86);
-                    label_Title.ForeColor = Color.White;
-                    label_MyCloudIDTitle.ForeColor = Color.White;
-                    label_FriendCloudIDTitle.ForeColor = Color.White;
-                    button_MyCloudIDCopy.BackColor = Color.FromArgb(255, 118, 93, 222);
-                    button_FriendCloudIDSend.BackColor = Color.FromArgb(255, 118, 93, 222);
-                    break;
-
-                case ProgramThemes.E_Themes.dracula:
-                    this.BackColor = Color.FromArgb(255, 40, 42, 54);
-                    panel_WindowHeader.BackColor = Color.FromArgb(255, 68, 71, 90);
-                    label_Title.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    label_MyCloudIDTitle.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    label_FriendCloudIDTitle.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    button_MyCloudIDCopy.BackColor = Color.FromArgb(255, 118, 93, 222);
-                    button_FriendCloudIDSend.BackColor = Color.FromArgb(255, 118, 93, 222);
-                    break;
-
-                case ProgramThemes.E_Themes.christmas:
-                    this.BackColor = Color.FromArgb(255, 24, 24, 24);
-                    panel_WindowHeader.BackColor = Color.FromArgb(255, 14, 14, 14);
-                    label_Title.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    label_MyCloudIDTitle.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    label_FriendCloudIDTitle.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    button_MyCloudIDCopy.BackColor = Color.FromArgb(255, 142, 22, 55);
-                    button_FriendCloudIDSend.BackColor = Color.FromArgb(255, 142, 22, 55);
-                    break;
-            }
+            button_MyCloudIDCopy.BackColor = theme.SecondaryButtonBack;
+            button_FriendCloudIDSend.BackColor = theme.SecondaryButtonBack;
         }
 
 
@@ -128,18 +75,14 @@ namespace Cursed_Market
 
 
         private void button_WindowClose_MouseClick(object sender, MouseEventArgs e) => this.Close();
-        private async void panel_WindowHeader_MouseDown(object sender, MouseEventArgs e)
+        private void panel_WindowHeader_MouseDown(object sender, MouseEventArgs e)
         {
-            panel_WindowHeader.Capture = false;
-
-            await Task.Run(() =>
+            if (e.Button == MouseButtons.Left)
             {
-                this.Invoke(new Action(() =>
-                {
-                    Message mouse = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero); // 0xA1 - WM_NCLBUTTONDOWN (Posted when the user presses the left mouse button while the cursor is within the nonclient area of a window) | new IntPtr(2) - HTCAPTION (We're making system aware that we have pressed LMB in window title area) | IntPtr.Zero - lParam (Unused in our scenario)
-                    WndProc(ref mouse);
-                }));
-            });
+                panel_WindowHeader.Capture = false;
+                Message mouse = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero); // 0xA1 - WM_NCLBUTTONDOWN | new IntPtr(2) - HTCAPTION.
+                WndProc(ref mouse);
+            }
         }
 
 
@@ -147,8 +90,11 @@ namespace Cursed_Market
 
         private void button_MyCloudIDCopy_MouseClick(object sender, MouseEventArgs e)
         {
-            Clipboard.SetText(textBox_MyCloudID.Text);
-            Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
+            if (!string.IsNullOrEmpty(textBox_MyCloudID.Text))
+            {
+                Clipboard.SetText(textBox_MyCloudID.Text);
+                Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
+            }
         }
         private void textBox_FriendCloudID_MouseClick(object sender, MouseEventArgs e)
         {
@@ -156,16 +102,20 @@ namespace Cursed_Market
         }
         private void button_FriendCloudIDSend_MouseClick(object sender, MouseEventArgs e)
         {
-            string userInput = textBox_FriendCloudID.Text;
-            if (string.IsNullOrEmpty(userInput) == true)
+            string userInput = textBox_FriendCloudID.Text?.Trim();
+            if (string.IsNullOrEmpty(userInput) || userInput.Contains(" "))
             {
                 textBox_FriendCloudID.Text = "Cloud-ID can not be empty or null!";
                 Media.PlaySoundFromStream(Properties.Resources.SFX_Error);
                 return;
             }
 
-
-
+            if (string.IsNullOrEmpty(ProgramSession.Game.api_key))
+            {
+                textBox_FriendCloudID.Text = "Game session is not initialized yet!";
+                Media.PlaySoundFromStream(Properties.Resources.SFX_Error);
+                return;
+            }
 
             List<string> headers = new List<string>()
             {
@@ -185,14 +135,22 @@ namespace Cursed_Market
                 platform = "kraken"
             });
 
-            var friendRequestResponse = Networking.Post($"https://{ProgramSession.Game.Platform.GetCurrentPlatformHostNames()[0]}/api/v1/players/friends/add", headers, requestBodyJson.ToString());
+            List<string> hostNames = ProgramSession.Game.Platform.GetCurrentPlatformHostNames();
+            if (hostNames == null || hostNames.Count == 0)
+            {
+                textBox_FriendCloudID.Text = "Failed to resolve platform host!";
+                Media.PlaySoundFromStream(Properties.Resources.SFX_Error);
+                return;
+            }
+
+            var friendRequestResponse = Networking.Post($"https://{hostNames[0]}/api/v1/players/friends/add", headers, requestBodyJson.ToString());
             if (friendRequestResponse.statusCode == Networking.E_StatusCode.CREATED)
             {
                 Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
             }
             else if (friendRequestResponse.statusCode == Networking.E_StatusCode.BAD_REQUEST)
             {
-                textBox_FriendCloudID.Text = $"Invalid Cloud-ID OR friend request already sent!";
+                textBox_FriendCloudID.Text = "Invalid Cloud-ID OR friend request already sent!";
                 Media.PlaySoundFromStream(Properties.Resources.SFX_Error);
             }
             else

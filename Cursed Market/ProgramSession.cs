@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 
 
@@ -58,9 +60,9 @@ namespace Cursed_Market
 
 
                 public static List<E_GamePlatform> limitedPlatforms = new List<E_GamePlatform>()
-            {
-                E_GamePlatform.Steam_PTB
-            };
+                {
+                    E_GamePlatform.Steam_PTB
+                };
                 public static E_GamePlatform currentPlatform = E_GamePlatform.None;
 
 
@@ -70,48 +72,49 @@ namespace Cursed_Market
                     {
                         case E_GamePlatform.Steam:
                             return new List<string>()
-                        {
-                            "steam.live.bhvrdbd.com",
-                            "cdn.live.dbd.bhvronline.com",
-                            "cdn.live.bhvrdbd.com",
-                            "cdn-steam.live.bhvrdbd.com", // 9.2.3+
-                            "gamelogs.live.bhvrdbd.com"
-                        };
+                            {
+                                "steam.live.bhvrdbd.com",
+                                "cdn.live.dbd.bhvronline.com",
+                                "cdn.live.bhvrdbd.com",
+                                "cdn-steam.live.bhvrdbd.com", // 9.2.3+
+                                "gamelogs.live.bhvrdbd.com"
+                            };
 
                         case E_GamePlatform.Steam_PTB:
                             return new List<string>()
-                        {
-                            "latest.ptb.bhvrdbd.com",
-                            "cdn.ptb.dbd.bhvronline.com"
-                        };
+                            {
+                                "latest.ptb.bhvrdbd.com",
+                                "cdn.ptb.dbd.bhvronline.com"
+                            };
 
                         case E_GamePlatform.WinGDK:
                             return new List<string>()
-                        {
-                            "grdk.live.bhvrdbd.com",
-                            "cdn.live.dbd.bhvronline.com",
-                            "cdn.live.bhvrdbd.com",
-                            "cdn-grdk.live.bhvrdbd.com", // 9.2.3+
-                            "gamelogs.live.bhvrdbd.com"
-                        };
+                            {
+                                "grdk.live.bhvrdbd.com",
+                                "cdn.live.dbd.bhvronline.com",
+                                "cdn.live.bhvrdbd.com",
+                                "cdn-grdk.live.bhvrdbd.com", // 9.2.3+
+                                "gamelogs.live.bhvrdbd.com"
+                            };
 
                         case E_GamePlatform.Epic:
                             return new List<string>()
-                        {
-                            "egs.live.bhvrdbd.com",
-                            "cdn.live.dbd.bhvronline.com",
-                            "cdn.live.bhvrdbd.com",
-                            "cdn-egs.live.bhvrdbd.com", // 9.2.3+
-                            "gamelogs.live.bhvrdbd.com"
-                        };
+                            {
+                                "egs.live.bhvrdbd.com",
+                                "cdn.live.dbd.bhvronline.com",
+                                "cdn.live.bhvrdbd.com",
+                                "cdn-egs.live.bhvrdbd.com", // 9.2.3+
+                                "gamelogs.live.bhvrdbd.com"
+                            };
 
                         default:
                             List<string> combinedHostnamesList = new List<string>();
                             combinedHostnamesList.AddRange(GetPlatformHostNames(E_GamePlatform.Steam));
+                            combinedHostnamesList.AddRange(GetPlatformHostNames(E_GamePlatform.Steam_PTB));
                             combinedHostnamesList.AddRange(GetPlatformHostNames(E_GamePlatform.WinGDK));
                             combinedHostnamesList.AddRange(GetPlatformHostNames(E_GamePlatform.Epic));
 
-                            return combinedHostnamesList;
+                            return combinedHostnamesList.Distinct().ToList();
                     }
                 }
                 public static List<string> GetCurrentPlatformHostNames()
@@ -122,20 +125,26 @@ namespace Cursed_Market
 
                 public static E_GamePlatform ResolvePlatformFromHostName(string hostName)
                 {
-                    if (GetPlatformHostNames(E_GamePlatform.Steam).Contains(hostName))
+                    if (string.IsNullOrEmpty(hostName))
+                        return E_GamePlatform.None;
+
+                    // Resolve using platform-unique hostnames first so shared CDN hosts don't falsely default to Steam.
+                    if (hostName.Equals("steam.live.bhvrdbd.com", StringComparison.OrdinalIgnoreCase) ||
+                        hostName.Equals("cdn-steam.live.bhvrdbd.com", StringComparison.OrdinalIgnoreCase))
                         return E_GamePlatform.Steam;
 
-                    else if (GetPlatformHostNames(E_GamePlatform.Steam_PTB).Contains(hostName))
+                    if (GetPlatformHostNames(E_GamePlatform.Steam_PTB).Contains(hostName, StringComparer.OrdinalIgnoreCase))
                         return E_GamePlatform.Steam_PTB;
 
-                    else if (GetPlatformHostNames(E_GamePlatform.WinGDK).Contains(hostName))
+                    if (hostName.Equals("grdk.live.bhvrdbd.com", StringComparison.OrdinalIgnoreCase) ||
+                        hostName.Equals("cdn-grdk.live.bhvrdbd.com", StringComparison.OrdinalIgnoreCase))
                         return E_GamePlatform.WinGDK;
 
-                    else if (GetPlatformHostNames(E_GamePlatform.Epic).Contains(hostName))
+                    if (hostName.Equals("egs.live.bhvrdbd.com", StringComparison.OrdinalIgnoreCase) ||
+                        hostName.Equals("cdn-egs.live.bhvrdbd.com", StringComparison.OrdinalIgnoreCase))
                         return E_GamePlatform.Epic;
 
-                    else
-                        return E_GamePlatform.None;
+                    return currentPlatform;
                 }
             }
 

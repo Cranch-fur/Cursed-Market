@@ -17,15 +17,12 @@ namespace Cursed_Market
         [DllImport("user32.dll", SetLastError = true)]
         static extern int GetWindowLong(IntPtr hWnd, int nIndex);
 
-
         protected override CreateParams CreateParams
         {
-            // https://stackoverflow.com/questions/3900947/hiding-winforms-app-from-taskbar
-            // No idea what exactly it does, but it works :)
             get
             {
                 CreateParams createParams = base.CreateParams;
-                createParams.ExStyle |= 0x80;
+                createParams.ExStyle |= 0x20 | 0x80 | 0x80000 | 0x08000000;
                 return createParams;
             }
         }
@@ -47,12 +44,7 @@ namespace Cursed_Market
 
         private void Form_Queue_Load(object sender, EventArgs e)
         {
-            CheckForIllegalCrossThreadCalls = false;
-
-            this.TransparencyKey = Color.DarkSlateGray; // !!! TRANSPARENCY KEY MUST BE SET THEFORE WE MANIPULATE SetWindowLong() !!! Other way we will loose control over our whole PC !!!
-
-            int initialStyle = GetWindowLong(this.Handle, -20);
-            SetWindowLong(this.Handle, -20, initialStyle | 0x80000 | 0x20);
+            this.TransparencyKey = Color.DarkSlateGray;
         }
 
 
@@ -60,38 +52,9 @@ namespace Cursed_Market
 
         public void ReloadTheme()
         {
-            switch (ProgramThemes.GetSelectedTheme())
-            {
-                default:
-                    label_QueueStatus.ForeColor = Color.Black;
-                    label_QueueStatus.BackColor = Color.WhiteSmoke;
-                    break;
-
-                case ProgramThemes.E_Themes.legacy:
-                    label_QueueStatus.ForeColor = Color.White;
-                    label_QueueStatus.BackColor = Color.FromArgb(255, 46, 51, 73);
-                    break;
-
-                case ProgramThemes.E_Themes.darkMemories:
-                    label_QueueStatus.ForeColor = Color.White;
-                    label_QueueStatus.BackColor = Color.FromArgb(255, 44, 47, 51);
-                    break;
-
-                case ProgramThemes.E_Themes.saintsRow:
-                    label_QueueStatus.ForeColor = Color.FromArgb(255, 146, 71, 214);
-                    label_QueueStatus.BackColor = Color.FromArgb(255, 37, 13, 57);
-                    break;
-
-                case ProgramThemes.E_Themes.dracula:
-                    label_QueueStatus.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    label_QueueStatus.BackColor = Color.FromArgb(255, 40, 42, 54);
-                    break;
-
-                case ProgramThemes.E_Themes.christmas:
-                    label_QueueStatus.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    label_QueueStatus.BackColor = Color.FromArgb(255, 24, 24, 24);
-                    break;
-            }
+            var theme = ProgramThemes.GetCurrentPalette();
+            label_QueueStatus.BackColor = theme.OverlayBack;
+            label_QueueStatus.ForeColor = theme.OverlayText;
         }
 
 
@@ -109,7 +72,11 @@ namespace Cursed_Market
             #endregion
         }
 
-        private void Form_Queue_FormClosing(object sender, FormClosingEventArgs e) => e.Cancel = true;
+        private void Form_Queue_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+                e.Cancel = true;
+        }
 
         public void LocalUpdateQueue(Queue.E_QueueStatus newQueueStatus, int newQueuePosition)
         {

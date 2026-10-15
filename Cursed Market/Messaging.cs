@@ -1,14 +1,18 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Forms;
+
+
+
+
+
 
 namespace Cursed_Market
 {
     public static class Messaging
     {
-        public static void ShowMessage(string message,  
-            MessageBoxButtons messageButtons = MessageBoxButtons.OK, 
-                MessageBoxIcon messageType = MessageBoxIcon.None, 
+        public static void ShowMessage(string message,
+            MessageBoxButtons messageButtons = MessageBoxButtons.OK,
+                MessageBoxIcon messageType = MessageBoxIcon.None,
                     MessageBoxDefaultButton defaultButton = MessageBoxDefaultButton.Button1)
         {
             MessageBox.Show(message, ProgramPaths.executableFriendlyName, messageButtons, messageType, defaultButton);
@@ -28,9 +32,8 @@ namespace Cursed_Market
                     ToolTipIcon tooltipIcon = ToolTipIcon.None,
                         int showUpTime = 3000)
         {
-            await Task.Run(() =>
+            using (NotifyIcon winNotify = new NotifyIcon())
             {
-                NotifyIcon winNotify = new NotifyIcon();
                 winNotify.Visible = true;
                 winNotify.Icon = notifyIcon;
 
@@ -39,8 +42,9 @@ namespace Cursed_Market
                 winNotify.BalloonTipIcon = tooltipIcon;
 
                 winNotify.ShowBalloonTip(showUpTime);
-                winNotify.BalloonTipClosed += (sender, e) => winNotify.Dispose(); Thread.Sleep(showUpTime); winNotify.Visible = false;
-            });
+                await Task.Delay(showUpTime);
+                winNotify.Visible = false;
+            }
         }
     }
 }

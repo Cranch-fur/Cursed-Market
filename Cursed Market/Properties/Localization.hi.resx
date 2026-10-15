@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -121,52 +62,52 @@
     <value>गेम के नियम बदलें</value>
   </data>
   <data name="MAIN_CustomizationsKingTitle" xml:space="preserve">
-    <value>कस्टमाइजेशन के राजा की स्थिति:  </value>
+    <value>कस्टमाइज़ेशन किंग की स्थिति:  </value>
   </data>
   <data name="MAIN_CustomizationsKingDescription" xml:space="preserve">
-    <value>कुछ अनुकूलन सेट इस तरह से डिज़ाइन किए गए थे कि वे केवल एक निश्चित तिथि पर दिखाई दें और जारी किए जाएँ। यह प्रतिबंध अब हटा दिया गया है।</value>
+    <value>कुछ कस्टमाइज़ेशन सेट इस तरह से डिज़ाइन किए गए थे कि वे केवल एक निश्चित तिथि पर दिखाई दें और जारी किए जाएँ। यह प्रतिबंध अब हटा दिया गया है।</value>
   </data>
   <data name="MAIN_AntiKillSwitchTitle" xml:space="preserve">
-    <value>एंटी-बैनर का स्थिति:  </value>
+    <value>किलस्विच रिमूवर की स्थिति:  </value>
   </data>
   <data name="MAIN_AntiKillSwitchDescription" xml:space="preserve">
-    <value>कभी-कभी, कुछ इन-गेम आइटम बग लगे हो सकते हैं, इसलिए डेवलपर्स उन्हें बंद कर देते हैं। यह प्रतिबंध अब हटा दिया गया है।</value>
+    <value>समय-समय पर कुछ इन-गेम आइटम में बग हो सकते हैं, इसलिए डेवलपर्स उन्हें बंद कर देते हैं। यह प्रतिबंध अब हटा दिया गया है।</value>
   </data>
   <data name="MAIN_MainFeaturesTitle" xml:space="preserve">
     <value>मुख्य विशेषताएँ</value>
   </data>
   <data name="MAIN_MainCheckBox_01" xml:space="preserve">
-    <value>क्यू में स्थिति दिखाएं</value>
+    <value>कतार में स्थिति दिखाएँ</value>
   </data>
   <data name="MAIN_MainCheckBox_02" xml:space="preserve">
-    <value>मुद्रा समायोजन (दृश्य)</value>
+    <value>मुद्रा की मात्रा समायोजित करें (केवल दृश्य)</value>
   </data>
   <data name="MAIN_MainCheckBox_03" xml:space="preserve">
-    <value>अस्थायी संग्रहण सक्षम करें</value>
+    <value>अस्थायी सेव फ़ाइल सक्षम करें</value>
   </data>
   <data name="MAIN_MainCheckBox_04" xml:space="preserve">
     <value>कस्टम कैरेक्टर प्रीसेट</value>
   </data>
   <data name="MAIN_MainCheckBox_05" xml:space="preserve">
-    <value>संशोधित खेल नियमों को अक्षम करें</value>
+    <value>गेम चेंजर अक्षम करें</value>
   </data>
   <data name="MAIN_MainCheckBox_06" xml:space="preserve">
-    <value>केवल DLC को अनलॉक करें</value>
+    <value>केवल DLC अनलॉक करें</value>
   </data>
   <data name="MAIN_CurrenciesAdjustTitle" xml:space="preserve">
-    <value>मुद्राओं की संख्या</value>
+    <value>मुद्राओं की मात्रा</value>
   </data>
   <data name="MAIN_CrosshairTitle" xml:space="preserve">
     <value>क्रॉसहेयर</value>
   </data>
   <data name="MAIN_CrosshairOpacityTitle" xml:space="preserve">
-    <value>क्रॉसहेयर पारदर्शिता</value>
+    <value>क्रॉसहेयर अपारदर्शिता</value>
   </data>
   <data name="MAIN_ApiKey" xml:space="preserve">
-    <value>आपका ApiKey यहाँ होगा...</value>
+    <value>आपका ApiKey यहाँ दिखाया जाएगा...</value>
   </data>
   <data name="MAIN_MainCheckBox_07" xml:space="preserve">
-    <value>गारंटीकृत क्वेस्ट पूरा करना</value>
+    <value>गारंटीकृत क्वेस्ट पूर्णता</value>
   </data>
   <data name="MAIN_GAMECHANGERSTATUS_CurrentlyInUse" xml:space="preserve">
     <value>वर्तमान में उपयोग में है</value>
@@ -178,16 +119,16 @@
     <value>अक्षम</value>
   </data>
   <data name="MAIN_GAMECHANGERSTATUS_Offline" xml:space="preserve">
-    <value>ऑफलाइन मोड</value>
+    <value>ऑफ़लाइन मोड</value>
   </data>
   <data name="MAIN_QUEUE_LobbyFound" xml:space="preserve">
-    <value>लॉबी मिली...</value>
+    <value>लॉबी मिल गई...</value>
   </data>
   <data name="MAIN_QUEUE_MatchStarting" xml:space="preserve">
     <value>मैच शुरू हो रहा है!</value>
   </data>
   <data name="MAIN_QUEUE_QueuePosition" xml:space="preserve">
-    <value>पंक्ति स्थिति:</value>
+    <value>कतार की स्थिति:</value>
   </data>
   <data name="MAIN_NOTIFYICON_Show" xml:space="preserve">
     <value>दिखाएँ</value>
@@ -196,19 +137,19 @@
     <value>बंद करें</value>
   </data>
   <data name="FRIEND_Title" xml:space="preserve">
-    <value>CLOUD-ID के माध्यम से मित्र अनुरोध</value>
+    <value>CLOUD-ID मित्र अनुरोध</value>
   </data>
   <data name="FRIEND_MyCloudIDTitle" xml:space="preserve">
-    <value>मित्र अनुरोध भेजने के लिए Cloud-ID</value>
-  </data>
-  <data name="FRIEND_FriendCloudIDTitle" xml:space="preserve">
     <value>आपका Cloud-ID</value>
   </data>
+  <data name="FRIEND_FriendCloudIDTitle" xml:space="preserve">
+    <value>मित्र अनुरोध भेजने के लिए Cloud-ID</value>
+  </data>
   <data name="QUEUE_Idle" xml:space="preserve">
-    <value>क्यू स्थिति यहाँ दिखाई जाएगी</value>
+    <value>कतार की स्थिति यहाँ दिखाई जाएगी</value>
   </data>
   <data name="QUEUE_LobbyFound" xml:space="preserve">
-    <value>~ लॉबी मिली ~</value>
+    <value>~ लॉबी मिल गई ~</value>
   </data>
   <data name="QUEUE_MatchStarting" xml:space="preserve">
     <value>मैच शुरू हो रहा है!</value>
@@ -216,49 +157,125 @@
   <data name="MESSAGE_FirstLaunch" xml:space="preserve">
     <value>Cursed Market में आपका स्वागत है!
 
-यह सॉफ़्टवेयर ओपन-सोर्स है और उपयोग के लिए पूरी तरह निःशुल्क है! यदि आपको इसके लिए भुगतान करने के लिए मना लिया गया है, तो विक्रेता को शिकायत भेजने की सलाह दी जाती है।</value>
+यह सॉफ़्टवेयर ओपन-सोर्स और उपयोग के लिए पूरी तरह निःशुल्क है! यदि आपसे इसके लिए पैसे लिए गए हैं, तो विक्रेता के विरुद्ध शिकायत दर्ज करने की सलाह दी जाती है।</value>
   </data>
   <data name="CHARACTERSPRESET_CharactersPresetTitle" xml:space="preserve">
-    <value>कैरेक्टर प्रीसेट को कॉन्फ़िगर करें</value>
+    <value>कैरेक्टर प्रीसेट कॉन्फ़िगर करें</value>
   </data>
   <data name="CHARACTERSPRESET_CharacterSelectTitle" xml:space="preserve">
     <value>कैरेक्टर चुनें</value>
   </data>
   <data name="CHARACTERSPRESET_BloodWebTitle" xml:space="preserve">
-    <value>रक्तजाल स्तर</value>
+    <value>ब्लडवेब स्तर</value>
   </data>
   <data name="CHARACTERSPRESET_PrestigeTitle" xml:space="preserve">
-    <value>प्रतिष्ठा स्तर</value>
+    <value>प्रेस्टीज स्तर</value>
   </data>
   <data name="CHARACTERSPRESET_LegacyPrestigeTitle" xml:space="preserve">
-    <value>विरासत प्रतिष्ठा स्तर</value>
+    <value>लेगेसी प्रेस्टीज स्तर</value>
   </data>
   <data name="CHARACTERSPRESET_ExtraActionsTitle" xml:space="preserve">
     <value>अतिरिक्त कार्य</value>
   </data>
   <data name="CHARACTERSPRESET_SpreadPreset" xml:space="preserve">
-    <value>सभी कैरेक्टरों में वर्तमान प्रीसेट लागू करें</value>
+    <value>वर्तमान प्रीसेट सभी कैरेक्टरों पर लागू करें</value>
   </data>
   <data name="CHARACTERSPRESET_RandomizePresets" xml:space="preserve">
-    <value>सभी कैरेक्टर प्रीसेट को रैंडम करें</value>
+    <value>सभी कैरेक्टर प्रीसेट को रैंडमाइज़ करें</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumBloodWebLevelTitle" xml:space="preserve">
+    <value>अधिकतम ब्लडवेब स्तर</value>
+  </data>
+  <data name="CHARACTERSPRESET_MaximumPrestigeLevelTitle" xml:space="preserve">
+    <value>अधिकतम प्रेस्टीज स्तर</value>
   </data>
   <data name="CHARACTERSPRESET_SaveChanges" xml:space="preserve">
-    <value>परिवर्तन की पुष्टि करें और सहेजें</value>
+    <value>पुष्टि करें और परिवर्तन सहेजें</value>
   </data>
   <data name="MESSAGE_CharactersPresetUnsavedChanges" xml:space="preserve">
-    <value>पात्रों की प्रीसेट में बदलाव किए गए थे, लेकिन वे सहेजे नहीं गए! बिना सहेजे खिड़की बंद करें?</value>
+    <value>कैरेक्टर प्रीसेट में बदलाव किए गए थे, लेकिन उन्हें सहेजा नहीं गया! क्या बिना सहेजे विंडो बंद करना चाहते हैं?</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_Title" xml:space="preserve">
+    <value>क्रॉसहेयर कॉन्फ़िगर करें</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_LengthTitle" xml:space="preserve">
+    <value>लंबाई</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ThicknessTitle" xml:space="preserve">
+    <value>मोटाई</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GapTitle" xml:space="preserve">
+    <value>केंद्र अंतराल</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineTitle" xml:space="preserve">
+    <value>आउटलाइन आकार</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_DotSizeTitle" xml:space="preserve">
+    <value>बिंदु आकार</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleRadiusTitle" xml:space="preserve">
+    <value>वृत्त त्रिज्या</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_OutlineCheckBox" xml:space="preserve">
+    <value>आउटलाइन</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CenterDotCheckBox" xml:space="preserve">
+    <value>केंद्र बिंदु</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_CircleCheckBox" xml:space="preserve">
+    <value>केंद्र वृत्त</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_TStyleCheckBox" xml:space="preserve">
+    <value>T-शैली</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ColorPresetTitle" xml:space="preserve">
+    <value>रंग प्रीसेट</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_AlphaTitle" xml:space="preserve">
+    <value>अल्फ़ा (10-255)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_RedTitle" xml:space="preserve">
+    <value>लाल (R)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_GreenTitle" xml:space="preserve">
+    <value>हरा (G)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_BlueTitle" xml:space="preserve">
+    <value>नीला (B)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeSectionTitle" xml:space="preserve">
+    <value>शेयर कोड &amp;&amp; कार्य</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ShareCodeInputTitle" xml:space="preserve">
+    <value>वर्तमान / इम्पोर्ट शेयर कोड (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ImportShareCode" xml:space="preserve">
+    <value>शेयर कोड लागू करें</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_ResetDefault" xml:space="preserve">
+    <value>डिफ़ॉल्ट क्रॉसहेयर पर रीसेट करें</value>
+  </data>
+  <data name="CROSSHAIRSETTINGS_SaveChanges" xml:space="preserve">
+    <value>पुष्टि करें और क्रॉसहेयर सहेजें</value>
+  </data>
+  <data name="MESSAGE_CrosshairSettingsUnsavedChanges" xml:space="preserve">
+    <value>क्रॉसहेयर सेटिंग्स में बदलाव किए गए थे, लेकिन उन्हें सहेजा नहीं गया! क्या बिना सहेजे विंडो बंद करना चाहते हैं?</value>
+  </data>
+  <data name="MESSAGE_InvalidCrosshairShareCode" xml:space="preserve">
+    <value>अमान्य क्रॉसहेयर शेयर कोड!
+सुनिश्चित करें कि कोड सही प्रारूप में है (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)।</value>
   </data>
   <data name="GREETINGS_01" xml:space="preserve">
     <value>चलो धमाल मचाएँ! 🤘</value>
   </data>
   <data name="GREETINGS_02" xml:space="preserve">
-    <value>आपका दिन कैसा था?</value>
+    <value>आपका दिन कैसा रहा?</value>
   </data>
   <data name="GREETINGS_03" xml:space="preserve">
-    <value>चलो नाचें! 🕺</value>
+    <value>चलो झूम उठें! 🕺</value>
   </data>
   <data name="GREETINGS_04" xml:space="preserve">
-    <value>खेल का समय! ⚔</value>
+    <value>गेमिंग का समय! ⚔</value>
   </data>
   <data name="GREETINGS_05" xml:space="preserve">
     <value>थिरकने का समय है! 🎵</value>
@@ -273,21 +290,21 @@
     <value>चमकने का समय है! ✨</value>
   </data>
   <data name="MESSAGE_RobotoFontMissing" xml:space="preserve">
-    <value>Cursed Market को "Roboto-Regular" फ़ॉन्ट के साथ डिज़ाइन किया गया है!
+    <value>Cursed Market को "Roboto-Regular" फ़ॉन्ट को ध्यान में रखकर डिज़ाइन किया गया है!
 
-सॉफ़्टवेयर तब तक सही ढंग से काम नहीं करेगा जब तक फ़ॉन्ट स्थापित नहीं किया जाता: "{0}"</value>
+जब तक यह फ़ॉन्ट इंस्टॉल नहीं किया जाता, सॉफ़्टवेयर सही ढंग से काम नहीं करेगा: "{0}"</value>
   </data>
   <data name="MESSAGE_DataFolderCreationFailed" xml:space="preserve">
-    <value>Cursed Market %localappdata% में डेटा फ़ोल्डर बनाने में विफल रहा! कृपया सुनिश्चित करें कि प्रोग्राम एडमिनिस्ट्रेटर विशेषाधिकारों के साथ चल रहा है।</value>
+    <value>Cursed Market %appdata% में डेटा फ़ोल्डर बनाने में विफल रहा! कृपया सत्यापित करें कि प्रोग्राम एडमिनिस्ट्रेटर विशेषाधिकारों के साथ चल रहा है।</value>
   </data>
   <data name="MESSAGE_FailedToReadCharactersPreset" xml:space="preserve">
-    <value>"charactersPreset.json" फ़ाइल को पढ़ने में विफल! सुनिश्चित करें कि फ़ाइल खाली नहीं है और इसका सामग्री JSON प्रारूप में है।</value>
+    <value>"CharactersPreset.json" फ़ाइल को पढ़ने में विफल! सुनिश्चित करें कि फ़ाइल खाली नहीं है और इसकी सामग्री JSON प्रारूप में है।</value>
   </data>
   <data name="MAIN_Start" xml:space="preserve">
     <value>प्रारंभ</value>
   </data>
   <data name="WARNING_CharacterOwnership" xml:space="preserve">
-    <value>चेतावनी! भले ही यह प्रोग्राम आपको गेम के सभी पात्रों तक पहुँच प्रदान करता हो, लेकिन जिन पात्रों के वास्तविक स्वामी आप नहीं हैं उनका उपयोग करने का प्रयास आपको मुख्य मेनू पर वापस भेज देगा, जिसके बाद अस्थायी रूप से ब्लॉक कर दिया जाएगा!</value>
+    <value>चेतावनी! भले ही यह प्रोग्राम सभी इन-गेम कैरेक्टरों तक पहुँच अनलॉक करता है, लेकिन जिन कैरेक्टरों के आप वास्तव में मालिक नहीं हैं उनका उपयोग करने के प्रयास से आपको मुख्य मेनू में वापस भेज दिया जाएगा और अस्थायी प्रतिबंध लगाया जाएगा!</value>
   </data>
   <data name="PLEASE_WAIT" xml:space="preserve">
     <value>कृपया प्रतीक्षा करें...</value>
