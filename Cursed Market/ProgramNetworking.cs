@@ -14,7 +14,7 @@ namespace Cursed_Market
         public static readonly List<string> defaultHeaders = new List<string>() // Default set of headers to use in networking requests.
         {
             $"User-Agent: {ProgramPaths.executableFriendlyName}",
-            $"Application-Version: {ProgramGlobals.version}",
+            $"Application-Version: {ProgramGlobals.rawFileVersion}", // Dotted format, e.g. "9.1.0.0".
             $"Startup-Time: {ProgramGlobals.startupTimeStamp}"
         };
 

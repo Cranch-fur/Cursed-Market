@@ -199,10 +199,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CharactersPresetSync.cs" />
     <Compile Include="Compression.cs" />
     <Compile Include="CrosshairGenerator.cs" />
     <Compile Include="CursedAPI.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="ExtraLogic.cs" />
+    <Compile Include="Form_ExtraLogicManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ExtraLogicManager.Designer.cs">
+      <DependentUpon>Form_ExtraLogicManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_APIConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -298,6 +306,9 @@
     <Compile Include="WinReg.cs" />
     <EmbeddedResource Include="Form_APIConfig.resx">
       <DependentUpon>Form_APIConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ExtraLogicManager.resx">
+      <DependentUpon>Form_ExtraLogicManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_CloudIDFriend.resx">
       <DependentUpon>Form_CloudIDFriend.cs</DependentUpon>

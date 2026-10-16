@@ -27,7 +27,6 @@ namespace Cursed_Market
         }
 
         public static readonly string rawFileVersion = ObtainRawFileVersion();
-        public static string version = rawFileVersion.Replace(".", string.Empty).PadRight(4, '0');
 
         public static void CheckForFirstLaunch()
         {

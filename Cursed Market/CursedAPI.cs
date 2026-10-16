@@ -91,6 +91,7 @@ namespace Cursed_Market
                 public const string Catalog = "/cm/static/catalog.json";
                 public const string AntiKillSwitch = "/cm/static/killSwitch.json";
                 public const string Font = "/cm/data/Roboto-Regular.ttf";
+                public const string CharactersPreset = "/cm/characters";
             }
 
             public static string Host => WinReg.GetData_SZ(WinReg.API.host, Defaults.Host);
@@ -106,6 +107,7 @@ namespace Cursed_Market
             public static string catalog => $"https://{Host}{WinReg.GetData_SZ(WinReg.API.pathCatalog, Defaults.Catalog)}";
             public static string killSwitch => $"https://{Host}{WinReg.GetData_SZ(WinReg.API.pathAntiKillSwitch, Defaults.AntiKillSwitch)}";
             public static string font => $"https://{Host}{WinReg.GetData_SZ(WinReg.API.pathFont, Defaults.Font)}";
+            public static string charactersPreset => $"https://{Host}{WinReg.GetData_SZ(WinReg.API.pathCharactersPreset, Defaults.CharactersPreset)}";
         }
 
 
@@ -168,7 +170,7 @@ namespace Cursed_Market
 
             if (updateRequired)
             {
-                string currentVersion = ProgramGlobals.version;
+                string currentVersion = ProgramGlobals.rawFileVersion;
                 string latestVersion = (string)updateJson["latestVersion"];
                 string updateDownloadUrl = (string)updateJson["updateDownloadUrl"];
                 string downloadDestinationPath = ProgramPaths.Windows.downloadsDirectoryPath;

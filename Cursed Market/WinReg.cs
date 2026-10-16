@@ -49,6 +49,7 @@ namespace Cursed_Market
             public static readonly string pathCatalog = "API_Path_Catalog";
             public static readonly string pathAntiKillSwitch = "API_Path_AntiKillSwitch";
             public static readonly string pathFont = "API_Path_Font";
+            public static readonly string pathCharactersPreset = "API_Path_CharactersPreset";
         }
 
         public static bool GetSubKeyExist()

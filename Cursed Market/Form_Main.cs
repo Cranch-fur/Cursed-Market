@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 
@@ -145,7 +146,8 @@ namespace Cursed_Market
         private void InitializeSettings()
         {
             ReloadTheme();
-            label_VersionWaterMark.Text = $"{ProgramGlobals.version[0]}.{ProgramGlobals.version[1]}.{ProgramGlobals.version[2]}.{ProgramGlobals.version[3]}";
+            label_VersionWaterMark.Text = ProgramGlobals.rawFileVersion;
+            label_AuthorWaterMark.Text = Regex.Replace(label_AuthorWaterMark.Text, @"\b(19|20)\d{2}\b", DateTime.Now.Year.ToString()); // Copyright year follows user's system date.
 
             ProgramFeatures.Crosshair.E_Crosshairs initialCrosshair = ProgramFeatures.Crosshair.GetSelectedCrosshair();
             comboBox_Crosshairs.SelectedIndex = (int)initialCrosshair;
@@ -374,7 +376,9 @@ namespace Cursed_Market
 
             if (FiddlerCore.Start() == false)
             {
-                Messaging.ShowMessage("Cursed Market failed to start proxy instance!", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                if (!ExtraLogic.WasStartCancelled)
+                    Messaging.ShowMessage("Cursed Market failed to start proxy instance!", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+
                 return;
             }
 

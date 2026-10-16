@@ -45,6 +45,8 @@
             this.textBox_AntiKillSwitch = new System.Windows.Forms.TextBox();
             this.label_RobotoFont = new System.Windows.Forms.Label();
             this.textBox_RobotoFont = new System.Windows.Forms.TextBox();
+            this.label_CharactersPreset = new System.Windows.Forms.Label();
+            this.textBox_CharactersPreset = new System.Windows.Forms.TextBox();
             this.button_ResetDefault = new System.Windows.Forms.Button();
             this.button_SaveChanges = new System.Windows.Forms.Button();
             this.panel_WindowHeader.SuspendLayout();
@@ -91,7 +93,7 @@
             this.pictureBox_Background.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox_Background.Location = new System.Drawing.Point(0, 22);
             this.pictureBox_Background.Name = "pictureBox_Background";
-            this.pictureBox_Background.Size = new System.Drawing.Size(700, 428);
+            this.pictureBox_Background.Size = new System.Drawing.Size(700, 473);
             this.pictureBox_Background.TabIndex = 1;
             this.pictureBox_Background.TabStop = false;
             // 
@@ -323,10 +325,29 @@
             this.textBox_RobotoFont.TabIndex = 2;
             this.textBox_RobotoFont.TextChanged += new System.EventHandler(this.OnParameterChanged);
             // 
+            // label_CharactersPreset
+            // 
+            this.label_CharactersPreset.Font = new System.Drawing.Font("Roboto", 9F);
+            this.label_CharactersPreset.Location = new System.Drawing.Point(24, 375);
+            this.label_CharactersPreset.Name = "label_CharactersPreset";
+            this.label_CharactersPreset.Size = new System.Drawing.Size(310, 15);
+            this.label_CharactersPreset.TabIndex = 3;
+            this.label_CharactersPreset.Text = "CHARACTERS PRESET PATH";
+            this.label_CharactersPreset.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // textBox_CharactersPreset
+            // 
+            this.textBox_CharactersPreset.Font = new System.Drawing.Font("Roboto", 9F);
+            this.textBox_CharactersPreset.Location = new System.Drawing.Point(24, 393);
+            this.textBox_CharactersPreset.Name = "textBox_CharactersPreset";
+            this.textBox_CharactersPreset.Size = new System.Drawing.Size(310, 22);
+            this.textBox_CharactersPreset.TabIndex = 2;
+            this.textBox_CharactersPreset.TextChanged += new System.EventHandler(this.OnParameterChanged);
+            // 
             // button_ResetDefault
             // 
             this.button_ResetDefault.Font = new System.Drawing.Font("Roboto", 9F);
-            this.button_ResetDefault.Location = new System.Drawing.Point(24, 400);
+            this.button_ResetDefault.Location = new System.Drawing.Point(24, 445);
             this.button_ResetDefault.Name = "button_ResetDefault";
             this.button_ResetDefault.Size = new System.Drawing.Size(310, 30);
             this.button_ResetDefault.TabIndex = 1;
@@ -338,7 +359,7 @@
             // 
             this.button_SaveChanges.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_SaveChanges.Font = new System.Drawing.Font("Roboto", 9F);
-            this.button_SaveChanges.Location = new System.Drawing.Point(354, 400);
+            this.button_SaveChanges.Location = new System.Drawing.Point(354, 445);
             this.button_SaveChanges.Name = "button_SaveChanges";
             this.button_SaveChanges.Size = new System.Drawing.Size(310, 30);
             this.button_SaveChanges.TabIndex = 0;
@@ -351,9 +372,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(700, 450);
+            this.ClientSize = new System.Drawing.Size(700, 495);
             this.Controls.Add(this.button_SaveChanges);
             this.Controls.Add(this.button_ResetDefault);
+            this.Controls.Add(this.textBox_CharactersPreset);
+            this.Controls.Add(this.label_CharactersPreset);
             this.Controls.Add(this.textBox_RobotoFont);
             this.Controls.Add(this.label_RobotoFont);
             this.Controls.Add(this.textBox_AntiKillSwitch);
@@ -426,6 +449,8 @@
         private System.Windows.Forms.TextBox textBox_AntiKillSwitch;
         private System.Windows.Forms.Label label_RobotoFont;
         private System.Windows.Forms.TextBox textBox_RobotoFont;
+        private System.Windows.Forms.Label label_CharactersPreset;
+        private System.Windows.Forms.TextBox textBox_CharactersPreset;
 
         private System.Windows.Forms.Button button_ResetDefault;
         private System.Windows.Forms.Button button_SaveChanges;

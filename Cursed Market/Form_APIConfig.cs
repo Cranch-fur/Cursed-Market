@@ -58,7 +58,7 @@ namespace Cursed_Market
                 label_FormTitle, label_Host, label_Status, label_Update,
                 label_MarketFull, label_MarketDLC, label_CharacterData,
                 label_BloodwebData, label_CharactersList, label_ItemsList,
-                label_Catalog, label_AntiKillSwitch, label_RobotoFont);
+                label_Catalog, label_AntiKillSwitch, label_RobotoFont, label_CharactersPreset);
 
             button_SaveChanges.BackColor = theme.PrimaryButtonBack;
             button_SaveChanges.ForeColor = theme.PrimaryButtonText;
@@ -84,6 +84,7 @@ namespace Cursed_Market
             textBox_Catalog.Text = WinReg.GetData_SZ(WinReg.API.pathCatalog, CursedAPI.SE_CommonEndpoints.Defaults.Catalog);
             textBox_AntiKillSwitch.Text = WinReg.GetData_SZ(WinReg.API.pathAntiKillSwitch, CursedAPI.SE_CommonEndpoints.Defaults.AntiKillSwitch);
             textBox_RobotoFont.Text = WinReg.GetData_SZ(WinReg.API.pathFont, CursedAPI.SE_CommonEndpoints.Defaults.Font);
+            textBox_CharactersPreset.Text = WinReg.GetData_SZ(WinReg.API.pathCharactersPreset, CursedAPI.SE_CommonEndpoints.Defaults.CharactersPreset);
         }
 
         private void OnParameterChanged(object sender, EventArgs e)
@@ -105,6 +106,7 @@ namespace Cursed_Market
             textBox_Catalog.Text = CursedAPI.SE_CommonEndpoints.Defaults.Catalog;
             textBox_AntiKillSwitch.Text = CursedAPI.SE_CommonEndpoints.Defaults.AntiKillSwitch;
             textBox_RobotoFont.Text = CursedAPI.SE_CommonEndpoints.Defaults.Font;
+            textBox_CharactersPreset.Text = CursedAPI.SE_CommonEndpoints.Defaults.CharactersPreset;
 
             _changesWereMade = true;
             Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
@@ -124,6 +126,7 @@ namespace Cursed_Market
             WinReg.SetData_SZ(WinReg.API.pathCatalog, textBox_Catalog.Text.Trim());
             WinReg.SetData_SZ(WinReg.API.pathAntiKillSwitch, textBox_AntiKillSwitch.Text.Trim());
             WinReg.SetData_SZ(WinReg.API.pathFont, textBox_RobotoFont.Text.Trim());
+            WinReg.SetData_SZ(WinReg.API.pathCharactersPreset, textBox_CharactersPreset.Text.Trim());
 
             _changesWereMade = false;
             Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);

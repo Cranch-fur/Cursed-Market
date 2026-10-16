@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Main));
             this.panel_WindowHeader = new System.Windows.Forms.Panel();
             this.button_WindowTray = new System.Windows.Forms.Button();
             this.button_WindowMinimize = new System.Windows.Forms.Button();

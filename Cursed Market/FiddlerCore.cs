@@ -1,6 +1,4 @@
 ﻿using Fiddler;
-using Microsoft.CodeAnalysis.CSharp.Scripting;
-using Microsoft.CodeAnalysis.Scripting;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -73,51 +71,6 @@ namespace Cursed_Market
 
 
 
-        public static bool LoadAndRunExtraLogic(string extraLogicFilePath)
-        {
-            if (File.Exists(extraLogicFilePath) == false)
-            {
-                return false;
-            }
-
-
-            try
-            {
-                string extraLogicCode = File.ReadAllText(extraLogicFilePath);
-                if (string.IsNullOrEmpty(extraLogicCode))
-                {
-                    return false;
-                }
-
-
-                CSharpScript.RunAsync(
-                extraLogicCode,
-                ScriptOptions.Default
-                    .WithReferences(
-                        typeof(FiddlerApplication).Assembly,
-                        typeof(object).Assembly,
-                        typeof(Extensions).Assembly,
-                        typeof(MessageBox).Assembly,
-                        typeof(JObject).Assembly
-                    )
-                    .WithImports("System", "Fiddler", "Cursed_Market", "System.Windows.Forms", "Newtonsoft.Json.Linq")
-                )
-                .GetAwaiter()
-                .GetResult();
-
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to compile Extra Logic module!\nModule: \"{extraLogicFilePath}\"\nException: {ex.ToString()}", "Extra Logic", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                return false;
-            }
-        }
-
-
-
-
         public static bool Start()
         {
             if (EnsureRootCertificate() == false)
@@ -125,46 +78,18 @@ namespace Cursed_Market
                 Messaging.ShowMessage("Cursed Market failed to ensure root certificate!", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 return false;
             }
+
+            if (ExtraLogic.LoadAll() == null) // Module list is shown before any traffic goes through proxy.
+                return false; // Cancelled by user.
             FiddlerApplication.Startup(new FiddlerCoreStartupSettingsBuilder().ListenOnPort(8888).RegisterAsSystemProxy().ChainToUpstreamGateway().DecryptSSL().OptimizeThreadPool().Build());
-            
-
-            List<string> runningExtraLogic = new List<string>();
-            if (LoadAndRunExtraLogic(ProgramPaths.extraLogicBeforeRequestFilePath))
-            {
-                runningExtraLogic.Add(ProgramPaths.extraLogicBeforeRequestFilePath);
-            }
-            if (LoadAndRunExtraLogic(ProgramPaths.extraLogicBeforeResponseFilePath))
-            {
-                runningExtraLogic.Add(ProgramPaths.extraLogicBeforeResponseFilePath);
-            }
-            if (LoadAndRunExtraLogic(ProgramPaths.extraLogicAfterSessionCompleteFilePath))
-            {
-                runningExtraLogic.Add(ProgramPaths.extraLogicAfterSessionCompleteFilePath);
-            }
-
-
-            if (runningExtraLogic.Count > 0) 
-            {
-                IEnumerable<string> numberedLines = runningExtraLogic.Select((item, index) => $"{index + 1}) \"{item}\"");
-                string outText = string.Join(Environment.NewLine, numberedLines);
-
-
-                Thread messageThread = new Thread(() =>
-                {
-                    MessageBox.Show($"Fiddler Core is now running with following modules:\n{outText}", "Extra Logic", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-                });
-
-
-                messageThread.SetApartmentState(ApartmentState.STA);
-                messageThread.IsBackground = true;
-                messageThread.Start();
-            }
 
 
             return IsRunning();
         }
         public static void Stop()
         {
+            ExtraLogic.UnloadAll();
+
             if (FiddlerApplication.IsStarted())
             {
                 FiddlerApplication.Shutdown();

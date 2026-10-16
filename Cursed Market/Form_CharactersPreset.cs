@@ -86,10 +86,20 @@ namespace Cursed_Market
             }
         }
 
-        private void Form_CharactersPreset_Shown(object sender, EventArgs e)
+        private async void Form_CharactersPreset_Shown(object sender, EventArgs e)
         {
             /* Clear previous state when the dialog is reopened. */
             CleanupCharacterResources();
+
+            /* First opening in session checks API for updates (also covers missing files). */
+            bool isUpdateOffered = await CharactersPresetSync.CheckOnFirstOpenAsync(this);
+
+            /* Offer download from API instead of a plain error when preset files are missing. */
+            if (!isUpdateOffered && (!File.Exists(ProgramPaths.charactersMapFilePath) || !File.Exists(ProgramPaths.charactersPresetFilePath)))
+            {
+                if (Messaging.ShowDialog("Characters Preset files are missing!\n\nDownload them from Cursed Market API now?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    await CharactersPresetSync.RunWithConfirmationAsync(this, false);
+            }
 
             if (!File.Exists(ProgramPaths.charactersMapFilePath))
             {
