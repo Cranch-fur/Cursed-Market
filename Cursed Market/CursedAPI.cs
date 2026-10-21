@@ -123,6 +123,7 @@ namespace Cursed_Market
         public static class KillSwitch
         {
             public static bool isCatalogDisabled = false;
+            public static Version catalogVersion = new Version(0, 0, 0);
             public static bool isAntiKillSwitchDisabled = false;
         }
 
@@ -244,6 +245,10 @@ namespace Cursed_Market
                     if (gameChangersToken.Type == JTokenType.Object)
                     {
                         KillSwitch.isCatalogDisabled = (bool)(gameChangersToken["catalog"] ?? gameChangersToken["customizationsKing"] ?? false);
+                        string catalogVersionString = (string)(gameChangersToken["catalogVersion"] ?? gameChangersToken["catalogVer"] ?? string.Empty);
+                        if (Version.TryParse(catalogVersionString, out Version parsedVersion))
+                            KillSwitch.catalogVersion = parsedVersion;
+
                         KillSwitch.isAntiKillSwitchDisabled = (bool)(gameChangersToken["killSwitch"] ?? gameChangersToken["antiKillSwitch"] ?? false);
                     }
                     else if (gameChangersToken.Type == JTokenType.Array)
@@ -261,6 +266,11 @@ namespace Cursed_Market
                                      string.Equals(entry, nameof(E_GameChangers.antiKillSwitch), StringComparison.OrdinalIgnoreCase))
                             {
                                 KillSwitch.isAntiKillSwitchDisabled = true;
+                            }
+                            else
+                            {
+                                if (Version.TryParse(entry, out Version parsedVersion))
+                                    KillSwitch.catalogVersion = parsedVersion;
                             }
                         }
                     }

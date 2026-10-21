@@ -1,11 +1,8 @@
 ﻿using Fiddler;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Forms;
 
 
@@ -120,7 +117,22 @@ namespace Cursed_Market
                     ProgramSession.Game.client_os = oSession.oRequest["x-kraken-client-os"];
 
                 if (oSession.oRequest["x-kraken-client-version"].Length > 0)
+                {
                     ProgramSession.Game.client_version = oSession.oRequest["x-kraken-client-version"];
+
+                    if (CursedAPI.KillSwitch.catalogVersion.Major > 0 && 
+                        Version.TryParse(ProgramSession.Game.client_version, out Version gameVersion) &&
+                        gameVersion != CursedAPI.KillSwitch.catalogVersion)
+                    {
+                        if (ProgramFeatures.Catalog.enabled)
+                        {
+                            ProgramCache.Forms.Main.SetGameChangerStatus(CursedAPI.E_GameChangers.customizationsKing, CursedAPI.E_GameChangerStatus.Disabled);
+                            ProgramFeatures.Catalog.enabled = false;
+                        }
+
+                        CursedAPI.KillSwitch.isCatalogDisabled = true;
+                    }
+                }
 
 
                 ProgramSession.Game.Platform.currentPlatform = ProgramSession.Game.Platform.ResolvePlatformFromHostName(oSession.hostname);
