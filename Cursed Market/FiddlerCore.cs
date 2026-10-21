@@ -120,9 +120,9 @@ namespace Cursed_Market
                 {
                     ProgramSession.Game.client_version = oSession.oRequest["x-kraken-client-version"];
 
-                    if (CursedAPI.KillSwitch.catalogVersion.Major > 0 && 
-                        Version.TryParse(ProgramSession.Game.client_version, out Version gameVersion) &&
-                        gameVersion != CursedAPI.KillSwitch.catalogVersion)
+                    if (CursedAPI.KillSwitch.catalogVersion.Major == 0 || 
+                        (Version.TryParse(ProgramSession.Game.client_version, out Version gameVersion) &&
+                        gameVersion != CursedAPI.KillSwitch.catalogVersion))
                     {
                         if (ProgramFeatures.Catalog.enabled)
                         {
