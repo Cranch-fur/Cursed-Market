@@ -30,9 +30,6 @@ namespace Cursed_Market
         public static readonly string customCrosshair03FilePath = Path.Combine(crosshairsDirectoryPath, "Crosshair 03.png");
 
         public static readonly string extraLogicDirectoryPath = Path.Combine(executableDirectoryPath, "Extra Logic");
-        public static readonly string extraLogicBeforeRequestFilePath = Path.Combine(extraLogicDirectoryPath, "BeforeRequest.csx");
-        public static readonly string extraLogicBeforeResponseFilePath = Path.Combine(extraLogicDirectoryPath, "BeforeResponse.csx");
-        public static readonly string extraLogicAfterSessionCompleteFilePath = Path.Combine(extraLogicDirectoryPath, "AfterSessionComplete.csx");
 
 
         private static readonly string dataFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Cursed Market");
