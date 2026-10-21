@@ -212,17 +212,119 @@ namespace Cursed_Market
                 if (!(Registry.GetValue(internetSettingsKey, "ProxyEnable", 0) is int proxyEnable) || proxyEnable == 0)
                     return false;
 
-                string proxyServer = Registry.GetValue(internetSettingsKey, "ProxyServer", string.Empty) as string;
-                if (string.IsNullOrEmpty(proxyServer))
-                    return false;
-
-                /* ProxyServer is either "host:port" or "http=host:port;https=host:port". */
-                return Regex.IsMatch(proxyServer, $@"(^|[=;\s])(127\.0\.0\.1|localhost|\[::1\]):{ProgramNetworking.proxyPort}($|[;\s])", RegexOptions.IgnoreCase);
+                return GetIsOwnProxyServer(Registry.GetValue(internetSettingsKey, "ProxyServer", string.Empty) as string);
             }
             catch
             {
                 return false;
             }
+        }
+
+        public static bool GetIsOwnProxyServer(string proxyServer)
+        {
+            if (string.IsNullOrEmpty(proxyServer))
+                return false;
+
+            /* ProxyServer is either "host:port" or "http=host:port;https=host:port". */
+            return Regex.IsMatch(proxyServer, $@"(^|[=;\s])(127\.0\.0\.1|localhost|\[::1\]):{ProgramNetworking.proxyPort}($|[;\s])", RegexOptions.IgnoreCase);
+        }
+
+
+
+
+        private const int INTERNET_OPTION_PER_CONNECTION_OPTION = 75;
+
+        private const int INTERNET_PER_CONN_FLAGS = 1;
+        private const int INTERNET_PER_CONN_PROXY_SERVER = 2;
+        private const int INTERNET_PER_CONN_AUTOCONFIG_URL = 4;
+
+        public const int PROXY_TYPE_PROXY = 0x02;
+        public const int PROXY_TYPE_AUTO_PROXY_URL = 0x04;
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct INTERNET_PER_CONN_OPTION_LIST
+        {
+            public int dwSize;
+            public IntPtr pszConnection; // IntPtr.Zero is LAN connection.
+            public int dwOptionCount;
+            public int dwOptionError;
+            public IntPtr pOptions;
+        }
+
+        [StructLayout(LayoutKind.Explicit, Size = 8)] // Union of DWORD, LPWSTR & FILETIME (8 bytes on both x86 and x64).
+        private struct INTERNET_PER_CONN_OPTION_VALUE
+        {
+            [FieldOffset(0)] public int dwValue;
+            [FieldOffset(0)] public IntPtr pszValue;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct INTERNET_PER_CONN_OPTION
+        {
+            public int dwOption;
+            public INTERNET_PER_CONN_OPTION_VALUE Value;
+        }
+
+        [DllImport("wininet.dll", EntryPoint = "InternetQueryOptionW", SetLastError = true)]
+        private static extern bool InternetQueryOption(IntPtr hInternet, int dwOption, ref INTERNET_PER_CONN_OPTION_LIST lpBuffer, ref int lpdwBufferLength);
+
+        /* Proxy settings WinINet actually uses right now (registry values alone may be out of sync with them). */
+        public static bool GetActiveProxySettings(out int flags, out string proxyServer, out string autoConfigUrl)
+        {
+            flags = 0;
+            proxyServer = null;
+            autoConfigUrl = null;
+
+            int[] optionIds = { INTERNET_PER_CONN_FLAGS, INTERNET_PER_CONN_PROXY_SERVER, INTERNET_PER_CONN_AUTOCONFIG_URL };
+            int optionSize = Marshal.SizeOf(typeof(INTERNET_PER_CONN_OPTION));
+            IntPtr optionsPointer = Marshal.AllocHGlobal(optionSize * optionIds.Length);
+
+            try
+            {
+                for (int i = 0; i < optionIds.Length; i++)
+                    Marshal.StructureToPtr(new INTERNET_PER_CONN_OPTION { dwOption = optionIds[i] }, optionsPointer + i * optionSize, false);
+
+                INTERNET_PER_CONN_OPTION_LIST optionList = new INTERNET_PER_CONN_OPTION_LIST
+                {
+                    dwSize = Marshal.SizeOf(typeof(INTERNET_PER_CONN_OPTION_LIST)),
+                    pszConnection = IntPtr.Zero,
+                    dwOptionCount = optionIds.Length,
+                    pOptions = optionsPointer
+                };
+                int optionListSize = optionList.dwSize;
+
+                if (!InternetQueryOption(IntPtr.Zero, INTERNET_OPTION_PER_CONNECTION_OPTION, ref optionList, ref optionListSize))
+                    return false;
+
+                INTERNET_PER_CONN_OPTION[] options = new INTERNET_PER_CONN_OPTION[optionIds.Length];
+                for (int i = 0; i < optionIds.Length; i++)
+                    options[i] = (INTERNET_PER_CONN_OPTION)Marshal.PtrToStructure(optionsPointer + i * optionSize, typeof(INTERNET_PER_CONN_OPTION));
+
+                flags = options[0].Value.dwValue;
+                proxyServer = TakeWinINetString(options[1].Value.pszValue);
+                autoConfigUrl = TakeWinINetString(options[2].Value.pszValue);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(optionsPointer);
+            }
+        }
+
+        /* Strings returned by WinINet are allocated with GlobalAlloc and have to be freed by caller. */
+        private static string TakeWinINetString(IntPtr pointer)
+        {
+            if (pointer == IntPtr.Zero)
+                return null;
+
+            string value = Marshal.PtrToStringUni(pointer);
+            Marshal.FreeHGlobal(pointer); // LocalFree, same heap as GlobalAlloc.
+            return value;
         }
 
         public static bool DisableProxy()
