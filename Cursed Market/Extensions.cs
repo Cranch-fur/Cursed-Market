@@ -28,6 +28,12 @@ namespace Cursed_Market
             }
         }
 
+        /* Absolute http(s) link. Anything else passed to Process.Start can open a local file or run a program. */
+        public static bool IsWebUrl(this string input)
+        {
+            return Uri.TryCreate(input, UriKind.Absolute, out Uri uri) && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
+        }
+
 
 
 
