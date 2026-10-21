@@ -95,9 +95,27 @@ namespace Cursed_Market
                 FiddlerApplication.Shutdown();
             }
         }
-        public static bool IsRunning() 
-        { 
-            return FiddlerApplication.IsStarted(); 
+        public static bool IsRunning()
+        {
+            return FiddlerApplication.IsStarted();
+        }
+
+        /* Explains why game traffic won't reach our proxy, null if Windows proxy settings look fine. */
+        public static string GetProxyIssue()
+        {
+            if (!IsRunning() || !WinReg.GetActiveProxySettings(out int flags, out string proxyServer, out string autoConfigUrl))
+                return null;
+
+            if ((flags & WinReg.PROXY_TYPE_AUTO_PROXY_URL) != 0 && !string.IsNullOrWhiteSpace(autoConfigUrl))
+                return $"Cursed Market proxy is running, but Windows uses a proxy setup script instead of it:\n\"{autoConfigUrl}\"\n\nWhile the script is on, game traffic doesn't go through Cursed Market. Turn off \"Use setup script\" in Windows proxy settings (VPN and antivirus apps often turn it on).";
+
+            if ((flags & WinReg.PROXY_TYPE_PROXY) == 0)
+                return "Cursed Market proxy is running, but Windows proxy has been turned off.\n\nSome other program (VPN, antivirus or another proxy tool) has changed proxy settings, so game traffic doesn't go through Cursed Market.";
+
+            if (!WinReg.GetIsOwnProxyServer(proxyServer))
+                return $"Cursed Market proxy is running, but Windows proxy is set to \"{proxyServer}\" instead of 127.0.0.1:{ProgramNetworking.proxyPort}.\n\nSome other program (VPN, antivirus or another proxy tool) has changed proxy settings, so game traffic doesn't go through Cursed Market.";
+
+            return null;
         }
 
 
