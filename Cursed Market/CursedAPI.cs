@@ -175,7 +175,11 @@ namespace Cursed_Market
                 string updateDownloadUrl = (string)updateJson["updateDownloadUrl"];
                 string downloadDestinationPath = ProgramPaths.Windows.downloadsDirectoryPath;
 
-                if (Messaging.ShowDialog($"Cursed Market update is available for download!\nCurrent Version: {currentVersion}\nLatest Version: {latestVersion}\n\nDo you want to download updated client now?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                if (updateDownloadUrl.IsWebUrl() == false)
+                {
+                    Messaging.ShowMessage($"Cursed Market update is available, but download link given by web server isn't a valid http(s) URL!\nCurrent Version: {currentVersion}\nLatest Version: {latestVersion}", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Messaging.ShowDialog($"Cursed Market update is available for download!\nCurrent Version: {currentVersion}\nLatest Version: {latestVersion}\n\nDo you want to download updated client now?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     var updateDownloadRequest = Networking.Download(updateDownloadUrl, ProgramNetworking.defaultHeaders, downloadDestinationPath);
                     if (File.Exists(updateDownloadRequest.content) == true)
@@ -197,13 +201,14 @@ namespace Cursed_Market
 
             if (updateJson.ContainsKey("socialLinks"))
             {
-                if (updateJson["socialLinks"]["discord"] != null)
+                /* Links are opened with Process.Start, so only http(s) ones are accepted. */
+                if (((string)updateJson["socialLinks"]["discord"]).IsWebUrl())
                     SocialLinks.discord = (string)updateJson["socialLinks"]["discord"];
 
-                if (updateJson["socialLinks"]["telegram"] != null)
+                if (((string)updateJson["socialLinks"]["telegram"]).IsWebUrl())
                     SocialLinks.telegram = (string)updateJson["socialLinks"]["telegram"];
 
-                if (updateJson["socialLinks"]["boosty"] != null)
+                if (((string)updateJson["socialLinks"]["boosty"]).IsWebUrl())
                     SocialLinks.boosty = (string)updateJson["socialLinks"]["boosty"];
             }
 
