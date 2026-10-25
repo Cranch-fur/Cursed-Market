@@ -27,6 +27,14 @@ namespace Cursed_Market
         public const string subKeyPath = @"HKEY_CURRENT_USER\SOFTWARE\Cursed Market";
         private static readonly string shortSubKeyPath = subKeyPath.Substring(subKeyPath.IndexOf(@"\") + 1); // Remove Hive from the registry path, start it with the Key instead.
 
+        private const string internetSettingsKey = @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings";
+
+        private const int INTERNET_OPTION_REFRESH = 37;
+        private const int INTERNET_OPTION_SETTINGS_CHANGED = 39;
+
+        [DllImport("wininet.dll", SetLastError = true)]
+        private static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int dwBufferLength);
+
         public static class Common
         {
             public static readonly string firstLaunch = "First Launch Complete";
@@ -195,14 +203,6 @@ namespace Cursed_Market
                 return false;
             }
         }
-
-        private const string internetSettingsKey = @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings";
-
-        private const int INTERNET_OPTION_REFRESH = 37;
-        private const int INTERNET_OPTION_SETTINGS_CHANGED = 39;
-
-        [DllImport("wininet.dll", SetLastError = true)]
-        private static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int dwBufferLength);
 
         /* True if system proxy is enabled and points to our local FiddlerCore port (e.g. left over after a crash). */
         public static bool GetIsOwnProxyEnabled()

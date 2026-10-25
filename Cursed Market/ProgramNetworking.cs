@@ -21,7 +21,7 @@ namespace Cursed_Market
 
 
 
-        public const int proxyPort = 8888; // Local port FiddlerCore listens on and registers as system proxy.
+        public const int proxyPort = 38517; // Local port FiddlerCore listens on and registers as system proxy.
 
 
 
