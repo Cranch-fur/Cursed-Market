@@ -40,8 +40,16 @@ namespace Cursed_Market
                 }
                 catch
                 {
-                    File.Delete(ProgramPaths.networkingCertificateFilePath); // Destroy corrupt certificate file.
-                    EnsureRootCertificate(); // Re-execute function to build a new certificate.
+                    try
+                    {
+                        File.Delete(ProgramPaths.networkingCertificateFilePath); // Destroy corrupt certificate file.
+                    }
+                    catch
+                    {
+                        return false; // File is locked or access is denied, Start() shows an error instead of crashing.
+                    }
+
+                    return EnsureRootCertificate(); // Re-execute function to build a new certificate.
                 }
             }
         
