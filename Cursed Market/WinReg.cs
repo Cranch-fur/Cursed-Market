@@ -35,6 +35,42 @@ namespace Cursed_Market
         [DllImport("wininet.dll", SetLastError = true)]
         private static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int dwBufferLength);
 
+        private const int INTERNET_OPTION_PER_CONNECTION_OPTION = 75;
+
+        private const int INTERNET_PER_CONN_FLAGS = 1;
+        private const int INTERNET_PER_CONN_PROXY_SERVER = 2;
+        private const int INTERNET_PER_CONN_AUTOCONFIG_URL = 4;
+
+        public const int PROXY_TYPE_PROXY = 0x02;
+        public const int PROXY_TYPE_AUTO_PROXY_URL = 0x04;
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct INTERNET_PER_CONN_OPTION_LIST
+        {
+            public int dwSize;
+            public IntPtr pszConnection; // IntPtr.Zero is LAN connection.
+            public int dwOptionCount;
+            public int dwOptionError;
+            public IntPtr pOptions;
+        }
+
+        [StructLayout(LayoutKind.Explicit, Size = 8)] // Union of DWORD, LPWSTR & FILETIME (8 bytes on both x86 and x64).
+        private struct INTERNET_PER_CONN_OPTION_VALUE
+        {
+            [FieldOffset(0)] public int dwValue;
+            [FieldOffset(0)] public IntPtr pszValue;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct INTERNET_PER_CONN_OPTION
+        {
+            public int dwOption;
+            public INTERNET_PER_CONN_OPTION_VALUE Value;
+        }
+
+        [DllImport("wininet.dll", EntryPoint = "InternetQueryOptionW", SetLastError = true)]
+        private static extern bool InternetQueryOption(IntPtr hInternet, int dwOption, ref INTERNET_PER_CONN_OPTION_LIST lpBuffer, ref int lpdwBufferLength);
+
         public static class Common
         {
             public static readonly string firstLaunch = "First Launch Complete";
@@ -228,45 +264,6 @@ namespace Cursed_Market
             /* ProxyServer is either "host:port" or "http=host:port;https=host:port". */
             return Regex.IsMatch(proxyServer, $@"(^|[=;\s])(127\.0\.0\.1|localhost|\[::1\]):{ProgramNetworking.proxyPort}($|[;\s])", RegexOptions.IgnoreCase);
         }
-
-
-
-
-        private const int INTERNET_OPTION_PER_CONNECTION_OPTION = 75;
-
-        private const int INTERNET_PER_CONN_FLAGS = 1;
-        private const int INTERNET_PER_CONN_PROXY_SERVER = 2;
-        private const int INTERNET_PER_CONN_AUTOCONFIG_URL = 4;
-
-        public const int PROXY_TYPE_PROXY = 0x02;
-        public const int PROXY_TYPE_AUTO_PROXY_URL = 0x04;
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct INTERNET_PER_CONN_OPTION_LIST
-        {
-            public int dwSize;
-            public IntPtr pszConnection; // IntPtr.Zero is LAN connection.
-            public int dwOptionCount;
-            public int dwOptionError;
-            public IntPtr pOptions;
-        }
-
-        [StructLayout(LayoutKind.Explicit, Size = 8)] // Union of DWORD, LPWSTR & FILETIME (8 bytes on both x86 and x64).
-        private struct INTERNET_PER_CONN_OPTION_VALUE
-        {
-            [FieldOffset(0)] public int dwValue;
-            [FieldOffset(0)] public IntPtr pszValue;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct INTERNET_PER_CONN_OPTION
-        {
-            public int dwOption;
-            public INTERNET_PER_CONN_OPTION_VALUE Value;
-        }
-
-        [DllImport("wininet.dll", EntryPoint = "InternetQueryOptionW", SetLastError = true)]
-        private static extern bool InternetQueryOption(IntPtr hInternet, int dwOption, ref INTERNET_PER_CONN_OPTION_LIST lpBuffer, ref int lpdwBufferLength);
 
         /* Proxy settings WinINet actually uses right now (registry values alone may be out of sync with them). */
         public static bool GetActiveProxySettings(out int flags, out string proxyServer, out string autoConfigUrl)
