@@ -86,7 +86,7 @@ namespace Cursed_Market
 
             if (ExtraLogic.LoadAll() == null) // Module list is shown before any traffic goes through proxy.
                 return false; // Cancelled by user.
-            FiddlerApplication.Startup(new FiddlerCoreStartupSettingsBuilder().ListenOnPort(8888).RegisterAsSystemProxy().ChainToUpstreamGateway().DecryptSSL().OptimizeThreadPool().Build());
+            FiddlerApplication.Startup(new FiddlerCoreStartupSettingsBuilder().ListenOnPort(ProgramNetworking.proxyPort).RegisterAsSystemProxy().ChainToUpstreamGateway().DecryptSSL().OptimizeThreadPool().Build());
 
 
             return IsRunning();

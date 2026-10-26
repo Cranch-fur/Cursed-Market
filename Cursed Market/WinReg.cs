@@ -1,4 +1,7 @@
 ﻿using Microsoft.Win32;
+using System;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 
 
@@ -23,6 +26,14 @@ namespace Cursed_Market
         */
         public const string subKeyPath = @"HKEY_CURRENT_USER\SOFTWARE\Cursed Market";
         private static readonly string shortSubKeyPath = subKeyPath.Substring(subKeyPath.IndexOf(@"\") + 1); // Remove Hive from the registry path, start it with the Key instead.
+
+        private const string internetSettingsKey = @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings";
+
+        private const int INTERNET_OPTION_REFRESH = 37;
+        private const int INTERNET_OPTION_SETTINGS_CHANGED = 39;
+
+        [DllImport("wininet.dll", SetLastError = true)]
+        private static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int dwBufferLength);
 
         public static class Common
         {
@@ -193,14 +204,38 @@ namespace Cursed_Market
             }
         }
 
+        /* True if system proxy is enabled and points to our local FiddlerCore port (e.g. left over after a crash). */
+        public static bool GetIsOwnProxyEnabled()
+        {
+            try
+            {
+                if (!(Registry.GetValue(internetSettingsKey, "ProxyEnable", 0) is int proxyEnable) || proxyEnable == 0)
+                    return false;
+
+                string proxyServer = Registry.GetValue(internetSettingsKey, "ProxyServer", string.Empty) as string;
+                if (string.IsNullOrEmpty(proxyServer))
+                    return false;
+
+                /* ProxyServer is either "host:port" or "http=host:port;https=host:port". */
+                return Regex.IsMatch(proxyServer, $@"(^|[=;\s])(127\.0\.0\.1|localhost|\[::1\]):{ProgramNetworking.proxyPort}($|[;\s])", RegexOptions.IgnoreCase);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static bool DisableProxy()
         {
             try
             {
-                const string internetSettingsKey = @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings";
                 Registry.SetValue(internetSettingsKey, "ProxyEnable", 0, RegistryValueKind.DWord);
                 Registry.SetValue(internetSettingsKey, "ProxyServer", string.Empty, RegistryValueKind.String);
                 Registry.SetValue(internetSettingsKey, "ProxyOverride", string.Empty, RegistryValueKind.String);
+
+                /* Without this already running apps keep using dead proxy until they're restarted. */
+                InternetSetOption(IntPtr.Zero, INTERNET_OPTION_SETTINGS_CHANGED, IntPtr.Zero, 0);
+                InternetSetOption(IntPtr.Zero, INTERNET_OPTION_REFRESH, IntPtr.Zero, 0);
 
                 return true;
             }

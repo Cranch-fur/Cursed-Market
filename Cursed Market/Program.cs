@@ -19,6 +19,10 @@ namespace Cursed_Market
     {
         public static void AttemptDisablingProxy()
         {
+            /* Leave user's own proxy alone, only our leftover one has to be removed. */
+            if (!WinReg.GetIsOwnProxyEnabled())
+                return;
+
             /* Check boolean return value instead of catching exceptions that WinReg already swallows. */
             if (!WinReg.DisableProxy())
             {
@@ -90,6 +94,14 @@ namespace Cursed_Market
 #if PROCESS_EXIT_HANDLER
             AppDomain.CurrentDomain.ProcessExit += ProcessExitHandler;
 #endif
+
+            /* Proxy left over after crash or forced kill keeps user offline, unless another running instance still owns it. */
+            Process[] runningInstances = Process.GetProcessesByName(ProgramPaths.executableFriendlyName);
+            if (runningInstances.Length <= 1)
+                AttemptDisablingProxy();
+
+            foreach (Process instance in runningInstances)
+                instance.Dispose();
 
 #if EXCEPTION_HANDLER
             Application.ThreadException += new ThreadExceptionEventHandler(ExceptionHandler);

@@ -21,6 +21,11 @@ namespace Cursed_Market
 
 
 
+        public const int proxyPort = 38517; // Local port FiddlerCore listens on and registers as system proxy.
+
+
+
+
         public const string password = "QLa7X9G6mvNbHuhRjtAnSZ8f3y52DzpwCPeKFJBcVgxMq4dY";
         public static bool WritePasswordFile(bool openOnWritten)
         {
