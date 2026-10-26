@@ -19,8 +19,8 @@ namespace Cursed_Market
     {
         public static void AttemptDisablingProxy()
         {
-            /* Leave user's own proxy alone, only our leftover one has to be removed. */
-            if (!WinReg.GetIsOwnProxyEnabled())
+            /* Only Cursed Market proxy is removed (e.g. left over after a crash), any other proxy stays as it is. */
+            if (!WinReg.GetIsCursedProxyRunning())
                 return;
 
             /* Check boolean return value instead of catching exceptions that WinReg already swallows. */

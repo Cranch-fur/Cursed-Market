@@ -117,7 +117,7 @@ namespace Cursed_Market
             if ((flags & WinReg.PROXY_TYPE_PROXY) == 0)
                 return "Cursed Market proxy is running, but Windows proxy has been turned off.\n\nSome other program (VPN, antivirus or another proxy tool) has changed proxy settings, so game traffic doesn't go through Cursed Market.";
 
-            if (!WinReg.GetIsOwnProxyServer(proxyServer))
+            if (!WinReg.GetIsCursedProxyServer(proxyServer))
                 return $"Cursed Market proxy is running, but Windows proxy is set to \"{proxyServer}\" instead of 127.0.0.1:{ProgramNetworking.proxyPort}.\n\nSome other program (VPN, antivirus or another proxy tool) has changed proxy settings, so game traffic doesn't go through Cursed Market.";
 
             return null;

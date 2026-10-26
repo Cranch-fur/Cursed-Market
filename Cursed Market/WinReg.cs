@@ -241,14 +241,14 @@ namespace Cursed_Market
         }
 
         /* True if system proxy is enabled and points to our local FiddlerCore port (e.g. left over after a crash). */
-        public static bool GetIsOwnProxyEnabled()
+        public static bool GetIsCursedProxyRunning()
         {
             try
             {
                 if (!(Registry.GetValue(internetSettingsKey, "ProxyEnable", 0) is int proxyEnable) || proxyEnable == 0)
                     return false;
 
-                return GetIsOwnProxyServer(Registry.GetValue(internetSettingsKey, "ProxyServer", string.Empty) as string);
+                return GetIsCursedProxyServer(Registry.GetValue(internetSettingsKey, "ProxyServer", string.Empty) as string);
             }
             catch
             {
@@ -256,7 +256,7 @@ namespace Cursed_Market
             }
         }
 
-        public static bool GetIsOwnProxyServer(string proxyServer)
+        public static bool GetIsCursedProxyServer(string proxyServer)
         {
             if (string.IsNullOrEmpty(proxyServer))
                 return false;
