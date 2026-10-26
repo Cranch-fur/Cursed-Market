@@ -217,7 +217,6 @@ def banner():
     # Top bar.
     parts.append(marker(48, 44))
     parts.append(caps(68, 52.5, "CRANCH-FUR / CURSED-MARKET"))
-    parts.append(caps(W - 48, 52.5, "FREE / OPEN SOURCE", anchor="end", color=DIM))
     parts.append(f'<rect x="48" y="76" width="{W - 96}" height="1" fill="{LINE}"/>')
 
     # Title.
@@ -232,7 +231,7 @@ def banner():
 
     # Chips.
     cx = tx
-    for i, label in enumerate(["WINDOWS 10+", "10+ LANGUAGES", "C# MODULES", "GPL-3.0"]):
+    for i, label in enumerate(["C# .NET Framework", "WINDOWS 10+", "GPL-3.0"]):
         w, svg = chip(cx, line2_y + cap + 36, label, active=(i == 0))
         parts.append(svg)
         cx += w + 8
@@ -271,7 +270,6 @@ def features():
     parts = [f'<rect width="{W}" height="{H}" fill="{BG}"/>', px_box(0, 0, W, H, 5, LINE, PANEL)]
     parts.append(marker(pad, 30, 6))
     parts.append(caps(pad + 16, 37, "WHAT'S INSIDE"))
-    parts.append(caps(W - pad, 37, f"{len(FEATURES):02d} FEATURES", anchor="end", color=DIM))
 
     for i, (title, desc) in enumerate(FEATURES):
         r, c = divmod(i, cols)
