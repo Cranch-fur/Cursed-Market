@@ -1,10 +1,10 @@
-<p align="center"><img src=".github/readme/banne.svg" alt="Cursed Market" width="100%"></p>
+<p align="center"><img src=".github/readme/banner.svg" alt="Cursed Market" width="100%"></p>
 
 A multifunctional program providing free, temporary access to all in-game privileges: iconic characters, their customization elements, and gameplay modifiers (items, addons, and perks). During gameplay interactions, internet requests are intercepted before reaching the game servers, reducing the risk of penalties for "rule-breaking".
 
 Download the [latest release](https://github.com/Cranch-fur/Cursed-Market/releases/latest), unpack it anywhere and press "Start" before launching the game.
 
-<p align="center"><img src=".github/readme/feature.svg" alt="Features" width="100%"></p>
+<p align="center"><img src=".github/readme/features.svg" alt="Features" width="100%"></p>
 
 ## Extra Logic
 Every `*.csx` file placed into the "Extra Logic" folder next to "Cursed Market.exe" is a module (sub-folders are reserved for shared files included with `#load`). Several modules can hook the same event, they run in alphabetical order of file names (prefix names with numbers to control the order).
