@@ -150,8 +150,8 @@ namespace Cursed_Market
 
         private void button_CreateCertificatePassword_MouseClick(object sender, MouseEventArgs e)
         {
-            if (!ProgramNetworking.WritePasswordFile(true))
-                Messaging.ShowMessage($"Failed To Write Certificate Password File!\nCertificate Password: {ProgramNetworking.password}", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+            if (!ProgramNetworking.WriteProxyPassword(true))
+                Messaging.ShowMessage($"Failed To Write Certificate Password File!\nCertificate Password: {ProgramNetworking.GetProxyPassword()}", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
         }
 
         private void button_OpenCertificateDirectory_MouseClick(object sender, MouseEventArgs e)

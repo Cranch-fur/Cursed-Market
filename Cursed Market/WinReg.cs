@@ -75,6 +75,7 @@ namespace Cursed_Market
         {
             public static readonly string firstLaunch = "First Launch Complete";
             public static readonly string applicationTheme = "Application Theme";
+            public static readonly string certificatePassword = "Certificate Password";
             public static readonly string queueNotifySound = "Queue Notify Sound";
             public static readonly string crosshair = "Crosshair";
             public static readonly string crosshairOpacity = "Crosshair Opacity";

@@ -1,8 +1,10 @@
 ﻿using Fiddler;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 
 
@@ -30,13 +32,13 @@ namespace Cursed_Market
             if (File.Exists(ProgramPaths.networkingCertificateFilePath) == false)
             {
                 certProvider.CreateRootCertificate();
-                certProvider.WriteRootCertificateAndPrivateKeyToPkcs12File(ProgramPaths.networkingCertificateFilePath, ProgramNetworking.password);
+                certProvider.WriteRootCertificateAndPrivateKeyToPkcs12File(ProgramPaths.networkingCertificateFilePath, ProgramNetworking.GetProxyPassword());
             }
             else
             {
                 try
                 {
-                    certProvider.ReadRootCertificateAndPrivateKeyFromPkcs12File(ProgramPaths.networkingCertificateFilePath, ProgramNetworking.password);
+                    certProvider.ReadRootCertificateAndPrivateKeyFromPkcs12File(ProgramPaths.networkingCertificateFilePath, ProgramNetworking.GetProxyPassword());
                 }
                 catch
                 {
@@ -64,10 +66,16 @@ namespace Cursed_Market
         }
         public static bool DestroyRootCertificates()
         {
-            if (CertMaker.rootCertExists())
+            if (CertMaker.rootCertExists() && (CertMaker.removeFiddlerGeneratedCerts(true) == false))
+                return false;
+
+            if (File.Exists(ProgramPaths.networkingCertificateFilePath))
             {
-                if (!CertMaker.removeFiddlerGeneratedCerts(true))
-                    return false;
+                try
+                {
+                    File.Delete(ProgramPaths.networkingCertificateFilePath);
+                }
+                catch { return false; }
             }
 
             return true;
@@ -88,8 +96,18 @@ namespace Cursed_Market
                 return false; // Cancelled by user.
             FiddlerApplication.Startup(new FiddlerCoreStartupSettingsBuilder().ListenOnPort(ProgramNetworking.proxyPort).RegisterAsSystemProxy().ChainToUpstreamGateway().DecryptSSL().OptimizeThreadPool().Build());
 
+            bool proxyHasIssues = ProgramNetworking.CheckIfProxyHasIssues(out string issueReasoning);
+            if (proxyHasIssues)
+            {
+                /* Create new thread to avoid blocking our internet connection (FiddlerCore thread). */
+                new Thread(() =>
+                {
+                    if (Messaging.ShowDialog($"{issueReasoning}\n\nDo you want to open Windows proxy settings now?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                        Process.Start(new ProcessStartInfo("ms-settings:network-proxy") { UseShellExecute = true });
+                }).Start();
+            }
 
-            return IsRunning();
+            return !proxyHasIssues;
         }
         public static void Stop()
         {
@@ -103,24 +121,6 @@ namespace Cursed_Market
         public static bool IsRunning()
         {
             return FiddlerApplication.IsStarted();
-        }
-
-        /* Explains why game traffic won't reach our proxy, null if Windows proxy settings look fine. */
-        public static string GetProxyIssue()
-        {
-            if (!IsRunning() || !WinReg.GetActiveProxySettings(out int flags, out string proxyServer, out string autoConfigUrl))
-                return null;
-
-            if ((flags & WinReg.PROXY_TYPE_AUTO_PROXY_URL) != 0 && !string.IsNullOrWhiteSpace(autoConfigUrl))
-                return $"Cursed Market proxy is running, but Windows uses a proxy setup script instead of it:\n\"{autoConfigUrl}\"\n\nWhile the script is on, game traffic doesn't go through Cursed Market. Turn off \"Use setup script\" in Windows proxy settings (VPN and antivirus apps often turn it on).";
-
-            if ((flags & WinReg.PROXY_TYPE_PROXY) == 0)
-                return "Cursed Market proxy is running, but Windows proxy has been turned off.\n\nSome other program (VPN, antivirus or another proxy tool) has changed proxy settings, so game traffic doesn't go through Cursed Market.";
-
-            if (!WinReg.GetIsCursedProxyServer(proxyServer))
-                return $"Cursed Market proxy is running, but Windows proxy is set to \"{proxyServer}\" instead of 127.0.0.1:{ProgramNetworking.proxyPort}.\n\nSome other program (VPN, antivirus or another proxy tool) has changed proxy settings, so game traffic doesn't go through Cursed Market.";
-
-            return null;
         }
 
 

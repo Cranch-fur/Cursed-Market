@@ -384,28 +384,6 @@ namespace Cursed_Market
             }
 
             button_Start.Visible = false;
-            CheckProxyAfterStart();
-        }
-
-        /* Some VPN & antivirus apps override system proxy a few seconds after it's set, so it's checked twice. */
-        private async void CheckProxyAfterStart()
-        {
-            if (ShowProxyIssue())
-                return;
-
-            await Task.Delay(10000);
-            ShowProxyIssue();
-        }
-        private static bool ShowProxyIssue()
-        {
-            string proxyIssue = FiddlerCore.GetProxyIssue();
-            if (proxyIssue == null)
-                return false;
-
-            if (Messaging.ShowDialog($"{proxyIssue}\n\nDo you want to open Windows proxy settings now?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-                Process.Start(new ProcessStartInfo("ms-settings:network-proxy") { UseShellExecute = true });
-
-            return true;
         }
 
 
