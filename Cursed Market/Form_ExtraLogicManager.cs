@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.Media;
+using Cursed_Market.UI;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 
 
 
@@ -34,17 +37,17 @@ namespace Cursed_Market
             var theme = ProgramThemes.GetCurrentPalette();
 
             this.BackColor = theme.FormBack;
-            panel_WindowHeader.BackColor = theme.HeaderBack;
+            panel_WindowHeader.Background = ToBackdropBrush(theme.HeaderBack);
 
             ProgramThemes.ApplyForeColor(theme.TitleText, label_FormTitle, label_Hint);
             ProgramThemes.ApplyForeColor(theme.PrimaryText, checkedListBox_Modules, textBox_Summary);
 
-            checkedListBox_Modules.BackColor = theme.SecondaryCardBack;
-            textBox_Summary.BackColor = theme.SecondaryCardBack;
+            checkedListBox_Modules.Background = theme.SecondaryCardBack.ToBrush();
+            textBox_Summary.Background = theme.SecondaryCardBack.ToBrush();
 
-            button_Start.BackColor = theme.PrimaryButtonBack;
-            button_Start.ForeColor = theme.PrimaryButtonText;
-            button_Start.FlatAppearance.BorderColor = theme.PrimaryButtonBorder;
+            button_Start.Background = theme.PrimaryButtonBack.ToBrush();
+            button_Start.Foreground = theme.PrimaryButtonText.ToBrush();
+            button_Start.BorderBrush = theme.PrimaryButtonBorder.ToBrush();
         }
 
 
@@ -54,30 +57,28 @@ namespace Cursed_Market
         }
 
 
-        private void button_WindowClose_MouseClick(object sender, MouseEventArgs e) => CloseWithResult(DialogResult.Cancel);
+        private void button_WindowClose_MouseClick(object sender, RoutedEventArgs e) => CloseWithResult(DialogResult.Cancel);
 
 
-        private void panel_WindowHeader_MouseDown(object sender, MouseEventArgs e)
+        private void panel_WindowHeader_MouseDown(object sender, PointerPressedEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             {
-                panel_WindowHeader.Capture = false;
-                Message mouse = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero); // 0xA1 - WM_NCLBUTTONDOWN | new IntPtr(2) - HTCAPTION.
-                WndProc(ref mouse);
+                BeginMoveDrag(e); // Same as sending WM_NCLBUTTONDOWN (HTCAPTION), system takes over window dragging.
             }
         }
 
 
-        private void button_Start_MouseClick(object sender, MouseEventArgs e) => CloseWithResult(DialogResult.OK);
+        private void button_Start_MouseClick(object sender, RoutedEventArgs e) => CloseWithResult(DialogResult.OK);
 
 
-        private void button_Cancel_MouseClick(object sender, MouseEventArgs e) => CloseWithResult(DialogResult.Cancel);
+        private void button_Cancel_MouseClick(object sender, RoutedEventArgs e) => CloseWithResult(DialogResult.Cancel);
 
 
-        private void button_Refresh_MouseClick(object sender, MouseEventArgs e) => RefreshModules();
+        private void button_Refresh_MouseClick(object sender, RoutedEventArgs e) => RefreshModules();
 
 
-        private void button_OpenFolder_MouseClick(object sender, MouseEventArgs e)
+        private void button_OpenFolder_MouseClick(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -91,7 +92,7 @@ namespace Cursed_Market
         }
 
 
-        private void checkedListBox_Modules_SelectedIndexChanged(object sender, EventArgs e) => UpdateSummary();
+        private void checkedListBox_Modules_SelectedIndexChanged(object sender, SelectionChangedEventArgs e) => UpdateSummary();
 
 
         private void CloseWithResult(DialogResult result)
@@ -105,7 +106,7 @@ namespace Cursed_Market
         public List<ExtraLogic.ModuleInfo> GetModules()
         {
             for (int i = 0; i < modules.Count; i++)
-                modules[i].isSelected = checkedListBox_Modules.GetItemChecked(i);
+                modules[i].isSelected = ((CheckBox)checkedListBox_Modules.Items[i]).IsChecked == true; // Every list item is a CheckBox, see FillList.
 
             return modules;
         }
@@ -115,11 +116,9 @@ namespace Cursed_Market
         {
             modules = newModules ?? new List<ExtraLogic.ModuleInfo>();
 
-            checkedListBox_Modules.BeginUpdate();
             checkedListBox_Modules.Items.Clear();
             foreach (ExtraLogic.ModuleInfo module in modules)
-                checkedListBox_Modules.Items.Add(GetDisplayName(module), module.isSelected);
-            checkedListBox_Modules.EndUpdate();
+                checkedListBox_Modules.Items.Add(new CheckBox { Content = GetDisplayName(module), IsChecked = module.isSelected });
 
             if (checkedListBox_Modules.Items.Count > 0)
                 checkedListBox_Modules.SelectedIndex = 0;
@@ -151,7 +150,7 @@ namespace Cursed_Market
 
             if (index < 0 || index >= modules.Count)
             {
-                textBox_Summary.ForeColor = theme.PrimaryText;
+                textBox_Summary.Foreground = theme.PrimaryText.ToBrush();
                 textBox_Summary.Text = modules.Count == 0
                     ? "No modules found. Put *.csx files into \"Extra Logic\" folder next to Cursed Market and press Refresh."
                     : string.Empty;
@@ -165,7 +164,7 @@ namespace Cursed_Market
             if (module.state == ExtraLogic.E_ModuleState.Changed)
                 header += "File has changed since you last reviewed it." + Environment.NewLine;
 
-            textBox_Summary.ForeColor = module.hasRiskyCapabilities ? Color.IndianRed : theme.PrimaryText;
+            textBox_Summary.Foreground = (module.hasRiskyCapabilities ? Colors.IndianRed : theme.PrimaryText).ToBrush();
             textBox_Summary.Text = header + Environment.NewLine + ExtraLogic.BuildSummary(module);
         }
 

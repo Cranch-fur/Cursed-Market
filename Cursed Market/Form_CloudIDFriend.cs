@@ -1,8 +1,10 @@
-﻿using CranchyLib.Networking;
+﻿using Avalonia.Input;
+using Avalonia.Interactivity;
+using CranchyLib.Networking;
+using Cursed_Market.UI;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 
 
@@ -17,6 +19,9 @@ namespace Cursed_Market
         {
             InitializeComponent();
             InitializeSettings();
+
+            /* MouseClick equivalent: TextBox handles pointer events itself, so handled ones have to be listened to as well. */
+            textBox_FriendCloudID.AddHandler(PointerReleasedEvent, textBox_FriendCloudID_MouseClick, RoutingStrategies.Bubble, true);
         }
         private void Form_AddFriend_Shown(object sender, EventArgs e)
         {
@@ -25,14 +30,14 @@ namespace Cursed_Market
                 textBox_MyCloudID.Width = 275; // What a generous approach <:3.
                 textBox_MyCloudID.Text = ProgramSession.Game.userId;
 
-                button_MyCloudIDCopy.Visible = true;
+                button_MyCloudIDCopy.IsVisible = true;
             }
             else
             {
                 textBox_MyCloudID.Width = 296; // What a generous approach <:3.
                 textBox_MyCloudID.Text = "NONE";
 
-                button_MyCloudIDCopy.Visible = false;
+                button_MyCloudIDCopy.IsVisible = false;
             }
         }
 
@@ -44,14 +49,14 @@ namespace Cursed_Market
             var theme = ProgramThemes.GetCurrentPalette();
 
             this.BackColor = theme.FormBack;
-            panel_WindowHeader.BackColor = theme.HeaderBack;
-            pictureBox_WindowBorder.Visible = theme.IsLightTheme;
+            panel_WindowHeader.Background = ToBackdropBrush(theme.HeaderBack);
+            pictureBox_WindowBorder.IsVisible = theme.IsLightTheme;
 
             ProgramThemes.ApplyForeColor(theme.PrimaryText,
                 label_Title, label_MyCloudIDTitle, label_FriendCloudIDTitle);
 
-            button_MyCloudIDCopy.BackColor = theme.SecondaryButtonBack;
-            button_FriendCloudIDSend.BackColor = theme.SecondaryButtonBack;
+            button_MyCloudIDCopy.Background = theme.SecondaryButtonBack.ToBrush();
+            button_FriendCloudIDSend.Background = theme.SecondaryButtonBack.ToBrush();
         }
 
 
@@ -74,33 +79,31 @@ namespace Cursed_Market
 
 
 
-        private void button_WindowClose_MouseClick(object sender, MouseEventArgs e) => this.Close();
-        private void panel_WindowHeader_MouseDown(object sender, MouseEventArgs e)
+        private void button_WindowClose_MouseClick(object sender, RoutedEventArgs e) => this.Close();
+        private void panel_WindowHeader_MouseDown(object sender, PointerPressedEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             {
-                panel_WindowHeader.Capture = false;
-                Message mouse = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero); // 0xA1 - WM_NCLBUTTONDOWN | new IntPtr(2) - HTCAPTION.
-                WndProc(ref mouse);
+                BeginMoveDrag(e); // Same as sending WM_NCLBUTTONDOWN (HTCAPTION), system takes over window dragging.
             }
         }
 
 
 
 
-        private void button_MyCloudIDCopy_MouseClick(object sender, MouseEventArgs e)
+        private void button_MyCloudIDCopy_MouseClick(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(textBox_MyCloudID.Text))
             {
-                Clipboard.SetText(textBox_MyCloudID.Text);
+                _ = this.Clipboard?.SetTextAsync(textBox_MyCloudID.Text);
                 Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
             }
         }
-        private void textBox_FriendCloudID_MouseClick(object sender, MouseEventArgs e)
+        private void textBox_FriendCloudID_MouseClick(object sender, PointerReleasedEventArgs e)
         {
             textBox_FriendCloudID.Text = string.Empty;
         }
-        private void button_FriendCloudIDSend_MouseClick(object sender, MouseEventArgs e)
+        private void button_FriendCloudIDSend_MouseClick(object sender, RoutedEventArgs e)
         {
             string userInput = textBox_FriendCloudID.Text?.Trim();
             if (string.IsNullOrEmpty(userInput) || userInput.Contains(" "))

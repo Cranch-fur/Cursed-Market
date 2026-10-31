@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Avalonia;
+using Avalonia.Media;
+using Cursed_Market.UI;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows.Forms;
 
 
 
@@ -30,6 +31,31 @@ namespace Cursed_Market
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr GetModuleHandle(string lpModuleName);
+
+
+        [DllImport("user32.dll")]
+        private static extern int GetMessage(out S_MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
+
+
+        [DllImport("user32.dll")]
+        private static extern bool TranslateMessage([In] ref S_MSG lpMsg);
+
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr DispatchMessage([In] ref S_MSG lpmsg);
+
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct S_MSG
+        {
+            public IntPtr hwnd;
+            public uint message;
+            public IntPtr wParam;
+            public IntPtr lParam;
+            public uint time;
+            public int ptX;
+            public int ptY;
+        }
 
 
         /* Delegate for the hook callback function. */
@@ -119,7 +145,13 @@ namespace Cursed_Market
         private void bgwHook_DoWork(object sender, DoWorkEventArgs e)
         {
             _hookID = SetHook(_proc); // Set the global hook.
-            Application.Run(); // Start a message loop to keep the hook active.
+
+            /* Start a message loop to keep the hook active (same as WinForms Application.Run() on this thread). */
+            while (GetMessage(out S_MSG msg, IntPtr.Zero, 0, 0) > 0)
+            {
+                TranslateMessage(ref msg);
+                DispatchMessage(ref msg);
+            }
         }
 
         /* Background worker method for the timer. */
@@ -159,7 +191,7 @@ namespace Cursed_Market
             label_Timer.Text = $"{remaining:D2}";
 
 
-            this.Opacity = 100;
+            this.Opacity = 1;
         }
 
         /* Hide the label when the timer completes or is cancelled. */
@@ -218,13 +250,13 @@ namespace Cursed_Market
             _proc = HookCallback; // Initialize mouse hook delegate.
 
             /* Move the Form to right top. */
-            Rectangle workingArea = Screen.PrimaryScreen.WorkingArea;
-            this.Location = new Point(workingArea.Right - this.Width, workingArea.Top);
+            PixelRect workingArea = this.Screens.Primary?.WorkingArea ?? new PixelRect(0, 0, 1920, 1080);
+            double screenScaling = this.Screens.Primary?.Scaling ?? 1.0;
+            this.Position = new PixelPoint(workingArea.Right - (int)Math.Ceiling(this.Width * screenScaling), workingArea.Y); // WorkingArea is in physical pixels, Width in DIPs.
         }
         private void Form_Timer_Load(object sender, EventArgs e)
         {
-            CheckForIllegalCrossThreadCalls = false;
-            this.TransparencyKey = Color.DarkSlateGray;
+            // TransparencyKey isn't needed anymore, window itself is transparent (see Form_Timer.axaml).
 
 
             bgwHook.RunWorkerAsync();
@@ -242,33 +274,33 @@ namespace Cursed_Market
             switch (ProgramThemes.GetSelectedTheme())
             {
                 default:
-                    label_Timer.ForeColor = Color.Black;
-                    label_Timer.BackColor = Color.WhiteSmoke;
+                    label_Timer.Foreground = Colors.Black.ToBrush();
+                    label_Timer.Background = Colors.WhiteSmoke.ToBrush();
                     break;
 
                 case ProgramThemes.E_Themes.legacy:
-                    label_Timer.ForeColor = Color.White;
-                    label_Timer.BackColor = Color.FromArgb(255, 46, 51, 73);
+                    label_Timer.Foreground = Colors.White.ToBrush();
+                    label_Timer.Background = Color.FromArgb(255, 46, 51, 73).ToBrush();
                     break;
 
                 case ProgramThemes.E_Themes.darkMemories:
-                    label_Timer.ForeColor = Color.White;
-                    label_Timer.BackColor = Color.FromArgb(255, 44, 47, 51);
+                    label_Timer.Foreground = Colors.White.ToBrush();
+                    label_Timer.Background = Color.FromArgb(255, 44, 47, 51).ToBrush();
                     break;
 
                 case ProgramThemes.E_Themes.saintsRow:
-                    label_Timer.ForeColor = Color.FromArgb(255, 146, 71, 214);
-                    label_Timer.BackColor = Color.FromArgb(255, 37, 13, 57);
+                    label_Timer.Foreground = Color.FromArgb(255, 146, 71, 214).ToBrush();
+                    label_Timer.Background = Color.FromArgb(255, 37, 13, 57).ToBrush();
                     break;
 
                 case ProgramThemes.E_Themes.dracula:
-                    label_Timer.ForeColor = Color.FromArgb(255, 248, 248, 242);
-                    label_Timer.BackColor = Color.FromArgb(255, 40, 42, 54);
+                    label_Timer.Foreground = Color.FromArgb(255, 248, 248, 242).ToBrush();
+                    label_Timer.Background = Color.FromArgb(255, 40, 42, 54).ToBrush();
                     break;
 
                 case ProgramThemes.E_Themes.christmas:
-                    label_Timer.ForeColor = Color.FromArgb(255, 255, 207, 109);
-                    label_Timer.BackColor = Color.FromArgb(255, 24, 24, 24);
+                    label_Timer.Foreground = Color.FromArgb(255, 255, 207, 109).ToBrush();
+                    label_Timer.Background = Color.FromArgb(255, 24, 24, 24).ToBrush();
                     break;
             }
         }

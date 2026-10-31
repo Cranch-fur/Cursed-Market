@@ -1,0 +1,91 @@
+﻿<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Cursed_Market.App"
+             RequestedThemeVariant="Default">
+  <Application.Styles>
+    <FluentTheme DensityStyle="Compact" />
+
+    <!-- Former FlatStyle.Flat buttons: colors come from ProgramThemes, hover / press only fade them instead of swapping to Fluent gray. -->
+    <Style Selector="Button.Flat">
+      <Setter Property="CornerRadius" Value="4" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="6,0" />
+      <Setter Property="MinHeight" Value="0" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Button.Flat:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{TemplateBinding Background}" />
+      <Setter Property="Foreground" Value="{TemplateBinding Foreground}" />
+      <Setter Property="Opacity" Value="0.88" />
+    </Style>
+    <Style Selector="Button.Flat:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{TemplateBinding Background}" />
+      <Setter Property="Foreground" Value="{TemplateBinding Foreground}" />
+      <Setter Property="Opacity" Value="0.72" />
+    </Style>
+
+    <!-- Window header buttons, sized and colored like Windows 11 caption buttons. -->
+    <Style Selector="Button.Caption">
+      <Setter Property="Width" Value="46" />
+      <Setter Property="Height" Value="32" />
+      <Setter Property="MinHeight" Value="0" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="CornerRadius" Value="0" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+      <Setter Property="FontFamily" Value="Segoe Fluent Icons, Segoe MDL2 Assets" />
+      <Setter Property="FontSize" Value="10" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Focusable" Value="False" />
+    </Style>
+    <Style Selector="Button.Caption:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#1A808080" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+    </Style>
+    <Style Selector="Button.Caption:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#33808080" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+    </Style>
+    <Style Selector="Button.Caption.Close:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#C42B1C" />
+      <Setter Property="Foreground" Value="White" />
+    </Style>
+    <Style Selector="Button.Caption.Close:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#C83C30" />
+      <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <!-- Former BorderStyle.FixedSingle frames, now rounded Win11 cards. -->
+    <Style Selector="Border.Card">
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="BorderBrush" Value="#33808080" />
+      <Setter Property="Background" Value="#0D808080" />
+    </Style>
+
+    <!-- Layout was designed around WinForms control heights, Fluent minimums are relaxed so everything keeps its place. -->
+    <Style Selector="TextBox">
+      <Setter Property="MinHeight" Value="0" />
+      <Setter Property="Padding" Value="6,2" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style Selector="ComboBox">
+      <Setter Property="MinHeight" Value="0" />
+      <Setter Property="Padding" Value="8,2,0,2" />
+    </Style>
+    <Style Selector="CheckBox">
+      <Setter Property="MinHeight" Value="0" />
+      <Setter Property="Padding" Value="6,0,0,0" />
+    </Style>
+    <Style Selector="RadioButton">
+      <Setter Property="MinHeight" Value="0" />
+      <Setter Property="Padding" Value="6,0,0,0" />
+    </Style>
+    <Style Selector="NumericUpDown">
+      <Setter Property="MinHeight" Value="0" />
+    </Style>
+  </Application.Styles>
+</Application>

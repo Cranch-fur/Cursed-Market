@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Avalonia.Controls;
+using Avalonia.Threading;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 
 
@@ -14,18 +15,17 @@ namespace Cursed_Market
     public static class Timer
     {
         private static readonly object _lock = new object();
-        private static readonly Dictionary<Label, CancellationTokenSource> _tokens = new Dictionary<Label, CancellationTokenSource>();
+        private static readonly Dictionary<TextBlock, CancellationTokenSource> _tokens = new Dictionary<TextBlock, CancellationTokenSource>();
 
-        private static void DelayedLabelUpdateImplementation(Label labelReference, string newLabelText)
+        private static void DelayedLabelUpdateImplementation(TextBlock labelReference, string newLabelText)
         {
-            if (labelReference == null || labelReference.IsDisposed) return;
+            if (labelReference == null) return;
 
-            if (labelReference.InvokeRequired)
+            if (!Dispatcher.UIThread.CheckAccess())
             {
-                labelReference.Invoke(new Action(() =>
+                Dispatcher.UIThread.Invoke(new Action(() =>
                 {
-                    if (!labelReference.IsDisposed)
-                        labelReference.Text = newLabelText;
+                    labelReference.Text = newLabelText;
                 }));
             }
             else
@@ -34,7 +34,7 @@ namespace Cursed_Market
             }
         }
 
-        public static async void DelayedLabelUpdate(Label labelReference, string newLabelText, int updateDelaySeconds)
+        public static async void DelayedLabelUpdate(TextBlock labelReference, string newLabelText, int updateDelaySeconds)
         {
             if (labelReference == null) return;
 

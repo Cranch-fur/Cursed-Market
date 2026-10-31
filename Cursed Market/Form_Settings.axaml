@@ -1,0 +1,221 @@
+﻿<ui:Form xmlns="https://github.com/avaloniaui"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:ui="using:Cursed_Market.UI"
+         x:Class="Cursed_Market.Form_Settings"
+         Title="Settings"
+         Icon="/Resources/Icon_Settings.ico"
+         Width="600" Height="420"
+         WindowStartupLocation="CenterScreen"
+         Load="Form_Settings_Load"
+         Shown="Form_Settings_Shown">
+
+  <!-- Controls are listed bottom-most first (reverse of WinForms Controls.Add order), positions are the same as in the old designer. -->
+  <Canvas Width="600" Height="420">
+
+    <!-- Former window frame (started under the old 23px header), now spans whole window so it doesn't cut through the header. -->
+    <Border x:Name="pictureBox_Background"
+            Canvas.Left="0" Canvas.Top="0" Width="600" Height="420"
+            BorderBrush="#33808080" BorderThickness="1" CornerRadius="8"
+            IsHitTestVisible="False" />
+
+    <Border x:Name="pictureBox_ControlPanelFrame" Classes="Card"
+            Canvas.Left="91" Canvas.Top="167" Width="404" Height="197" />
+
+    <Border x:Name="pictureBox_DebugInfoFrame" Classes="Card"
+            Canvas.Left="91" Canvas.Top="50" Width="404" Height="98" />
+
+    <Border x:Name="pictureBox_ControlPanelSubFrame" Classes="Card"
+            Canvas.Left="91" Canvas.Top="235" Width="404" Height="148" />
+
+    <Grid x:Name="panel_WindowHeader"
+          Canvas.Left="0" Canvas.Top="0" Width="600" Height="32"
+          Background="#F0F0F0"
+          PointerPressed="panel_WindowHeader_MouseDown">
+      <Button x:Name="button_WindowClose" Classes="Caption Close"
+              HorizontalAlignment="Right"
+              Content="&#xE8BB;"
+              Click="button_WindowClose_Click" />
+    </Grid>
+
+    <TextBox x:Name="textBox_Culture"
+             Canvas.Left="107" Canvas.Top="111" Width="180" Height="22"
+             FontSize="12"
+             IsReadOnly="True" />
+
+    <ComboBox x:Name="comboBox_ApplicationTheme"
+              Canvas.Left="107" Canvas.Top="199" Width="180" Height="21"
+              FontSize="11"
+              SelectionChanged="comboBox_Themes_SelectedIndexChanged">
+      <ComboBoxItem>Default (White Theme)</ComboBoxItem>
+      <ComboBoxItem>Lost Legacy</ComboBoxItem>
+      <ComboBoxItem>Dark Memories</ComboBoxItem>
+      <ComboBoxItem>Saints Row</ComboBoxItem>
+      <ComboBoxItem>Dracula</ComboBoxItem>
+      <ComboBoxItem>Christmas</ComboBoxItem>
+    </ComboBox>
+
+    <TextBlock x:Name="label_ApplicationThemeTitle"
+               Canvas.Left="107" Canvas.Top="181" Width="180" Height="15"
+               FontSize="13"
+               TextAlignment="Center"
+               Text="Application Theme" />
+
+    <Button x:Name="button_ClearCertificates"
+            Canvas.Left="107" Canvas.Top="243" Width="180" Height="25"
+            MinHeight="0" Padding="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="11"
+            Content="Clear Fiddler Certificates"
+            Click="button_ClearCertificates_MouseClick" />
+
+    <Border Canvas.Left="107" Canvas.Top="159" Width="372" Height="18">
+      <TextBlock x:Name="label_ControlPanelTitle"
+                 HorizontalAlignment="Center" Padding="8,0"
+                 Background="{Binding $parent[Window].Background}"
+                 FontSize="15"
+                 Text="CONTROL PANEL" />
+    </Border>
+
+    <Button x:Name="button_ResetApplicationSettings" Classes="Flat"
+            Canvas.Left="107" Canvas.Top="304" Width="372" Height="25"
+            BorderThickness="1"
+            Background="Transparent" Foreground="Black"
+            FontSize="11"
+            Content="Reset Cursed Market Settings"
+            Click="button_SettingsReset_MouseClick" />
+
+    <Button x:Name="button_DisableProxy"
+            Canvas.Left="107" Canvas.Top="274" Width="180" Height="25"
+            MinHeight="0" Padding="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="11"
+            Content="Fix Internet (Disable Proxy)"
+            Click="button_DisableProxy_MouseClick" />
+
+    <TextBox x:Name="textBox_Platform"
+             Canvas.Left="299" Canvas.Top="111" Width="180" Height="22"
+             FontSize="12"
+             IsReadOnly="True" />
+
+    <TextBlock x:Name="label_CultureTitle"
+               Canvas.Left="107" Canvas.Top="92" Width="180" Height="16"
+               FontSize="13"
+               TextAlignment="Center"
+               Text="Windows System Culture" />
+
+    <TextBlock x:Name="label_PlatformTitle"
+               Canvas.Left="299" Canvas.Top="92" Width="180" Height="16"
+               FontSize="13"
+               TextAlignment="Center"
+               Text="Platform Running" />
+
+    <Border Canvas.Left="107" Canvas.Top="43" Width="372" Height="18">
+      <TextBlock x:Name="label_DebugInfoTitle"
+                 HorizontalAlignment="Center" Padding="8,0"
+                 Background="{Binding $parent[Window].Background}"
+                 FontSize="15"
+                 Text="DEBUG INFORMATION" />
+    </Border>
+
+    <Button x:Name="button_UpdateDebug"
+            Canvas.Left="204" Canvas.Top="64" Width="180" Height="24"
+            MinHeight="0" Padding="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="12"
+            Content="Update Debug Info"
+            Click="button_UpdateDebug_MouseClick" />
+
+    <ComboBox x:Name="comboBox_DisabledPlatforms"
+              Canvas.Left="107" Canvas.Top="352" Width="112" Height="21"
+              FontSize="11" />
+
+    <Button x:Name="button_RemoveDisabledPlatform"
+            Canvas.Left="230" Canvas.Top="352" Width="248" Height="23"
+            MinHeight="0" Padding="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="11"
+            Content="Remove From Disabled Platforms"
+            Click="button_LimitedPlatforms_MouseClick" />
+
+    <ComboBox x:Name="comboBox_MatchFoundSound"
+              Canvas.Left="299" Canvas.Top="199" Width="152" Height="21"
+              FontSize="11"
+              SelectionChanged="comboBox_QueueNotifySound_SelectedIndexChanged">
+      <ComboBoxItem>Disabled</ComboBoxItem>
+      <ComboBoxItem>Gong Hit</ComboBoxItem>
+      <ComboBoxItem>"OK, Let's GO"</ComboBoxItem>
+      <ComboBoxItem>NFL Theme</ComboBoxItem>
+      <ComboBoxItem>Gay Echo</ComboBoxItem>
+      <ComboBoxItem>Rizz Melody</ComboBoxItem>
+      <ComboBoxItem>Run Song</ComboBoxItem>
+      <ComboBoxItem>Pedro Song</ComboBoxItem>
+      <ComboBoxItem>Military Horn</ComboBoxItem>
+    </ComboBox>
+
+    <TextBlock x:Name="label_MatchFoundSoundTitle"
+               Canvas.Left="299" Canvas.Top="181" Width="180" Height="15"
+               FontSize="13"
+               TextAlignment="Center"
+               Text="Match Found Sound" />
+
+    <Button x:Name="button_QueueNotifySound"
+            Canvas.Left="454" Canvas.Top="198" Width="25" Height="23"
+            MinHeight="0" Padding="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="11"
+            Content="▶"
+            Click="button_QueueNotifySound_MouseClick" />
+
+    <Image x:Name="pictureBox_Discord"
+           Canvas.Left="246" Canvas.Top="386" Width="32" Height="32"
+           Source="/Resources/IMG_SOCIAL_DISCORD_BLACK.png" Stretch="Fill"
+           Cursor="Hand"
+           IsVisible="False"
+           Tapped="pictureBox_Discord_Click" />
+
+    <Button x:Name="button_CreateCertificatePassword"
+            Canvas.Left="299" Canvas.Top="243" Width="152" Height="25"
+            MinHeight="0" Padding="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="11"
+            Content="Export Cert. Password"
+            Click="button_CreateCertificatePassword_MouseClick" />
+
+    <Button x:Name="button_OpenCertificateDirectory"
+            Canvas.Left="454" Canvas.Top="243" Width="25" Height="25"
+            MinHeight="0" Padding="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="13" FontWeight="Bold"
+            Content="📂"
+            Click="button_OpenCertificateDirectory_MouseClick" />
+
+    <TextBlock x:Name="label_DisabledPlatformsTitle"
+               Canvas.Left="210" Canvas.Top="334" Width="180" Height="15"
+               FontSize="13"
+               TextAlignment="Center"
+               Text="Disabled Platforms" />
+
+    <Image x:Name="pictureBox_Telegram"
+           Canvas.Left="284" Canvas.Top="386" Width="32" Height="32"
+           Source="/Resources/IMG_SOCIAL_TELEGRAM_BLACK.png" Stretch="Fill"
+           Cursor="Hand"
+           IsVisible="False"
+           Tapped="pictureBox_Telegram_MouseClick" />
+
+    <Image x:Name="pictureBox_Boosty"
+           Canvas.Left="322" Canvas.Top="386" Width="32" Height="32"
+           Source="/Resources/IMG_SOCIAL_BOOSTY_BLACK.png" Stretch="Fill"
+           Cursor="Hand"
+           IsVisible="False"
+           Tapped="pictureBox_Boosty_MouseClick" />
+
+    <Button x:Name="button_ClearContentCache"
+            Canvas.Left="299" Canvas.Top="274" Width="180" Height="25"
+            MinHeight="0" Padding="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="11"
+            Content="Clear Content Cache"
+            Click="button_ClearContentCache_MouseClick" />
+
+  </Canvas>
+</ui:Form>

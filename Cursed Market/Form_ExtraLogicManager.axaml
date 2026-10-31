@@ -1,0 +1,92 @@
+﻿<ui:Form xmlns="https://github.com/avaloniaui"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:ui="using:Cursed_Market.UI"
+         x:Class="Cursed_Market.Form_ExtraLogicManager"
+         Title="Extra Logic"
+         Icon="/Resources/Icon_Other.ico"
+         Width="760" Height="470"
+         Topmost="True"
+         WindowStartupLocation="CenterScreen">
+
+  <!-- Controls are listed bottom-most first (reverse of WinForms Controls.Add order), positions are the same as in the old designer. -->
+  <Canvas Width="760" Height="470">
+
+    <Border x:Name="pictureBox_Background"
+            Canvas.Left="0" Canvas.Top="22" Width="760" Height="448"
+            BorderBrush="#33808080" BorderThickness="0,1,0,0"
+            IsHitTestVisible="False" />
+
+    <Grid x:Name="panel_WindowHeader"
+          Canvas.Left="0" Canvas.Top="0" Width="760" Height="32"
+          Background="#F0F0F0"
+          PointerPressed="panel_WindowHeader_MouseDown">
+      <Button x:Name="button_WindowClose" Classes="Caption Close"
+              HorizontalAlignment="Right"
+              Content="&#xE8BB;"
+              Click="button_WindowClose_MouseClick" />
+    </Grid>
+
+    <TextBlock x:Name="label_FormTitle"
+               Canvas.Left="24" Canvas.Top="35" Width="712" Height="24"
+               FontSize="21"
+               TextAlignment="Center"
+               Text="EXTRA LOGIC MODULES" />
+
+    <TextBlock x:Name="label_Hint"
+               Canvas.Left="24" Canvas.Top="64" Width="712" Height="18"
+               FontSize="12"
+               TextAlignment="Center"
+               Text="Tick modules to run with the proxy. New or changed files stay disabled until you review and tick them." />
+
+    <!-- Former CheckedListBox: every item is a CheckBox added from code. -->
+    <ListBox x:Name="checkedListBox_Modules"
+             Canvas.Left="24" Canvas.Top="92" Width="280" Height="318"
+             FontSize="12"
+             CornerRadius="4"
+             BorderBrush="#33808080" BorderThickness="1"
+             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+             SelectionMode="Single"
+             SelectionChanged="checkedListBox_Modules_SelectedIndexChanged" />
+
+    <TextBox x:Name="textBox_Summary"
+             Canvas.Left="316" Canvas.Top="92" Width="420" Height="318"
+             FontSize="12"
+             IsReadOnly="True"
+             AcceptsReturn="True"
+             TextWrapping="Wrap"
+             VerticalContentAlignment="Top"
+             ScrollViewer.VerticalScrollBarVisibility="Auto" />
+
+    <Button x:Name="button_OpenFolder"
+            Canvas.Left="24" Canvas.Top="422" Width="172" Height="30"
+            MinHeight="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="12"
+            Content="Open Folder"
+            Click="button_OpenFolder_MouseClick" />
+
+    <Button x:Name="button_Refresh"
+            Canvas.Left="204" Canvas.Top="422" Width="172" Height="30"
+            MinHeight="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="12"
+            Content="Refresh"
+            Click="button_Refresh_MouseClick" />
+
+    <Button x:Name="button_Start" Classes="Flat"
+            Canvas.Left="384" Canvas.Top="422" Width="172" Height="30"
+            BorderThickness="1"
+            FontSize="12"
+            Content="Start"
+            Click="button_Start_MouseClick" />
+
+    <Button x:Name="button_Cancel"
+            Canvas.Left="564" Canvas.Top="422" Width="172" Height="30"
+            MinHeight="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="12"
+            Content="Cancel"
+            Click="button_Cancel_MouseClick" />
+
+  </Canvas>
+</ui:Form>

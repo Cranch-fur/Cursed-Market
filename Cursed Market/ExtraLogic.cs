@@ -1,4 +1,5 @@
-﻿using Fiddler;
+﻿using Cursed_Market.UI;
+using Fiddler;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
@@ -13,7 +14,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Windows.Forms;
 
 
 
@@ -344,7 +344,7 @@ namespace Cursed_Market
             WasStartCancelled = false;
 
             List<string> loadedNames = new List<string>();
-            bool isShiftHeld = (Control.ModifierKeys & Keys.Shift) != 0;
+            bool isShiftHeld = (System.Windows.Forms.Control.ModifierKeys & System.Windows.Forms.Keys.Shift) != 0; // Reads live keyboard state, works without WinForms message loop.
 
             if (!isShiftHeld)
                 return loadedNames;
@@ -636,7 +636,7 @@ namespace Cursed_Market
                 typeof(object).Assembly,
                 typeof(Uri).Assembly,
                 typeof(Enumerable).Assembly,
-                typeof(Form).Assembly,
+                typeof(System.Windows.Forms.Form).Assembly, // Scripts keep WinForms (MessageBox etc.) even though UI itself is Avalonia now.
                 typeof(System.Drawing.Bitmap).Assembly,
                 typeof(System.Net.Http.HttpClient).Assembly,
                 typeof(FiddlerApplication).Assembly,

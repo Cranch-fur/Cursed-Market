@@ -1,0 +1,317 @@
+﻿<ui:Form xmlns="https://github.com/avaloniaui"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:ui="using:Cursed_Market.UI"
+         x:Class="Cursed_Market.Form_Main"
+         Title="Cursed Market"
+         Icon="/Resources/Icon.ico"
+         Width="660" Height="720"
+         WindowStartupLocation="CenterScreen"
+         Load="Form_Main_Load"
+         Shown="Form_Main_Shown">
+
+  <!-- Controls are listed bottom-most first (reverse of WinForms Controls.Add order), positions are the same as in the old designer. -->
+  <Canvas Width="660" Height="720">
+
+    <Border x:Name="pictureBox_WindowBorder"
+            Canvas.Left="0" Canvas.Top="0" Width="660" Height="720"
+            BorderBrush="Gray" BorderThickness="1" CornerRadius="8"
+            IsHitTestVisible="False" />
+
+    <Border x:Name="pictureBox_MainFeaturesBorder" Classes="Card"
+            Canvas.Left="80" Canvas.Top="344" Width="499" Height="330" />
+
+    <Image x:Name="pictureBox_CharactersPresetDisabled"
+           Canvas.Left="100" Canvas.Top="439" Width="186" Height="18"
+           Source="/Resources/IMG_DISABLEDAREA.png" Stretch="None"
+           HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+    <Border x:Name="pictureBox_GameChangersBorder" Classes="Card"
+            Canvas.Left="80" Canvas.Top="164" Width="499" Height="155" />
+
+    <Grid x:Name="panel_WindowHeader"
+          Canvas.Left="0" Canvas.Top="0" Width="660" Height="32"
+          Background="#F0F0F0"
+          PointerPressed="panel_WindowHeader_MouseDown">
+      <Button x:Name="button_WindowTray" Classes="Flat"
+              HorizontalAlignment="Left" VerticalAlignment="Center"
+              Margin="5,0,0,0" Width="28" Height="22"
+              Background="DarkGray" Foreground="White"
+              FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="10"
+              Content="&#xE70D;"
+              Focusable="False"
+              Click="button_WindowTray_MouseClick" />
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+        <Button x:Name="button_WindowMinimize" Classes="Caption"
+                Content="&#xE921;"
+                Click="button_WindowMinimize_Click" />
+        <Button x:Name="button_WindowClose" Classes="Caption Close"
+                Content="&#xE8BB;"
+                Click="button_WindowClose_Click" />
+      </StackPanel>
+    </Grid>
+
+    <Image x:Name="pictureBox_Title"
+           Canvas.Left="132" Canvas.Top="43" Width="400" Height="92"
+           Source="/Resources/IMG_BANNER_BLACK.png" Stretch="Fill" />
+
+    <Button x:Name="button_Start" Classes="Flat"
+            Canvas.Left="268" Canvas.Top="109" Width="217" Height="20"
+            Background="Black" Foreground="White"
+            FontSize="11"
+            Content="START"
+            Click="button_Start_MouseClick" />
+
+    <Image x:Name="pictureBox_Button_Settings"
+           Canvas.Left="12" Canvas.Top="677" Width="32" Height="32"
+           Source="/Resources/IMG_BUTTON_SETTINGS_BLACK.png" Stretch="Fill"
+           Cursor="Hand"
+           Tapped="pictureBox_Buttons_Settings_MouseClick" />
+
+    <Border Canvas.Left="170" Canvas.Top="156" Width="320" Height="18">
+      <TextBlock x:Name="label_GameChangersTitle"
+                 HorizontalAlignment="Center" Padding="8,0"
+                 Background="{Binding $parent[Window].Background}"
+                 FontSize="16"
+                 Text="GAME CHANGERS" />
+    </Border>
+
+    <TextBlock x:Name="label_CustomizationsKingTitle"
+               Canvas.Left="97" Canvas.Top="178" Width="480" Height="20"
+               FontSize="15"
+               Text="Customizations King Status:  " />
+
+    <Border Canvas.Left="170" Canvas.Top="335" Width="320" Height="18">
+      <TextBlock x:Name="label_MainFeaturesTitle"
+                 HorizontalAlignment="Center" Padding="8,0"
+                 Background="{Binding $parent[Window].Background}"
+                 FontSize="15"
+                 Text="MAIN FEATURES" />
+    </Border>
+
+    <TextBlock x:Name="label_QueueStatus"
+               Canvas.Left="97" Canvas.Top="355" Width="466" Height="18"
+               FontSize="13"
+               Text="How's your day been?" />
+
+    <CheckBox x:Name="MainCheckBox_05"
+              Canvas.Left="100" Canvas.Top="460"
+              FontSize="12"
+              Content="Disable Game Changers"
+              IsCheckedChanged="MainCheckBox_05_CheckedChanged" />
+
+    <CheckBox x:Name="MainCheckBox_03"
+              Canvas.Left="100" Canvas.Top="420"
+              FontSize="12"
+              Content="Enable Temporary SaveFile"
+              IsCheckedChanged="MainCheckBox_03_CheckedChanged" />
+
+    <CheckBox x:Name="MainCheckBox_01"
+              Canvas.Left="100" Canvas.Top="380"
+              FontSize="12"
+              Content="Queue Position Overlay"
+              IsCheckedChanged="MainCheckBox_01_CheckedChanged" />
+
+    <CheckBox x:Name="MainCheckBox_02"
+              Canvas.Left="100" Canvas.Top="400"
+              FontSize="12"
+              Content="Adjust Currencies Amount (Visual)"
+              IsCheckedChanged="MainCheckBox_02_CheckedChanged" />
+
+    <TextBox x:Name="textBox_BloodPoints"
+             Canvas.Left="357" Canvas.Top="545" Width="59" Height="21"
+             FontSize="11"
+             MaxLength="7"
+             Text="0"
+             TextAlignment="Center"
+             IsVisible="False"
+             TextChanged="textBox_BloodPoints_TextChanged" />
+
+    <TextBlock x:Name="label_CurrenciesAdjustTitle"
+               Canvas.Left="360" Canvas.Top="528" Width="197" Height="14"
+               FontSize="13"
+               TextAlignment="Center"
+               Text="CURRENCIES AMOUNTS"
+               IsVisible="False" />
+
+    <TextBox x:Name="textBox_IridescentShards"
+             Canvas.Left="427" Canvas.Top="545" Width="59" Height="21"
+             FontSize="11"
+             MaxLength="7"
+             Text="0"
+             TextAlignment="Center"
+             IsVisible="False"
+             TextChanged="textBox_IridescentShards_TextChanged" />
+
+    <TextBox x:Name="textBox_AuricCells"
+             Canvas.Left="498" Canvas.Top="545" Width="59" Height="21"
+             FontSize="11"
+             MaxLength="7"
+             Text="0"
+             TextAlignment="Center"
+             IsVisible="False"
+             TextChanged="textBox_AuricCells_TextChanged" />
+
+    <CheckBox x:Name="MainCheckBox_06"
+              Canvas.Left="100" Canvas.Top="480"
+              FontSize="12"
+              Content="Only Unlock DLC's"
+              IsCheckedChanged="MainCheckBox_06_OnCheckedChanged" />
+
+    <Image x:Name="pictureBox_BloodPoints"
+           Canvas.Left="368" Canvas.Top="570" Width="36" Height="36"
+           Source="/Resources/IMG_CURRENCY_BLOODPOINTS.png" Stretch="Fill"
+           IsVisible="False" />
+
+    <Image x:Name="pictureBox_IridescentShards"
+           Canvas.Left="438" Canvas.Top="570" Width="36" Height="36"
+           Source="/Resources/IMG_CURRENCY_IRIDESCENTSHARDS.png" Stretch="Fill"
+           IsVisible="False" />
+
+    <Image x:Name="pictureBox_AuricCells"
+           Canvas.Left="510" Canvas.Top="570" Width="36" Height="36"
+           Source="/Resources/IMG_CURRENCY_AURICCELLS.png" Stretch="Fill"
+           IsVisible="False" />
+
+    <TextBlock x:Name="label_AuthorWaterMark"
+               Canvas.Left="145" Canvas.Top="679" Width="370" Height="13"
+               FontSize="11"
+               Foreground="Gainsboro"
+               TextAlignment="Center"
+               Text="SERVERNAME© 2025 RELEASE | MADE BY CRANCH (КРАНЧ) THE WOLF" />
+
+    <TextBox x:Name="textBox_ApiKey"
+             Canvas.Left="99" Canvas.Top="641" Width="460" Height="21"
+             FontSize="11"
+             MaxLength="512"
+             IsReadOnly="True"
+             Text="ApiKey will be shown here..."
+             TextAlignment="Center" />
+
+    <Button x:Name="button_ApiKeyCopy" Classes="Flat"
+            Canvas.Left="537" Canvas.Top="641" Width="21" Height="21"
+            Padding="0"
+            Background="DimGray" Foreground="White"
+            FontSize="11"
+            Content="⧉"
+            IsVisible="False"
+            Click="button_ApiKeyCopy_MouseClick" />
+
+    <ComboBox x:Name="comboBox_Crosshairs"
+              Canvas.Left="99" Canvas.Top="549" Width="198" Height="21"
+              FontSize="11"
+              SelectionChanged="comboBox_Crosshairs_SelectedIndexChanged">
+      <ComboBoxItem>Disabled</ComboBoxItem>
+      <ComboBoxItem>Customizable</ComboBoxItem>
+      <ComboBoxItem>Circle (Aqua)</ComboBoxItem>
+      <ComboBoxItem>Circle (White)</ComboBoxItem>
+      <ComboBoxItem>Dot (Aqua)</ComboBoxItem>
+      <ComboBoxItem>Dot (Green)</ComboBoxItem>
+      <ComboBoxItem>Dot (Red)</ComboBoxItem>
+      <ComboBoxItem>Dot (Yellow)</ComboBoxItem>
+      <ComboBoxItem>Tactic (Aqua)</ComboBoxItem>
+      <ComboBoxItem>Tactic (White)</ComboBoxItem>
+      <ComboBoxItem>Custom #01</ComboBoxItem>
+      <ComboBoxItem>Custom #02</ComboBoxItem>
+      <ComboBoxItem>Custom #03</ComboBoxItem>
+    </ComboBox>
+
+    <Slider x:Name="trackBar_CrosshairOpacity"
+            Canvas.Left="93" Canvas.Top="592" Width="157" Height="32"
+            Minimum="1" Maximum="10"
+            TickFrequency="1" IsSnapToTickEnabled="True"
+            Value="10"
+            ValueChanged="trackBar_CrosshairOpacity_ValueChanged" />
+
+    <TextBlock x:Name="label_CrosshairOpacityPercent"
+               Canvas.Left="251" Canvas.Top="599" Width="52" Height="20"
+               FontSize="16"
+               Text="100%" />
+
+    <TextBlock x:Name="label_AntiKillSwitchTitle"
+               Canvas.Left="97" Canvas.Top="244" Width="480" Height="20"
+               FontSize="15"
+               Text="KillSwitch Remover Status: " />
+
+    <TextBlock x:Name="label_VersionWaterMark"
+               Canvas.Left="155" Canvas.Top="693" Width="360" Height="14"
+               FontSize="13"
+               Foreground="Gainsboro"
+               TextAlignment="Center"
+               Text="X.X.X.X" />
+
+    <TextBlock x:Name="label_CustomizationsKingDescription"
+               Canvas.Left="97" Canvas.Top="198" Width="480" Height="42"
+               FontSize="12"
+               TextWrapping="Wrap"
+               Text="Some customization sets were designed so they only show up and release at the very specific date. This restriction has now been removed." />
+
+    <TextBlock x:Name="label_AntiKillSwitchDescription"
+               Canvas.Left="97" Canvas.Top="264" Width="480" Height="42"
+               FontSize="12"
+               TextWrapping="Wrap"
+               Text="From time to time, some ingame items may appear to be bugged, so developers turn them off. This restriction has now been removed." />
+
+    <CheckBox x:Name="MainCheckBox_04"
+              Canvas.Left="124" Canvas.Top="440"
+              FontSize="12"
+              Content="Custom Characters Preset"
+              IsEnabled="False"
+              IsVisible="False"
+              IsCheckedChanged="MainCheckBox_04_OnCheckedChanged" />
+
+    <TextBlock x:Name="label_CrosshairOpacityTitle"
+               Canvas.Left="97" Canvas.Top="579" Width="200" Height="14"
+               FontSize="13"
+               TextAlignment="Center"
+               Text="CROSSHAIR OPACITY" />
+
+    <TextBlock x:Name="label_CrosshairTitle"
+               Canvas.Left="97" Canvas.Top="528" Width="200" Height="14"
+               FontSize="13"
+               TextAlignment="Center"
+               Text="CROSSHAIR" />
+
+    <Button x:Name="button_DebugButton"
+            Canvas.Left="579" Canvas.Top="38" Width="75" Height="23"
+            MinHeight="0" Padding="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="11"
+            Content="DEBUG"
+            IsVisible="False"
+            Click="button_DebugButton_MouseClick" />
+
+    <CheckBox x:Name="MainCheckBox_07"
+              Canvas.Left="100" Canvas.Top="500"
+              FontSize="12"
+              Content="Guaranteed Quest Completion"
+              IsCheckedChanged="MainCheckBox_07_CheckedChanged" />
+
+    <Image x:Name="pictureBox_Button_CloudIDFriend"
+           Canvas.Left="12" Canvas.Top="589" Width="32" Height="32"
+           Source="/Resources/IMG_BUTTON_ADDFRIEND_BLACK.png" Stretch="Fill"
+           Cursor="Hand"
+           IsVisible="False"
+           Tapped="pictureBox_Button_CloudIDFriend_MouseClick" />
+
+    <Image x:Name="pictureBox_Button_CharactersPreset"
+           Canvas.Left="98" Canvas.Top="439" Width="18" Height="18"
+           Source="/Resources/IMG_BUTTON_CHARACTERSPRESET_BLACK.png" Stretch="Fill"
+           Cursor="Hand"
+           IsVisible="False"
+           Tapped="pictureBox_Button_CharactersPreset_MouseClick" />
+
+    <Image x:Name="pictureBox_Button_CrosshairSettings"
+           Canvas.Left="301" Canvas.Top="551" Width="18" Height="18"
+           Source="/Resources/IMG_BUTTON_CHARACTERSPRESET_BLACK.png" Stretch="Fill"
+           Cursor="Hand"
+           IsVisible="False"
+           Tapped="pictureBox_Button_CrosshairSettings_MouseClick" />
+
+    <Image x:Name="pictureBox_Button_API"
+           Canvas.Left="12" Canvas.Top="633" Width="32" Height="32"
+           Source="/Resources/IMG_BUTTON_API_BLACK.png" Stretch="Fill"
+           Cursor="Hand"
+           Tapped="pictureBox_Button_API_MouseClick" />
+
+  </Canvas>
+</ui:Form>

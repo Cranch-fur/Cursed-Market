@@ -1,0 +1,168 @@
+﻿<ui:Form xmlns="https://github.com/avaloniaui"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:ui="using:Cursed_Market.UI"
+         x:Class="Cursed_Market.Form_CharactersPreset"
+         Title="Characters Prestige Editor"
+         Icon="/Resources/Icon_Other.ico"
+         Width="700" Height="580"
+         WindowStartupLocation="CenterScreen"
+         FormClosing="Form_CharactersPreset_FormClosing"
+         FormClosed="Form_CharactersPreset_FormClosed"
+         Shown="Form_CharactersPreset_Shown">
+
+  <!-- Controls are listed bottom-most first (reverse of WinForms Controls.Add order), positions are the same as in the old designer. -->
+  <Canvas Width="700" Height="580">
+
+    <Border x:Name="pictureBox_Background"
+            Canvas.Left="0" Canvas.Top="22" Width="700" Height="558"
+            BorderBrush="#33808080" BorderThickness="0,1,0,0"
+            IsHitTestVisible="False" />
+
+    <Grid x:Name="panel_WindowHeader"
+          Canvas.Left="0" Canvas.Top="0" Width="700" Height="32"
+          Background="#F0F0F0"
+          PointerPressed="panel_WindowHeader_MouseDown">
+      <Button x:Name="button_WindowClose" Classes="Caption Close"
+              HorizontalAlignment="Right"
+              Content="&#xE8BB;"
+              Click="button_WindowClose_MouseClick" />
+    </Grid>
+
+    <!-- Portrait card: background color, legacy prestige background, portrait itself and prestige badge on top of it (former child controls of the PictureBox). -->
+    <Grid Canvas.Left="24" Canvas.Top="75" Width="209" Height="209">
+      <Border x:Name="pictureBox_CharacterPortraitBackground"
+              Background="WhiteSmoke" CornerRadius="8" ClipToBounds="True">
+        <Image x:Name="pictureBox_CharacterPortraitBackgroundImage" Stretch="Fill" />
+      </Border>
+      <Image x:Name="pictureBox_CharacterPortrait"
+             Width="209" Height="209"
+             Stretch="Fill" />
+      <Canvas>
+        <Image x:Name="pictureBox_CharacterPrestige"
+               Canvas.Left="137" Canvas.Top="137" Width="72" Height="72"
+               Source="/Resources/IMG_PRESTIGE_M01_ASH.png" Stretch="Fill" />
+        <TextBlock x:Name="label_CharacterPrestige"
+                   Canvas.Left="137" Canvas.Top="157" Width="72" Height="32"
+                   FontSize="27" FontWeight="Bold"
+                   Foreground="White"
+                   TextAlignment="Center"
+                   Text="100" />
+      </Canvas>
+    </Grid>
+
+    <ComboBox x:Name="comboBox_CharacterSelect"
+              Canvas.Left="262" Canvas.Top="99" Width="410" Height="23"
+              FontSize="13"
+              SelectionChanged="comboBox_CharacterSelect_SelectedIndexChanged" />
+
+    <TextBlock x:Name="label_CharacterSelectTitle"
+               Canvas.Left="262" Canvas.Top="75" Width="410" Height="20"
+               FontSize="16"
+               TextAlignment="Center"
+               Text="SELECT CHARACTER" />
+
+    <Button x:Name="button_SaveChanges" Classes="Flat"
+            Canvas.Left="24" Canvas.Top="533" Width="648" Height="30"
+            BorderThickness="1" BorderBrush="Gray"
+            FontSize="12"
+            Content="Confirm and Save Changes"
+            Click="button_SaveChanges_MouseClick" />
+
+    <NumericUpDown x:Name="numericUpDown_BloodWeb"
+                   Canvas.Left="262" Canvas.Top="157" Width="410" Height="23"
+                   FontSize="13"
+                   Minimum="1" Maximum="50" Value="1"
+                   Increment="1" FormatString="0" ParsingNumberStyle="Integer"
+                   ValueChanged="numericUpDown_BloodWeb_ValueChanged" />
+
+    <TextBlock x:Name="label_BloodWebTitle"
+               Canvas.Left="262" Canvas.Top="137" Width="410" Height="17"
+               FontSize="13"
+               TextAlignment="Center"
+               Text="BLOODWEB LEVEL" />
+
+    <NumericUpDown x:Name="numericUpDown_Prestige"
+                   Canvas.Left="262" Canvas.Top="209" Width="410" Height="23"
+                   FontSize="13"
+                   Minimum="0" Maximum="100" Value="0"
+                   Increment="1" FormatString="0" ParsingNumberStyle="Integer"
+                   ValueChanged="numericUpDown_Prestige_ValueChanged" />
+
+    <TextBlock x:Name="label_PrestigeTitle"
+               Canvas.Left="262" Canvas.Top="189" Width="410" Height="17"
+               FontSize="13"
+               TextAlignment="Center"
+               Text="PRESTIGE LEVEL" />
+
+    <NumericUpDown x:Name="numericUpDown_LegacyPrestige"
+                   Canvas.Left="262" Canvas.Top="261" Width="410" Height="23"
+                   FontSize="13"
+                   Minimum="0" Maximum="3" Value="0"
+                   Increment="1" FormatString="0" ParsingNumberStyle="Integer"
+                   ValueChanged="numericUpDown_LegacyPrestige_ValueChanged" />
+
+    <TextBlock x:Name="label_LegacyPrestigeTitle"
+               Canvas.Left="262" Canvas.Top="241" Width="410" Height="17"
+               FontSize="13"
+               TextAlignment="Center"
+               Text="LEGACY PRESTIGE LEVEL" />
+
+    <TextBlock x:Name="label_CharactersPresetTitle"
+               Canvas.Left="24" Canvas.Top="35" Width="648" Height="24"
+               FontSize="21"
+               TextAlignment="Center"
+               Text="CONFIGURE CHARACTERS PRESET" />
+
+    <Border x:Name="pictureBox_ExtraActions" Classes="Card"
+            Canvas.Left="24" Canvas.Top="345" Width="648" Height="160" />
+
+    <Button x:Name="button_SpreadPreset"
+            Canvas.Left="42" Canvas.Top="363" Width="617" Height="30"
+            MinHeight="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="12"
+            Content="Spread current preset among all characters"
+            Click="button_SpreadPreset_MouseClick" />
+
+    <Border Canvas.Left="145" Canvas.Top="336" Width="410" Height="20">
+      <TextBlock x:Name="label_ExtraActionsTitle"
+                 HorizontalAlignment="Center" Padding="8,0"
+                 Background="{Binding $parent[Window].Background}"
+                 FontSize="16"
+                 Text="EXTRA ACTIONS" />
+    </Border>
+
+    <Button x:Name="button_RandomizePresets"
+            Canvas.Left="42" Canvas.Top="402" Width="617" Height="30"
+            MinHeight="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="12"
+            Content="Randomize all characters presets"
+            Click="button_RandomizePresets_MouseClick" />
+
+    <NumericUpDown x:Name="numericUpDown_MaximumPrestigeLevel"
+                   Canvas.Left="370" Canvas.Top="464" Width="289" Height="23"
+                   FontSize="13"
+                   Minimum="0" Maximum="100" Value="10"
+                   Increment="1" FormatString="0" ParsingNumberStyle="Integer" />
+
+    <TextBlock x:Name="label_MaximumPrestigeLevelTitle"
+               Canvas.Left="370" Canvas.Top="444" Width="289" Height="17"
+               FontSize="13"
+               TextAlignment="Center"
+               Text="MAX PRESTIGE LEVEL" />
+
+    <NumericUpDown x:Name="numericUpDown_MaximumBloodWebLevel"
+                   Canvas.Left="42" Canvas.Top="464" Width="289" Height="23"
+                   FontSize="13"
+                   Minimum="15" Maximum="50" Value="40"
+                   Increment="1" FormatString="0" ParsingNumberStyle="Integer" />
+
+    <TextBlock x:Name="label_MaximumBloodWebLevelTitle"
+               Canvas.Left="42" Canvas.Top="444" Width="289" Height="17"
+               FontSize="13"
+               TextAlignment="Center"
+               Text="MAX BLOODWEB LEVEL" />
+
+  </Canvas>
+</ui:Form>

@@ -1,0 +1,24 @@
+﻿<ui:Form xmlns="https://github.com/avaloniaui"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:ui="using:Cursed_Market.UI"
+         x:Class="Cursed_Market.Form_Crosshair"
+         Title="Crosshair"
+         Icon="/Resources/Icon_Other.ico"
+         Width="512" Height="512"
+         SystemDecorations="None"
+         ExtendClientAreaToDecorationsHint="False"
+         TransparencyLevelHint="Transparent"
+         Background="Transparent"
+         ShowInTaskbar="False"
+         ShowActivated="False"
+         Topmost="True"
+         WindowStartupLocation="Manual"
+         Shown="Form_Crosshair_Shown"
+         FormClosing="Crosshair_FormClosing">
+
+  <!-- Window is sized to the crosshair bitmap and centered on primary screen by ApplyLayeredBitmap. -->
+  <Image x:Name="pictureBox_Crosshair"
+         Width="512" Height="512"
+         Stretch="Fill"
+         Source="/Resources/IMG_CROSSHAIR_MISSING.png" />
+</ui:Form>

@@ -1,9 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.Media.Imaging;
+using Cursed_Market.UI;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Windows.Forms;
 
 
 
@@ -17,10 +20,10 @@ namespace Cursed_Market
         public struct S_Character
         {
             public string friendlyName;
-            public Image characterPortrait;
+            public Bitmap characterPortrait;
             public bool canObtainLegacy;
 
-            public S_Character(string friendlyName, Image characterPortrait, bool canObtainLegacy)
+            public S_Character(string friendlyName, Bitmap characterPortrait, bool canObtainLegacy)
             {
                 this.friendlyName = friendlyName;
                 this.characterPortrait = characterPortrait;
@@ -31,30 +34,30 @@ namespace Cursed_Market
         /* Cache prestige icons once in memory. */
         private static readonly Bitmap[] PrestigeImages = new Bitmap[]
         {
-            Properties.Resources.IMG_PRESTIGE_M01_ASH,
-            Properties.Resources.IMG_PRESTIGE_M01_BRONZE,
-            Properties.Resources.IMG_PRESTIGE_M01_SILVER,
-            Properties.Resources.IMG_PRESTIGE_M01_GOLD,
-            Properties.Resources.IMG_PRESTIGE_M01_IRIDESCENT,
-            Properties.Resources.IMG_PRESTIGE_M02_ASH,
-            Properties.Resources.IMG_PRESTIGE_M02_BRONZE,
-            Properties.Resources.IMG_PRESTIGE_M02_SILVER,
-            Properties.Resources.IMG_PRESTIGE_M02_GOLD,
-            Properties.Resources.IMG_PRESTIGE_M02_IRIDESCENT,
-            Properties.Resources.IMG_PRESTIGE_M03_ASH,
-            Properties.Resources.IMG_PRESTIGE_M03_BRONZE,
-            Properties.Resources.IMG_PRESTIGE_M03_SILVER,
-            Properties.Resources.IMG_PRESTIGE_M03_GOLD,
-            Properties.Resources.IMG_PRESTIGE_M03_IRIDESCENT,
-            Properties.Resources.IMG_PRESTIGE_M04_ASH,
-            Properties.Resources.IMG_PRESTIGE_M04_BRONZE,
-            Properties.Resources.IMG_PRESTIGE_M04_SILVER,
-            Properties.Resources.IMG_PRESTIGE_M04_GOLD,
-            Properties.Resources.IMG_PRESTIGE_M04_IRIDESCENT
+            Properties.Resources.IMG_PRESTIGE_M01_ASH.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M01_BRONZE.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M01_SILVER.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M01_GOLD.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M01_IRIDESCENT.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M02_ASH.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M02_BRONZE.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M02_SILVER.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M02_GOLD.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M02_IRIDESCENT.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M03_ASH.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M03_BRONZE.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M03_SILVER.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M03_GOLD.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M03_IRIDESCENT.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M04_ASH.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M04_BRONZE.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M04_SILVER.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M04_GOLD.ToAvaloniaBitmap(),
+            Properties.Resources.IMG_PRESTIGE_M04_IRIDESCENT.ToAvaloniaBitmap()
         };
 
-        private static readonly Bitmap Prestige100Image = Properties.Resources.IMG_PRESTIGE_M05;
-        private static readonly Bitmap PrestigeLegacyBg = Properties.Resources.IMG_PRESTIGE_LEGACY;
+        private static readonly Bitmap Prestige100Image = Properties.Resources.IMG_PRESTIGE_M05.ToAvaloniaBitmap();
+        private static readonly Bitmap PrestigeLegacyBg = Properties.Resources.IMG_PRESTIGE_LEGACY.ToAvaloniaBitmap();
         private static readonly Random Rnd = new Random();
 
         internal Dictionary<string, S_Character> charactersDictionary = new Dictionary<string, S_Character>();
@@ -147,7 +150,7 @@ namespace Cursed_Market
                     {
                         /* Load image into memory without locking the file on disk. */
                         byte[] imgBytes = File.ReadAllBytes(characterPortraitFilePath);
-                        Image characterPortraitImage;
+                        Bitmap characterPortraitImage;
                         using (MemoryStream ms = new MemoryStream(imgBytes))
                         {
                             characterPortraitImage = new Bitmap(ms);
@@ -188,7 +191,7 @@ namespace Cursed_Market
         {
             changesWasMade = false;
             _selectedCharacterID = null;
-            pictureBox_CharacterPortrait.Image = null;
+            pictureBox_CharacterPortrait.Source = null;
             foreach (var kvp in charactersDictionary)
             {
                 kvp.Value.characterPortrait?.Dispose();
@@ -197,15 +200,13 @@ namespace Cursed_Market
             comboBox_CharacterSelect.Items.Clear();
         }
 
-        private void button_WindowClose_MouseClick(object sender, MouseEventArgs e) => this.Close();
+        private void button_WindowClose_MouseClick(object sender, RoutedEventArgs e) => this.Close();
 
-        private void panel_WindowHeader_MouseDown(object sender, MouseEventArgs e)
+        private void panel_WindowHeader_MouseDown(object sender, PointerPressedEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             {
-                panel_WindowHeader.Capture = false;
-                Message mouse = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero);
-                WndProc(ref mouse);
+                BeginMoveDrag(e); // Same as sending WM_NCLBUTTONDOWN (HTCAPTION), system takes over window dragging.
             }
         }
 
@@ -214,34 +215,29 @@ namespace Cursed_Market
             var theme = ProgramThemes.GetCurrentPalette();
 
             this.BackColor = theme.FormBack;
-            panel_WindowHeader.BackColor = theme.HeaderBack;
+            panel_WindowHeader.Background = ToBackdropBrush(theme.HeaderBack);
 
             ProgramThemes.ApplyForeColor(theme.TitleText,
                 label_CharactersPresetTitle, label_CharacterSelectTitle, label_BloodWebTitle,
                 label_PrestigeTitle, label_LegacyPrestigeTitle, label_ExtraActionsTitle,
                 label_MaximumBloodWebLevelTitle, label_MaximumPrestigeLevelTitle);
 
-            pictureBox_CharacterPortrait.BackColor = theme.SecondaryCardBack;
-            button_SaveChanges.BackColor = theme.PrimaryButtonBack;
-            button_SaveChanges.ForeColor = theme.PrimaryButtonText;
-            button_SaveChanges.FlatAppearance.BorderColor = theme.PrimaryButtonBorder;
+            pictureBox_CharacterPortraitBackground.Background = theme.SecondaryCardBack.ToBrush();
+            button_SaveChanges.Background = theme.PrimaryButtonBack.ToBrush();
+            button_SaveChanges.Foreground = theme.PrimaryButtonText.ToBrush();
+            button_SaveChanges.BorderBrush = theme.PrimaryButtonBorder.ToBrush();
         }
 
         private void InitializeSettings()
         {
             ReloadTheme();
 
-            pictureBox_CharacterPrestige.Parent = pictureBox_CharacterPortrait;
-            pictureBox_CharacterPrestige.BackColor = Color.Transparent;
-            pictureBox_CharacterPrestige.Location = new Point(
-                pictureBox_CharacterPortrait.Width - pictureBox_CharacterPrestige.Width - 8,
-                pictureBox_CharacterPortrait.Height - pictureBox_CharacterPrestige.Height - 8);
+            /* Prestige badge & its label already live on top of the portrait (see .axaml), only their position is calculated here. */
+            Canvas.SetLeft(pictureBox_CharacterPrestige, pictureBox_CharacterPortrait.Width - pictureBox_CharacterPrestige.Width - 8);
+            Canvas.SetTop(pictureBox_CharacterPrestige, pictureBox_CharacterPortrait.Height - pictureBox_CharacterPrestige.Height - 8);
 
-            label_CharacterPrestige.Parent = pictureBox_CharacterPrestige;
-            label_CharacterPrestige.BackColor = Color.Transparent;
-            label_CharacterPrestige.Location = new Point(
-                (pictureBox_CharacterPrestige.Width - label_CharacterPrestige.Width) / 2 + 1,
-                (pictureBox_CharacterPrestige.Height - label_CharacterPrestige.Height) / 2);
+            Canvas.SetLeft(label_CharacterPrestige, Canvas.GetLeft(pictureBox_CharacterPrestige) + (pictureBox_CharacterPrestige.Width - label_CharacterPrestige.Width) / 2 + 1);
+            Canvas.SetTop(label_CharacterPrestige, Canvas.GetTop(pictureBox_CharacterPrestige) + (pictureBox_CharacterPrestige.Height - label_CharacterPrestige.Height) / 2);
 
             #region localization
             label_CharactersPresetTitle.Text = Properties.Localization.CHARACTERSPRESET_CharactersPresetTitle;
@@ -250,9 +246,9 @@ namespace Cursed_Market
             label_PrestigeTitle.Text = Properties.Localization.CHARACTERSPRESET_PrestigeTitle;
             label_LegacyPrestigeTitle.Text = Properties.Localization.CHARACTERSPRESET_LegacyPrestigeTitle;
             label_ExtraActionsTitle.Text = Properties.Localization.CHARACTERSPRESET_ExtraActionsTitle;
-            button_SpreadPreset.Text = Properties.Localization.CHARACTERSPRESET_SpreadPreset;
-            button_RandomizePresets.Text = Properties.Localization.CHARACTERSPRESET_RandomizePresets;
-            button_SaveChanges.Text = Properties.Localization.CHARACTERSPRESET_SaveChanges;
+            button_SpreadPreset.Content = Properties.Localization.CHARACTERSPRESET_SpreadPreset;
+            button_RandomizePresets.Content = Properties.Localization.CHARACTERSPRESET_RandomizePresets;
+            button_SaveChanges.Content = Properties.Localization.CHARACTERSPRESET_SaveChanges;
             #endregion
         }
 
@@ -268,28 +264,28 @@ namespace Cursed_Market
 
             if (prestigeLevel == 0)
             {
-                label_CharacterPrestige.Visible = false;
-                pictureBox_CharacterPrestige.Visible = false;
+                label_CharacterPrestige.IsVisible = false;
+                pictureBox_CharacterPrestige.IsVisible = false;
             }
             else
             {
-                label_CharacterPrestige.Visible = true;
-                pictureBox_CharacterPrestige.Visible = true;
+                label_CharacterPrestige.IsVisible = true;
+                pictureBox_CharacterPrestige.IsVisible = true;
 
                 if (prestigeLevel == 100)
                 {
-                    pictureBox_CharacterPrestige.Image = Prestige100Image;
+                    pictureBox_CharacterPrestige.Source = Prestige100Image;
                 }
                 else
                 {
                     int imageIndex = Math.Min((prestigeLevel - 1) / 5, PrestigeImages.Length - 1);
-                    pictureBox_CharacterPrestige.Image = PrestigeImages[imageIndex];
+                    pictureBox_CharacterPrestige.Source = PrestigeImages[imageIndex];
                 }
 
                 label_CharacterPrestige.Text = prestigeLevel.ToString();
             }
 
-            pictureBox_CharacterPortrait.BackgroundImage = legacyPrestigeLevel == 3 ? PrestigeLegacyBg : null;
+            pictureBox_CharacterPortraitBackgroundImage.Source = legacyPrestigeLevel == 3 ? PrestigeLegacyBg : null;
         }
 
         private void UpdateCharacterDisplay()
@@ -311,16 +307,16 @@ namespace Cursed_Market
             var character = charactersDictionary[_selectedCharacterID];
             if (character.canObtainLegacy)
             {
-                numericUpDown_LegacyPrestige.Enabled = true;
+                numericUpDown_LegacyPrestige.IsEnabled = true;
                 numericUpDown_LegacyPrestige.Value = ClampDecimal(lpLevel, numericUpDown_LegacyPrestige);
             }
             else
             {
-                numericUpDown_LegacyPrestige.Enabled = false;
+                numericUpDown_LegacyPrestige.IsEnabled = false;
                 numericUpDown_LegacyPrestige.Value = 0;
             }
 
-            pictureBox_CharacterPortrait.Image = character.characterPortrait;
+            pictureBox_CharacterPortrait.Source = character.characterPortrait;
             UpdateCharacterPrestigeDisplay();
 
             updateCharacterDisplayInProgress = false;
@@ -338,7 +334,7 @@ namespace Cursed_Market
             }
         }
 
-        private void comboBox_CharacterSelect_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox_CharacterSelect_SelectedIndexChanged(object sender, SelectionChangedEventArgs e)
         {
             if (comboBox_CharacterSelect.SelectedItem == null) return;
             string selectedName = comboBox_CharacterSelect.SelectedItem.ToString();
@@ -355,7 +351,7 @@ namespace Cursed_Market
             UpdateCharacterDisplay();
         }
 
-        private void numericUpDown_BloodWeb_ValueChanged(object sender, EventArgs e)
+        private void numericUpDown_BloodWeb_ValueChanged(object sender, NumericUpDownValueChangedEventArgs e)
         {
             if (!updateCharacterDisplayInProgress)
                 changesWasMade = true;
@@ -363,16 +359,7 @@ namespace Cursed_Market
             OnCharacterPresetChanged();
         }
 
-        private void numericUpDown_Prestige_ValueChanged(object sender, EventArgs e)
-        {
-            if (!updateCharacterDisplayInProgress)
-                changesWasMade = true;
-
-            UpdateCharacterPrestigeDisplay();
-            OnCharacterPresetChanged();
-        }
-
-        private void numericUpDown_LegacyPrestige_ValueChanged(object sender, EventArgs e)
+        private void numericUpDown_Prestige_ValueChanged(object sender, NumericUpDownValueChangedEventArgs e)
         {
             if (!updateCharacterDisplayInProgress)
                 changesWasMade = true;
@@ -381,7 +368,16 @@ namespace Cursed_Market
             OnCharacterPresetChanged();
         }
 
-        private void button_SpreadPreset_MouseClick(object sender, MouseEventArgs e)
+        private void numericUpDown_LegacyPrestige_ValueChanged(object sender, NumericUpDownValueChangedEventArgs e)
+        {
+            if (!updateCharacterDisplayInProgress)
+                changesWasMade = true;
+
+            UpdateCharacterPrestigeDisplay();
+            OnCharacterPresetChanged();
+        }
+
+        private void button_SpreadPreset_MouseClick(object sender, RoutedEventArgs e)
         {
             if (outCharactersPreset == null) return;
 
@@ -400,7 +396,7 @@ namespace Cursed_Market
             Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
         }
 
-        private void button_RandomizePresets_MouseClick(object sender, MouseEventArgs e)
+        private void button_RandomizePresets_MouseClick(object sender, RoutedEventArgs e)
         {
             if (outCharactersPreset == null) return;
 
@@ -423,7 +419,7 @@ namespace Cursed_Market
             Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
         }
 
-        private void button_SaveChanges_MouseClick(object sender, MouseEventArgs e)
+        private void button_SaveChanges_MouseClick(object sender, RoutedEventArgs e)
         {
             if (outCharactersPreset == null) return;
 

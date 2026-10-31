@@ -1,0 +1,196 @@
+﻿<ui:Form xmlns="https://github.com/avaloniaui"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:ui="using:Cursed_Market.UI"
+         x:Class="Cursed_Market.Form_APIConfig"
+         Title="API Endpoints Configurator"
+         Icon="/Resources/Icon_Other.ico"
+         Width="700" Height="495"
+         WindowStartupLocation="CenterScreen"
+         Shown="Form_APIConfig_Shown"
+         FormClosing="Form_APIConfig_FormClosing">
+
+  <!-- Controls are listed bottom-most first (reverse of WinForms Controls.Add order), positions are the same as in the old designer. -->
+  <Canvas Width="700" Height="495">
+
+    <!-- Former window frame (started under the old 23px header), now spans whole window so it doesn't cut through the header. -->
+    <Border x:Name="pictureBox_Background"
+            Canvas.Left="0" Canvas.Top="0" Width="700" Height="495"
+            BorderBrush="#33808080" BorderThickness="1" CornerRadius="8"
+            IsHitTestVisible="False" />
+
+    <Grid x:Name="panel_WindowHeader"
+          Canvas.Left="0" Canvas.Top="0" Width="700" Height="32"
+          Background="#F0F0F0"
+          PointerPressed="panel_WindowHeader_MouseDown">
+      <Button x:Name="button_WindowClose" Classes="Caption Close"
+              HorizontalAlignment="Right"
+              Content="&#xE8BB;"
+              Click="button_WindowClose_MouseClick" />
+    </Grid>
+
+    <TextBlock x:Name="label_FormTitle"
+               Canvas.Left="24" Canvas.Top="35" Width="648" Height="24"
+               FontSize="21"
+               TextAlignment="Center"
+               Text="CONFIGURE API ENDPOINTS" />
+
+    <TextBlock x:Name="label_Host"
+               Canvas.Left="24" Canvas.Top="75" Width="310" Height="15"
+               FontSize="12"
+               VerticalAlignment="Bottom"
+               Text="API HOST" />
+
+    <TextBox x:Name="textBox_Host"
+             Canvas.Left="24" Canvas.Top="93" Width="310" Height="22"
+             FontSize="12"
+             TextChanged="OnParameterChanged" />
+
+    <TextBlock x:Name="label_Status"
+               Canvas.Left="354" Canvas.Top="75" Width="310" Height="15"
+               FontSize="12"
+               VerticalAlignment="Bottom"
+               Text="STATUS PATH" />
+
+    <TextBox x:Name="textBox_Status"
+             Canvas.Left="354" Canvas.Top="93" Width="310" Height="22"
+             FontSize="12"
+             TextChanged="OnParameterChanged" />
+
+    <TextBlock x:Name="label_Update"
+               Canvas.Left="24" Canvas.Top="125" Width="310" Height="15"
+               FontSize="12"
+               VerticalAlignment="Bottom"
+               Text="UPDATE PATH" />
+
+    <TextBox x:Name="textBox_Update"
+             Canvas.Left="24" Canvas.Top="143" Width="310" Height="22"
+             FontSize="12"
+             TextChanged="OnParameterChanged" />
+
+    <TextBlock x:Name="label_MarketFull"
+               Canvas.Left="354" Canvas.Top="125" Width="310" Height="15"
+               FontSize="12"
+               VerticalAlignment="Bottom"
+               Text="MARKET FULL PATH" />
+
+    <TextBox x:Name="textBox_MarketFull"
+             Canvas.Left="354" Canvas.Top="143" Width="310" Height="22"
+             FontSize="12"
+             TextChanged="OnParameterChanged" />
+
+    <TextBlock x:Name="label_MarketDLC"
+               Canvas.Left="24" Canvas.Top="175" Width="310" Height="15"
+               FontSize="12"
+               VerticalAlignment="Bottom"
+               Text="MARKET DLC PATH" />
+
+    <TextBox x:Name="textBox_MarketDLC"
+             Canvas.Left="24" Canvas.Top="193" Width="310" Height="22"
+             FontSize="12"
+             TextChanged="OnParameterChanged" />
+
+    <TextBlock x:Name="label_CharacterData"
+               Canvas.Left="354" Canvas.Top="175" Width="310" Height="15"
+               FontSize="12"
+               VerticalAlignment="Bottom"
+               Text="CHARACTER DATA PATH" />
+
+    <TextBox x:Name="textBox_CharacterData"
+             Canvas.Left="354" Canvas.Top="193" Width="310" Height="22"
+             FontSize="12"
+             TextChanged="OnParameterChanged" />
+
+    <TextBlock x:Name="label_BloodwebData"
+               Canvas.Left="24" Canvas.Top="225" Width="310" Height="15"
+               FontSize="12"
+               VerticalAlignment="Bottom"
+               Text="BLOODWEB DATA PATH" />
+
+    <TextBox x:Name="textBox_BloodwebData"
+             Canvas.Left="24" Canvas.Top="243" Width="310" Height="22"
+             FontSize="12"
+             TextChanged="OnParameterChanged" />
+
+    <TextBlock x:Name="label_CharactersList"
+               Canvas.Left="354" Canvas.Top="225" Width="310" Height="15"
+               FontSize="12"
+               VerticalAlignment="Bottom"
+               Text="CHARACTERS LIST PATH" />
+
+    <TextBox x:Name="textBox_CharactersList"
+             Canvas.Left="354" Canvas.Top="243" Width="310" Height="22"
+             FontSize="12"
+             TextChanged="OnParameterChanged" />
+
+    <TextBlock x:Name="label_ItemsList"
+               Canvas.Left="24" Canvas.Top="275" Width="310" Height="15"
+               FontSize="12"
+               VerticalAlignment="Bottom"
+               Text="ITEMS LIST PATH" />
+
+    <TextBox x:Name="textBox_ItemsList"
+             Canvas.Left="24" Canvas.Top="293" Width="310" Height="22"
+             FontSize="12"
+             TextChanged="OnParameterChanged" />
+
+    <TextBlock x:Name="label_Catalog"
+               Canvas.Left="354" Canvas.Top="275" Width="310" Height="15"
+               FontSize="12"
+               VerticalAlignment="Bottom"
+               Text="CATALOG PATH" />
+
+    <TextBox x:Name="textBox_Catalog"
+             Canvas.Left="354" Canvas.Top="293" Width="310" Height="22"
+             FontSize="12"
+             TextChanged="OnParameterChanged" />
+
+    <TextBlock x:Name="label_AntiKillSwitch"
+               Canvas.Left="24" Canvas.Top="325" Width="310" Height="15"
+               FontSize="12"
+               VerticalAlignment="Bottom"
+               Text="ANTI KILL SWITCH PATH" />
+
+    <TextBox x:Name="textBox_AntiKillSwitch"
+             Canvas.Left="24" Canvas.Top="343" Width="310" Height="22"
+             FontSize="12"
+             TextChanged="OnParameterChanged" />
+
+    <TextBlock x:Name="label_RobotoFont"
+               Canvas.Left="354" Canvas.Top="325" Width="310" Height="15"
+               FontSize="12"
+               VerticalAlignment="Bottom"
+               Text="ROBOTO FONT PATH" />
+
+    <TextBox x:Name="textBox_RobotoFont"
+             Canvas.Left="354" Canvas.Top="343" Width="310" Height="22"
+             FontSize="12"
+             TextChanged="OnParameterChanged" />
+
+    <TextBlock x:Name="label_CharactersPreset"
+               Canvas.Left="24" Canvas.Top="375" Width="310" Height="15"
+               FontSize="12"
+               VerticalAlignment="Bottom"
+               Text="CHARACTERS PRESET PATH" />
+
+    <TextBox x:Name="textBox_CharactersPreset"
+             Canvas.Left="24" Canvas.Top="393" Width="310" Height="22"
+             FontSize="12"
+             TextChanged="OnParameterChanged" />
+
+    <Button x:Name="button_ResetDefault"
+            Canvas.Left="24" Canvas.Top="445" Width="310" Height="30"
+            MinHeight="0" Padding="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="12"
+            Content="Reset to Defaults"
+            Click="button_ResetDefault_MouseClick" />
+
+    <Button x:Name="button_SaveChanges" Classes="Flat"
+            Canvas.Left="354" Canvas.Top="445" Width="310" Height="30"
+            BorderThickness="1"
+            FontSize="12"
+            Content="Confirm and Save Changes"
+            Click="button_SaveChanges_MouseClick" />
+
+  </Canvas>
+</ui:Form>

@@ -2,11 +2,15 @@
 #define PROCESS_EXIT_HANDLER
 #define EXCEPTION_HANDLER
 
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Media;
+using Avalonia.Threading;
+using Cursed_Market.UI;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
-using System.Windows.Forms;
 
 
 
@@ -36,7 +40,7 @@ namespace Cursed_Market
             AttemptDisablingProxy();
         }
 
-        private static void ExceptionHandler(object sender, ThreadExceptionEventArgs e)
+        private static void ExceptionHandler(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             string exceptionData = e.Exception.ToString();
 
@@ -56,11 +60,18 @@ namespace Cursed_Market
             ProgramGlobals.Close();
         }
 
-        [STAThread]
-        private static void Main()
+        /* Avalonia setup, also used by IDE previewer. Roboto stays the default font of every window. */
+        public static AppBuilder BuildAvaloniaApp()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            return AppBuilder.Configure<App>()
+                .UsePlatformDetect()
+                .With(new FontManagerOptions { DefaultFamilyName = "Roboto" })
+                .LogToTrace();
+        }
+
+        [STAThread]
+        private static void Main(string[] args)
+        {
             Properties.Localization.Culture = ProgramGlobals.culture; // We need to clarify what localization culture we're looking to use.
 
             if (ProgramPaths.GetDataFolderPath() == null) // We're getting a data folder path & verifying its existence at the same time.
@@ -103,22 +114,32 @@ namespace Cursed_Market
             foreach (Process instance in runningInstances)
                 instance.Dispose();
 
+            /* Same as Application.Run(): process lives until Main form gets closed. Windows created from here on are Avalonia ones. */
+            ClassicDesktopStyleApplicationLifetime lifetime = new ClassicDesktopStyleApplicationLifetime { Args = args, ShutdownMode = ShutdownMode.OnMainWindowClose };
+            BuildAvaloniaApp().SetupWithLifetime(lifetime);
+
 #if EXCEPTION_HANDLER
-            Application.ThreadException += new ThreadExceptionEventHandler(ExceptionHandler);
+            Dispatcher.UIThread.UnhandledException += ExceptionHandler;
             try
             {
                 Form_Wait formWait = new Form_Wait();
                 formWait.Show();
-                Application.DoEvents();
+                Dispatcher.UIThread.RunJobs(); // Application.DoEvents() equivalent.
 
-                Application.Run(new Form_Main());
+                Form_Main formMain = new Form_Main();
+                lifetime.MainWindow = formMain;
+                lifetime.Startup += (sender, e) => formMain.Show(); // Form.Show() raises Load before window becomes visible, lifetime's own Show() wouldn't.
+                lifetime.Start();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Cursed Market Application.Run() Failed", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
             }
 #else
-            Application.Run(new Form_Main());
+            Form_Main formMain = new Form_Main();
+            lifetime.MainWindow = formMain;
+            lifetime.Startup += (sender, e) => formMain.Show();
+            lifetime.Start();
 #endif
         }
     }

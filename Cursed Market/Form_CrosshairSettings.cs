@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using Cursed_Market.UI;
+using System;
 using System.Drawing;
-using System.Windows.Forms;
 
 
 
@@ -19,6 +22,23 @@ namespace Cursed_Market
         {
             InitializeComponent();
             InitializeSettings();
+
+            /* One handler serves both NumericUpDown and CheckBox events, XAML only binds exact argument types so these are wired here. */
+            numericUpDown_Length.ValueChanged += OnCrosshairParameterChanged;
+            numericUpDown_Thickness.ValueChanged += OnCrosshairParameterChanged;
+            numericUpDown_Gap.ValueChanged += OnCrosshairParameterChanged;
+            numericUpDown_Outline.ValueChanged += OnCrosshairParameterChanged;
+            numericUpDown_DotSize.ValueChanged += OnCrosshairParameterChanged;
+            numericUpDown_CircleRadius.ValueChanged += OnCrosshairParameterChanged;
+            numericUpDown_Alpha.ValueChanged += OnCrosshairParameterChanged;
+            checkBox_Outline.IsCheckedChanged += OnCrosshairParameterChanged;
+            checkBox_CenterDot.IsCheckedChanged += OnCrosshairParameterChanged;
+            checkBox_Circle.IsCheckedChanged += OnCrosshairParameterChanged;
+            checkBox_TStyle.IsCheckedChanged += OnCrosshairParameterChanged;
+
+            numericUpDown_Red.ValueChanged += OnRgbValueChanged;
+            numericUpDown_Green.ValueChanged += OnRgbValueChanged;
+            numericUpDown_Blue.ValueChanged += OnRgbValueChanged;
         }
 
         private void Form_CrosshairSettings_Shown(object sender, EventArgs e)
@@ -39,15 +59,13 @@ namespace Cursed_Market
             }
         }
 
-        private void button_WindowClose_MouseClick(object sender, MouseEventArgs e) => this.Close();
+        private void button_WindowClose_MouseClick(object sender, RoutedEventArgs e) => this.Close();
 
-        private void panel_WindowHeader_MouseDown(object sender, MouseEventArgs e)
+        private void panel_WindowHeader_MouseDown(object sender, PointerPressedEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             {
-                panel_WindowHeader.Capture = false;
-                Message mouse = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero); // 0xA1 - WM_NCLBUTTONDOWN | new IntPtr(2) - HTCAPTION.
-                WndProc(ref mouse);
+                BeginMoveDrag(e); // Same as sending WM_NCLBUTTONDOWN (HTCAPTION), system takes over window dragging.
             }
         }
 
@@ -56,7 +74,7 @@ namespace Cursed_Market
             var theme = ProgramThemes.GetCurrentPalette();
 
             this.BackColor = theme.FormBack;
-            panel_WindowHeader.BackColor = theme.HeaderBack;
+            panel_WindowHeader.Background = ToBackdropBrush(theme.HeaderBack);
 
             ProgramThemes.ApplyForeColor(theme.TitleText,
                 label_FormTitle,
@@ -78,11 +96,11 @@ namespace Cursed_Market
                 checkBox_Circle,
                 checkBox_TStyle);
 
-            pictureBox_CrosshairPreview.BackColor = theme.SecondaryCardBack;
-            button_CopyShareCode.BackColor = theme.SecondaryButtonBack;
-            button_SaveChanges.BackColor = theme.PrimaryButtonBack;
-            button_SaveChanges.ForeColor = theme.PrimaryButtonText;
-            button_SaveChanges.FlatAppearance.BorderColor = theme.PrimaryButtonBorder;
+            pictureBox_CrosshairPreviewBorder.Background = theme.SecondaryCardBack.ToBrush();
+            button_CopyShareCode.Background = theme.SecondaryButtonBack.ToBrush();
+            button_SaveChanges.Background = theme.PrimaryButtonBack.ToBrush();
+            button_SaveChanges.Foreground = theme.PrimaryButtonText.ToBrush();
+            button_SaveChanges.BorderBrush = theme.PrimaryButtonBorder.ToBrush();
         }
 
         private void InitializeSettings()
@@ -98,10 +116,10 @@ namespace Cursed_Market
             label_DotSizeTitle.Text = Properties.Localization.CROSSHAIRSETTINGS_DotSizeTitle;
             label_CircleRadiusTitle.Text = Properties.Localization.CROSSHAIRSETTINGS_CircleRadiusTitle;
 
-            checkBox_Outline.Text = Properties.Localization.CROSSHAIRSETTINGS_OutlineCheckBox;
-            checkBox_CenterDot.Text = Properties.Localization.CROSSHAIRSETTINGS_CenterDotCheckBox;
-            checkBox_Circle.Text = Properties.Localization.CROSSHAIRSETTINGS_CircleCheckBox;
-            checkBox_TStyle.Text = Properties.Localization.CROSSHAIRSETTINGS_TStyleCheckBox;
+            checkBox_Outline.Content = Properties.Localization.CROSSHAIRSETTINGS_OutlineCheckBox;
+            checkBox_CenterDot.Content = Properties.Localization.CROSSHAIRSETTINGS_CenterDotCheckBox;
+            checkBox_Circle.Content = Properties.Localization.CROSSHAIRSETTINGS_CircleCheckBox;
+            checkBox_TStyle.Content = Properties.Localization.CROSSHAIRSETTINGS_TStyleCheckBox;
 
             label_ColorPresetTitle.Text = Properties.Localization.CROSSHAIRSETTINGS_ColorPresetTitle;
             label_AlphaTitle.Text = Properties.Localization.CROSSHAIRSETTINGS_AlphaTitle;
@@ -111,9 +129,9 @@ namespace Cursed_Market
 
             label_ShareCodeSectionTitle.Text = Properties.Localization.CROSSHAIRSETTINGS_ShareCodeSectionTitle;
             label_ShareCodeInputTitle.Text = Properties.Localization.CROSSHAIRSETTINGS_ShareCodeInputTitle;
-            button_ImportShareCode.Text = Properties.Localization.CROSSHAIRSETTINGS_ImportShareCode;
-            button_ResetDefault.Text = Properties.Localization.CROSSHAIRSETTINGS_ResetDefault;
-            button_SaveChanges.Text = Properties.Localization.CROSSHAIRSETTINGS_SaveChanges;
+            button_ImportShareCode.Content = Properties.Localization.CROSSHAIRSETTINGS_ImportShareCode;
+            button_ResetDefault.Content = Properties.Localization.CROSSHAIRSETTINGS_ResetDefault;
+            button_SaveChanges.Content = Properties.Localization.CROSSHAIRSETTINGS_SaveChanges;
             #endregion
         }
 
@@ -134,16 +152,16 @@ namespace Cursed_Market
             numericUpDown_CircleRadius.Value = ClampDecimal((decimal)cfg.CircleRadius, numericUpDown_CircleRadius);
             numericUpDown_Alpha.Value = ClampDecimal(cfg.Alpha, numericUpDown_Alpha);
 
-            checkBox_Outline.Checked = cfg.HasOutline;
-            numericUpDown_Outline.Enabled = cfg.HasOutline;
+            checkBox_Outline.IsChecked = cfg.HasOutline;
+            numericUpDown_Outline.IsEnabled = cfg.HasOutline;
 
-            checkBox_CenterDot.Checked = cfg.CenterDot;
-            numericUpDown_DotSize.Enabled = cfg.CenterDot;
+            checkBox_CenterDot.IsChecked = cfg.CenterDot;
+            numericUpDown_DotSize.IsEnabled = cfg.CenterDot;
 
-            checkBox_Circle.Checked = cfg.HasCircle;
-            numericUpDown_CircleRadius.Enabled = cfg.HasCircle;
+            checkBox_Circle.IsChecked = cfg.HasCircle;
+            numericUpDown_CircleRadius.IsEnabled = cfg.HasCircle;
 
-            checkBox_TStyle.Checked = cfg.TStyle;
+            checkBox_TStyle.IsChecked = cfg.TStyle;
 
             numericUpDown_Red.Value = cfg.Color.R;
             numericUpDown_Green.Value = cfg.Color.G;
@@ -175,10 +193,10 @@ namespace Cursed_Market
             _workingSettings.OutlineThickness = (float)numericUpDown_Outline.Value;
             _workingSettings.DotSize = (float)numericUpDown_DotSize.Value;
             _workingSettings.CircleRadius = (float)numericUpDown_CircleRadius.Value;
-            _workingSettings.HasOutline = checkBox_Outline.Checked;
-            _workingSettings.CenterDot = checkBox_CenterDot.Checked;
-            _workingSettings.HasCircle = checkBox_Circle.Checked;
-            _workingSettings.TStyle = checkBox_TStyle.Checked;
+            _workingSettings.HasOutline = checkBox_Outline.IsChecked == true;
+            _workingSettings.CenterDot = checkBox_CenterDot.IsChecked == true;
+            _workingSettings.HasCircle = checkBox_Circle.IsChecked == true;
+            _workingSettings.TStyle = checkBox_TStyle.IsChecked == true;
             _workingSettings.Alpha = (byte)numericUpDown_Alpha.Value;
             _workingSettings.Color = Color.FromArgb(
                 255,
@@ -194,24 +212,25 @@ namespace Cursed_Market
             /* Update live Share Code representation in textBox_ShareCode. */
             textBox_ShareCode.Text = CrosshairGenerator.EncodeShareCode(_workingSettings);
 
-            Image oldPreview = pictureBox_CrosshairPreview.Image;
-            pictureBox_CrosshairPreview.Image = CrosshairGenerator.RenderCrosshair(_workingSettings, pictureBox_CrosshairPreview.Width);
-            oldPreview?.Dispose();
+            Avalonia.Media.IImage oldPreview = pictureBox_CrosshairPreview.Source;
+            using (Bitmap renderedPreview = CrosshairGenerator.RenderCrosshair(_workingSettings, (int)pictureBox_CrosshairPreview.Width))
+                pictureBox_CrosshairPreview.Source = renderedPreview.ToAvaloniaBitmap(); // Generator draws with System.Drawing, Avalonia gets its own copy.
+            (oldPreview as IDisposable)?.Dispose();
         }
 
-        private void OnCrosshairParameterChanged(object sender, EventArgs e)
+        private void OnCrosshairParameterChanged(object sender, RoutedEventArgs e)
         {
             if (_updatingControls) return;
 
-            numericUpDown_Outline.Enabled = checkBox_Outline.Checked;
-            numericUpDown_DotSize.Enabled = checkBox_CenterDot.Checked;
-            numericUpDown_CircleRadius.Enabled = checkBox_Circle.Checked;
+            numericUpDown_Outline.IsEnabled = checkBox_Outline.IsChecked == true;
+            numericUpDown_DotSize.IsEnabled = checkBox_CenterDot.IsChecked == true;
+            numericUpDown_CircleRadius.IsEnabled = checkBox_Circle.IsChecked == true;
 
             _changesWereMade = true;
             UpdatePreviewAndShareCode();
         }
 
-        private void comboBox_ColorPreset_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox_ColorPreset_SelectedIndexChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_updatingControls) return;
 
@@ -246,7 +265,7 @@ namespace Cursed_Market
             UpdatePreviewAndShareCode();
         }
 
-        private void OnRgbValueChanged(object sender, EventArgs e)
+        private void OnRgbValueChanged(object sender, RoutedEventArgs e)
         {
             if (_updatingControls) return;
 
@@ -259,16 +278,16 @@ namespace Cursed_Market
             UpdatePreviewAndShareCode();
         }
 
-        private void button_CopyShareCode_MouseClick(object sender, MouseEventArgs e)
+        private void button_CopyShareCode_MouseClick(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(textBox_ShareCode.Text))
             {
-                Clipboard.SetText(textBox_ShareCode.Text.Trim());
+                _ = this.Clipboard?.SetTextAsync(textBox_ShareCode.Text.Trim());
                 Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
             }
         }
 
-        private void button_ImportShareCode_MouseClick(object sender, MouseEventArgs e)
+        private void button_ImportShareCode_MouseClick(object sender, RoutedEventArgs e)
         {
             string code = textBox_ShareCode.Text;
             if (CrosshairGenerator.TryParseShareCode(code, out var parsedSettings))
@@ -286,7 +305,7 @@ namespace Cursed_Market
             }
         }
 
-        private void button_ResetDefault_MouseClick(object sender, MouseEventArgs e)
+        private void button_ResetDefault_MouseClick(object sender, RoutedEventArgs e)
         {
             _workingSettings = CrosshairGenerator.S_CrosshairSettings.Default;
             LoadSettingsIntoControls(_workingSettings);
@@ -294,7 +313,7 @@ namespace Cursed_Market
             Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
         }
 
-        private void button_SaveChanges_MouseClick(object sender, MouseEventArgs e)
+        private void button_SaveChanges_MouseClick(object sender, RoutedEventArgs e)
         {
             SyncControlsToWorkingSettings();
 

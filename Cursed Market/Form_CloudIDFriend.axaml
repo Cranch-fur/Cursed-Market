@@ -1,0 +1,74 @@
+﻿<ui:Form xmlns="https://github.com/avaloniaui"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:ui="using:Cursed_Market.UI"
+         x:Class="Cursed_Market.Form_CloudIDFriend"
+         Title="Cloud-ID Friend Request"
+         Icon="/Resources/Icon_Other.ico"
+         Width="500" Height="200"
+         WindowStartupLocation="CenterScreen"
+         Shown="Form_AddFriend_Shown">
+
+  <!-- Controls are listed bottom-most first (reverse of WinForms Controls.Add order), positions are the same as in the old designer. -->
+  <Canvas Width="500" Height="200">
+
+    <Border x:Name="pictureBox_WindowBorder"
+            Canvas.Left="0" Canvas.Top="0" Width="500" Height="200"
+            BorderBrush="Gray" BorderThickness="1" CornerRadius="8"
+            IsHitTestVisible="False" />
+
+    <Grid x:Name="panel_WindowHeader"
+          Canvas.Left="0" Canvas.Top="0" Width="500" Height="32"
+          Background="#F0F0F0"
+          PointerPressed="panel_WindowHeader_MouseDown">
+      <Button x:Name="button_WindowClose" Classes="Caption Close"
+              HorizontalAlignment="Right"
+              Content="&#xE8BB;"
+              Click="button_WindowClose_MouseClick" />
+    </Grid>
+
+    <TextBox x:Name="textBox_MyCloudID"
+             Canvas.Left="102" Canvas.Top="89" Width="296" Height="21"
+             FontSize="11"
+             IsReadOnly="True" />
+
+    <TextBlock x:Name="label_Title"
+               Canvas.Left="12" Canvas.Top="37" Width="477" Height="18"
+               FontSize="16"
+               TextAlignment="Center"
+               Text="CLOUD-ID FRIEND REQUEST" />
+
+    <TextBlock x:Name="label_MyCloudIDTitle"
+               Canvas.Left="16" Canvas.Top="66" Width="473" Height="20"
+               FontSize="15"
+               TextAlignment="Center"
+               Text="Your Cloud-ID" />
+
+    <Button x:Name="button_MyCloudIDCopy" Classes="Flat"
+            Canvas.Left="377" Canvas.Top="89" Width="21" Height="21"
+            Padding="0"
+            Background="DimGray" Foreground="White"
+            FontSize="11"
+            Content="⧉"
+            IsVisible="False"
+            Click="button_MyCloudIDCopy_MouseClick" />
+
+    <TextBox x:Name="textBox_FriendCloudID"
+             Canvas.Left="102" Canvas.Top="155" Width="275" Height="21"
+             FontSize="11" />
+
+    <TextBlock x:Name="label_FriendCloudIDTitle"
+               Canvas.Left="16" Canvas.Top="132" Width="473" Height="20"
+               FontSize="15"
+               TextAlignment="Center"
+               Text="Cloud-ID to Send a Friend Request to" />
+
+    <Button x:Name="button_FriendCloudIDSend" Classes="Flat"
+            Canvas.Left="377" Canvas.Top="155" Width="21" Height="21"
+            Padding="0"
+            Background="DimGray" Foreground="White"
+            FontSize="11"
+            Content="📨"
+            Click="button_FriendCloudIDSend_MouseClick" />
+
+  </Canvas>
+</ui:Form>
