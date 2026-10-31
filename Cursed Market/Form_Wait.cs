@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+﻿using Cursed_Market.UI;
 
 
 
@@ -61,7 +61,7 @@ namespace Cursed_Market
         {
             var theme = ProgramThemes.GetCurrentPalette();
             this.BackColor = theme.OverlayBack;
-            label_Wait.ForeColor = theme.OverlayText;
+            label_Wait.Foreground = theme.OverlayText.ToBrush();
         }
 
 

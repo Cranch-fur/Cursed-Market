@@ -1,11 +1,13 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Avalonia.Controls;
+using Avalonia.Input;
+using Cursed_Market.UI;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 
 
@@ -63,10 +65,12 @@ namespace Cursed_Market
 
             isRunning = true;
             if (busyControl != null)
-                busyControl.Enabled = false;
+                busyControl.IsEnabled = false;
 
-            Cursor previousCursor = Cursor.Current;
-            Cursor.Current = Cursors.WaitCursor;
+            TopLevel busyWindow = busyControl != null ? TopLevel.GetTopLevel(busyControl) : null; // Avalonia has no global cursor, wait cursor is shown over the busy window instead.
+            Cursor previousCursor = busyWindow?.Cursor;
+            if (busyWindow != null)
+                busyWindow.Cursor = new Cursor(StandardCursorType.Wait);
 
             S_SyncResult result;
             try
@@ -75,9 +79,10 @@ namespace Cursed_Market
             }
             finally
             {
-                Cursor.Current = previousCursor;
-                if (busyControl != null && !busyControl.IsDisposed)
-                    busyControl.Enabled = true;
+                if (busyWindow != null)
+                    busyWindow.Cursor = previousCursor;
+                if (busyControl != null)
+                    busyControl.IsEnabled = true;
 
                 isRunning = false;
             }
@@ -232,8 +237,10 @@ namespace Cursed_Market
 
             isCheckedThisSession = true;
 
-            Cursor previousCursor = Cursor.Current;
-            Cursor.Current = Cursors.WaitCursor;
+            TopLevel busyWindow = busyControl != null ? TopLevel.GetTopLevel(busyControl) : null;
+            Cursor previousCursor = busyWindow?.Cursor;
+            if (busyWindow != null)
+                busyWindow.Cursor = new Cursor(StandardCursorType.Wait);
 
             S_UpdateCheckResult checkResult;
             try
@@ -242,7 +249,8 @@ namespace Cursed_Market
             }
             finally
             {
-                Cursor.Current = previousCursor;
+                if (busyWindow != null)
+                    busyWindow.Cursor = previousCursor;
             }
 
             /* Network errors are ignored here, local files are used as is. */

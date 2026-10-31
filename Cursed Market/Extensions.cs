@@ -1,5 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Avalonia.Controls;
+using Avalonia.Media;
+using Newtonsoft.Json.Linq;
 using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -88,6 +91,39 @@ namespace Cursed_Market
                 return maxValue;
 
             return value;
+        }
+
+
+
+
+        /* Properties.Resources still hands out System.Drawing images / icons, Avalonia needs its own types for them. */
+        public static Avalonia.Media.Imaging.Bitmap ToAvaloniaBitmap(this System.Drawing.Image image)
+        {
+            if (image == null)
+                return null;
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                ms.Position = 0;
+                return new Avalonia.Media.Imaging.Bitmap(ms);
+            }
+        }
+        public static WindowIcon ToWindowIcon(this System.Drawing.Icon icon)
+        {
+            if (icon == null)
+                return null;
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                icon.Save(ms);
+                ms.Position = 0;
+                return new WindowIcon(ms);
+            }
+        }
+        public static IBrush ToBrush(this Color color)
+        {
+            return new SolidColorBrush(color);
         }
 
 

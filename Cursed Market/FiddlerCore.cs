@@ -1,11 +1,11 @@
-﻿using Fiddler;
+﻿using Cursed_Market.UI;
+using Fiddler;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Windows.Forms;
 
 
 
@@ -152,7 +152,7 @@ namespace Cursed_Market
                     {
                         if (ProgramFeatures.Catalog.enabled)
                         {
-                            ProgramCache.Forms.Main.SetGameChangerStatus(CursedAPI.E_GameChangers.customizationsKing, CursedAPI.E_GameChangerStatus.Disabled);
+                            ProgramGlobals.SetGameChangerStatus(CursedAPI.E_GameChangers.customizationsKing, CursedAPI.E_GameChangerStatus.Disabled); // Proxy thread, ProgramGlobals hands it over to UI thread.
                             ProgramFeatures.Catalog.enabled = false;
                         }
 

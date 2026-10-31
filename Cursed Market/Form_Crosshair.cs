@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Avalonia;
+using Cursed_Market.UI;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
 
 
@@ -30,39 +31,7 @@ namespace Cursed_Market
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr GetModuleHandle(string lpModuleName);
 
-        [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
-        private static extern bool UpdateLayeredWindow(IntPtr hwnd, IntPtr hdcDst, ref Point pptDst, ref Size psize, IntPtr hdcSrc, ref Point pptSrc, uint crKey, [In] ref BLENDFUNCTION pblend, uint dwFlags);
-
-        [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
-        private static extern IntPtr GetDC(IntPtr hWnd);
-
-        [DllImport("user32.dll", ExactSpelling = true)]
-        private static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
-
-        [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
-        private static extern IntPtr CreateCompatibleDC(IntPtr hDC);
-
-        [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
-        private static extern bool DeleteDC(IntPtr hdc);
-
-        [DllImport("gdi32.dll", ExactSpelling = true)]
-        private static extern IntPtr SelectObject(IntPtr hDC, IntPtr hObject);
-
-        [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
-        private static extern bool DeleteObject(IntPtr hObject);
-
-        [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        private struct BLENDFUNCTION
-        {
-            public byte BlendOp;
-            public byte BlendFlags;
-            public byte SourceConstantAlpha;
-            public byte AlphaFormat;
-        }
-
-        private const byte AC_SRC_OVER = 0x00;
-        private const byte AC_SRC_ALPHA = 0x01;
-        private const uint ULW_ALPHA = 0x00000002;
+        /* UpdateLayeredWindow / GDI imports are gone: Avalonia renders the per-pixel alpha bitmap into the transparent window itself. */
 
         private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
 
@@ -81,7 +50,7 @@ namespace Cursed_Market
 
         private IntPtr _hookID = IntPtr.Zero;
         private readonly LowLevelMouseProc _proc;
-        private Bitmap _currentBitmap;
+        private Avalonia.Media.Imaging.Bitmap _currentBitmap;
 
         private const int WH_MOUSE_LL = 14;
         private const int WM_RBUTTONDOWN = 0x204;
@@ -91,8 +60,8 @@ namespace Cursed_Market
         {
             InitializeComponent();
 
-            /* Hide legacy PictureBox since UpdateLayeredWindow renders directly onto the form surface. */
-            pictureBox_Crosshair.Visible = false;
+            /* PictureBox is what displays the crosshair now, transparent window replaces UpdateLayeredWindow surface. */
+            pictureBox_Crosshair.IsVisible = true;
 
             _proc = HookCallback;
 
@@ -156,64 +125,36 @@ namespace Cursed_Market
         }
 
         /* Applies true 32-bit per-pixel alpha bitmap to the window. */
-        private void ApplyLayeredBitmap(Bitmap bitmap, int opacityPercent)
+        private void ApplyLayeredBitmap(Avalonia.Media.Imaging.Bitmap bitmap, int opacityPercent)
         {
             if (!this.IsHandleCreated || this.IsDisposed || bitmap == null)
                 return;
 
-            /* Ensure the bitmap is formatted as 32bppArgb for alpha channel support. */
-            Bitmap argbBitmap = bitmap.PixelFormat == PixelFormat.Format32bppArgb
-                ? bitmap
-                : bitmap.Clone(new Rectangle(0, 0, bitmap.Width, bitmap.Height), PixelFormat.Format32bppArgb);
+            /* Bitmap is drawn 1:1 in physical pixels, so DIP size depends on screen scaling. */
+            PixelRect screenBounds = this.Screens.Primary?.Bounds ?? new PixelRect(0, 0, 1920, 1080);
+            double screenScaling = this.Screens.Primary?.Scaling ?? 1.0;
+            PixelSize size = bitmap.PixelSize;
+            PixelPoint topPos = new PixelPoint(
+                screenBounds.X + screenBounds.Width / 2 - size.Width / 2,
+                screenBounds.Y + screenBounds.Height / 2 - size.Height / 2);
 
-            IntPtr screenDc = GetDC(IntPtr.Zero);
-            IntPtr memDc = CreateCompatibleDC(screenDc);
-            IntPtr hBitmap = IntPtr.Zero;
-            IntPtr oldBitmap = IntPtr.Zero;
+            double opacityValue = Math.Max(0, Math.Min(100, opacityPercent)) / 100.0;
 
-            try
-            {
-                hBitmap = argbBitmap.GetHbitmap(Color.FromArgb(0));
-                oldBitmap = SelectObject(memDc, hBitmap);
+            pictureBox_Crosshair.Source = bitmap;
+            pictureBox_Crosshair.Width = size.Width / screenScaling;
+            pictureBox_Crosshair.Height = size.Height / screenScaling;
+            pictureBox_Crosshair.Opacity = opacityValue;
 
-                Rectangle screenBounds = Screen.PrimaryScreen.Bounds;
-                Size size = new Size(argbBitmap.Width, argbBitmap.Height);
-                Point topPos = new Point(
-                    screenBounds.Width / 2 - size.Width / 2,
-                    screenBounds.Height / 2 - size.Height / 2);
-                Point pointSource = new Point(0, 0);
-
-                byte alphaValue = (byte)Math.Round(Math.Max(0, Math.Min(100, opacityPercent)) * 2.55f);
-
-                BLENDFUNCTION blend = new BLENDFUNCTION
-                {
-                    BlendOp = AC_SRC_OVER,
-                    BlendFlags = 0,
-                    SourceConstantAlpha = alphaValue,
-                    AlphaFormat = AC_SRC_ALPHA
-                };
-
-                UpdateLayeredWindow(this.Handle, screenDc, ref topPos, ref size, memDc, ref pointSource, 0, ref blend, ULW_ALPHA);
-            }
-            finally
-            {
-                ReleaseDC(IntPtr.Zero, screenDc);
-                if (hBitmap != IntPtr.Zero)
-                {
-                    SelectObject(memDc, oldBitmap);
-                    DeleteObject(hBitmap);
-                }
-                DeleteDC(memDc);
-
-                if (!ReferenceEquals(argbBitmap, bitmap))
-                    argbBitmap.Dispose();
-            }
+            this.Width = size.Width / screenScaling;
+            this.Height = size.Height / screenScaling;
+            this.Position = topPos;
         }
 
         private void SetCrosshairBitmap(Image sourceImage)
         {
             _currentBitmap?.Dispose();
-            _currentBitmap = sourceImage != null ? new Bitmap(sourceImage) : new Bitmap(1, 1, PixelFormat.Format32bppArgb);
+            using (Bitmap sourceBitmap = sourceImage != null ? new Bitmap(sourceImage) : new Bitmap(1, 1, PixelFormat.Format32bppArgb))
+                _currentBitmap = sourceBitmap.ToAvaloniaBitmap();
             ApplyLayeredBitmap(_currentBitmap, ProgramFeatures.Crosshair.GetOpacity());
         }
 

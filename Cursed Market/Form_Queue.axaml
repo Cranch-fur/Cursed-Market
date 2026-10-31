@@ -1,0 +1,27 @@
+﻿<ui:Form xmlns="https://github.com/avaloniaui"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:ui="using:Cursed_Market.UI"
+         x:Class="Cursed_Market.Form_Queue"
+         Title="Queue"
+         Icon="/Resources/Icon_Other.ico"
+         Width="800" Height="450"
+         SystemDecorations="None"
+         ExtendClientAreaToDecorationsHint="False"
+         TransparencyLevelHint="Transparent"
+         Background="Transparent"
+         ShowInTaskbar="False"
+         ShowActivated="False"
+         Topmost="True"
+         WindowStartupLocation="Manual"
+         Load="Form_Queue_Load"
+         FormClosing="Form_Queue_FormClosing">
+
+  <!-- Whole primary screen, transparent (former TransparencyKey) and click-through (CreateParams), only the label is drawn. -->
+  <Canvas>
+    <TextBlock x:Name="label_QueueStatus"
+               Canvas.Left="12" Canvas.Top="9"
+               Background="WhiteSmoke"
+               FontSize="21"
+               Text="QUEUE POSITION WILL BE SHOWN HERE" />
+  </Canvas>
+</ui:Form>

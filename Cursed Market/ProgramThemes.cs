@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Avalonia.Controls;
+using Avalonia.Controls.Documents;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Cursed_Market.UI;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
 
 
 
@@ -38,16 +41,16 @@ namespace Cursed_Market
             public Color PrimaryButtonBorder { get; set; }
             public Color SecondaryButtonBack { get; set; }
             public Color TrayButtonBack { get; set; }
-            public Image BannerImage { get; set; }
+            public Bitmap BannerImage { get; set; }
 
             /* Automatically selects black or white icon variants based on theme brightness. */
-            public Image SettingsIcon => IsLightTheme ? Properties.Resources.IMG_BUTTON_SETTINGS_BLACK : Properties.Resources.IMG_BUTTON_SETTINGS_WHITE;
-            public Image APIIcon => IsLightTheme ? Properties.Resources.IMG_BUTTON_API_BLACK : Properties.Resources.IMG_BUTTON_API_WHITE;
-            public Image AddFriendIcon => IsLightTheme ? Properties.Resources.IMG_BUTTON_ADDFRIEND_BLACK : Properties.Resources.IMG_BUTTON_ADDFRIEND_WHITE;
-            public Image CharactersPresetIcon => IsLightTheme ? Properties.Resources.IMG_BUTTON_CHARACTERSPRESET_BLACK : Properties.Resources.IMG_BUTTON_CHARACTERSPRESET_WHITE;
-            public Image DiscordIcon => IsLightTheme ? Properties.Resources.IMG_SOCIAL_DISCORD_BLACK : Properties.Resources.IMG_SOCIAL_DISCORD_WHITE;
-            public Image TelegramIcon => IsLightTheme ? Properties.Resources.IMG_SOCIAL_TELEGRAM_BLACK : Properties.Resources.IMG_SOCIAL_TELEGRAM_WHITE;
-            public Image BoostyIcon => IsLightTheme ? Properties.Resources.IMG_SOCIAL_BOOSTY_BLACK : Properties.Resources.IMG_SOCIAL_BOOSTY_WHITE;
+            public Bitmap SettingsIcon => IsLightTheme ? Properties.Resources.IMG_BUTTON_SETTINGS_BLACK.ToAvaloniaBitmap() : Properties.Resources.IMG_BUTTON_SETTINGS_WHITE.ToAvaloniaBitmap();
+            public Bitmap APIIcon => IsLightTheme ? Properties.Resources.IMG_BUTTON_API_BLACK.ToAvaloniaBitmap() : Properties.Resources.IMG_BUTTON_API_WHITE.ToAvaloniaBitmap();
+            public Bitmap AddFriendIcon => IsLightTheme ? Properties.Resources.IMG_BUTTON_ADDFRIEND_BLACK.ToAvaloniaBitmap() : Properties.Resources.IMG_BUTTON_ADDFRIEND_WHITE.ToAvaloniaBitmap();
+            public Bitmap CharactersPresetIcon => IsLightTheme ? Properties.Resources.IMG_BUTTON_CHARACTERSPRESET_BLACK.ToAvaloniaBitmap() : Properties.Resources.IMG_BUTTON_CHARACTERSPRESET_WHITE.ToAvaloniaBitmap();
+            public Bitmap DiscordIcon => IsLightTheme ? Properties.Resources.IMG_SOCIAL_DISCORD_BLACK.ToAvaloniaBitmap() : Properties.Resources.IMG_SOCIAL_DISCORD_WHITE.ToAvaloniaBitmap();
+            public Bitmap TelegramIcon => IsLightTheme ? Properties.Resources.IMG_SOCIAL_TELEGRAM_BLACK.ToAvaloniaBitmap() : Properties.Resources.IMG_SOCIAL_TELEGRAM_WHITE.ToAvaloniaBitmap();
+            public Bitmap BoostyIcon => IsLightTheme ? Properties.Resources.IMG_SOCIAL_BOOSTY_BLACK.ToAvaloniaBitmap() : Properties.Resources.IMG_SOCIAL_BOOSTY_WHITE.ToAvaloniaBitmap();
         }
 
         private static readonly Dictionary<E_Themes, ThemePalette> Palettes = new Dictionary<E_Themes, ThemePalette>
@@ -55,56 +58,56 @@ namespace Cursed_Market
             [E_Themes.defaultTheme] = new ThemePalette
             {
                 IsLightTheme = true,
-                FormBack = Color.White,
-                OverlayBack = Color.WhiteSmoke,
-                OverlayText = Color.Black,
-                HeaderBack = SystemColors.Control,
-                PrimaryText = Color.Black,
-                TitleText = Color.Black,
-                MutedText = SystemColors.ControlText,
-                SecondaryCardBack = Color.WhiteSmoke,
-                PrimaryButtonBack = Color.Black,
-                PrimaryButtonText = Color.White,
-                PrimaryButtonBorder = Color.Gray,
-                SecondaryButtonBack = Color.DimGray,
-                TrayButtonBack = Color.DarkGray,
-                BannerImage = Properties.Resources.IMG_BANNER_BLACK
+                FormBack = Colors.White,
+                OverlayBack = Colors.WhiteSmoke,
+                OverlayText = Colors.Black,
+                HeaderBack = Color.FromRgb(240, 240, 240), // SystemColors.Control
+                PrimaryText = Colors.Black,
+                TitleText = Colors.Black,
+                MutedText = Colors.Black, // SystemColors.ControlText
+                SecondaryCardBack = Colors.WhiteSmoke,
+                PrimaryButtonBack = Colors.Black,
+                PrimaryButtonText = Colors.White,
+                PrimaryButtonBorder = Colors.Gray,
+                SecondaryButtonBack = Colors.DimGray,
+                TrayButtonBack = Colors.DarkGray,
+                BannerImage = Properties.Resources.IMG_BANNER_BLACK.ToAvaloniaBitmap()
             },
             [E_Themes.legacy] = new ThemePalette
             {
                 IsLightTheme = false,
                 FormBack = Color.FromArgb(255, 46, 51, 73),
                 OverlayBack = Color.FromArgb(255, 46, 51, 73),
-                OverlayText = Color.White,
+                OverlayText = Colors.White,
                 HeaderBack = Color.FromArgb(255, 24, 30, 54),
-                PrimaryText = Color.White,
-                TitleText = Color.White,
-                MutedText = Color.DimGray,
+                PrimaryText = Colors.White,
+                TitleText = Colors.White,
+                MutedText = Colors.DimGray,
                 SecondaryCardBack = Color.FromArgb(255, 19, 24, 45),
-                PrimaryButtonBack = Color.IndianRed,
-                PrimaryButtonText = Color.White,
-                PrimaryButtonBorder = Color.DarkRed,
-                SecondaryButtonBack = Color.RoyalBlue,
-                TrayButtonBack = Color.SlateBlue,
-                BannerImage = Properties.Resources.IMG_BANNER_WHITE
+                PrimaryButtonBack = Colors.IndianRed,
+                PrimaryButtonText = Colors.White,
+                PrimaryButtonBorder = Colors.DarkRed,
+                SecondaryButtonBack = Colors.RoyalBlue,
+                TrayButtonBack = Colors.SlateBlue,
+                BannerImage = Properties.Resources.IMG_BANNER_WHITE.ToAvaloniaBitmap()
             },
             [E_Themes.darkMemories] = new ThemePalette
             {
                 IsLightTheme = false,
                 FormBack = Color.FromArgb(255, 44, 47, 51),
                 OverlayBack = Color.FromArgb(255, 44, 47, 51),
-                OverlayText = Color.White,
+                OverlayText = Colors.White,
                 HeaderBack = Color.FromArgb(255, 35, 39, 42),
-                PrimaryText = Color.White,
-                TitleText = Color.White,
-                MutedText = Color.DimGray,
+                PrimaryText = Colors.White,
+                TitleText = Colors.White,
+                MutedText = Colors.DimGray,
                 SecondaryCardBack = Color.FromArgb(255, 40, 43, 46),
                 PrimaryButtonBack = Color.FromArgb(255, 65, 65, 65),
-                PrimaryButtonText = Color.White,
+                PrimaryButtonText = Colors.White,
                 PrimaryButtonBorder = Color.FromArgb(255, 95, 95, 95),
                 SecondaryButtonBack = Color.FromArgb(255, 85, 85, 85),
-                TrayButtonBack = Color.SlateBlue,
-                BannerImage = Properties.Resources.IMG_BANNER_WHITE
+                TrayButtonBack = Colors.SlateBlue,
+                BannerImage = Properties.Resources.IMG_BANNER_WHITE.ToAvaloniaBitmap()
             },
             [E_Themes.saintsRow] = new ThemePalette
             {
@@ -113,16 +116,16 @@ namespace Cursed_Market
                 OverlayBack = Color.FromArgb(255, 37, 13, 57),
                 OverlayText = Color.FromArgb(255, 146, 71, 214),
                 HeaderBack = Color.FromArgb(255, 55, 20, 86),
-                PrimaryText = Color.White,
-                TitleText = Color.White,
-                MutedText = Color.DimGray,
+                PrimaryText = Colors.White,
+                TitleText = Colors.White,
+                MutedText = Colors.DimGray,
                 SecondaryCardBack = Color.FromArgb(255, 31, 10, 48),
                 PrimaryButtonBack = Color.FromArgb(255, 89, 67, 218),
-                PrimaryButtonText = Color.White,
-                PrimaryButtonBorder = Color.MediumPurple,
+                PrimaryButtonText = Colors.White,
+                PrimaryButtonBorder = Colors.MediumPurple,
                 SecondaryButtonBack = Color.FromArgb(255, 118, 93, 222),
-                TrayButtonBack = Color.SlateBlue,
-                BannerImage = Properties.Resources.IMG_BANNER_WHITE
+                TrayButtonBack = Colors.SlateBlue,
+                BannerImage = Properties.Resources.IMG_BANNER_WHITE.ToAvaloniaBitmap()
             },
             [E_Themes.dracula] = new ThemePalette
             {
@@ -132,15 +135,15 @@ namespace Cursed_Market
                 OverlayText = Color.FromArgb(255, 248, 248, 242),
                 HeaderBack = Color.FromArgb(255, 68, 71, 90),
                 PrimaryText = Color.FromArgb(255, 248, 248, 242),
-                TitleText = Color.White,
+                TitleText = Colors.White,
                 MutedText = Color.FromArgb(255, 98, 114, 164),
                 SecondaryCardBack = Color.FromArgb(255, 62, 65, 83),
                 PrimaryButtonBack = Color.FromArgb(255, 89, 67, 218),
                 PrimaryButtonText = Color.FromArgb(255, 248, 248, 242),
-                PrimaryButtonBorder = Color.MediumPurple,
+                PrimaryButtonBorder = Colors.MediumPurple,
                 SecondaryButtonBack = Color.FromArgb(255, 118, 93, 222),
-                TrayButtonBack = Color.SlateBlue,
-                BannerImage = Properties.Resources.IMG_BANNER_WHITE
+                TrayButtonBack = Colors.SlateBlue,
+                BannerImage = Properties.Resources.IMG_BANNER_WHITE.ToAvaloniaBitmap()
             },
             [E_Themes.christmas] = new ThemePalette
             {
@@ -150,15 +153,15 @@ namespace Cursed_Market
                 OverlayText = Color.FromArgb(255, 255, 207, 109),
                 HeaderBack = Color.FromArgb(255, 14, 14, 14),
                 PrimaryText = Color.FromArgb(255, 255, 207, 109),
-                TitleText = Color.White,
+                TitleText = Colors.White,
                 MutedText = Color.FromArgb(255, 170, 142, 87),
                 SecondaryCardBack = Color.FromArgb(255, 19, 19, 19),
                 PrimaryButtonBack = Color.FromArgb(255, 221, 34, 85),
-                PrimaryButtonText = Color.White,
-                PrimaryButtonBorder = Color.HotPink,
+                PrimaryButtonText = Colors.White,
+                PrimaryButtonBorder = Colors.HotPink,
                 SecondaryButtonBack = Color.FromArgb(255, 142, 22, 55),
-                TrayButtonBack = Color.SlateBlue,
-                BannerImage = Properties.Resources.IMG_BANNER_CHRISTMAS2022
+                TrayButtonBack = Colors.SlateBlue,
+                BannerImage = Properties.Resources.IMG_BANNER_CHRISTMAS2022.ToAvaloniaBitmap()
             }
         };
 
@@ -187,7 +190,7 @@ namespace Cursed_Market
         {
             foreach (Control ctrl in controls)
             {
-                if (ctrl != null) ctrl.ForeColor = color;
+                if (ctrl != null) ctrl.SetValue(TextElement.ForegroundProperty, color.ToBrush()); // TextBlock & TemplatedControl share the same Foreground property.
             }
         }
 

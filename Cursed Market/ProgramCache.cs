@@ -4,7 +4,7 @@
     {
         public static class Forms
         {
-            /* Explicit static constructor removes 'beforefieldinit' so forms are never instantiated before SetCompatibleTextRenderingDefault. */
+            /* Explicit static constructor removes 'beforefieldinit' so forms are never instantiated before Avalonia has been set up. */
             static Forms()
             {
             }

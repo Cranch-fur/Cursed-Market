@@ -1,7 +1,8 @@
-﻿using System;
-using System.Drawing;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Cursed_Market.UI;
+using System;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
 
 
@@ -36,15 +37,21 @@ namespace Cursed_Market
             InitializeSettings();
 
 
-            this.Width = Screen.PrimaryScreen.Bounds.Width;
-            this.Height = Screen.PrimaryScreen.Bounds.Height;
-            label_QueueStatus.Location = new Point(this.Width / 128, this.Height / 128);
+            /* Screen bounds are physical pixels, Avalonia sizes are DIPs. */
+            PixelRect screenBounds = this.Screens.Primary?.Bounds ?? new PixelRect(0, 0, 1920, 1080);
+            double screenScaling = this.Screens.Primary?.Scaling ?? 1.0;
+
+            this.Position = screenBounds.Position;
+            this.Width = screenBounds.Width / screenScaling;
+            this.Height = screenBounds.Height / screenScaling;
+            Canvas.SetLeft(label_QueueStatus, (int)this.Width / 128);
+            Canvas.SetTop(label_QueueStatus, (int)this.Height / 128);
         }
 
 
         private void Form_Queue_Load(object sender, EventArgs e)
         {
-            this.TransparencyKey = Color.DarkSlateGray;
+            // TransparencyKey isn't needed anymore, window itself is transparent (see Form_Queue.axaml).
         }
 
 
@@ -53,8 +60,8 @@ namespace Cursed_Market
         public void ReloadTheme()
         {
             var theme = ProgramThemes.GetCurrentPalette();
-            label_QueueStatus.BackColor = theme.OverlayBack;
-            label_QueueStatus.ForeColor = theme.OverlayText;
+            label_QueueStatus.Background = theme.OverlayBack.ToBrush();
+            label_QueueStatus.Foreground = theme.OverlayText.ToBrush();
         }
 
 

@@ -1,5 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using Cursed_Market.UI;
+using System;
 
 
 
@@ -35,15 +38,13 @@ namespace Cursed_Market
             }
         }
 
-        private void button_WindowClose_MouseClick(object sender, MouseEventArgs e) => this.Close();
+        private void button_WindowClose_MouseClick(object sender, RoutedEventArgs e) => this.Close();
 
-        private void panel_WindowHeader_MouseDown(object sender, MouseEventArgs e)
+        private void panel_WindowHeader_MouseDown(object sender, PointerPressedEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             {
-                panel_WindowHeader.Capture = false;
-                Message mouse = Message.Create(Handle, 0xa1, new IntPtr(2), IntPtr.Zero);
-                WndProc(ref mouse);
+                BeginMoveDrag(e); // Same as sending WM_NCLBUTTONDOWN (HTCAPTION), system takes over window dragging.
             }
         }
 
@@ -52,7 +53,7 @@ namespace Cursed_Market
             var theme = ProgramThemes.GetCurrentPalette();
 
             this.BackColor = theme.FormBack;
-            panel_WindowHeader.BackColor = theme.HeaderBack;
+            panel_WindowHeader.Background = ToBackdropBrush(theme.HeaderBack);
 
             ProgramThemes.ApplyForeColor(theme.TitleText,
                 label_FormTitle, label_Host, label_Status, label_Update,
@@ -60,9 +61,9 @@ namespace Cursed_Market
                 label_BloodwebData, label_CharactersList, label_ItemsList,
                 label_Catalog, label_AntiKillSwitch, label_RobotoFont, label_CharactersPreset);
 
-            button_SaveChanges.BackColor = theme.PrimaryButtonBack;
-            button_SaveChanges.ForeColor = theme.PrimaryButtonText;
-            button_SaveChanges.FlatAppearance.BorderColor = theme.PrimaryButtonBorder;
+            button_SaveChanges.Background = theme.PrimaryButtonBack.ToBrush();
+            button_SaveChanges.Foreground = theme.PrimaryButtonText.ToBrush();
+            button_SaveChanges.BorderBrush = theme.PrimaryButtonBorder.ToBrush();
         }
 
         private void InitializeSettings()
@@ -87,12 +88,12 @@ namespace Cursed_Market
             textBox_CharactersPreset.Text = WinReg.GetData_SZ(WinReg.API.pathCharactersPreset, CursedAPI.SE_CommonEndpoints.Defaults.CharactersPreset);
         }
 
-        private void OnParameterChanged(object sender, EventArgs e)
+        private void OnParameterChanged(object sender, TextChangedEventArgs e)
         {
             _changesWereMade = true;
         }
 
-        private void button_ResetDefault_MouseClick(object sender, MouseEventArgs e)
+        private void button_ResetDefault_MouseClick(object sender, RoutedEventArgs e)
         {
             textBox_Host.Text = CursedAPI.SE_CommonEndpoints.Defaults.Host;
             textBox_Status.Text = CursedAPI.SE_CommonEndpoints.Defaults.Status;
@@ -112,7 +113,7 @@ namespace Cursed_Market
             Media.PlaySoundFromStream(Properties.Resources.SFX_Activate);
         }
 
-        private void button_SaveChanges_MouseClick(object sender, MouseEventArgs e)
+        private void button_SaveChanges_MouseClick(object sender, RoutedEventArgs e)
         {
             WinReg.SetData_SZ(WinReg.API.host, textBox_Host.Text.Trim());
             WinReg.SetData_SZ(WinReg.API.pathStatus, textBox_Status.Text.Trim());

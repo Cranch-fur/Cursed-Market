@@ -1,0 +1,249 @@
+﻿<ui:Form xmlns="https://github.com/avaloniaui"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:ui="using:Cursed_Market.UI"
+         x:Class="Cursed_Market.Form_CrosshairSettings"
+         Title="Crosshair Configurator"
+         Icon="/Resources/Icon_Other.ico"
+         Width="700" Height="548"
+         WindowStartupLocation="CenterScreen"
+         Shown="Form_CrosshairSettings_Shown"
+         FormClosing="Form_CrosshairSettings_FormClosing">
+
+  <!-- Controls are listed bottom-most first (reverse of WinForms Controls.Add order), positions are the same as in the old designer. -->
+  <Canvas Width="700" Height="548">
+
+    <Border x:Name="pictureBox_Background"
+            Canvas.Left="0" Canvas.Top="22" Width="700" Height="526"
+            BorderBrush="#33808080" BorderThickness="1" CornerRadius="0,0,8,8"
+            IsHitTestVisible="False" />
+
+    <Grid x:Name="panel_WindowHeader"
+          Canvas.Left="0" Canvas.Top="0" Width="700" Height="32"
+          Background="#F0F0F0"
+          PointerPressed="panel_WindowHeader_MouseDown">
+      <Button x:Name="button_WindowClose" Classes="Caption Close"
+              HorizontalAlignment="Right"
+              Content="&#xE8BB;"
+              Click="button_WindowClose_MouseClick" />
+    </Grid>
+
+    <TextBlock x:Name="label_FormTitle"
+               Canvas.Left="24" Canvas.Top="35" Width="648" Height="24"
+               FontSize="21"
+               TextAlignment="Center"
+               Text="CONFIGURE CROSSHAIR" />
+
+    <Border x:Name="pictureBox_CrosshairPreviewBorder" Classes="Card"
+            Canvas.Left="24" Canvas.Top="75" Width="223" Height="223"
+            Background="WhiteSmoke"
+            ClipToBounds="True">
+      <Image x:Name="pictureBox_CrosshairPreview"
+             Width="223" Height="223"
+             Stretch="None"
+             HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </Border>
+
+    <TextBlock x:Name="label_LengthTitle"
+               Canvas.Left="262" Canvas.Top="75" Width="126" Height="17"
+               FontSize="13" TextAlignment="Center"
+               Text="LENGTH" />
+
+    <NumericUpDown x:Name="numericUpDown_Length"
+                   Canvas.Left="262" Canvas.Top="95" Width="126" Height="23"
+                   FontSize="13"
+                   FormatString="0.0" Increment="0.1"
+                   Minimum="0" Maximum="20" Value="2.5" />
+
+    <TextBlock x:Name="label_ThicknessTitle"
+               Canvas.Left="404" Canvas.Top="75" Width="126" Height="17"
+               FontSize="13" TextAlignment="Center"
+               Text="THICKNESS" />
+
+    <NumericUpDown x:Name="numericUpDown_Thickness"
+                   Canvas.Left="404" Canvas.Top="95" Width="126" Height="23"
+                   FontSize="13"
+                   FormatString="0.0" Increment="0.1"
+                   Minimum="0.1" Maximum="10" Value="1" />
+
+    <TextBlock x:Name="label_GapTitle"
+               Canvas.Left="546" Canvas.Top="75" Width="126" Height="17"
+               FontSize="13" TextAlignment="Center"
+               Text="CENTER GAP" />
+
+    <NumericUpDown x:Name="numericUpDown_Gap"
+                   Canvas.Left="546" Canvas.Top="95" Width="126" Height="23"
+                   FontSize="13"
+                   FormatString="0.0" Increment="0.1"
+                   Minimum="-10" Maximum="10" Value="-1" />
+
+    <TextBlock x:Name="label_OutlineTitle"
+               Canvas.Left="262" Canvas.Top="127" Width="126" Height="17"
+               FontSize="13" TextAlignment="Center"
+               Text="OUTLINE SIZE" />
+
+    <NumericUpDown x:Name="numericUpDown_Outline"
+                   Canvas.Left="262" Canvas.Top="147" Width="126" Height="23"
+                   FontSize="13"
+                   FormatString="0.0" Increment="0.5"
+                   Minimum="0.5" Maximum="3" Value="1" />
+
+    <TextBlock x:Name="label_DotSizeTitle"
+               Canvas.Left="404" Canvas.Top="127" Width="126" Height="17"
+               FontSize="13" TextAlignment="Center"
+               Text="DOT SIZE" />
+
+    <NumericUpDown x:Name="numericUpDown_DotSize"
+                   Canvas.Left="404" Canvas.Top="147" Width="126" Height="23"
+                   FontSize="13"
+                   FormatString="0.0" Increment="0.1"
+                   Minimum="0.5" Maximum="10" Value="1" />
+
+    <TextBlock x:Name="label_CircleRadiusTitle"
+               Canvas.Left="546" Canvas.Top="127" Width="126" Height="17"
+               FontSize="13" TextAlignment="Center"
+               Text="CIRCLE RADIUS" />
+
+    <NumericUpDown x:Name="numericUpDown_CircleRadius"
+                   Canvas.Left="546" Canvas.Top="147" Width="126" Height="23"
+                   FontSize="13"
+                   FormatString="0.0" Increment="0.5"
+                   Minimum="1" Maximum="30" Value="5" />
+
+    <CheckBox x:Name="checkBox_Outline"
+              Canvas.Left="262" Canvas.Top="180"
+              FontSize="12"
+              IsChecked="True"
+              Content="Draw Outline" />
+
+    <CheckBox x:Name="checkBox_CenterDot"
+              Canvas.Left="372" Canvas.Top="180"
+              FontSize="12"
+              Content="Center Dot" />
+
+    <CheckBox x:Name="checkBox_Circle"
+              Canvas.Left="470" Canvas.Top="180"
+              FontSize="12"
+              Content="Center Circle" />
+
+    <CheckBox x:Name="checkBox_TStyle"
+              Canvas.Left="580" Canvas.Top="180"
+              FontSize="12"
+              Content="T-Style" />
+
+    <TextBlock x:Name="label_ColorPresetTitle"
+               Canvas.Left="262" Canvas.Top="206" Width="195" Height="17"
+               FontSize="13" TextAlignment="Center"
+               Text="COLOR PRESET" />
+
+    <ComboBox x:Name="comboBox_ColorPreset"
+              Canvas.Left="262" Canvas.Top="226" Width="195" Height="23"
+              FontSize="13"
+              SelectionChanged="comboBox_ColorPreset_SelectedIndexChanged">
+      <ComboBoxItem>Red</ComboBoxItem>
+      <ComboBoxItem>Green</ComboBoxItem>
+      <ComboBoxItem>Yellow</ComboBoxItem>
+      <ComboBoxItem>Blue</ComboBoxItem>
+      <ComboBoxItem>Cyan</ComboBoxItem>
+      <ComboBoxItem>White</ComboBoxItem>
+      <ComboBoxItem>Pink</ComboBoxItem>
+      <ComboBoxItem>Custom RGB</ComboBoxItem>
+    </ComboBox>
+
+    <TextBlock x:Name="label_AlphaTitle"
+               Canvas.Left="477" Canvas.Top="206" Width="195" Height="17"
+               FontSize="13" TextAlignment="Center"
+               Text="ALPHA (10-255)" />
+
+    <NumericUpDown x:Name="numericUpDown_Alpha"
+                   Canvas.Left="477" Canvas.Top="226" Width="195" Height="23"
+                   FontSize="13"
+                   FormatString="0" Increment="1"
+                   Minimum="10" Maximum="255" Value="255" />
+
+    <TextBlock x:Name="label_RedTitle"
+               Canvas.Left="262" Canvas.Top="255" Width="126" Height="17"
+               FontSize="13" TextAlignment="Center"
+               Text="RED (R)" />
+
+    <NumericUpDown x:Name="numericUpDown_Red"
+                   Canvas.Left="262" Canvas.Top="275" Width="126" Height="23"
+                   FontSize="13"
+                   FormatString="0" Increment="1"
+                   Minimum="0" Maximum="255" Value="0" />
+
+    <TextBlock x:Name="label_GreenTitle"
+               Canvas.Left="404" Canvas.Top="255" Width="126" Height="17"
+               FontSize="13" TextAlignment="Center"
+               Text="GREEN (G)" />
+
+    <NumericUpDown x:Name="numericUpDown_Green"
+                   Canvas.Left="404" Canvas.Top="275" Width="126" Height="23"
+                   FontSize="13"
+                   FormatString="0" Increment="1"
+                   Minimum="0" Maximum="255" Value="255" />
+
+    <TextBlock x:Name="label_BlueTitle"
+               Canvas.Left="546" Canvas.Top="255" Width="126" Height="17"
+               FontSize="13" TextAlignment="Center"
+               Text="BLUE (B)" />
+
+    <NumericUpDown x:Name="numericUpDown_Blue"
+                   Canvas.Left="546" Canvas.Top="275" Width="126" Height="23"
+                   FontSize="13"
+                   FormatString="0" Increment="1"
+                   Minimum="0" Maximum="255" Value="0" />
+
+    <Border x:Name="pictureBox_ShareCodeBorder" Classes="Card"
+            Canvas.Left="24" Canvas.Top="345" Width="648" Height="120" />
+
+    <Border Canvas.Left="145" Canvas.Top="336" Width="410" Height="20">
+      <TextBlock x:Name="label_ShareCodeSectionTitle"
+                 HorizontalAlignment="Center" Padding="8,0"
+                 Background="{Binding $parent[Window].Background}"
+                 FontSize="16"
+                 Text="SHARE CODE &amp; ACTIONS" />
+    </Border>
+
+    <TextBlock x:Name="label_ShareCodeInputTitle"
+               Canvas.Left="42" Canvas.Top="368" Width="617" Height="17"
+               FontSize="13" TextAlignment="Center"
+               Text="CURRENT / IMPORT SHARE CODE (XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)" />
+
+    <TextBox x:Name="textBox_ShareCode"
+             Canvas.Left="42" Canvas.Top="392" Width="438" Height="23"
+             FontSize="13"
+             TextAlignment="Center" />
+
+    <Button x:Name="button_CopyShareCode" Classes="Flat"
+            Canvas.Left="484" Canvas.Top="392" Width="23" Height="23"
+            Padding="0"
+            Background="DimGray" Foreground="White"
+            FontSize="11"
+            Content="⧉"
+            Click="button_CopyShareCode_MouseClick" />
+
+    <Button x:Name="button_ImportShareCode"
+            Canvas.Left="515" Canvas.Top="391" Width="144" Height="25"
+            MinHeight="0" Padding="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="12"
+            Content="Apply Share Code"
+            Click="button_ImportShareCode_MouseClick" />
+
+    <Button x:Name="button_ResetDefault"
+            Canvas.Left="42" Canvas.Top="422" Width="617" Height="30"
+            MinHeight="0" Padding="0"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            FontSize="12"
+            Content="Reset to Default Crosshair"
+            Click="button_ResetDefault_MouseClick" />
+
+    <Button x:Name="button_SaveChanges" Classes="Flat"
+            Canvas.Left="24" Canvas.Top="499" Width="648" Height="30"
+            BorderThickness="1" BorderBrush="Gray"
+            FontSize="12"
+            Content="Confirm and Save Crosshair"
+            Click="button_SaveChanges_MouseClick" />
+
+  </Canvas>
+</ui:Form>

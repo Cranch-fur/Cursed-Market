@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Cursed_Market.UI;
+using System.Threading.Tasks;
 
 
 
@@ -26,20 +26,21 @@ namespace Cursed_Market
             return MessageBox.Show(message, ProgramPaths.executableFriendlyName, messageButtons, messageType, defaultButton);
         }
 
+        /* Avalonia has no balloon notifications, shell NotifyIcon is still used for them (shown as native toast on Windows 10 / 11). */
         public static async void ShowNotify(string title,
             string message,
                 System.Drawing.Icon notifyIcon,
                     ToolTipIcon tooltipIcon = ToolTipIcon.None,
                         int showUpTime = 3000)
         {
-            using (NotifyIcon winNotify = new NotifyIcon())
+            using (System.Windows.Forms.NotifyIcon winNotify = new System.Windows.Forms.NotifyIcon())
             {
                 winNotify.Visible = true;
                 winNotify.Icon = notifyIcon;
 
                 winNotify.BalloonTipTitle = title;
                 winNotify.BalloonTipText = message;
-                winNotify.BalloonTipIcon = tooltipIcon;
+                winNotify.BalloonTipIcon = (System.Windows.Forms.ToolTipIcon)tooltipIcon;
 
                 winNotify.ShowBalloonTip(showUpTime);
                 await Task.Delay(showUpTime);
